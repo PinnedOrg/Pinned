@@ -7,21 +7,35 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #94a3b8;
+  color: #334155;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: left;
   font-size: calc(10px + 2vmin);
+  padding-left: 50px;
+}
+
+.filter {
+  position: absolute;
+  right: 50px;
+  padding: 15px 7px 7px 10px;
+  vertical-align: middle;
+  height: 70px;
+  width: 70px;
+}
+
+.filter:hover {
   color: white;
+  background-color: #334155;
+  border-radius: 15px;
 }
 
 .App-link {
