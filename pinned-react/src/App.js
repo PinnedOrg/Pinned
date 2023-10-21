@@ -1,14 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './Home';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        Pinned, the beginning
-      </header>
-    </div>
-  );
+    return (
+        <div className="App"> // this should be a navbar from react bootstrap
+            <header className="App-header">
+                Pinned, the beginning
+            </header>
+            <Home/>
+        </div>
+    );
 }
 
 export default App;
