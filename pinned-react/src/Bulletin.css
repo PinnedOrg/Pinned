@@ -1,0 +1,25 @@
+.board-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+.board {
+width: 25%; /* 4 components per row */
+padding: 8px;
+box-sizing: border-box;
+}
+
+.board-box {
+width: 300px;
+height: 300px;
+background-color: #ffeffd;
+margin: 8px;
+border: 1px solid #333;
+transition: background-color 0.5s;
+border-radius: 10px;
+
+/* Hover effect */
+&:hover {
+    background-color: rgb(141, 115, 118);
+}
+}

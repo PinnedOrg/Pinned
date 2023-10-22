@@ -1,12 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import Bulletin from './Bulletin';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        Pinned, the beginning
-      </header>
+      <Bulletin/>
     </div>
   );
 }
