@@ -1,13 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        Pinned, the beginning
+    <div className="h-screen w-screen bg-gray-50 text-gray-950 dark:[#282c34]">
+      <header className="">
+      
+          
       </header>
     </div>
+
+    
   );
 }
 
