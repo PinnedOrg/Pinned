@@ -2,8 +2,16 @@
 module.exports = {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        actionOrange: '#ff834a',
+      },
+    },
   },
+  
+  
+  
+  purge: ['./src/**/*.js', './src/**/*.jsx'],
   plugins: [],
 }
 

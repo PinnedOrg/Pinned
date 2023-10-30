@@ -1,13 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import SideMenu from './pages/bulletin/components/side-menu';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        Pinned, the end
-        <SideMenu />
+    <div className="h-screen w-screen bg-gray-50 dark:[#282c34]">
+      <header className="">
+      
+        <SideMenu />  
       </header>
     </div>
 
