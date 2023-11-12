@@ -48,9 +48,9 @@ const EditEventMenu = (props) => {
     };
 
     const handleSubmit = (e) => {
+        //TODO: Logic for connecting and put into DB
         e.preventDefault();
 
-        // Access the form data from the state
         const {
             eventTitle,
             eventDescription,
@@ -62,7 +62,7 @@ const EditEventMenu = (props) => {
             eventPreview,
         } = formData;
     
-        // Log the form data
+        // need to connect widh db later
         console.log('Event Title:', eventTitle);
         console.log('Event Description:', eventDescription);
         console.log('Event Contact:', eventContact);
@@ -72,7 +72,6 @@ const EditEventMenu = (props) => {
         console.log('Event Location:', eventLocation);
         console.log('Event Preview:', eventPreview);
     
-        // Close the menu or perform any other actions
         closeMenu();
     };
     
