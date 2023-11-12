@@ -16,10 +16,10 @@ const EditEventMenu = (props) => {
     const requiredSections = {
         "Title": true, //done
         "Description": true, //done
-        "Preview Image": true,
+        "Preview Image": false,
         "Date": false, //done
         "Time": false, //done
-        "Tags": true, //done
+        "Tags": false, //done
         "Location": false, //done
         "Upload": false,
         "Contact Info": false //done
