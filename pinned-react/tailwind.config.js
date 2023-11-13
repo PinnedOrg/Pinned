@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: [
+    "./public/index.html",    
+    "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -10,8 +14,8 @@ module.exports = {
   },
   
   
-  
-  purge: ['./src/**/*.js', './src/**/*.jsx'],
+  mode: 'jit',
+  purge: ['./src/**/*.js', './src/**/*.jsx', './public/index.html'],
   plugins: [],
 }
 
