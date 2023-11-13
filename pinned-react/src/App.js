@@ -1,30 +1,41 @@
-import logo from "./logo.svg";
-import "./App.css";
 import { LuFilter } from "react-icons/lu";
 import { BiSearchAlt } from "react-icons/bi";
+import { BsPersonCircle } from "react-icons/bs";
+import NewEventSystem from "./pages/components/bulletin/new event/new-event-system";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="title">Pinned</h1>
-        <div className="right_header">
-          <div className="search_function">
-            <div id="search_input" className="search_bar">
-              <input type="search" placeholder="Search" id="form_one" className="search_bar" />
+    <div className="text-center">
+      <header className="bg-actionOrange text-white flex flex-row justify-between text-2xl px-10 align-middle">
+        <h1 className="self-center ml-10">Pinned</h1>
+        <div className="flex flex-row">
+          <div className="flex flex-row gap-1 mr-10">
+            <div
+              id="search_input"
+              className="bg-slate-600 text-white rounded-full m-2"
+            >
+              <input
+                type="search"
+                placeholder="Search"
+                className="placeholder-white bg-slate-600 text-white text-sm py-2 px-5 rounded-full border-2 border-white"
+              />
             </div>
-            <button type="button" className="button">
+            <button
+              type="button"
+              className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-150"
+            >
               <BiSearchAlt />
             </button>
           </div>
-          <h1 className="filter">
+          <h1 className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-15">
             <LuFilter />
           </h1>
+          <div className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-15">
+            <BsPersonCircle />
+          </div>
         </div>
       </header>
     </div>
-
-    
   );
 }
 
