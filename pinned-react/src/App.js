@@ -1,6 +1,7 @@
 import NewEventSystem from './pages/components/bulletin/new event/new-event-system';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from './pages/LandingPage/LandingPage.js'
+import LandingPage from './pages/LandingPage/LandingPage.js';
+import MainPage from './pages/MainPage/MainPage.js';
 
 function App() {
   return (
@@ -9,12 +10,7 @@ function App() {
         <Route index path="/" element={<LandingPage/>}/>
         <Route path="/NewEventPage" element={   
            <div className="h-screen w-screen bg-gray-50 text-gray-950 dark:[#282c34]">
-            <header className="flex">
-                <h1 className='text-center border w-full border-black bg-actionOrange h-[3rem]'>
-                  Temp Heading
-                </h1>
-                <NewEventSystem />
-            </header>
+            <MainPage />
           </div>
         }/>
       </Routes>
