@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import InputTitle from './input-title'
 
 import { IoClose } from "react-icons/io5"
 import SubmitButton from './submit-buttom'
 import { Input } from 'postcss'
-
 //if usinng this while editing a coimponent, or gonig back to a draft, set the placeholder for all inputs the fetched data
 
 //visible max character limit
@@ -13,13 +12,24 @@ import { Input } from 'postcss'
 //make it draggable around the screen?
 
 const EditEventMenu = (props) => {
+    const [formData, setFormData] = useState({
+        eventTitle: "Hello",
+        eventDescription: "",
+        eventContact: "",
+        eventTags: "",
+        eventDate: "",
+        eventTime: "",
+        eventLocation: "",
+        eventPreview: null,
+    });
+
     const requiredSections = {
         "Title": true, //done
         "Description": true, //done
-        "Preview Image": true,
+        "Preview Image": false,
         "Date": false, //done
         "Time": false, //done
-        "Tags": true, //done
+        "Tags": false, //done
         "Location": false, //done
         "Upload": false,
         "Contact Info": false //done
@@ -28,6 +38,44 @@ const EditEventMenu = (props) => {
     const closeMenu = () => {
         props.setIsEditEventMenuOpen(false)
     }
+
+    const handleInputChange = (e) => {
+        const { name, value, type, files } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: type === "file" ? files[0] : value,
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        //TODO: Logic for connecting and put into DB
+        e.preventDefault();
+
+        const {
+            eventTitle,
+            eventDescription,
+            eventContact,
+            eventTags,
+            eventDate,
+            eventTime,
+            eventLocation,
+            eventPreview,
+        } = formData;
+    
+        // need to connect widh db later
+        console.log('Event Title:', eventTitle);
+        console.log('Event Description:', eventDescription);
+        console.log('Event Contact:', eventContact);
+        console.log('Event Tags:', eventTags);
+        console.log('Event Date:', eventDate);
+        console.log('Event Time:', eventTime);
+        console.log('Event Location:', eventLocation);
+        console.log('Event Preview:', eventPreview);
+    
+        closeMenu();
+    };
+    
+
 
   return (
     <div className='flex fixed left-0 top-0 bg-black/[0.55] h-screen w-screen justify-center'>
@@ -43,7 +91,7 @@ const EditEventMenu = (props) => {
                 Create New Event
             </h1>
 
-            <form className='flex flex-col mt-8 px-5 text-sm h-full'>
+            <form className='flex flex-col mt-8 px-5 text-sm h-full' onSubmit={handleSubmit}>
                 <InputTitle isRequired={requiredSections["Title"]}>
                     Title
                 </InputTitle>
@@ -55,6 +103,7 @@ const EditEventMenu = (props) => {
                     required={requiredSections["Title"]}
                     maxLength={500}
                     defaultValue={"Hello"}
+                    onChange={handleInputChange}
                 />
 
                 <InputTitle isRequired={requiredSections["Description"]}>
@@ -67,6 +116,7 @@ const EditEventMenu = (props) => {
                     name='eventDescription'
                     required={requiredSections["Description"]}  
                     maxLength={2000}
+                    onChange={handleInputChange}
                 />
 
                 <div className='flex flex-row w-full justify-between gap-6 mb-3'>
@@ -81,6 +131,7 @@ const EditEventMenu = (props) => {
                             name='eventContact'
                             required={requiredSections["Contact Info"]} 
                             maxLength={2000}
+                            onChange={handleInputChange}
                         />
 
                         <InputTitle isRequired={requiredSections["Tags"]} >
@@ -93,6 +144,7 @@ const EditEventMenu = (props) => {
                             name='eventTags'
                             required={requiredSections["Tags"]} 
                             maxLength={2000}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div className='max-w-[45%]'>
@@ -106,6 +158,7 @@ const EditEventMenu = (props) => {
                             name='eventDate'
                             required={requiredSections["Date"]}
                             maxLength={500}
+                            onChange={handleInputChange}
                         />
 
                         <InputTitle isRequired={requiredSections["Time"]}>
@@ -118,6 +171,7 @@ const EditEventMenu = (props) => {
                             name='eventTime'
                             required={requiredSections["Time"]}
                             maxLength={500}
+                            onChange={handleInputChange}
                         /> 
 
                         <InputTitle isRequired={requiredSections["Location"]}>
@@ -130,6 +184,7 @@ const EditEventMenu = (props) => {
                             name='eventLocation'
                             required={requiredSections["Location"]}
                             maxLength={500}
+                            onChange={handleInputChange}
                         />     
                     </div>
                 </div>
@@ -144,9 +199,9 @@ const EditEventMenu = (props) => {
                         type='file'
                         name='eventPreview'
                         required={requiredSections["Preview Image"]}
+                        onChange={handleInputChange}
                     />
                 </div>
-
 
                 <button 
                     type='submit' 
