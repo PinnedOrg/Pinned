@@ -6,7 +6,7 @@ const NewEventSystem = () => {
   const [isEditEventMenuOpen, setIsEditEventMenuOpen] = useState(false)
 
   return (
-    <div className="relative h-screen">
+    <div className="relative">
       <PlusButton 
         isDisabled={isEditEventMenuOpen} 
         setIsEditEventMenuOpen={setIsEditEventMenuOpen}
