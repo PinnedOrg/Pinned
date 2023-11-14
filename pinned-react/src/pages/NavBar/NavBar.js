@@ -27,10 +27,10 @@ const NavBar = () => {
               <BiSearchAlt />
             </button>
           </div>
-          <h1 className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-15">
+          <h1 className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-150">
             <LuFilter />
           </h1>
-          <div className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-15">
+          <div className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-150">
             <BsPersonCircle />
           </div>
         </div>
