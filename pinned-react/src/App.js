@@ -1,4 +1,4 @@
-import NewEventSystem from './pages/components/bulletin/new event/new-event-system';
+import NewEventSystem from './pages/Board Template/components/new event/new-event-system';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/LandingPage/LandingPage.js'
 
