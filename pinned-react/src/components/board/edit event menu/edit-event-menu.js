@@ -2,8 +2,6 @@ import React, {useState} from 'react'
 import InputTitle from './input-title'
 
 import { IoClose } from "react-icons/io5"
-import SubmitButton from './submit-buttom'
-import { Input } from 'postcss'
 //if usinng this while editing a coimponent, or gonig back to a draft, set the placeholder for all inputs the fetched data
 
 //visible max character limit
@@ -91,7 +89,7 @@ const EditEventMenu = (props) => {
                 Create New Event
             </h1>
 
-            <form className='flex flex-col mt-8 px-5 text-sm h-full' onSubmit={handleSubmit}>
+            <form className='flex flex-col h-full px-5 mt-8 text-sm' onSubmit={handleSubmit}>
                 <InputTitle isRequired={requiredSections["Title"]}>
                     Title
                 </InputTitle>
@@ -119,7 +117,7 @@ const EditEventMenu = (props) => {
                     onChange={handleInputChange}
                 />
 
-                <div className='flex flex-row w-full justify-between gap-6 mb-3'>
+                <div className='flex flex-row justify-between w-full gap-6 mb-3'>
                     <div className='flex flex-col w-full'>
                         <InputTitle isRequired={requiredSections["Contact Info"]}>
                             Contact Info
@@ -195,7 +193,7 @@ const EditEventMenu = (props) => {
                     </InputTitle>
                     <input 
                         id='Preview Image'
-                        className='mt-2 pl-2'
+                        className='pl-2 mt-2'
                         type='file'
                         name='eventPreview'
                         required={requiredSections["Preview Image"]}
