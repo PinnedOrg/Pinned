@@ -6,6 +6,6 @@ const {getEvent} = require("../controllers/event")
 // Import middlewares
 
 // API routes
-router.get("/event", getEvent);
+router.get("/event:id", getEvent);
 
 module.exports = router;
