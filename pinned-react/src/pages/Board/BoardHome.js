@@ -7,6 +7,9 @@ const BoardHome = () => {
         <Link to={"general"}>General Page</Link>
         <Link to={"events"}>Events Page</Link>
         <Link to={"calendar"}>Calendar</Link>
+
+        <Outlet />
+        
     </div>
   )
 }

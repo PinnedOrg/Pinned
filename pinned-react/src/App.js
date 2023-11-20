@@ -9,21 +9,13 @@ import EventsPage from './pages/Board/EventsPage.js';
 function App() {
   const boardRoute = 123874612 //will be fetched from backend
 
-
   return (
     <BrowserRouter>
-      <div className="flex items-center w-screen pl-3 bg-gray-100 border-b border-black h-14">
-        <h1 className="text-3xl font-bold">
-            <Link to="/">
-              Pinned
-            </Link>
-        </h1>
-      </div>
       <Routes>
         <Route index path="/" element={<LandingPage/>}/>    
-        <Route /*path="/BoardDemo:id"*/ path={`/board:${boardRoute}`} element={<BoardHome />} id={boardRoute} >
+        <Route path={`board:${boardRoute}`} element={<BoardHome />}> 
           <Route path='general' element={<GeneralPage/>}/>
-          <Route path='events' element={<EventsPage />} />
+          <Route id='eventroute' path='events' element={<EventsPage />} />
           <Route path='calendar' element/>
         </Route>
       </Routes>
