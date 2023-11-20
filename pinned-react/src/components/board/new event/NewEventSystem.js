@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PlusButton from './plus-button'
+import PlusButton from './PlusButton'
 import EditEventMenu from '../edit event menu/edit-event-menu'
 
 const NewEventSystem = () => {

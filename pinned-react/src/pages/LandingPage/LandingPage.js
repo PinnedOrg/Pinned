@@ -1,11 +1,15 @@
-
 import React from "react";
-import {Link} from 'react-router-dom'
+import {Link, Outlet} from 'react-router-dom'
+
 const LandingPage = () => {
+  const boardRoute = 123874612 //will be fetched from backend
+
   return (
-     <>
-        <Link to={"/NewEventPage"}>Go To NewEventPage</Link>
-     </>
+     <div>
+        <Link to={`/board:${boardRoute}`}>Go To Demo Board</Link>
+        
+        <Outlet />
+     </div>
   );
 }
 
