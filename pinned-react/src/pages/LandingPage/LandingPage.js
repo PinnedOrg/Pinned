@@ -18,6 +18,6 @@ const LandingPage = () => {
         <Outlet />
      </div>
   );
-}
+};
 
 export default LandingPage;

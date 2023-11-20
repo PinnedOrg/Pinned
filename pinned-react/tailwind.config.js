@@ -4,14 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        actionOrange: '#fd7d62',
+        actionOrange: "#fd7d62",
       },
     },
   },
-  
-  
-  
-  purge: ['./src/**/*.js', './src/**/*.jsx'],
-  plugins: [],
-}
 
+  purge: ["./src/**/*.js", "./src/**/*.jsx"],
+  plugins: [],
+};
