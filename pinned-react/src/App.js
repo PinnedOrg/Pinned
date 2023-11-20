@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index path="/" element={<LandingPage/>}/>    
-        <Route path={`board:${boardRoute}`} element={<BoardHome />}>
+        <Route path={`board:${boardRoute}`} element={<BoardHome />}> 
           <Route path='general' element={<GeneralPage/>}/>
           <Route id='eventroute' path='events' element={<EventsPage />} />
           <Route path='calendar' element/>
