@@ -13,9 +13,7 @@ const LandingPage = () => {
                   </Link>
             </h1>
          </div>
-        <Link to={`/board:${boardRoute}`}>Go To Demo Board</Link>
-        
-        <Outlet />
+        <Link to={`/board/:${boardRoute}`}>Go To Demo Board</Link>
      </div>
   );
 }
