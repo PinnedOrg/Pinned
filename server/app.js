@@ -29,7 +29,7 @@ app.use(express.json());
 
 //routes
 const eventRoutes = require("./routes/events");
-app.use("/api/event", eventRoutes);
+app.use("/api/events", eventRoutes);
 
 // port
 const port = process.env.PORT || 8080;
