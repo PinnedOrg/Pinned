@@ -1,20 +1,19 @@
 const mongoose = require("mongoose");
 
-// mongoose.connect(
-//   "mongodb+srv://dmruds123:Radius335841482@pinneddb.ulvjrsw.mongodb.net/?retryWrites=true&w=majority"
-// );
-
 const eventSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [true, "Please enter the Event Title"],
-      maxLength: 30,
+      required: [true, "Please enter the Event Title"], // requirement with custom error message
+      maxLength: [30, "Event title can not be longer than 30 characters."],
     },
     description: {
       type: String,
       required: false,
-      maxLength: 200,
+      maxLength: [
+        200,
+        "Event description can not be longer than 200 characters.",
+      ],
     },
     contact: {
       type: String,
@@ -25,17 +24,17 @@ const eventSchema = new mongoose.Schema(
       required: false,
     },
     date: {
-      type: Date,
-      required: [true, "Please enter the Event's Date"],
-      default: Date.now,
+      type: Date, // type date handles both date and time, it might be redundant to include the time attribute
+      required: [true, "Please enter the Event's Date"], // requirement with custom error message
+      default: Date.now, // sets today's date by default to this attribute
     },
     time: {
       type: String,
-      required: [true, "Please enter the Event's Time"],
+      required: [true, "Please enter the Event's Time"], // requirement with custom error message
     },
     location: {
       type: String,
-      required: [true, "Please enter the Event's Loaction"],
+      required: [true, "Please enter the Event's Loaction"], // requirement with custom error message
     },
     preview: {
       type: String,

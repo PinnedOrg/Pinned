@@ -8,12 +8,13 @@ require("dotenv").config();
 // app
 const app = express();
 
-//db
+//db connecting with mongoose
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
+  // listening to incoming requests from the port in usage
   .then(() => {
     console.log("DB CONNECTED");
     const server = app.listen(port, () =>
@@ -23,9 +24,9 @@ mongoose
   .catch((error) => console.log("DB CONNECTION ERROR", error));
 
 //middleware
-app.use(morgan("dev"));
-app.use(cors({ orgin: true, credentials: true }));
-app.use(express.json());
+app.use(morgan("dev")); // gives concise output colored by response status
+app.use(cors({ orgin: true, credentials: true })); // enabling express server to respond to preflight requests
+app.use(express.json()); // setup middleware for application
 
 //routes
 const eventRoutes = require("./routes/events");
