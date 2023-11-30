@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import InputTitle from './input-title'
+import InputTitle from './InputTitle'
 
 import { IoClose } from "react-icons/io5"
 //if usinng this while editing a coimponent, or gonig back to a draft, set the placeholder for all inputs the fetched data
@@ -22,15 +22,15 @@ const EditEventMenu = (props) => {
     });
 
     const requiredSections = {
-        "Title": true, //done
-        "Description": true, //done
-        "Preview Image": false,
-        "Date": false, //done
-        "Time": false, //done
-        "Tags": false, //done
-        "Location": false, //done
-        "Upload": false,
-        "Contact Info": false //done
+            "Title": true, 
+            "Description": true,
+            "Preview Image": false,
+            "Date": false, 
+            "Time": false,
+            "Tags": false, 
+            "Location": false, 
+            "Upload": false,
+            "Contact Info": false 
     }
 
     const closeMenu = () => {
@@ -47,7 +47,8 @@ const EditEventMenu = (props) => {
 
     const handleSubmit = (e) => {
         //TODO: Logic for connecting and put into DB
-        e.preventDefault();
+
+        e.preventDefault(); //prevent page refresh
 
         const {
             eventTitle,

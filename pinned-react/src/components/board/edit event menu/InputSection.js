@@ -1,6 +1,6 @@
 import React from 'react'
 
-import InputTitle from './input-title';
+import InputTitle from './InputTitle';
 
 const InputSection = ({name, type, maxLength}) => {
   return (
