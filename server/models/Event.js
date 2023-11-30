@@ -21,7 +21,7 @@ const eventSchema = new mongoose.Schema(
     },
     tags: {
       type: [String],
-      required: false,
+      required: [true, "Please add at least one tag."], // requirement with custom error message
     },
     date: {
       type: Date, // type date handles both date and time, it might be redundant to include the time attribute

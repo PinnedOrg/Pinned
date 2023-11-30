@@ -5,7 +5,7 @@ const router = express.Router();
 const {
   createEvent,
   getEvent,
-  getEvents,
+  getAllEvents,
   deleteEvent,
   updateEvent,
 } = require("../controllers/eventController");
@@ -13,7 +13,7 @@ const {
 // Import middlewares
 
 // API routes for Event Controller
-router.get("/", getEvents); // get all events
+router.get("/", getAllEvents); // get all events
 router.get("/:id", getEvent); // get a single event
 router.post("/", createEvent); // create a new event
 router.delete("/:id", deleteEvent); // delete an existing event

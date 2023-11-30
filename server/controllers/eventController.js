@@ -2,7 +2,7 @@ const Event = require("../models/Event");
 const mongoose = require("mongoose");
 
 // get all events
-const getEvents = async (req, res) => {
+const getAllEvents = async (req, res) => {
   // fetchs all events and sorts results in descending order
   const events = await Event.find({}).sort({ createdAt: -1 });
 
@@ -101,7 +101,7 @@ const updateEvent = async (req, res) => {
 // exporting all methods
 module.exports = {
   createEvent,
-  getEvents,
+  getAllEvents,
   getEvent,
   deleteEvent,
   updateEvent,
