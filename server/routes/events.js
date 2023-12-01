@@ -3,9 +3,9 @@ const router = express.Router();
 
 // Import controllers
 const {
-  createEvent,
-  getEvent,
   getAllEvents,
+  getEvent,
+  createEvent,
   deleteEvent,
   updateEvent,
 } = require("../controllers/eventController");
