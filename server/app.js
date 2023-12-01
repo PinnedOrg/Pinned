@@ -30,7 +30,10 @@ app.use(express.json()); // setup middleware for application
 
 //routes
 const eventRoutes = require("./routes/events");
+const boardRoutes = require("./routes/boards")
+
 app.use("/api/events", eventRoutes);
+app.use("/api/boards", boardRoutes)
 
 // port
 const port = process.env.PORT || 8080;
