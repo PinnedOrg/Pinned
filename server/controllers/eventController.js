@@ -100,9 +100,9 @@ const updateEvent = async (req, res) => {
 
 // exporting all methods
 module.exports = {
-  createEvent,
   getAllEvents,
   getEvent,
+  createEvent,
   deleteEvent,
   updateEvent,
 };
