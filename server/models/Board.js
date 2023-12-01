@@ -34,6 +34,10 @@ const boardSchema = new mongoose.Schema(
         type: String,
         required: false
     },
+    events: {
+        type: String, //TODO: change to event type
+        required: false
+    }
     //logo, TODO
     //bgImage, // bg image like a notion board
     //organization, 
