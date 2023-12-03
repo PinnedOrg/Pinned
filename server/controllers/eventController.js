@@ -18,6 +18,7 @@ const getBoardEvents = async (req, res) => {
   // get the events property of the board object 
   try {
     const events = await Board.findById(id).then((board) => board.events)
+
     return res.status(200).json(events);
   } catch {
     return res.status(404).json({error: "Board not found."})
@@ -52,13 +53,21 @@ const createEvent = async (req, res) => {
   const { title, description, contact, tags, date, time, location, preview, belongsToBoard } = req.body;
 
   // checks if the board id is valid
+
   if (!mongoose.Types.ObjectId.isValid(belongsToBoard)) {
-    res.status(400).json({ error: error.message })
+    res.status(404).json({ error: "Board not found." })
   }
 
+  const board = await Board.findById(belongsToBoard);
+
+  if (!board) {
+    return res.status(404).json({ error: "Board not found." })
+  }
+ 
+  let event;
   // add to database
   try {
-    const event = await Event.create({
+    event = await Event.create({
       title,
       description,
       contact,
@@ -71,11 +80,13 @@ const createEvent = async (req, res) => {
     });
     res.status(201).json(event);
     
-    // add event to board
-    await Board.findByIdAndUpdate(belongsToBoard, { $push: { events: event._id } }, { new: true});
-    
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+
+  // add event to board
+  if (event) {
+    await Board.findByIdAndUpdate(belongsToBoard, { $push: { events: event._id } }, { new: true});
   }
 };
 
