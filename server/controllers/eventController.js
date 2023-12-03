@@ -83,12 +83,16 @@ const updateEvent = async (req, res) => {
     return res.status(404).json({ error: "Event not found." });
   }
 
-  const event = await Event.findOneAndUpdate(
+  await Event.findOneAndUpdate(
     { _id: id },
     {
       ...req.body,
     }
-  );
+  ).catch((error) => {
+    return res.status(400).json({ error: error });
+  });
+
+  const event = await Event.findById(id);
 
   // if event id does not exist
   if (!event) {
