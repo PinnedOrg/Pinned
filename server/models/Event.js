@@ -20,26 +20,30 @@ const eventSchema = new mongoose.Schema(
       required: false,
     },
     tags: {
-      type: [String],
+      type: [String], // TODO: Update seperate tags model
       required: [true, "Please add at least one tag."], // requirement with custom error message
     },
     date: {
       type: Date, // type date handles both date and time, it might be redundant to include the time attribute
-      required: [true, "Please enter the Event's Date"], // requirement with custom error message
-      default: Date.now, // sets today's date by default to this attribute
+      required: [false, "Please enter the Event's Date"], // requirement with custom error message
     },
     time: {
       type: String,
-      required: [true, "Please enter the Event's Time"], // requirement with custom error message
+      required: [false, "Please enter the Event's Time"], // requirement with custom error message
     },
     location: {
       type: String,
-      required: [true, "Please enter the Event's Loaction"], // requirement with custom error message
+      required: [false, "Please enter the Event's Loaction"], // requirement with custom error message
     },
     preview: {
       type: String,
       required: false,
     },
+    belongsToBoard: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Board"
+    }
   },
   {
     timestamps: true,

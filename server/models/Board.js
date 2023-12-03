@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
 
-
 const boardSchema = new mongoose.Schema(
   {
     name: {
         type: String,
-        required: [true, "Missing board name"], // requirement with custom error message
+        required: [true, "Missing board name."], // requirement with custom error message
         maxLength: [50, "Board name is too long"]
     },
     about: {
         type: String,
-        required: [true, "Missing board description"]
+        required: [true, "Missing board description."]
     },
     publicStatus: {
         type: Boolean,
@@ -23,11 +22,11 @@ const boardSchema = new mongoose.Schema(
         default: "current user" // this should be filled in by default, in the future allow for ownership change
     },
     admins: {
-        type: [String], //TODO: change to type username?
+        type: [String], //TODO: change to type user
         required: false
     },
     subscribers: {
-        type: [String], //TODO: change to type username?
+        type: [String], //TODO: change to type user
         required: false
     },
     location: {
@@ -35,9 +34,11 @@ const boardSchema = new mongoose.Schema(
         required: false
     },
     events: {
-        type: String, //TODO: change to event type
-        required: false
+        type: [mongoose.Schema.Types.ObjectId],
+        required: false,
+        ref: "Event"
     }
+
     //logo, TODO
     //bgImage, // bg image like a notion board
     //organization, 

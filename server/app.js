@@ -10,10 +10,7 @@ const app = express();
 
 //db connecting with mongoose
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   // listening to incoming requests from the port in usage
   .then(() => {
     console.log("DB CONNECTED");
@@ -25,7 +22,7 @@ mongoose
 
 //middleware
 app.use(morgan("dev")); // gives concise output colored by response status
-app.use(cors({ orgin: true, credentials: true })); // enabling express server to respond to preflight requests
+app.use(cors({ origin: true, credentials: true })); // enabling express server to respond to preflight requests
 app.use(express.json()); // setup middleware for application
 
 //routes
@@ -33,7 +30,7 @@ const eventRoutes = require("./routes/events");
 const boardRoutes = require("./routes/boards")
 
 app.use("/api/events", eventRoutes);
-app.use("/api/boards", boardRoutes)
+app.use("/api/boards", boardRoutes);
 
 // port
 const port = process.env.PORT || 8080;

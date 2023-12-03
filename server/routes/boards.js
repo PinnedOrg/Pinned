@@ -7,10 +7,14 @@ const {
     createBoard,
     deleteBoard,
     updateBoard,
+    getAllBoards
 } = require("../controllers/boardController")
 
 // Import middlewares
 
+
+// API routes for Board Controller
+router.get("/", getAllBoards)
 router.get("/:id", getBoard); // get a single board
 router.post("/", createBoard); // create a new board
 router.delete("/:id", deleteBoard); // delete an existing board
