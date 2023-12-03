@@ -11,9 +11,11 @@ const getAllEvents = async (req, res) => {
   res.status(200).json(events);
 };
 
+// get all the events associated with this board
 const getBoardEvents = async (req, res) => {
   const { id } = req.params;
 
+  // get the events property of the board object 
   try {
     const events = await Board.findById(id).then((board) => board.events)
     return res.status(200).json(events);
@@ -21,8 +23,6 @@ const getBoardEvents = async (req, res) => {
     return res.status(404).json({error: "Board not found."})
   }
     
-  
-
   // get entire object
   //const events = await Event.aggregate([{ $match: { belongsToBoard: new mongoose.Types.ObjectId(id) }}]);
 }
