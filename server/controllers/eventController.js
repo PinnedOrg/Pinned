@@ -1,7 +1,6 @@
 const Event = require("../models/Event");
 const mongoose = require("mongoose");
 const Board = require("../models/Board");
-const { ObjectId } = require("mongodb");
 
 // get all events
 const getAllEvents = async (req, res) => {
@@ -15,18 +14,18 @@ const getAllEvents = async (req, res) => {
 const getBoardEvents = async (req, res) => {
   const { id } = req.params;
 
-  // get the events property of the board object 
+  // get the events property of the board object
   try {
-    const events = await Board.findById(id).then((board) => board.events)
+    const events = await Board.findById(id).then((board) => board.events);
 
     return res.status(200).json(events);
   } catch {
-    return res.status(404).json({error: "Board not found."})
+    return res.status(404).json({ error: "Board not found." });
   }
-    
+
   // get entire object
   //const events = await Event.aggregate([{ $match: { belongsToBoard: new mongoose.Types.ObjectId(id) }}]);
-}
+};
 
 // get a single event
 const getEvent = async (req, res) => {
@@ -50,20 +49,30 @@ const getEvent = async (req, res) => {
 
 // create an event
 const createEvent = async (req, res) => {
-  const { title, description, contact, tags, date, time, location, preview, belongsToBoard } = req.body;
+  const {
+    title,
+    description,
+    contact,
+    tags,
+    date,
+    time,
+    location,
+    preview,
+    belongsToBoard,
+  } = req.body;
 
   // checks if the board id is valid
 
   if (!mongoose.Types.ObjectId.isValid(belongsToBoard)) {
-    res.status(404).json({ error: "Board not found." })
+    res.status(404).json({ error: "Board not found." });
   }
 
   const board = await Board.findById(belongsToBoard);
 
   if (!board) {
-    return res.status(404).json({ error: "Board not found." })
+    return res.status(404).json({ error: "Board not found." });
   }
- 
+
   let event;
   // add to database
   try {
@@ -79,15 +88,12 @@ const createEvent = async (req, res) => {
       belongsToBoard,
     });
     res.status(201).json(event);
-    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 
   // add event to board
-  if (event) {
-    await Board.findByIdAndUpdate(belongsToBoard, { $push: { events: event._id } }, { new: true});
-  }
+  if (event) {await Board.findByIdAndUpdate(belongsToBoard,{ $push: { events: event._id } },{ new: true });}
 };
 
 // delete an event
@@ -102,15 +108,19 @@ const deleteEvent = async (req, res) => {
 
   // find the event and delete it by id
   const event = await Event.findByIdAndDelete(id);
-  
+
   // if event id does not exist
   if (!event) {
-    return res.status(400).json({ error: "Event not found." });
+    return res.status(404).json({ error: "Event not found." });
   }
-  
+
   // remove the event from the board
-  await Board.findByIdAndUpdate(event.belongsToBoard, { $pull: { events: event._id } }, { new: true})
-  
+  await Board.findByIdAndUpdate(
+    event.belongsToBoard,
+    { $pull: { events: event._id } },
+    { new: true }
+  );
+
   res.status(200).json(event);
 };
 
@@ -124,23 +134,25 @@ const updateEvent = async (req, res) => {
     return res.status(404).json({ error: "Event not found." });
   }
 
-  
-  const event = await Event.findByIdAndUpdate(id, { ...req.body });
+  const event = await Event.findByIdAndUpdate(id, { ...req.body }, { runValidators: true });
 
   // if event id does not exist
   if (!event) {
-    return res.status(400).json({ error: "Event not found." });
+    return res.status(404).json({ error: "Event not found." });
   }
 
   if (req.body.belongsToBoard != null) {
-    Board.findByIdAndUpdate(belongsToBoard, { $push: { events: event._id } }, { new: true});
+    Board.findByIdAndUpdate(
+      belongsToBoard,
+      { $push: { events: event._id } },
+      { new: true }
+    );
   }
 
   res.status(200).json(event);
 };
 
 //TODO: fix patch for board change
-
 
 // exporting all methods
 module.exports = {
