@@ -24,7 +24,6 @@ const getBoard = async (req, res) => {
         return res.status(404).json({ error: "Board not found." });
     }
 
-
     const board = await Board.findById(id);
 
     // check if board exists
