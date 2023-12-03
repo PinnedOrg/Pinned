@@ -16,17 +16,17 @@ app.use(express.json()); // Parse incoming JSON requests
 // Connect to MongoDB function
 const connectToDatabase = (connectionString) => {
   // Close the existing connection before opening a new one
-  mongoose.connection.close(() => {
-    mongoose
-      .connect(connectionString)
-      .then(() => {
-        console.log("DB CONNECTED");
-        startServer(); // Start the server once the database connection is successful
-      })
-      .catch((error) => {
-        console.log("DB CONNECTION ERROR", error);
-      });
-  });
+  mongoose.connection.close();
+
+  mongoose
+    .connect(connectionString)
+    .then(() => {
+      console.log("DB CONNECTED");
+      startServer(); // Start the server once the database connection is successful
+    })
+    .catch((error) => {
+      console.log("DB CONNECTION ERROR", error);
+    });
 };
 
 // Start the server function

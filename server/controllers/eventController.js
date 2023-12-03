@@ -67,7 +67,7 @@ const deleteEvent = async (req, res) => {
 
   // if event id does not exist
   if (!event) {
-    return res.status(400).json({ error: "Event not found." });
+    return res.status(404).json({ error: "Event not found." });
   }
 
   res.status(200).json(event);
@@ -83,20 +83,13 @@ const updateEvent = async (req, res) => {
     return res.status(404).json({ error: "Event not found." });
   }
 
-  await Event.findOneAndUpdate(
-    { _id: id },
-    {
-      ...req.body,
-    }
-  ).catch((error) => {
-    return res.status(400).json({ error: error });
-  });
+  await Event.findOneAndUpdate({ _id: id }, {...req.body,}, { runValidators: true }).catch((error) => {return res.status(400).json({ error: error.message });});
 
   const event = await Event.findById(id);
 
   // if event id does not exist
   if (!event) {
-    return res.status(400).json({ error: "Event not found." });
+    return res.status(404).json({ error: "Event not found." });
   }
 
   res.status(200).json(event);
