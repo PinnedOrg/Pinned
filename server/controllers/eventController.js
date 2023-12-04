@@ -1,7 +1,6 @@
 const Event = require("../models/Event");
 const mongoose = require("mongoose");
 const Board = require("../models/Board");
-const { ObjectId } = require("mongodb");
 
 // get all events
 const getAllEvents = async (req, res) => {
