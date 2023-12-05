@@ -127,32 +127,36 @@ const deleteEvent = async (req, res) => {
 // update an event
 const updateEvent = async (req, res) => {
   // fetchs a single event based on id
-  const { id } = req.params;
+  const { id, belongsToBoard } = req.params;
 
   // if event id is invalid
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Event not found." });
   }
 
-  const event = await Event.findByIdAndUpdate(id, { ...req.body }, { runValidators: true });
+  try {
+    const event = await Event.findByIdAndUpdate(id, { ...req.body }, { new: true, runValidators: true });
 
-  // if event id does not exist
-  if (!event) {
-    return res.status(404).json({ error: "Event not found." });
+    // if event id does not exist
+    if (!event) {
+      return res.status(404).json({ error: "Event not found." });
+    }
+
+    if (req.body.belongsToBoard != null) {
+      await Board.findByIdAndUpdate(belongsToBoard, { $push: { events: event._id } }, { new: true });
+    }
+
+    res.status(200).json(event);
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      // Handle validation error
+      return res.status(400).json({ error: error.message });
+    }
   }
-
-  if (req.body.belongsToBoard != null) {
-    Board.findByIdAndUpdate(
-      belongsToBoard,
-      { $push: { events: event._id } },
-      { new: true }
-    );
-  }
-
-  res.status(200).json(event);
 };
 
 //TODO: fix patch for board change
+//TODO: create tests for board change
 
 // exporting all methods
 module.exports = {

@@ -84,7 +84,7 @@ const deleteBoard = async (req, res) => {
 
 // update a board
 
-// updating admins, events, and subsricbers will require seperate functions
+// updating admins, events, and subscribers will require seperate functions
 const updateBoard = async (req, res) => {
     // fetchs a single board based on id
     const { id } = req.params;
@@ -94,17 +94,11 @@ const updateBoard = async (req, res) => {
         return res.status(404).json({ error: "Board not found." });
   }
 
-  await Board.findByIdAndUpdate(id, {...req.body}
-  ).catch(() => {
-    return res.status(400).json({ error: "Board not found." });
-  });
-
-  // get updated board 
-  const board = await Board.findById(id);
+  const board = await Board.findByIdAndUpdate(id, {...req.body}, { new: true, runValidators: true })
 
   // if board id does not exist
   if (!board) {
-    return res.status(400).json({ error: "Board not found." });
+    return res.status(404).json({ error: "Board not found." });
   }
 
   res.status(200).json(board);
