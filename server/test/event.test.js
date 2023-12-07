@@ -1,4 +1,4 @@
-const { mongoose, MongoClient, app, chai, expect, uuidv4, Event, Board, event_data, board_data } = require("./testUtils");
+const { mongoose, MongoClient, app, chai, expect, Event, Board, connectToDatabase, disconnectFromDatabase, event_data, board_data } = require("./testUtils");
 
 describe("Event Controller API", () => {
   let db;
@@ -7,8 +7,7 @@ describe("Event Controller API", () => {
 
   before(async function () {
     this.timeout(30000);
-    const client = await MongoClient.connect(process.env.MONGO_URI);
-    db = client.db();
+    db = await connectToDatabase();
     event_collection = db.collection("events");
     board_collection = db.collection("boards")
   });
@@ -21,7 +20,7 @@ describe("Event Controller API", () => {
 
   after(async function () {
     this.timeout(30000);
-    await mongoose.disconnect();
+    await disconnectFromDatabase(db.client);
   });
 
   // Test GET route
@@ -35,18 +34,78 @@ describe("Event Controller API", () => {
 
     it("It should GET all events when some exist", async () => {
       for (let i = 0; i < 3; i++) {
-        const event_data_with_unique_id = await {
-          ...event_data,
-          _id: uuidv4(),
-        };
-
+        const event_data_with_unique_id = await {...event_data, _id: new mongoose.Types.ObjectId()};
         await event_collection.insertOne(event_data_with_unique_id);
       }
 
       const response = await chai.request(app).get("/api/events");
+
       expect(response).to.have.status(200);
       expect(response.body).to.be.a("array");
       expect(response.body.length).to.eq(3);
+    });
+  });
+
+  // Test GET (Board Events) route
+
+  describe("GET /api/events/of-board/:id", () => {
+    it("It should not GET events when none exist on wanted board", async () => {
+      const board_one = await board_collection.insertOne({...board_data, _id: new mongoose.Types.ObjectId()});
+      const board_two = await board_collection.insertOne({...board_data, _id: new mongoose.Types.ObjectId()});
+
+      for (let i = 0; i < 3; i++) {
+        const event_data_with_unique_id = await {...event_data, belongsToBoard: board_one.insertedId, _id: new mongoose.Types.ObjectId()};
+        await event_collection.insertOne(event_data_with_unique_id);
+        await board_collection.updateOne(
+          { _id: board_one.insertedId }, 
+          { $push: { events: event_data_with_unique_id.insertedId } },
+      );
+      }
+
+      const response = await chai.request(app).get(`/api/events/of-board/${board_two.insertedId}`);
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.be.a("array");
+      expect(response.body.length).to.eq(0);
+    });
+
+    it("It should GET all events that exist on the wanted board", async () => {
+      const board_one = await board_collection.insertOne({...board_data, _id: new mongoose.Types.ObjectId()});
+
+      for (let i = 0; i < 3; i++) {
+        const event_data_with_unique_id = await {...event_data, belongsToBoard: board_one.insertedId, _id: new mongoose.Types.ObjectId()};
+        const event = await event_collection.insertOne(event_data_with_unique_id);
+        await board_collection.updateOne(
+          { _id: board_one.insertedId }, 
+          { $push: { events: event.insertedId } },
+      );
+      }
+
+      const response = await chai.request(app).get(`/api/events/of-board/${board_one.insertedId}`);
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.be.a("array");
+      expect(response.body.length).to.eq(3);
+    });
+
+    it("It should not GET any events with an invalid Board ID Type", async () => {
+      const response = await chai.request(app)
+        .get(`/api/events/of-board/invalid_id_type`);
+
+      expect(response).to.have.status(404);
+      expect(response.body).to.have.property("error").equal("Board not found.");
+    });
+
+    it("It should not GET any events with a Board ID that does not exist anymore", async () => {
+      const board = await board_collection.insertOne(board_data);
+      await board_collection.deleteOne({ _id: board.insertedId });
+
+      const response = await chai
+        .request(app)
+        .get(`/api/events/of-board/${board.insertedId}`);
+
+      expect(response).to.have.status(404);
+      expect(response.body).to.have.property("error").equal("Board not found.");
     });
   });
 
@@ -54,9 +113,11 @@ describe("Event Controller API", () => {
   describe("GET /api/events/:id", () => {
     it("It should GET an event by ID", async () => {
       const event = await event_collection.insertOne(event_data);
+
       const response = await chai
         .request(app)
         .get(`/api/events/${event.insertedId}`);
+
       expect(response).to.have.status(200);
       expect(response.body._id).to.eq(event.insertedId.toString());
     });
@@ -65,6 +126,7 @@ describe("Event Controller API", () => {
       const response = await chai
         .request(app)
         .get(`/api/events/invalid_id_type`);
+
       expect(response).to.have.status(404);
       expect(response.body).to.have.property("error").equal("Event not found.");
     });
@@ -72,9 +134,11 @@ describe("Event Controller API", () => {
     it("It should not GET an event that does not exist anymore", async () => {
       const event = await event_collection.insertOne(event_data);
       await event_collection.deleteOne({ _id: event.insertedId });
+
       const response = await chai
         .request(app)
         .get(`/api/events/${event.insertedId}`);
+
       expect(response).to.have.status(404);
       expect(response.body).to.have.property("error").equal("Event not found.");
     });
@@ -105,6 +169,7 @@ describe("Event Controller API", () => {
       expect(response.body).to.have.property("time").equal(new_event_data.time);
       expect(response.body).to.have.property("location").equal(new_event_data.location);
       expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
+      expect(board.events).to.include(event.insertedId)
     });
 
     it("It should not POST an event with a validation error", async () => {
@@ -121,11 +186,7 @@ describe("Event Controller API", () => {
 
       const final_event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
       expect(response).to.have.status(400);
-      expect(response.body)
-        .to.have.property("error")
-        .equal(
-          "Event validation failed: title: Event title can not be longer than 30 characters."
-        );
+      expect(response.body).to.have.property("error").equal("Event validation failed: title: Event title can not be longer than 30 characters.");
       expect(final_event_number).equal(event_number);
     });
 
@@ -208,16 +269,19 @@ describe("Event Controller API", () => {
       const response = await chai
         .request(app)
         .patch(`/api/events/invalid_id_type`);
+
       expect(response).to.have.status(404);
       expect(response.body).to.have.property("error").equal("Event not found.");
     });
 
     it("It should not PATCH an event that does not exist anymore", async () => {
       const event = await event_collection.insertOne(event_data);
-      event_collection.deleteOne({ _id: event.insertedId });
+      await event_collection.deleteOne({ _id: event.insertedId });
+
       const response = await chai
         .request(app)
         .patch(`/api/events/${event.insertedId}`);
+
       expect(response).to.have.status(404);
       expect(response.body).to.have.property("error").equal("Event not found.");
     });
@@ -227,18 +291,13 @@ describe("Event Controller API", () => {
   describe("DELETE /api/events/:id", () => {
     it("It should DELETE an event by ID", async () => {
       const event = await event_collection.insertOne(event_data);
-      const event_number = await Event.collection.countDocuments(
-        {},
-        { hint: "_id_" }
-      );
+      const event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+
       const response = await chai
         .request(app)
         .delete(`/api/events/${event.insertedId}`);
 
-      const final_event_number = await Event.collection.countDocuments(
-        {},
-        { hint: "_id_" }
-      );
+      const final_event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
       expect(response).to.have.status(200);
       expect(response.body._id).to.eq(event.insertedId.toString());
       expect(final_event_number).to.eq(event_number - 1);
@@ -248,6 +307,7 @@ describe("Event Controller API", () => {
       const response = await chai
         .request(app)
         .delete(`/api/events/invalid_id_type`);
+
       expect(response).to.have.status(404);
       expect(response.body).to.have.property("error").equal("Event not found.");
     });
@@ -255,9 +315,11 @@ describe("Event Controller API", () => {
     it("It should not DELETE an event that does not exist anymore", async () => {
       const event = await event_collection.insertOne(event_data);
       await event_collection.deleteOne({ _id: event.insertedId });
+
       const response = await chai
         .request(app)
         .delete(`/api/events/${event.insertedId}`);
+
       expect(response).to.have.status(404);
       expect(response.body).to.have.property("error").equal("Event not found.");
     });

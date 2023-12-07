@@ -5,7 +5,7 @@ const boardSchema = new mongoose.Schema(
     name: {
         type: String,
         required: [true, "Missing board name."], // requirement with custom error message
-        maxLength: [50, "Board name is too long."]
+        maxLength: [30, "Board name can not be longer than 30 characters."]
     },
     about: {
         type: String,

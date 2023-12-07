@@ -73,7 +73,7 @@ const deleteBoard = async (req, res) => {
 
     // if board id does not exist
     if (!board) {
-        return res.status(400).json({ error: "Board not found." });
+        return res.status(404).json({ error: "Board not found." });
     }
 
     // delete all events in the board
@@ -92,16 +92,24 @@ const updateBoard = async (req, res) => {
     // if board id is invalid
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "Board not found." });
-  }
+    }
 
-  const board = await Board.findByIdAndUpdate(id, {...req.body}, { new: true, runValidators: true })
+    try {
+        const board = await Board.findByIdAndUpdate(id, {...req.body}, { new: true, runValidators: true })
 
-  // if board id does not exist
-  if (!board) {
-    return res.status(404).json({ error: "Board not found." });
-  }
+    // if board id does not exist
+    if (!board) {
+        return res.status(404).json({ error: "Board not found." });
+    }
 
-  res.status(200).json(board);
+    res.status(200).json(board);
+
+    } catch (error) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            // Handle validation error
+            return res.status(400).json({ error: error.message });
+          }
+    }
 };
 
 

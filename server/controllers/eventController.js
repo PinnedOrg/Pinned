@@ -14,13 +14,25 @@ const getAllEvents = async (req, res) => {
 const getBoardEvents = async (req, res) => {
   const { id } = req.params;
 
-  // get the events property of the board object
+  // if board id is invalid
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "Board not found." });
+  }
+
   try {
-    const events = await Board.findById(id).then((board) => board.events);
+    // Find the board based on the provided ID
+    const board = await Board.findById(id);
+
+    if (!board) {
+      return res.status(404).json({ error: "Board not found." });
+    }
+
+    const events = board.events;
 
     return res.status(200).json(events);
-  } catch {
-    return res.status(404).json({ error: "Board not found." });
+  } catch (error) {
+    console.error("Error retrieving board events:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 
   // get entire object

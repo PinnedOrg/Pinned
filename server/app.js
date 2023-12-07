@@ -19,9 +19,15 @@ const connectToDatabase = (connectionString) => {
   mongoose.connection.close();
 
   mongoose
-    .connect(connectionString)
+    .connect(process.env.MONGO_URI)
     .then(() => {
       console.log("DB CONNECTED");
+
+      // Handle MongoDB connection events
+      mongoose.connection.on("error", (error) => {
+      console.error("MongoDB connection error:", error);
+    });
+
       startServer(); // Start the server once the database connection is successful
     })
     .catch((error) => {
