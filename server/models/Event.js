@@ -4,7 +4,7 @@ const eventSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [true, "Please enter the Event Title"], // requirement with custom error message
+      required: [true, "Missing Event title."], // requirement with custom error message
       maxLength: [30, "Event title can not be longer than 30 characters."],
     },
     description: {

@@ -1,36 +1,58 @@
-// import modules
+// Import modules
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
-require("dotenv").config();
+require("dotenv").config(); // Load environment variables from a .env file if present
 
-// app
+// Create an Express app
 const app = express();
 
-//db connecting with mongoose
-mongoose
-  .connect(process.env.MONGO_URI)
-  // listening to incoming requests from the port in usage
-  .then(() => {
-    console.log("DB CONNECTED");
-    const server = app.listen(port, () =>
-      console.log(`Server is running on port ${port}`)
-    );
-  })
-  .catch((error) => console.log("DB CONNECTION ERROR", error));
+// Middleware setup
+app.use(morgan("dev")); // Morgan for logging HTTP requests
+app.use(cors({ origin: true, credentials: true })); // CORS setup for allowing cross-origin requests
+app.use(express.json()); // Parse incoming JSON requests
 
-//middleware
-app.use(morgan("dev")); // gives concise output colored by response status
-app.use(cors({ origin: true, credentials: true })); // enabling express server to respond to preflight requests
-app.use(express.json()); // setup middleware for application
+// Connect to MongoDB function
+const connectToDatabase = (connectionString) => {
+  // Close the existing connection before opening a new one
+  mongoose.connection.close();
 
-//routes
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+      console.log("DB CONNECTED");
+
+      // Handle MongoDB connection events
+      mongoose.connection.on("error", (error) => {
+      console.error("MongoDB connection error:", error);
+    });
+
+      startServer(); // Start the server once the database connection is successful
+    })
+    .catch((error) => {
+      console.log("DB CONNECTION ERROR", error);
+    });
+};
+
+// Start the server function
+const startServer = () => {
+  // Start the server
+  const port = process.env.PORT || 8080;
+  const server = app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+};
+
+// Routes setup
 const eventRoutes = require("./routes/events");
 const boardRoutes = require("./routes/boards")
 
-app.use("/api/events", eventRoutes);
+app.use("/api/events", eventRoutes); // Mount event routes under the /api/events path
 app.use("/api/boards", boardRoutes);
 
-// port
-const port = process.env.PORT || 8080;
+// Initial connection to the database
+connectToDatabase(process.env.MONGO_URI); // Connect to MongoDB using the provided URI
+
+// Export the Express app for testing purposes
+module.exports = app;
