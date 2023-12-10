@@ -1,17 +1,48 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useParams, Link } from 'react-router-dom'
+
 
 const BoardHome = () => {
-  return (
-    <div className='flex gap-3'>
-        <Link to={"general"}>General Page</Link>
-        <Link to={"events"}>Events Page</Link>
-        <Link to={"calendar"}>Calendar</Link>
+  const { id } = useParams();
+  const [board, setBoard] = useState(null);
+  const [error, setError] = useState(null);
 
-        <Outlet />
-        
+
+  useEffect(() => {
+    // reset states
+    setBoard(null);
+    setError(null);
+
+    // fetch board object from backend
+    axios.get(`http://localhost:8000/api/boards/${id}`)
+      .then((response) => {
+        setBoard(response);
+      })
+      .catch((e) => {
+        setError(e.message);
+      })
+
+  }, [id])
+
+
+  // will need to use context to pass board object to remainng links
+  return (
+    <div>
+      {board && (
+        <div className='flex gap-3 text-blue-500 underline'>
+            <Link to={"general"}>General Page</Link>
+            <Link to={"events"}>Events Page</Link>
+            <Link to={"calendar"}>Calendar</Link>        
+        </div>
+      )}
+      {error && (
+        <div>
+          <h1>{error}</h1>
+        </div>
+      )}
     </div>
   )
 }
 
-export default BoardHome
+export default BoardHome;
