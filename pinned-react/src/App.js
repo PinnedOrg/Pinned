@@ -14,12 +14,12 @@ const App = () => {
         <Route index element={<LandingPage/>} />
 
         <Route path="/board/:id">
-          <Route index element={<BoardHome />}/> 
+          <Route index element={<BoardHome />}/> {/* <------- This line right here fixes the nested route rendering issue */}
           <Route path="general" element={<GeneralPage />} />
           <Route path="events" element={<EventsPage />} />
           <Route path="calendar" element={<CalendarPage />} />
         </Route>
-        
+
       </Routes>
     </BrowserRouter>
   );
