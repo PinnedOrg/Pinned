@@ -1,11 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/LandingPage/LandingPage.js'
 import BoardHome from './pages/Board/BoardHome.js';
 import GeneralPage from "./pages/Board/GeneralPage.js";
 import EventsPage from "./pages/Board/EventsPage.js";
 import CalendarPage from "./pages/CalendarPage.js";
+import GeneralPage from "./pages/Board/GeneralPage.js";
+import EventsPage from "./pages/Board/EventsPage.js";
+import CalendarPage from "./pages/CalendarPage.js";
 
+const App = () => {
 const App = () => {
 
   return (
