@@ -76,7 +76,7 @@ const createEvent = async (req, res) => {
   // checks if the board id is valid
 
   if (!mongoose.Types.ObjectId.isValid(belongsToBoard)) {
-    res.status(404).json({ error: "Board not found." });
+    return res.status(404).json({ error: "Board not found." });
   }
 
   const board = await Board.findById(belongsToBoard);
