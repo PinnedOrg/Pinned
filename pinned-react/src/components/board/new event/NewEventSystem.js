@@ -11,7 +11,7 @@ const NewEventSystem = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/events');
+        const response = await axios.get('http://localhost:8000/api/events');
         setData(response.data);
         console.log('Data has been received!');
         console.log(response)
