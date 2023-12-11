@@ -7,7 +7,7 @@ const EventsPage = () => {
   const [events, setEvents] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/events")
+    axios.get("http://localhost:8080/api/events")
      .then((allEvents) => {
         console.log(`GOT ${allEvents.data.length} events`)
         setEvents(allEvents.data);

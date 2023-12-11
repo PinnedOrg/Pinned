@@ -63,7 +63,7 @@ const EditEventMenu = (props) => {
         } = formData;
 
         try {
-            const response = await axios.post('http://localhost:8000/api/events', 
+            const response = await axios.post('http://localhost:8080/api/events', 
             {    
                 "title": eventTitle,
                 "description": eventDescription,
