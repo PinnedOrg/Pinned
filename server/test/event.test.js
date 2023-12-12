@@ -245,6 +245,25 @@ describe("Event Controller API", () => {
       expect(response.body.title).to.eq("Updated Title.");
     });
 
+    it("It should not PATCH an event by ID if an immutable field is being updated", async () => {
+      const board = await board_collection.insertOne(board_data);
+      const event = await event_collection.insertOne(event_data);
+
+      const response = await chai
+        .request(app)
+        .patch(`/api/events/${event.insertedId}`)
+        .set("Content-Type", "application/json")
+        .send({belongsToBoard: board.insertedId,});
+        
+      expect(response).to.have.status(200);
+      expect(response.body).to.have.property("belongsToBoard").equal(event_data.belongsToBoard.toString());
+      
+      // Verify the database after the update
+      const updatedEvent = await event_collection.findOne({ _id: event.insertedId });
+      expect(updatedEvent.belongsToBoard.toString()).to.equal(event_data.belongsToBoard.toString());
+
+    });
+
     it("It should not PATCH an event by ID with a validation error", async () => {
       const event = await event_collection.insertOne(event_data);
 

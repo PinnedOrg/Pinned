@@ -42,6 +42,7 @@ const eventSchema = new mongoose.Schema(
     belongsToBoard: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      immutable: [true, "Can not modify the board this event belongs to."],
       ref: "Board"
     }
   },
