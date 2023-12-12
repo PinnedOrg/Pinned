@@ -15,7 +15,7 @@ const EventsPage = () => {
      .catch((error) => {
         console.log(error.message)
      })
-   }, [events])
+   }, [])
 
   return (
     <div className="h-screen w-screen bg-gray-50 text-gray-950 dark:[#282c34]">
