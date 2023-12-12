@@ -2,10 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-
 
 const BoardHome = () => {
   const { id } = useParams();
@@ -20,7 +16,6 @@ const BoardHome = () => {
 
     // fetch board object from backend
     axios.get(`http://localhost:8080/api/boards/${id}`)
-
       .then((response) => {
         setBoard(response);
       })
