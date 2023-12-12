@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import InputTitle from './input-title'
-
+import axios from 'axios'
 import { IoClose } from "react-icons/io5"
+import { useBoardDataEffect } from '../../../pages/Board/EventsPage'
 //if usinng this while editing a coimponent, or gonig back to a draft, set the placeholder for all inputs the fetched data
 
 //visible max character limit
@@ -10,6 +11,7 @@ import { IoClose } from "react-icons/io5"
 //make it draggable around the screen?
 
 const EditEventMenu = (props) => {
+
     const [formData, setFormData] = useState({
         eventTitle: "Hello",
         eventDescription: "",
@@ -45,7 +47,7 @@ const EditEventMenu = (props) => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         //TODO: Logic for connecting and put into DB
         e.preventDefault();
 
@@ -59,7 +61,20 @@ const EditEventMenu = (props) => {
             eventLocation,
             eventPreview,
         } = formData;
-    
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/events', 
+            {    
+                "title": eventTitle,
+                "description": eventDescription,
+                "tags": ["temp tag1", "temp tag2"],
+                "belongsToBoard": "6572a07b26f2331911d71124"
+            });
+            console.log('Board data set successfully:', response);
+        } catch (error) {
+            console.error('Error setting board data:', error);
+        }
+              
         // need to connect widh db later
         console.log('Event Title:', eventTitle);
         console.log('Event Description:', eventDescription);

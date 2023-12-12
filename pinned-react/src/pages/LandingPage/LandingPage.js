@@ -6,7 +6,7 @@ const LandingPage = () => {
   const [boards, setBoards] = useState(null);
 
   useEffect(() => {
-   axios.get("http://localhost:8000/api/boards")
+   axios.get("http://localhost:8080/api/boards")
     .then((allBoards) => {
        console.log(`GOT ${allBoards.data.length} boards`)
        setBoards(allBoards.data);

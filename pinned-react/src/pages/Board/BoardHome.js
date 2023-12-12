@@ -15,7 +15,8 @@ const BoardHome = () => {
     setError(null);
 
     // fetch board object from backend
-    axios.get(`http://localhost:8000/api/boards/${id}`)
+    axios.get(`http://localhost:8080/api/boards/${id}`)
+
       .then((response) => {
         setBoard(response);
       })
