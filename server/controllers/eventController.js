@@ -127,11 +127,7 @@ const deleteEvent = async (req, res) => {
   }
 
   // remove the event from the board
-  await Board.findByIdAndUpdate(
-    event.belongsToBoard,
-    { $pull: { events: event._id } },
-    { new: true }
-  );
+  await Board.findByIdAndUpdate(event.belongsToBoard, { $pull: { events: event._id } }, { new: true });
 
   res.status(200).json(event);
 };
@@ -152,10 +148,6 @@ const updateEvent = async (req, res) => {
     // if event id does not exist
     if (!event) {
       return res.status(404).json({ error: "Event not found." });
-    }
-
-    if (req.body.belongsToBoard != null) {
-      await Board.findByIdAndUpdate(belongsToBoard, { $push: { events: event._id } }, { new: true });
     }
 
     res.status(200).json(event);
