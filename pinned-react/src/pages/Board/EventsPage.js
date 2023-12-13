@@ -1,13 +1,16 @@
-import {useState, React, useEffect} from 'react'
+import { useState, React, useEffect } from 'react'
 import NewEventSystem from '../../components/board/new event/NewEventSystem'
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 const EventsPage = () => {
+  const { id } = useParams()
+
   const [events, setEvents] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/events")
+    axios.get(`http://localhost:8080/api/events/of-board/${id}`)
      .then((allEvents) => {
         console.log(`GOT ${allEvents.data.length} events`)
         setEvents(allEvents.data);
@@ -15,7 +18,7 @@ const EventsPage = () => {
      .catch((error) => {
         console.log(error.message)
      })
-   }, [])
+   }, [id])
 
   return (
     <div className="h-screen w-screen bg-gray-50 text-gray-950 dark:[#282c34]">

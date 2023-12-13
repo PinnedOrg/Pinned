@@ -3,6 +3,7 @@ import InputTitle from './input-title'
 import axios from 'axios'
 import { IoClose } from "react-icons/io5"
 import { useBoardDataEffect } from '../../../pages/Board/EventsPage'
+import { useParams } from 'react-router-dom'
 //if usinng this while editing a coimponent, or gonig back to a draft, set the placeholder for all inputs the fetched data
 
 //visible max character limit
@@ -11,6 +12,7 @@ import { useBoardDataEffect } from '../../../pages/Board/EventsPage'
 //make it draggable around the screen?
 
 const EditEventMenu = (props) => {
+    const { id } = useParams()
 
     const [formData, setFormData] = useState({
         eventTitle: "Hello",
@@ -68,7 +70,7 @@ const EditEventMenu = (props) => {
                 "title": eventTitle,
                 "description": eventDescription,
                 "tags": ["temp tag1", "temp tag2"],
-                "belongsToBoard": "6572a07b26f2331911d71124"
+                "belongsToBoard": id
             });
             console.log('Board data set successfully:', response);
         } catch (error) {
