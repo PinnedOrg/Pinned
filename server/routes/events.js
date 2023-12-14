@@ -11,8 +11,6 @@ const {
   updateEvent,
 } = require("../controllers/eventController");
 
-// Import middlewares
-
 // API routes for Event Controller
 router.get("/", getAllEvents); // get all events
 router.get("/of-board/:id", getBoardEvents); // get all events for a board based on its id

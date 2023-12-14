@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
+const path = require('path')
 require("dotenv").config(); // Load environment variables from a .env file if present
 
 // Create an Express app
@@ -46,13 +47,17 @@ const startServer = () => {
 
 // Routes setup
 const eventRoutes = require("./routes/events");
-const boardRoutes = require("./routes/boards")
+const boardRoutes = require("./routes/boards");
+const fileRoutes = require("./routes/fileUpload");
 
 app.use("/api/events", eventRoutes); // Mount event routes under the /api/events path
-app.use("/api/boards", boardRoutes);
+app.use("/api/boards", boardRoutes); // Mount board routes under the /api/boards path
+app.use('/api/uploads', fileRoutes); // Mount upload routes under the /api/uploads path
 
-// Initial connection to the database
-connectToDatabase(process.env.MONGO_URI); // Connect to MongoDB using the provided URI
+app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
+
+// Initial connection to MongoDB using the provided URI
+connectToDatabase(process.env.MONGO_URI);
 
 // Export the Express app for testing purposes
 module.exports = app;

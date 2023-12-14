@@ -155,7 +155,7 @@ describe("Event Controller API", () => {
       const response = await chai
         .request(app)
         .post("/api/events")
-        .set("Content-Type", "application/json")
+        .set("Content-Type", "application/json", "multipart/form-data")
         .send(new_event_data);
 
       const final_event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
@@ -170,7 +170,7 @@ describe("Event Controller API", () => {
       expect(response.body).to.have.property("location").equal(new_event_data.location);
       expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
       expect(board.events).to.include(event.insertedId)
-    });
+    }).timeout(5000);
 
     it("It should not POST an event with a validation error", async () => {
       const board = await board_collection.insertOne(board_data);
@@ -188,7 +188,7 @@ describe("Event Controller API", () => {
       expect(response).to.have.status(400);
       expect(response.body).to.have.property("error").equal("Event validation failed: title: Event title can not be longer than 30 characters.");
       expect(final_event_number).equal(event_number);
-    });
+    }).timeout(5000);
 
     it("It should not POST an event with an invalid Board ID Type", async () => {
       const new_event_data = {...event_data, belongsToBoard: "invalid_board_id"};

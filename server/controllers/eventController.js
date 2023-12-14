@@ -69,12 +69,10 @@ const createEvent = async (req, res) => {
     date,
     time,
     location,
-    preview,
     belongsToBoard,
   } = req.body;
 
   // checks if the board id is valid
-
   if (!mongoose.Types.ObjectId.isValid(belongsToBoard)) {
     return res.status(404).json({ error: "Board not found." });
   }
@@ -96,7 +94,6 @@ const createEvent = async (req, res) => {
       date,
       time,
       location,
-      preview,
       belongsToBoard,
     });
     res.status(201).json(event);
