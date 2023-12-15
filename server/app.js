@@ -48,13 +48,9 @@ const startServer = () => {
 // Routes setup
 const eventRoutes = require("./routes/events");
 const boardRoutes = require("./routes/boards");
-const fileRoutes = require("./routes/fileUpload");
 
 app.use("/api/events", eventRoutes); // Mount event routes under the /api/events path
 app.use("/api/boards", boardRoutes); // Mount board routes under the /api/boards path
-app.use('/api/uploads', fileRoutes); // Mount upload routes under the /api/uploads path
-
-app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
 
 // Initial connection to MongoDB using the provided URI
 connectToDatabase(process.env.MONGO_URI);
