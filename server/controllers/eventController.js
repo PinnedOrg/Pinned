@@ -80,8 +80,7 @@ const createEvent = async (req, res) => {
   let event;
   // add to database
   try {
-    const previewBuffer = req.file ? req.file.buffer : null; // if file exists
-    const previewBase64 = previewBuffer ? previewBuffer.toString('base64') : null;
+    const previewBuffer = req.file ? req.file.buffer.toString('base64') : null;
 
     event = await Event.create({
       title,
@@ -92,8 +91,9 @@ const createEvent = async (req, res) => {
       time,
       location,
       belongsToBoard,
-      preview: previewBase64
+      preview: previewBuffer
     });
+    
 
     res.status(201).json(event);
   } catch (error) {

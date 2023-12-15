@@ -12,6 +12,13 @@ chai.use(chaiHttp);
 const { expect } = chai;
 const { faker } = require("@faker-js/faker");
 
+const fs = require('fs');
+const path = require('path');
+
+// Read the image file
+const imagePath = path.join(__dirname, 'testImage.png'); // Adjust the file name
+const imageBuffer = fs.readFileSync(imagePath);
+
 const connectToDatabase = async () => {
   const client = await MongoClient.connect(process.env.MONGO_URI);
   return client.db();
@@ -54,6 +61,7 @@ module.exports = {
     faker,
     Event,
     Board,
+    imageBuffer,
     connectToDatabase,
     disconnectFromDatabase,
     event_data,
