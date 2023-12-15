@@ -11,7 +11,7 @@ const getAllEvents = async (req, res) => {
 };
 
 // get all the events associated with this board
-const getBoardEvents = async (req, res) => {
+const getBoardEventPreviews = async (req, res) => {
   const { id } = req.params;
 
   // if board id is invalid
@@ -21,17 +21,11 @@ const getBoardEvents = async (req, res) => {
 
   try {
     // Find the board based on the provided ID
-    const board = await Board.findById(id);
-
-    if (!board) {
-      return res.status(404).json({ error: "Board not found." });
-    }
-
-    const events = board.events;
+    const events = await Event.find({ belongsToBoard: id }).select("_id title description tags preview updatedAt").sort({ createdAt: -1 });
 
     return res.status(200).json(events);
   } catch (error) {
-    console.error("Error retrieving board events:", error);
+    console.error("Error retrieving board events: ", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 
@@ -165,7 +159,7 @@ const updateEvent = async (req, res) => {
 // exporting all methods
 module.exports = {
   getAllEvents,
-  getBoardEvents,
+  getBoardEventPreviews,
   getEvent,
   createEvent,
   deleteEvent,
