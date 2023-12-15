@@ -96,7 +96,9 @@ const createEvent = async (req, res) => {
     });
 
     res.status(201).json(event);
-  } catch (error) {res.status(400).json({ error: error.message });}
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 
   // add event to board
   if (event) {await Board.findByIdAndUpdate(belongsToBoard,{ $push: { events: event._id } },{ new: true });}
