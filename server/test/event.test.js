@@ -146,7 +146,7 @@ describe("Event Controller API", () => {
 
   // Test POST route
   describe("POST /api/events", () => {
-    it("It should POST an event", async () => {
+    it("It should POST an event with an image", async () => {
       const board = await board_collection.insertOne(board_data);
       const new_event_data = {...event_data, belongsToBoard: board.insertedId,};
       const event = await event_collection.insertOne(new_event_data);
@@ -186,6 +186,40 @@ describe("Event Controller API", () => {
       const eventsStringArray = updatedBoard.events.map(eventId => eventId.toString());
       expect(eventsStringArray).to.include(latestEventId.toString());
       expect(latestEvent.preview).to.exist;
+    });
+
+    it("It should POST an event without an image", async () => {
+      const board = await board_collection.insertOne(board_data);
+      const new_event_data = {...event_data, belongsToBoard: board.insertedId,};
+      const event = await event_collection.insertOne(new_event_data);
+      const event_number = await event_collection.countDocuments({}, { hint: "_id_" });
+
+      const response = await chai
+      .request(app)
+      .post("/api/events")
+      .set("Content-Type")
+      .send(new_event_data)
+
+      expect(response).to.have.status(201);
+      expect(response.body).to.have.property("_id")
+      expect(response.body).to.have.property("title").equal(new_event_data.title);
+      expect(response.body).to.have.property("description").equal(new_event_data.description);
+      expect(response.body).to.have.property("contact").equal(new_event_data.contact);
+      expect(response.body).to.have.property("tags").deep.equal(new_event_data.tags);
+      expect(response.body).to.have.property("date").equal(new Date(new_event_data.date).toISOString());
+      expect(response.body).to.have.property("time").equal(new_event_data.time);
+      expect(response.body).to.have.property("location").equal(new_event_data.location);
+      expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
+      
+      const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
+      expect(final_event_number).equal(event_number + 1);
+
+      const latestEventId = await new mongoose.Types.ObjectId(response.body._id);
+      const latestEvent = await event_collection.findOne({ _id: latestEventId });
+      const updatedBoard = await board_collection.findOne({_id: board.insertedId});
+      const eventsStringArray = updatedBoard.events.map(eventId => eventId.toString());
+      expect(eventsStringArray).to.include(latestEventId.toString());
+      expect(latestEvent.preview).to.not.exist;
     });
 
     it("It should not POST an event with a validation error", async () => {
