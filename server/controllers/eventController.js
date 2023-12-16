@@ -1,5 +1,5 @@
-const Event = require("../models/Event");
 const mongoose = require("mongoose");
+const Event = require("../models/Event");
 const Board = require("../models/Board");
 
 // get all events
@@ -63,25 +63,19 @@ const createEvent = async (req, res) => {
     date,
     time,
     location,
-    preview,
     belongsToBoard,
   } = req.body;
 
   // checks if the board id is valid
-
-  if (!mongoose.Types.ObjectId.isValid(belongsToBoard)) {
-    return res.status(404).json({ error: "Board not found." });
-  }
-
+  if (!mongoose.Types.ObjectId.isValid(belongsToBoard)) {return res.status(404).json({ error: "Board not found." });}
   const board = await Board.findById(belongsToBoard);
-
-  if (!board) {
-    return res.status(404).json({ error: "Board not found." });
-  }
+  if (!board) {return res.status(404).json({ error: "Board not found." });}
 
   let event;
   // add to database
   try {
+    const previewBuffer = req.file ? req.file.buffer.toString('base64') : null;
+
     event = await Event.create({
       title,
       description,
@@ -90,9 +84,11 @@ const createEvent = async (req, res) => {
       date,
       time,
       location,
-      preview,
       belongsToBoard,
+      preview: previewBuffer
     });
+    
+
     res.status(201).json(event);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -152,9 +148,6 @@ const updateEvent = async (req, res) => {
     }
   }
 };
-
-//TODO: fix patch for board change
-//TODO: create tests for board change
 
 // exporting all methods
 module.exports = {

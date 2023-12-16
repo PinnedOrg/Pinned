@@ -1,4 +1,4 @@
-const { mongoose, MongoClient, app, chai, expect, Event, Board, connectToDatabase, disconnectFromDatabase, event_data, board_data } = require("./testUtils");
+const { mongoose, MongoClient, app, chai, expect, Event, Board, imageBuffer, pdfBuffer, connectToDatabase, disconnectFromDatabase, event_data, board_data } = require("./testUtils");
 
 describe("Event Controller API", () => {
   let db;
@@ -146,21 +146,28 @@ describe("Event Controller API", () => {
 
   // Test POST route
   describe("POST /api/events", () => {
-    it("It should POST an event", async () => {
+    it("It should POST an event with a preview", async () => {
       const board = await board_collection.insertOne(board_data);
       const new_event_data = {...event_data, belongsToBoard: board.insertedId,};
       const event = await event_collection.insertOne(new_event_data);
-      const event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const event_number = await event_collection.countDocuments({}, { hint: "_id_" });
 
       const response = await chai
-        .request(app)
-        .post("/api/events")
-        .set("Content-Type", "application/json")
-        .send(new_event_data);
+      .request(app)
+      .post("/api/events")
+      .set("Content-Type", "application/x-www-form-urlencoded")
+      .field('title', new_event_data.title)
+      .field('description', new_event_data.description)
+      .field('contact', new_event_data.contact)
+      .field('tags', new_event_data.tags)
+      .field('date', new_event_data.date)
+      .field('time', new_event_data.time)
+      .field('location', new_event_data.location)
+      .field('belongsToBoard', new_event_data.belongsToBoard.toString())
+      .attach('preview', imageBuffer, 'testImage.png');
 
-      const final_event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
       expect(response).to.have.status(201);
-      expect(final_event_number).equal(event_number + 1);
+      expect(response.body).to.have.property("_id")
       expect(response.body).to.have.property("title").equal(new_event_data.title);
       expect(response.body).to.have.property("description").equal(new_event_data.description);
       expect(response.body).to.have.property("contact").equal(new_event_data.contact);
@@ -169,14 +176,84 @@ describe("Event Controller API", () => {
       expect(response.body).to.have.property("time").equal(new_event_data.time);
       expect(response.body).to.have.property("location").equal(new_event_data.location);
       expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
-      expect(board.events).to.include(event.insertedId)
+      
+      const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
+      expect(final_event_number).equal(event_number + 1);
+
+      const latestEventId = await new mongoose.Types.ObjectId(response.body._id);
+      const latestEvent = await event_collection.findOne({ _id: latestEventId });
+      const updatedBoard = await board_collection.findOne({_id: board.insertedId});
+      const eventsStringArray = updatedBoard.events.map(eventId => eventId.toString());
+      expect(eventsStringArray).to.include(latestEventId.toString());
+      expect(latestEvent.preview).to.exist;
+    });
+
+    it("It should POST an event without a preview", async () => {
+      const board = await board_collection.insertOne(board_data);
+      const new_event_data = {...event_data, belongsToBoard: board.insertedId,};
+      const event = await event_collection.insertOne(new_event_data);
+      const event_number = await event_collection.countDocuments({}, { hint: "_id_" });
+
+      const response = await chai
+      .request(app)
+      .post("/api/events")
+      .set("Content-Type")
+      .send(new_event_data)
+
+      expect(response).to.have.status(201);
+      expect(response.body).to.have.property("_id")
+      expect(response.body).to.have.property("title").equal(new_event_data.title);
+      expect(response.body).to.have.property("description").equal(new_event_data.description);
+      expect(response.body).to.have.property("contact").equal(new_event_data.contact);
+      expect(response.body).to.have.property("tags").deep.equal(new_event_data.tags);
+      expect(response.body).to.have.property("date").equal(new Date(new_event_data.date).toISOString());
+      expect(response.body).to.have.property("time").equal(new_event_data.time);
+      expect(response.body).to.have.property("location").equal(new_event_data.location);
+      expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
+      
+      const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
+      expect(final_event_number).equal(event_number + 1);
+
+      const latestEventId = await new mongoose.Types.ObjectId(response.body._id);
+      const latestEvent = await event_collection.findOne({ _id: latestEventId });
+      const updatedBoard = await board_collection.findOne({_id: board.insertedId});
+      const eventsStringArray = updatedBoard.events.map(eventId => eventId.toString());
+      expect(eventsStringArray).to.include(latestEventId.toString());
+      expect(latestEvent.preview).to.not.exist;
+    });
+
+    it("It should not POST an event with an invalid preview file", async () => {
+      const board = await board_collection.insertOne(board_data);
+      const new_event_data = {...event_data, belongsToBoard: board.insertedId,};
+      const event = await event_collection.insertOne(new_event_data);
+      const event_number = await event_collection.countDocuments({}, { hint: "_id_" });
+
+      const response = await chai
+      .request(app)
+      .post("/api/events")
+      .set("Content-Type", "application/x-www-form-urlencoded")
+      .field('title', new_event_data.title)
+      .field('description', new_event_data.description)
+      .field('contact', new_event_data.contact)
+      .field('tags', new_event_data.tags)
+      .field('date', new_event_data.date)
+      .field('time', new_event_data.time)
+      .field('location', new_event_data.location)
+      .field('belongsToBoard', new_event_data.belongsToBoard.toString())
+      .attach('preview', pdfBuffer, 'testPdf.pdf');
+
+      expect(response).to.have.status(400);
+      expect(response.body).to.have.property("error").equal("Please upload an image with a valid format (jpg, jpeg, or png).");
+      
+      const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
+      expect(final_event_number).equal(event_number);
     });
 
     it("It should not POST an event with a validation error", async () => {
       const board = await board_collection.insertOne(board_data);
       const new_event_data = {...event_data, title: "This title is above 30 characters long which is invalid, and should trigger a validation error.", belongsToBoard: board.insertedId,};
       const event = await event_collection.insertOne(new_event_data);
-      const event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const event_number = await event_collection.countDocuments({}, { hint: "_id_" });
 
       const response = await chai
         .request(app)
@@ -184,7 +261,7 @@ describe("Event Controller API", () => {
         .set("Content-Type", "application/json")
         .send(new_event_data);
 
-      const final_event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
       expect(response).to.have.status(400);
       expect(response.body).to.have.property("error").equal("Event validation failed: title: Event title can not be longer than 30 characters.");
       expect(final_event_number).equal(event_number);
@@ -193,7 +270,7 @@ describe("Event Controller API", () => {
     it("It should not POST an event with an invalid Board ID Type", async () => {
       const new_event_data = {...event_data, belongsToBoard: "invalid_board_id"};
       const event = await event_collection.insertOne(new_event_data);
-      const event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const event_number = await event_collection.countDocuments({}, { hint: "_id_" });
 
       const response = await chai
         .request(app)
@@ -201,7 +278,7 @@ describe("Event Controller API", () => {
         .set("Content-Type", "application/json")
         .send(new_event_data);
 
-      const final_event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
       expect(response).to.have.status(404);
       expect(response.body).to.have.property("error").equal("Board not found.");
       expect(final_event_number).equal(event_number);
@@ -212,7 +289,7 @@ describe("Event Controller API", () => {
       await board_collection.deleteOne({ _id: board.insertedId });
       const new_event_data = {...event_data, belongsToBoard: board.insertedId};
       const event = await event_collection.insertOne(new_event_data);
-      const event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const event_number = await event_collection.countDocuments({}, { hint: "_id_" });
 
       const response = await chai
         .request(app)
@@ -220,7 +297,7 @@ describe("Event Controller API", () => {
         .set("Content-Type", "application/json")
         .send(new_event_data);
 
-      const final_event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
       expect(response).to.have.status(404);
       expect(response.body).to.have.property("error").equal("Board not found.");
       expect(final_event_number).equal(event_number);
@@ -310,13 +387,13 @@ describe("Event Controller API", () => {
   describe("DELETE /api/events/:id", () => {
     it("It should DELETE an event by ID", async () => {
       const event = await event_collection.insertOne(event_data);
-      const event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const event_number = await event_collection.countDocuments({}, { hint: "_id_" });
 
       const response = await chai
         .request(app)
         .delete(`/api/events/${event.insertedId}`);
 
-      const final_event_number = await Event.collection.countDocuments({}, { hint: "_id_" });
+      const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
       expect(response).to.have.status(200);
       expect(response.body._id).to.eq(event.insertedId.toString());
       expect(final_event_number).to.eq(event_number - 1);

@@ -36,7 +36,7 @@ const eventSchema = new mongoose.Schema(
       required: [false, "Please enter the Event's Loaction"], // requirement with custom error message
     },
     preview: {
-      type: String,
+      type: Buffer,
       required: false,
     },
     belongsToBoard: {
@@ -44,10 +44,16 @@ const eventSchema = new mongoose.Schema(
       required: true,
       immutable: [true, "Can not modify the board this event belongs to."],
       ref: "Board"
-    }
+    },
   },
   {
     timestamps: true,
+    toJSON: {
+      transform: function (doc, ret) {
+        // Exclude the 'preview' field from JSON responses
+        delete ret.preview;
+      }
+    }
   }
 );
 
