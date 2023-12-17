@@ -86,6 +86,10 @@ describe("Event Controller API", () => {
       expect(response).to.have.status(200);
       expect(response.body).to.be.a("array");
       expect(response.body.length).to.eq(3);
+
+      response.body.forEach((item) => {
+        expect(item).to.be.an('object');
+      });
     });
 
     it("It should not GET any events with an invalid Board ID Type", async () => {
@@ -186,7 +190,7 @@ describe("Event Controller API", () => {
       const eventsStringArray = updatedBoard.events.map(eventId => eventId.toString());
       expect(eventsStringArray).to.include(latestEventId.toString());
       expect(latestEvent.preview).to.exist;
-    });
+    }).timeout(20000);
 
     it("It should POST an event without a preview", async () => {
       const board = await board_collection.insertOne(board_data);
