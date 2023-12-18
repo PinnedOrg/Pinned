@@ -2,6 +2,7 @@ const Board = require("../models/Board");
 const Event = require("../models/Event")
 const mongoose = require("mongoose");
 
+// get all boards
 const getAllBoards = async (req, res) => {
   // fetchs all boards and sorts results in descending order
   const boards = await Board.find({}).sort({ createdAt: -1 }); //find is the criteria to search for (eg. title: "Board 1")
