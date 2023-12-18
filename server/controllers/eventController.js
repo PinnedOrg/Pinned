@@ -28,7 +28,7 @@ const getBoardEventPreviews = async (req, res) => {
     }
     
     // Find the board based on the provided ID
-    const events = await Event.find({ belongsToBoard: id }).select("_id title description tags preview updatedAt").sort({ createdAt: -1 });
+    const events = await Event.find({ belongsToBoard: id }).select("_id title description tags preview createdAt updatedAt").sort({ createdAt: -1 });
 
     return res.status(200).json(events);
   } catch (error) {
