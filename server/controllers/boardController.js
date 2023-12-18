@@ -2,17 +2,15 @@ const Board = require("../models/Board");
 const Event = require("../models/Event")
 const mongoose = require("mongoose");
 
-//--------------TODO for future--------------
-// we will never been getting all boards at once
-// only certain ones based on filter, or user owned/subscribed to
-// need different functions based on loading the full board page, or only bits of the info for preview
-//-------------------------------------------
-
 const getAllBoards = async (req, res) => {
   // fetchs all boards and sorts results in descending order
   const boards = await Board.find({}).sort({ createdAt: -1 }); //find is the criteria to search for (eg. title: "Board 1")
 
   res.status(200).json(boards);
+}
+
+const getBoardPreview = async (req, res) => {
+
 }
 
 // get a single board
