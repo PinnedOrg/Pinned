@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import InputTitle from './input-title'
+import InputTitle from './InputTitle'
 import axios from 'axios'
 import { IoClose } from "react-icons/io5"
 import { useBoardDataEffect } from '../../../pages/Board/EventsPage'

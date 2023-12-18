@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PlusButton from './PlusButton'
-import EditEventMenu from '../edit event menu/edit-event-menu'
+import EditEventMenu from '../edit event menu/EditEventMenu'
 
 const NewEventSystem = () => {
   const [isEditEventMenuOpen, setIsEditEventMenuOpen] = useState(false)
