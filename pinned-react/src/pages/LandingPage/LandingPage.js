@@ -6,7 +6,7 @@ const LandingPage = () => {
   const [boards, setBoards] = useState(null);
 
   useEffect(() => {
-   axios.get("http://localhost:8080/api/boards")
+   axios.get("http://localhost:8080/api/boards/previews")
     .then((allBoards) => {
        console.log(`GOT ${allBoards.data.length} boards`)
        setBoards(allBoards.data);
@@ -33,17 +33,18 @@ const LandingPage = () => {
                      <h1 className="mb-2">{board.name}</h1>
                      <p className="mb-2">{board.about}</p>
                      <h2 className="mb-2">{"Owner: " + board.owner}</h2>
-                     <ul className="mb-2">
+                     {/* {board.admins &&  <ul className="mb-2">
                         {board.admins.map((name, i) => (
                            <li key={i}>{name}</li>
                         ))}
-                     </ul>
-                     <ul className="mb-2">
+                     </ul> } */}
+                     {/* {board.subscribers &&  <ul className="mb-2">
                         {board.subscribers.map((name, i) => (
                            <li key={i}>{name}</li>
                         ))}
-                     </ul>
+                     </ul> } */}
                      <p className="mb-2">{board.location}</p>
+                     <p className="mb-2">{board.createdAt}</p>
                      <p className="mb-2">{board.updatedAt}</p>
                   </div>   
                </Link>

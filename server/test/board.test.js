@@ -43,6 +43,39 @@ describe("Board Controller API", () => {
     });
   });
 
+  // Test GET preview route
+  describe("GET /api/boards/previews", () => {
+    it("It should GET 0 board previews when none exist", async () => {
+      const response = await chai.request(app).get("/api/boards/previews");
+      expect(response).to.have.status(200);
+      expect(response.body).to.be.a("array");
+      expect(response.body.length).to.eq(0);
+    });
+
+    it("It should GET all board previews when some exist", async () => {
+      for (let i = 0; i < 3; i++) {
+        const board_data_with_unique_id = await {...board_data, _id: new mongoose.Types.ObjectId()};
+
+        await board_collection.insertOne(board_data_with_unique_id);
+      }
+
+      const response = await chai.request(app).get("/api/boards/previews");
+      expect(response).to.have.status(200);
+      expect(response.body).to.be.a("array");
+      expect(response.body.length).to.eq(3);
+
+      // validate the preview properties for each board
+      response.body.forEach((obj) => {
+        expect(obj).to.have.property('_id');
+        expect(obj).to.have.property('name').equal(board_data.name);
+        expect(obj).to.have.property('publicStatus').equal(board_data.publicStatus);
+        expect(obj).to.have.property('owner').equal(board_data.owner);
+        expect(obj).to.have.property('createdAt').equal(new Date(board_data.createdAt).toISOString());
+        expect(obj).to.have.property('updatedAt').equal(new Date(board_data.updatedAt).toISOString());
+      });
+    });
+  });
+
   // Test GET (by ID) route
   describe("GET /api/boards/:id", () => {
     it("It should GET a board by ID", async () => {

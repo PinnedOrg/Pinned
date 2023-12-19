@@ -10,8 +10,17 @@ const getAllBoards = async (req, res) => {
   res.status(200).json(boards);
 }
 
-const getBoardPreview = async (req, res) => {
+const getBoardPreviews = async (req, res) => {
 
+    // TODO: change the find criteria to be based on user name or id
+    try {
+        const boardPreviews = await Board.find().select("_id name publicStatus owner createdAt updatedAt").sort({ updatedAt: -1 });
+
+        return res.status(200).json(boardPreviews);
+    } catch (error) {
+        console.error("Error retrieving board previews: ", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
 }
 
 // get a single board
@@ -114,9 +123,10 @@ const updateBoard = async (req, res) => {
 
 //exporting all methods
 module.exports = {
+    getAllBoards,
+    getBoardPreviews,
     getBoard,
     createBoard,
     deleteBoard,
     updateBoard,
-    getAllBoards
 }
