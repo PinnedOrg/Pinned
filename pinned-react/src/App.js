@@ -15,14 +15,18 @@ const App = () => {
       <Routes>
         <Route index element={<LandingPage/>} />
 
-        <Route path="/board/:id" >
-          <Route path="/" index element={ <BoardContextProvider>
-                                            <BoardHome />
-                                          </BoardContextProvider>
-          }/>
-          <Route path="general" element={<GeneralPage />} />
-          <Route path="events" element={<EventsPage />} />
-          <Route path="calendar" element={<CalendarPage />} />
+        <Route 
+          path="/board/:id/*" 
+          element={
+            <BoardContextProvider>
+              <Routes>
+                <Route index element={<BoardHome />} />
+                <Route path="general" element={<GeneralPage />} />
+                <Route path="events" element={<EventsPage />} />
+                <Route path="calendar" element={<CalendarPage />} />
+              </Routes>
+            </BoardContextProvider>
+          }>
         </Route>
       </Routes>
     </BrowserRouter>

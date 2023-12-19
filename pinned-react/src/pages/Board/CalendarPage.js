@@ -9,7 +9,7 @@ const CalendarPage = () => {
     <div>
       {board ? (
         <div>
-          <h1>You are on the Calendar Page</h1>
+          <h1>Calendar Page for <span className='font-bold'>{board.name}</span> </h1>
         </div>
       ) : (
         <div>

@@ -1,5 +1,3 @@
-"use client"
-
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
@@ -13,18 +11,16 @@ const BoardHome = () => {
   useEffect(() => {
 
     // fetch board object from backend 
-    axios.get(`http://localhost:8080/api/boards/${id}`)
-      .then((response) => {
-        setBoard(response.data);
-      })
-      .catch((e) => {
-        setBoard(null);
-      })
+      axios.get(`http://localhost:8080/api/boards/${id}`)
+        .then((response) => {
+          setBoard(response.data);
+        })
+        .catch(() => {
+          setBoard(null);
+        })
   
   }, [id])
 
-
-  // will need to use context to pass board object to remainng links
   return (
       <div>
         {board ? (
