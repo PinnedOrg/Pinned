@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import LandingPage from './pages/LandingPage/LandingPage.js'
 import BoardHome from './pages/Board/BoardHome.js';
 import GeneralPage from "./pages/Board/GeneralPage.js";
