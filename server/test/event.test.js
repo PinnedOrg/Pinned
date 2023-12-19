@@ -180,6 +180,7 @@ describe("Event Controller API", () => {
       expect(response.body).to.have.property("time").equal(new_event_data.time);
       expect(response.body).to.have.property("location").equal(new_event_data.location);
       expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
+      expect(response.body).to.not.have.property("preview");
       
       const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
       expect(final_event_number).equal(event_number + 1);
@@ -214,6 +215,7 @@ describe("Event Controller API", () => {
       expect(response.body).to.have.property("time").equal(new_event_data.time);
       expect(response.body).to.have.property("location").equal(new_event_data.location);
       expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
+      expect(response.body).to.not.have.property("preview");
       
       const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
       expect(final_event_number).equal(event_number + 1);
