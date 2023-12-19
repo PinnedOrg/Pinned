@@ -52,6 +52,8 @@ const board_data = {
     subscribers: Array.from({ length: 3 }, () => faker.word.noun()),
     location: faker.location.city(),
     events: [],
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
   };
 
 module.exports = {
