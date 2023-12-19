@@ -1,17 +1,15 @@
-"use client"
-
 import React from 'react'
 
-import { useBoardContext } from '../../context/BoardContext'
+import { useBoardContext } from '../../context/BoardContext';
 
-const GeneralPage = () => {
+const CalendarPage = () => {
   const { board, setBoard } = useBoardContext();
 
   return (
     <div>
       {board ? (
         <div>
-          <h1>You are on the General Page</h1>
+          <h1>You are on the Calendar Page</h1>
         </div>
       ) : (
         <div>
@@ -19,8 +17,7 @@ const GeneralPage = () => {
         </div>
       )}
     </div>
-    
   )
 }
 
-export default GeneralPage
+export default CalendarPage;

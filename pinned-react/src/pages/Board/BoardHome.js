@@ -1,12 +1,14 @@
+"use client"
+
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
+import { useBoardContext } from "../../context/BoardContext"
 
 const BoardHome = () => {
   const { id } = useParams();
-  const [board, setBoard] = useState(null);
-  const [error, setError] = useState(null);
+  const { board, setBoard } = useBoardContext();
 
   useEffect(() => {
 
@@ -16,7 +18,7 @@ const BoardHome = () => {
         setBoard(response.data);
       })
       .catch((e) => {
-        setError(e.message);
+        setBoard(null);
       })
   
   }, [id])
@@ -25,16 +27,20 @@ const BoardHome = () => {
   // will need to use context to pass board object to remainng links
   return (
       <div>
-        {board && (
-          <div className='flex gap-3 text-blue-500 underline'>
-              <Link to={"general"}>General Page</Link>
-              <Link to={"events"}>Events Page</Link>
-              <Link to={"calendar"}>Calendar</Link>        
-          </div>
-        )}
-        {error && (
+        {board ? (
           <div>
-            <h1>{error}</h1>
+            <h1 className='text-center border w-full border-black bg-actionOrange h-[3rem]'>
+              Temp Heading
+            </h1>
+            <div className='flex gap-3 text-blue-500 underline'>
+                <Link to={"general"}>General Page</Link>
+                <Link to={"events"}>Events Page</Link>
+                <Link to={"calendar"}>Calendar</Link>        
+            </div>
+          </div>
+        ) : (
+          <div>
+            <h1>Board not found.</h1>
           </div>
         )}
       </div>
