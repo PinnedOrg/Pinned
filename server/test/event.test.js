@@ -180,7 +180,7 @@ describe("Event Controller API", () => {
       expect(response.body).to.have.property("time").equal(new_event_data.time);
       expect(response.body).to.have.property("location").equal(new_event_data.location);
       expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
-      expect(response.body).to.not.have.property("preview");
+      expect(response.body).to.have.property("preview");
       
       const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
       expect(final_event_number).equal(event_number + 1);
@@ -190,7 +190,8 @@ describe("Event Controller API", () => {
       const updatedBoard = await board_collection.findOne({_id: board.insertedId});
       const eventsStringArray = updatedBoard.events.map(eventId => eventId.toString());
       expect(eventsStringArray).to.include(latestEventId.toString());
-      expect(latestEvent.preview).to.exist;
+      expect(latestEvent.preview.data).to.exist;
+      expect(latestEvent.preview.extension).to.equal("image/png");
     }).timeout(20000);
 
     it("It should POST an event without a preview", async () => {
@@ -215,7 +216,7 @@ describe("Event Controller API", () => {
       expect(response.body).to.have.property("time").equal(new_event_data.time);
       expect(response.body).to.have.property("location").equal(new_event_data.location);
       expect(response.body).to.have.property("belongsToBoard").equal(board.insertedId.toString());
-      expect(response.body).to.not.have.property("preview");
+      expect(response.body).to.have.property("preview");
       
       const final_event_number = await event_collection.countDocuments({}, { hint: "_id_" });
       expect(final_event_number).equal(event_number + 1);
@@ -225,7 +226,8 @@ describe("Event Controller API", () => {
       const updatedBoard = await board_collection.findOne({_id: board.insertedId});
       const eventsStringArray = updatedBoard.events.map(eventId => eventId.toString());
       expect(eventsStringArray).to.include(latestEventId.toString());
-      expect(latestEvent.preview).to.not.exist;
+      expect(latestEvent.preview.data).to.not.exist;
+      expect(latestEvent.preview.extension).to.not.exist;
     });
 
     it("It should not POST an event with an invalid preview file", async () => {
