@@ -82,6 +82,7 @@ const createEvent = async (req, res) => {
   // add to database
   try {
     const previewBuffer = req.file ? req.file.buffer.toString('base64') : null;
+    const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
 
     event = await Event.create({
       title,
@@ -92,7 +93,10 @@ const createEvent = async (req, res) => {
       time,
       location,
       belongsToBoard,
-      preview: previewBuffer
+      preview: {
+        data: previewBuffer,
+        extension: extension
+      }
     });
     
 
