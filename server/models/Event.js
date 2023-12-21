@@ -25,19 +25,19 @@ const eventSchema = new mongoose.Schema(
     },
     date: {
       type: Date, // type date handles both date and time, it might be redundant to include the time attribute
-      required: [false, "Please enter the Event's Date"], // requirement with custom error message
+      required: false
     },
     time: {
       type: String,
-      required: [false, "Please enter the Event's Time"], // requirement with custom error message
+      required: false
     },
     location: {
       type: String,
-      required: [false, "Please enter the Event's Loaction"], // requirement with custom error message
+      required: false
     },
-    preview: {
-      type: Buffer,
-      required: false,
+    preview: { // adding 'required: false' breaks this as it has nested properties
+      data: Buffer,
+      extension: String
     },
     belongsToBoard: {
       type: mongoose.Schema.Types.ObjectId,
@@ -47,13 +47,7 @@ const eventSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,
-    toJSON: {
-      transform: function (doc, ret) {
-        // Exclude the 'preview' field from JSON responses
-        delete ret.preview;
-      }
-    }
+    timestamps: true
   }
 );
 
