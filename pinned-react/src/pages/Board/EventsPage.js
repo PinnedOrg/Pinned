@@ -2,7 +2,7 @@ import { useState, React, useEffect } from 'react'
 import NewEventSystem from '../../components/board/new event/NewEventSystem'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Buffer } from 'buffer';
+import PreviewImage from '../../components/event/render preview image/PreviewImage'
 
 const EventsPage = () => {
   const { id } = useParams()
@@ -19,20 +19,6 @@ const EventsPage = () => {
         console.log(error.message)
      })
    }, [id])
-
-  const PreviewImage = ({ preview }) => {
-
-    if (preview.data == null) {
-      console.error('No image data provided.');
-      return null;
-    }
-    
-    const base64String = Buffer.from(preview.data.data);
-
-    return (
-      <img src={`data:${preview.extension};base64,${base64String}`} alt="here"/>
-    );
-  };
 
   return (
     <div className="h-screen w-screen bg-gray-50 text-gray-950 dark:[#282c34]">
