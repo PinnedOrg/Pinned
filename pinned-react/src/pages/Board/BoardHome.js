@@ -3,30 +3,36 @@ import React, { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
 import { useBoardContext } from "../../context/BoardContext"
+import { setBoardToLocalStorage } from '../../hooks/BoardHooks';
 
 const BoardHome = () => {
   const { id } = useParams();
-  const { board, setBoard } = useBoardContext();
+  const { board, setBoard } = useBoardContext(id);
 
   useEffect(() => {
 
-    // fetch board object from backend 
+    // fetch board object from backend
+    if (!board) {
+      console.log("no board in storage");
       axios.get(`http://localhost:8080/api/boards/${id}`)
         .then((response) => {
-          setBoard(response.data);
+          setBoard(response.data)
+          setBoardToLocalStorage(response.data);
         })
         .catch(() => {
           setBoard(null);
         })
-  
+    }
+
   }, [id])
 
   return (
       <div>
         {board ? (
           <div>
-            <h1 className='text-center border w-full border-black bg-actionOrange h-[3rem]'>
-              Temp Heading
+            <Link to={'/'} className=''>Home</Link>
+            <h1 className='text-center border w-full border-black bg-actionOrange h-[3rem] relative'>
+              {board.name}
             </h1>
             <div className='flex gap-3 text-blue-500 underline'>
                 <Link to={"general"}>General Page</Link>

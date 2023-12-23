@@ -1,9 +1,11 @@
 import React from 'react'
 
 import { useBoardContext } from '../../context/BoardContext';
+import { useParams } from 'react-router-dom';
 
 const CalendarPage = () => {
-  const { board, setBoard } = useBoardContext();
+  const { id } = useParams()
+  const { board, setBoard } = useBoardContext(id);
 
   return (
     <div>

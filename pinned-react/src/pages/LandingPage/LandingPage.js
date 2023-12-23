@@ -28,8 +28,8 @@ const LandingPage = () => {
 
          {boards && <div className="flex gap-3 mt-5 ml-5">
             {boards.map((board, index) => (
-               <Link to={`/board/${board._id}`}>
-                  <div className="w-[24rem] h-[24rem] border border-actionOrange" key={index}>
+               <Link to={`/board/${board._id}`} key={index}>
+                  <div className="w-[24rem] h-[24rem] border border-actionOrange" >
                      <h1 className="mb-2">{board.name}</h1>
                      <p className="mb-2">{board.about}</p>
                      <h2 className="mb-2">{"Owner: " + board.owner}</h2>
