@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { useBoardContext } from '../../context/BoardContext';
 import NewEventSystem from '../../components/board/new event/NewEventSystem'
-import PreviewImage from '../../components/event/render preview image/PreviewImage'
+import PreviewImage from '../../components/Image/PreviewImage'
 
 
 const EventsPage = () => {
@@ -51,8 +51,8 @@ const EventsPage = () => {
         </div>
       ) : (
         <div>
-            <h1>Board not found.</h1>
-          </div>
+          <h1>Board not found.</h1>
+        </div>
       )}
 
     </div>
