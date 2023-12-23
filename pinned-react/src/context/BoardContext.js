@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react'
 
 import { getBoardFromLocalStorage } from "../hooks/BoardHooks"
 
+
 // context of the current board that will be use throughout the app
 const BoardContext = createContext(null);
 

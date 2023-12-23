@@ -1,9 +1,11 @@
 import { useState, React, useEffect } from 'react'
-import NewEventSystem from '../../components/board/new event/NewEventSystem'
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import PreviewImage from '../../components/event/render preview image/PreviewImage'
+import axios from 'axios';
+
 import { useBoardContext } from '../../context/BoardContext';
+import NewEventSystem from '../../components/board/new event/NewEventSystem'
+import PreviewImage from '../../components/event/render preview image/PreviewImage'
+
 
 const EventsPage = () => {
   const { id } = useParams()
