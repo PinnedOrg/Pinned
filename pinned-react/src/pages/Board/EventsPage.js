@@ -2,6 +2,7 @@ import { useState, React, useEffect } from 'react'
 import NewEventSystem from '../../components/board/new event/NewEventSystem'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import PreviewImage from '../../components/event/render preview image/PreviewImage'
 import { useBoardContext } from '../../context/BoardContext';
 
 
@@ -40,6 +41,7 @@ const EventsPage = () => {
                     </ul>
                     <p className="mb-2">{event.createdAt}</p>
                     <p className="mb-2">{event.updatedAt}</p>
+                    <PreviewImage preview={event.preview}/>
                 </div>   
               ))}
             </div>}
