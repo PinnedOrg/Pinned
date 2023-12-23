@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { useBoardContext } from '../../context/BoardContext'
+import { useBoardContext } from '../../context/BoardContext';
 import { useParams } from 'react-router-dom';
 
-const GeneralPage = () => {
+const CalendarPage = () => {
   const { id } = useParams()
   const { board, setBoard } = useBoardContext(id);
 
@@ -11,7 +11,7 @@ const GeneralPage = () => {
     <div>
       {board ? (
         <div>
-          <h1>General Page for <span className='font-bold'>{board.name}</span> </h1>
+          <h1>Calendar Page for <span className='font-bold'>{board.name}</span> </h1>
         </div>
       ) : (
         <div>
@@ -19,8 +19,7 @@ const GeneralPage = () => {
         </div>
       )}
     </div>
-    
   )
 }
 
-export default GeneralPage
+export default CalendarPage;
