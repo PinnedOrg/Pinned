@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import PreviewImage from '../../components/event/render preview image/PreviewImage'
 import { useBoardContext } from '../../context/BoardContext';
 
-
 const EventsPage = () => {
   const { id } = useParams()
   const [events, setEvents] = useState(null);
@@ -53,6 +52,7 @@ const EventsPage = () => {
             <h1>Board not found.</h1>
           </div>
       )}
+
     </div>
   )
 }
