@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { useBoardContext } from '../../context/BoardContext';
-import NewEventSystem from '../../components/board/new event/NewEventSystem'
+import NewEventSystem from '../../components/board/event system/NewEventSystem'
 import PreviewImage from '../../components/Image/PreviewImage'
 
 
