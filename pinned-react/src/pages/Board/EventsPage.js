@@ -3,24 +3,14 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { useBoardContext } from '../../context/BoardContext';
-import NewEventSystem from '../../components/board/event system/NewEventSystem'
-import PreviewImage from '../../components/Image/PreviewImage'
+import NewEventSystem from '../../components/board/event system/NewEventSystem';
+import EventPreview from '../../components/board/event/EventPreview';
 
 
 const EventsPage = () => {
   const { id } = useParams()
   const [events, setEvents] = useState(null);
   const { board, setBoard } = useBoardContext(id);
-
-   const handleDeleteClick = (id) => {
-    axios.delete(`http://localhost:8080/api/events/${id}`)
-      .then(() => {
-        console.log("event deleted")
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-   }
 
    useEffect(() => {
     axios.get(`http://localhost:8080/api/events/of-board/${id}`)
@@ -42,20 +32,7 @@ const EventsPage = () => {
             {events && 
             <div className="flex gap-3 mt-5 ml-5">
               {events.map((event, index) => (
-                <div className="w-[24rem] h-[24rem] border border-actionOrange" key={index}>
-                    <h1 className="mb-2">{event.title}</h1>
-                    <p className="mb-2">{event.description}</p>
-                    <ul className="mb-2">
-                      {event.tags.map((tag, i) => (
-                          <li key={i}>{tag}</li>
-                      ))}
-                    </ul>
-                    <p className="mb-2">{event.createdAt}</p>
-                    <p className="mb-2">{event.updatedAt}</p>
-                    <PreviewImage preview={event.preview}/>
-                    <button className="p-2 text-center text-white bg-gray-800" onClick={() => {handleDeleteClick(event._id)}}>Delete</button>
-                </div>   
-
+                <EventPreview event={event} index={index} />
               ))}
             </div>}
           </div>
