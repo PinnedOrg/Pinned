@@ -11,7 +11,7 @@ module.exports = {
   
   
   
-  purge: ['./src/**/*.js', './src/**/*.jsx'],
+  purge: ['./src/**/*.ts', './src/**/*.tsx'],
   plugins: [],
 }
 
