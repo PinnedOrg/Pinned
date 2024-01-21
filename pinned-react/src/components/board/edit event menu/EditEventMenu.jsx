@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import InputTitle from './InputTitle'
 import axios from 'axios'
 import { IoClose } from "react-icons/io5"
-import { useBoardDataEffect } from '../../../pages/Board/EventsPage'
 import { useParams } from 'react-router-dom'
 //if usinng this while editing a coimponent, or gonig back to a draft, set the placeholder for all inputs the fetched data
 
