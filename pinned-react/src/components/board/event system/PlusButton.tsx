@@ -2,7 +2,12 @@ import React from 'react'
 
 import { HiPlus } from "react-icons/hi"
 
-const PlusButton = ({isDisabled, setIsEditEventMenuOpen}) => {
+type PlusButtonProps = {
+  isDisabled: boolean,
+  setIsEditEventMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const PlusButton = ({isDisabled, setIsEditEventMenuOpen}: PlusButtonProps) => {
 
   const openMenu = () => {
     setIsEditEventMenuOpen(true)

@@ -1,4 +1,3 @@
-import React from "react";
 import { LuFilter } from "react-icons/lu";
 import { BiSearchAlt } from "react-icons/bi";
 import { BsPersonCircle } from "react-icons/bs";
@@ -6,31 +5,31 @@ import { BsPersonCircle } from "react-icons/bs";
 const NavBar = () => {
   return (
     <div className="text-center">
-      <header className="bg-actionOrange text-white flex flex-row justify-between text-2xl px-10 align-middle">
+      <header className="flex flex-row justify-between px-10 text-2xl text-white align-middle bg-actionOrange">
         <h1 className="self-center ml-10">Pinned</h1>
         <div className="flex flex-row">
           <div className="flex flex-row gap-1 mr-10">
             <div
               id="search_input"
-              className="bg-slate-600 text-white rounded-full m-2"
+              className="m-2 text-white rounded-full bg-slate-600"
             >
               <input
                 type="search"
                 placeholder="Search"
-                className="placeholder-white bg-slate-600 text-white text-sm py-2 px-5 rounded-full border-2 border-white"
+                className="px-5 py-2 text-sm text-white placeholder-white border-2 border-white rounded-full bg-slate-600"
               />
             </div>
             <button
               type="button"
-              className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-150"
+              className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2"
             >
               <BiSearchAlt />
             </button>
           </div>
-          <h1 className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-150">
+          <h1 className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2">
             <LuFilter />
           </h1>
-          <div className="p-3 text-slate-600 border-none bg-none text-2xl m-auto rounded-full hover:text-white hover:bg-slate-600 hover:border-2 duration-150">
+          <div className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2">
             <BsPersonCircle />
           </div>
         </div>

@@ -3,14 +3,14 @@ import InputTitle from './InputTitle'
 import axios from 'axios'
 import { IoClose } from "react-icons/io5"
 import { useParams } from 'react-router-dom'
-//if usinng this while editing a coimponent, or gonig back to a draft, set the placeholder for all inputs the fetched data
-
+//if using this while editing a coimponent, or gonig back to a draft, set the placeholder for all inputs the fetched data
 //visible max character limit
-//contact type?
-//dynamic size div
-//make it draggable around the screen?
 
-const EditEventMenu = (props) => {
+type EditEventMenuProps = {
+    setIsEditEventMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const EditEventMenu = ({ setIsEditEventMenuOpen }: EditEventMenuProps) => {
     const { id } = useParams()
 
     const [formData, setFormData] = useState({
@@ -37,18 +37,23 @@ const EditEventMenu = (props) => {
     }
 
     const closeMenu = () => {
-        props.setIsEditEventMenuOpen(false)
+        setIsEditEventMenuOpen(false)
     }
 
-    const handleInputChange = (e) => {
-        const { name, value, type, files } = e.target;
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined) => {
+        if (e === undefined) return;
+        
+        const { name, value, /*type*/  } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: type === "file" ? files[0] : value,
+            [name]: value,
+            //[name]: type === "file" ? files[0] : value,
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        if (e === undefined) return;
+
         //TODO: Logic for connecting and put into DB
         e.preventDefault();
 
@@ -105,10 +110,11 @@ const EditEventMenu = (props) => {
                 Create New Event
             </h1>
 
-            <form className='flex flex-col h-full px-5 mt-8 text-sm' onSubmit={handleSubmit}>
-                <InputTitle isRequired={requiredSections["Title"]}>
-                    Title
-                </InputTitle>
+            <form 
+                className='flex flex-col h-full px-5 mt-8 text-sm' 
+                onSubmit={handleSubmit}
+            >
+                <InputTitle isRequired={requiredSections["Title"]}>Title</InputTitle>
                 <input 
                     id="Title"
                     className='h-8 rounded-[0.55rem] borderBlack70 pl-3 w-full mb-3'
@@ -120,13 +126,10 @@ const EditEventMenu = (props) => {
                     onChange={handleInputChange}
                 />
 
-                <InputTitle isRequired={requiredSections["Description"]}>
-                    Description
-                </InputTitle>
+                <InputTitle isRequired={requiredSections["Description"]}>Description</InputTitle>
                 <textarea 
                     id='Description'
                     className='h-[7rem] rounded-[0.55rem] borderBlack70 pl-3 pt-1 w-full mb-3'
-                    type='text'
                     name='eventDescription'
                     required={requiredSections["Description"]}  
                     maxLength={2000}
@@ -135,26 +138,20 @@ const EditEventMenu = (props) => {
 
                 <div className='flex flex-row justify-between w-full gap-6 mb-3'>
                     <div className='flex flex-col w-full'>
-                        <InputTitle isRequired={requiredSections["Contact Info"]}>
-                            Contact Info
-                        </InputTitle>
+                    <InputTitle isRequired={requiredSections["Contact Info"]}>Contact Info</InputTitle>
                         <textarea 
                             id='Contact Info'
                             className='rounded-[0.55rem] borderBlack70 pl-3 pt-1 h-full mb-3'
-                            type='text'
                             name='eventContact'
                             required={requiredSections["Contact Info"]} 
                             maxLength={2000}
                             onChange={handleInputChange}
                         />
 
-                        <InputTitle isRequired={requiredSections["Tags"]} >
-                            Tags
-                        </InputTitle>
+                        <InputTitle isRequired={requiredSections["Tags"]}>Tags</InputTitle>
                         <textarea 
                             id='Tags'
                             className='rounded-[0.55rem] borderBlack70 pl-3 pt-1 h-full'
-                            type='text'
                             name='eventTags'
                             required={requiredSections["Tags"]} 
                             maxLength={2000}
@@ -162,9 +159,7 @@ const EditEventMenu = (props) => {
                         />
                     </div>
                     <div className='max-w-[45%]'>
-                        <InputTitle isRequired={requiredSections["Date"]}>
-                            Date
-                        </InputTitle>
+                        <InputTitle isRequired={requiredSections["Date"]}>Date</InputTitle>
                         <input 
                             id="Date"
                             className='h-8 rounded-[0.55rem] borderBlack70 pl-3 w-full mb-2 pr-2'
@@ -175,9 +170,7 @@ const EditEventMenu = (props) => {
                             onChange={handleInputChange}
                         />
 
-                        <InputTitle isRequired={requiredSections["Time"]}>
-                            Time
-                        </InputTitle>
+                        <InputTitle isRequired={requiredSections["Time"]}>Time</InputTitle>
                         <input 
                             id="Time"
                             className='h-8 rounded-[0.55rem] borderBlack70 pl-3 w-full pr-2 mb-3'
@@ -188,9 +181,7 @@ const EditEventMenu = (props) => {
                             onChange={handleInputChange}
                         /> 
 
-                        <InputTitle isRequired={requiredSections["Location"]}>
-                            Location
-                        </InputTitle>
+                        <InputTitle isRequired={requiredSections["Location"]}>Location</InputTitle>
                         <input 
                             id="Location"
                             className='h-8 rounded-[0.55rem] borderBlack70 pl-3 w-full pr-2'
@@ -199,14 +190,12 @@ const EditEventMenu = (props) => {
                             required={requiredSections["Location"]}
                             maxLength={500}
                             onChange={handleInputChange}
-                        />     
+                        />      
                     </div>
                 </div>
 
                 <div className='flex flex-col'>
-                    <InputTitle isRequired={requiredSections["Preview Image"]}>
-                        Preview Image
-                    </InputTitle>
+                     <InputTitle isRequired={requiredSections["Preview Image"]}>Preview Image</InputTitle>
                     <input 
                         id='Preview Image'
                         className='pl-2 mt-2'
@@ -214,21 +203,20 @@ const EditEventMenu = (props) => {
                         name='eventPreview'
                         required={requiredSections["Preview Image"]}
                         onChange={handleInputChange}
-                    />
-                </div>
+                    /> 
+                    </div>
 
-                <button 
+                 <button 
                     type='submit' 
                     disabled={false}
                     className='absolute bottom-3 right-3 gap-2 text-xs sm:text-sm font-bold items-center justify-center h-[1.8rem] sm:h-[2rem] w-[4rem] sm:w-[4.5rem] bg-gray-900 text-white rounded-full outline-none transition-all hover:bg-gray-950 hover:scale-[1.07] active:scale-[1.03] disabled:scale-100 disabled:bg-opacity-65'
-                    onClick={() => {}}
+                    //onClick={() => {}}
                 >
                     Create
                 </button>
             </form>
         </div>
-          
-    </div>
+    </div>  
   )
 }
 

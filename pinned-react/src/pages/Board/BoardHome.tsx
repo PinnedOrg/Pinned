@@ -1,14 +1,14 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
 import { useBoardContext } from "@/context/BoardContext"
-import { setBoardToLocalStorage } from '@/hooks/BoardHooks';
+import { setBoardToLocalStorage } from '@/lib/BoardHooks';
 
 const BoardHome = () => {
   const { id } = useParams();
   const { board, setBoard } = useBoardContext(id);
-  const { error, setError } = useBoardContext(id);
+  const  [error, setError]= useState<string | null>(null);
 
   useEffect(() => {
 

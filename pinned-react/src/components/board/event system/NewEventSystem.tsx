@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import PlusButton from './PlusButton'
 import EditEventMenu from '../edit event menu/EditEventMenu'
 
 const NewEventSystem = () => {
-  const [isEditEventMenuOpen, setIsEditEventMenuOpen] = useState(false)
+  const [isEditEventMenuOpen, setIsEditEventMenuOpen] = useState<boolean>(false)
 
   return (
     <div className="relative">

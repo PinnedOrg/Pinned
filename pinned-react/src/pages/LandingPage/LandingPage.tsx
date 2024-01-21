@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import axios from "axios";
+import { BoardInterface } from "@/lib/types";
 
 const LandingPage = () => {
-  const [boards, setBoards] = useState(null);
+  const [boards, setBoards] = useState<Array<BoardInterface>>([]);
 
   useEffect(() => {
    axios.get("http://localhost:8080/api/boards/previews")
@@ -26,7 +27,7 @@ const LandingPage = () => {
             </h1>
          </div>
 
-         {boards && <div className="flex gap-3 mt-5 ml-5">
+         {boards.length > 0 && <div className="flex gap-3 mt-5 ml-5">
             {boards.map((board, index) => (
                <Link to={`/board/${board._id}`} key={index}>
                   <div className="w-[24rem] h-[24rem] border border-actionOrange" >
@@ -44,8 +45,8 @@ const LandingPage = () => {
                         ))}
                      </ul> } */}
                      <p className="mb-2">{board.location}</p>
-                     <p className="mb-2">{board.createdAt}</p>
-                     <p className="mb-2">{board.updatedAt}</p>
+                     <p className="mb-2">{board.createdAt.toLocaleString()}</p>
+                     <p className="mb-2">{board.updatedAt.toLocaleString()}</p>
                   </div>   
                </Link>
             ))}
