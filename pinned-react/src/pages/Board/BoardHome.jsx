@@ -2,12 +2,13 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
-import { useBoardContext } from "../../context/BoardContext"
-import { setBoardToLocalStorage } from '../../hooks/BoardHooks';
+import { useBoardContext } from "@/context/BoardContext"
+import { setBoardToLocalStorage } from '@/hooks/BoardHooks';
 
 const BoardHome = () => {
   const { id } = useParams();
   const { board, setBoard } = useBoardContext(id);
+  const { error, setError } = useBoardContext(id);
 
   useEffect(() => {
 
@@ -19,8 +20,8 @@ const BoardHome = () => {
           setBoard(response.data)
           setBoardToLocalStorage(response.data);
         })
-        .catch(() => {
-          setBoard(null);
+        .catch((error) => {
+          setError(error.message);
         })
     }
 
@@ -28,7 +29,7 @@ const BoardHome = () => {
 
   return (
       <div>
-        {board ? (
+        {board && (
           <div>
             <Link to={'/'} className=''>Home</Link>
             <h1 className='text-center border w-full border-black bg-actionOrange h-[3rem] relative'>
@@ -40,7 +41,9 @@ const BoardHome = () => {
                 <Link to={"calendar"}>Calendar</Link>        
             </div>
           </div>
-        ) : (
+        )} 
+        
+        {error && (
           <div>
             <h1>Board not found.</h1>
           </div>
