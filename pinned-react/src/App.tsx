@@ -1,3 +1,5 @@
+//  https://clerk.com/docs/references/react/add-react-router
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SignedOut, SignedIn } from "@clerk/clerk-react"
 
