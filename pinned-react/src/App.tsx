@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { SignedOut, SignedIn } from "@clerk/clerk-react"
 import { BoardContextProvider } from '@/context/BoardContext';
 import LandingPage from '@/pages/LandingPage/LandingPage'
 import BoardHome from '@/pages/Board/BoardHome';
@@ -10,6 +10,7 @@ import CalendarPage from "@/pages/Board/CalendarPage";
 const App = () => {
 
   return (
+    
     <BrowserRouter>
       <Routes>
         <Route index element={<LandingPage/>} />
