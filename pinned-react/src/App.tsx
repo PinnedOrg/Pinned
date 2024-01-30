@@ -11,6 +11,8 @@ import GeneralPage from "@/pages/Board/GeneralPage";
 import EventsPage from "@/pages/Board/EventsPage";
 import CalendarPage from "@/pages/Board/CalendarPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import SignUpPage from "./pages/Auth/SignUpPage";
+import SignInPage from "./pages/Auth/SignInPage";
 
 const App = () => {
 
@@ -20,17 +22,17 @@ const App = () => {
   <BrowserRouter>
     <Routes>
       <Route index element={<LandingPage/>} />
+      <Route path="sign-up" element={<SignUpPage/>} />
+      <Route path="sign-in" element={<SignInPage/>} />
 
       <Route 
         path="/board/:id/*" 
         element={
           <BoardContextProvider>
-            <Routes>
-              <Route index element={<BoardHome />} />
-              <Route path="general" element={<GeneralPage />} />
-              <Route path="events" element={<EventsPage />} />
-              <Route path="calendar" element={<CalendarPage />} />
-            </Routes>
+            <Route index element={<BoardHome />} />
+            <Route path="general" element={<GeneralPage />} />
+            <Route path="events" element={<EventsPage />} />
+            <Route path="calendar" element={<CalendarPage />} />
           </BoardContextProvider>
         }>
       </Route>
