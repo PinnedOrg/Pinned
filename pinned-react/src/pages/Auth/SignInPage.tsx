@@ -3,9 +3,9 @@ import { SignIn } from "@clerk/clerk-react"
 
 const SignInPage = () => {
   return (
-    <div>
+    <section className="h-screen flex border bg-actionOrange flex-center justify-center items-center">
         <SignIn />
-    </div>
+    </section>
   )
 }
 

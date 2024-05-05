@@ -36,13 +36,13 @@ const App = () => {
           </BoardContextProvider>
         }>
       </Route>
-      <SignedOut>
+      {/* <SignedOut>
         <p>This content is public. Only signed out users can see this.</p>
-      </SignedOut>
-      <SignedIn>
-        <p>This content is private. Only signed in users can see this.</p>
-        <Route path="dashboard" element={<Dashboard/>}/>
-      </SignedIn>
+      </SignedOut> */}
+
+      <Route path="dashboard" element={
+          <Dashboard/>
+      }/>
     </Routes>
   </BrowserRouter>
   
