@@ -5,7 +5,7 @@ import { BsPersonCircle } from "react-icons/bs";
 const NavBar = () => {
   return (
     <div className="text-center">
-      <header className="flex flex-row justify-between px-10 text-2xl text-white align-middle bg-actionOrange">
+      <header className="flex flex-row justify-between px-10 text-2xl text-white align-middle bg-primary">
         <h1 className="self-center ml-10">Pinned</h1>
         <div className="flex flex-row">
           <div className="flex flex-row gap-1 mr-10">

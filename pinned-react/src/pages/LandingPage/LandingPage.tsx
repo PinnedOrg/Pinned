@@ -6,8 +6,8 @@ const LandingPage = () => {
   
 
   return (
-     <div>
-         <div className="flex items-center w-screen pl-3 bg-gray-100 border-b border-black h-14 text-actionOrange">
+     <section>
+         <div className="flex items-center w-screen pl-3 bg-gray-100 border-b border-black h-14 text-primary">
             <h1 className="text-3xl font-bold">
                   <Link to="/"> Pinned </Link>
             </h1>
@@ -18,7 +18,7 @@ const LandingPage = () => {
             afterSignInUrl='/dashboard'
             redirectUrl='/sign-in'
          >
-            <div className='bg-actionOrange p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
+            <div className='bg-primary p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
                Sign In
             </div>
          </SignInButton>
@@ -26,17 +26,17 @@ const LandingPage = () => {
             afterSignInUrl='/dashboard'
             redirectUrl='/sign-up'
          >
-            <div  className='bg-actionOrange p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
+            <div  className='bg-primary p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
                Sign Up
             </div>
          </SignUpButton>
          {/* <SignOutButton>
-         <div  className='bg-actionOrange p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
+         <div  className='bg-primary p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
                Sign Out
             </div>
          </SignOutButton> */}
          </div>
-     </div>
+     </section>
   );
 };
 

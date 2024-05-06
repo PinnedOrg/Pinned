@@ -21,7 +21,7 @@ const EventPreview = ({event, index}: EventPreviewProps) => {
         }
 
   return (
-    <div className="w-[24rem] h-[24rem] border border-actionOrange" key={index}>
+    <div className="w-[24rem] h-[24rem] border border-primary" key={index}>
         <h1 className="mb-2">{event.title}</h1>
         <p className="mb-2">{event.description}</p>
         <ul className="mb-2">

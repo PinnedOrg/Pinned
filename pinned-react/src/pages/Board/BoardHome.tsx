@@ -32,7 +32,7 @@ const BoardHome = () => {
         {board && (
           <div>
             <Link to={'/'} className=''>Home</Link>
-            <h1 className='text-center border w-full border-black bg-actionOrange h-[3rem] relative'>
+            <h1 className='text-center border w-full border-black bg-primary h-[3rem] relative'>
               {board.name}
             </h1>
             <div className='flex gap-3 text-blue-500 underline'>

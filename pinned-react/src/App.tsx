@@ -1,7 +1,7 @@
 //  https://clerk.com/docs/references/react/add-react-router
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SignedOut, SignedIn } from "@clerk/clerk-react"
+// import { SignedOut, SignedIn } from "@clerk/clerk-react"
 
 import { BoardContextProvider } from '@/context/BoardContext';
 
