@@ -13,6 +13,7 @@ import CalendarPage from "@/pages/Board/CalendarPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import SignUpPage from "./pages/Auth/SignUpPage";
 import SignInPage from "./pages/Auth/SignInPage";
+import Directory from "./pages/Directory/Directory";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
   <BrowserRouter>
     <Routes>
       <Route index element={<LandingPage/>} />
+      <Route path="directory" element={<Directory/>} />
       <Route path="sign-up" element={<SignUpPage/>} />
       <Route path="sign-in" element={<SignInPage/>} />
 

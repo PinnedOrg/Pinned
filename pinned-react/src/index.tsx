@@ -4,6 +4,7 @@ import './index.css';
 import './styles/tailwind.css';
 import App from './App';
 import { ClerkProvider } from '@clerk/clerk-react'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
  
@@ -12,11 +13,14 @@ if (!PUBLISHABLE_KEY) {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const queryClient = new QueryClient(); // React Query client
 
 root.render(
   <React.StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} /* navigate={(to) => ...} */>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </ClerkProvider>
   </React.StrictMode>
 );

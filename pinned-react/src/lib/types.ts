@@ -1,4 +1,4 @@
-export interface BoardInterface {
+export interface IBoard {
     _id: string; //id
     name: string;
     about: string;
@@ -12,9 +12,9 @@ export interface BoardInterface {
     updatedAt: Date;
 }
 
-export type BoardContextType = BoardInterface | null;
+export type BoardContextType = IBoard | null;
 
-export interface EventInterface {
+export interface IEvent {
     _id: string;
     title: string;
     description: string
