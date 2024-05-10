@@ -8,10 +8,17 @@ const LandingPage = () => {
   
    // here we want a big search bar to directly seach for clubs, a button to take them to the directory page, and a sign-in/ sign-up button
   return (
-     <div className='flex flex-center items-center'>
+     <div className='flex flex-center items-center justify-center'>
          
-         <div className='w-[50%] flex flex-center items-center bg-primary'>
-            <Input />
+         <div>
+            <Input className='bg-white'/>
+         </div>
+         <div>
+            <Link to="/directory">
+               <div className='bg-primary p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
+                  Clubs Directory
+               </div>
+            </Link>
          </div>
      </div>
   );
