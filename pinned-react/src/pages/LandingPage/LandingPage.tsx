@@ -1,5 +1,5 @@
 
-import { SignInButton, SignUpButton } from '@clerk/clerk-react';
+import { SignInButton, SignOutButton, SignUpButton } from '@clerk/clerk-react';
 import { Link } from 'react-router-dom'
 import { Input } from "@/components/ui/input"
 
@@ -20,6 +20,8 @@ const LandingPage = () => {
                </div>
             </Link>
          </div>
+         <SignInButton afterSignInUrl='/directory'/>
+         <SignOutButton />
      </div>
   );
 };
