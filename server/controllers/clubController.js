@@ -2,19 +2,24 @@ const Club = require("../models/Club");
 const Event = require("../models/Event")
 const mongoose = require("mongoose");
 
-// get all clubs
-const getAllClubs = async (req, res) => {
-  // fetchs all clubs and sorts results in descending order
-  const clubs = await Club.find({}).sort({ createdAt: -1 }); //find is the criteria to search for (eg. title: "Club 1")
+const getClubPreviewsBasedOnFilters = async (req, res) => {
+    // TODO: change to account for filters, add parameters to find({}). eg: find({ genre: "Music", cost: 0 })
 
-  res.status(200).json(clubs);
-}
-
-const getClubPreviews = async (req, res) => {
-
-    // TODO: change the find criteria to be based on user name or id
     try {
-        const clubPreviews = await Club.find().select("_id name overview createdAt updatedAt").sort({ name: 1 });
+        const clubPreviews = await Club
+                                    .find()
+                                    .select(" _id \
+                                            name \
+                                            overview \
+                                            genre \
+                                            lastActiveTerm \
+                                            lastActiveYear \
+                                            cost \
+                                            email \
+                                            instagram \
+                                            facebook \
+                                            youtube")
+                                    .sort({ name: 1 });
 
         return res.status(200).json(clubPreviews);
     } catch (error) {
@@ -23,8 +28,8 @@ const getClubPreviews = async (req, res) => {
     }
 }
 
-// get a single club
-const getClub = async (req, res) => {
+
+const getClubDetails = async (req, res) => {
     const { id } = req.params;
 
     // checks for valid id
@@ -39,26 +44,29 @@ const getClub = async (req, res) => {
         return res.status(404).json({ error: "Club not found." });
     }
 
-    res.status(200).json(club);
+    return res.status(200).json(club);
+
     // get all of its events as well when opened
     // on a user dashclub or search, show other stuff
 };
 
-// create a club
-const createClub = async (req, res) => {
-    const { name, about, publicStatus, owner, admins, subscribers, location, events } = req.body;
-
-    // add new club to database
+const createNewClub = async (req, res) => {
     try {
         const club = await Club.create({
-            name, 
-            about, 
-            publicStatus, 
-            owner, 
-            admins, 
-            subscribers, 
-            location, 
-            events
+            name: req.body.name,
+            overview: req.body.overview,
+            description: req.body.description,
+            genre: req.body.genre,
+            lastActiveTerm: req.body.lastActiveTerm,
+            lastActiveYear: req.body.lastActiveYear,
+            location: req.body.location,
+            cost: req.body.cost,
+            meetingsFrequency: req.body.meetingsFrequency,
+            email: req.body.email,
+            instagram: req.body.instagram,
+            facebook: req.body.facebook,
+            youtube: req.body.youtube,
+            events: []
         });
         res.status(201).json(club);
     } catch (error) {
@@ -103,7 +111,7 @@ const updateClub = async (req, res) => {
     }
 
     try {
-        const club = await Club.findByIdAndUpdate(id, {...req.body}, { new: true, runValidators: true })
+        const club = await Club.findByIdAndUpdate(id, {...req.body}, { new: true })
 
     // if club id does not exist
     if (!club) {
@@ -123,10 +131,9 @@ const updateClub = async (req, res) => {
 
 //exporting all methods
 module.exports = {
-    getAllClubs,
-    getClubPreviews,
-    getClub,
-    createClub,
+    getClubPreviewsBasedOnFilters,
+    getClubDetails,
+    createNewClub,
     deleteClub,
     updateClub,
 }

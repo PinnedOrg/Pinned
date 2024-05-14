@@ -20,7 +20,11 @@ const clubSchema = new mongoose.Schema(
         required: [true, "Missing club genre."]
     },
     lastActiveTerm: {
-        type: number, // five digits number: first 4 digits = year, last digit = term (O: Winter, 1: Spring, 2: Fall). eg. 20213
+        type: Number, // O: Winter, 1: Spring, 2: Fall
+        required: true
+    },
+    lastActiveYear: {
+        type: Number,
         required: true
     },
     location: {
@@ -28,7 +32,7 @@ const clubSchema = new mongoose.Schema(
         required: false
     },
     cost: {
-        type: number,
+        type: Number,
         default: 0,
         min: 0
     },

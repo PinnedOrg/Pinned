@@ -1,4 +1,4 @@
-import { IBoard } from "@/lib/types";
+import { IClub } from "@/lib/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -31,11 +31,11 @@ const Directory = () => {
 
   return (
     <div>
-      {data?.data.map((club: IBoard) => {
+      {data?.data.map((club: IClub) => {
         return (
           <div>
             <h1>{club.name}</h1>
-            <p>{club.about}</p>
+            <p>{club.overview}</p>
           </div>
         )
       })}

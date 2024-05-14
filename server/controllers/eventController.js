@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Event = require("../models/Event");
-const Board = require("../models/Board");
+const Club = require("../models/Club");
 
 // get all events
 const getAllEvents = async (req, res) => {
@@ -10,34 +10,34 @@ const getAllEvents = async (req, res) => {
   res.status(200).json(events);
 };
 
-// get all the events associated with this board
-const getBoardEventPreviews = async (req, res) => {
+// get all the events associated with this club
+const getClubEventPreviews = async (req, res) => {
   const { id } = req.params;
 
-  // if board id is invalid
+  // if club id is invalid
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "Board not found." });
+    return res.status(404).json({ error: "Club not found." });
   }
 
   try {
-    // Find the board based on the provided ID
-    const board = await Board.findById(id);
+    // Find the club based on the provided ID
+    const club = await Club.findById(id);
 
-    if (!board) {
-      return res.status(404).json({ error: "Board not found." });
+    if (!club) {
+      return res.status(404).json({ error: "Club not found." });
     }
     
-    // Find the board based on the provided ID
-    const events = await Event.find({ belongsToBoard: id }).select("_id title description tags preview createdAt updatedAt").sort({ createdAt: -1 });
+    // Find the club based on the provided ID
+    const events = await Event.find({ belongsToClub: id }).select("_id title description tags preview createdAt updatedAt").sort({ createdAt: -1 });
 
     return res.status(200).json(events);
   } catch (error) {
-    console.error("Error retrieving board events: ", error);
+    console.error("Error retrieving club events: ", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 
   // get entire object
-  //const events = await Event.aggregate([{ $match: { belongsToBoard: new mongoose.Types.ObjectId(id) }}]);
+  //const events = await Event.aggregate([{ $match: { belongsToClub: new mongoose.Types.ObjectId(id) }}]);
 };
 
 // get a single event
@@ -70,13 +70,13 @@ const createEvent = async (req, res) => {
     date,
     time,
     location,
-    belongsToBoard,
+    belongsToClub,
   } = req.body;
 
-  // checks if the board id is valid
-  if (!mongoose.Types.ObjectId.isValid(belongsToBoard)) {return res.status(404).json({ error: "Board not found." });}
-  const board = await Board.findById(belongsToBoard);
-  if (!board) {return res.status(404).json({ error: "Board not found." });}
+  // checks if the club id is valid
+  if (!mongoose.Types.ObjectId.isValid(belongsToClub)) {return res.status(404).json({ error: "Club not found." });}
+  const club = await Club.findById(belongsToClub);
+  if (!club) {return res.status(404).json({ error: "Club not found." });}
 
   let event;
   // add to database
@@ -92,7 +92,7 @@ const createEvent = async (req, res) => {
       date,
       time,
       location,
-      belongsToBoard,
+      belongsToClub,
       preview: {
         data: previewBuffer,
         extension: extension
@@ -105,8 +105,8 @@ const createEvent = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 
-  // add event to board
-  if (event) {await Board.findByIdAndUpdate(belongsToBoard,{ $push: { events: event._id } },{ new: true });}
+  // add event to club
+  if (event) {await Club.findByIdAndUpdate(belongsToClub,{ $push: { events: event._id } },{ new: true });}
 };
 
 // delete an event
@@ -127,8 +127,8 @@ const deleteEvent = async (req, res) => {
     return res.status(404).json({ error: "Event not found." });
   }
 
-  // remove the event from the board
-  await Board.findByIdAndUpdate(event.belongsToBoard, { $pull: { events: event._id } }, { new: true });
+  // remove the event from the club
+  await Club.findByIdAndUpdate(event.belongsToClub, { $pull: { events: event._id } }, { new: true });
 
   res.status(200).json(event);
 };
@@ -136,7 +136,7 @@ const deleteEvent = async (req, res) => {
 // update an event
 const updateEvent = async (req, res) => {
   // fetchs a single event based on id
-  const { id, belongsToBoard } = req.params;
+  const { id, belongsToClub } = req.params;
 
   // if event id is invalid
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -163,7 +163,7 @@ const updateEvent = async (req, res) => {
 // exporting all methods
 module.exports = {
   getAllEvents,
-  getBoardEventPreviews,
+  getClubEventPreviews,
   getEvent,
   createEvent,
   deleteEvent,

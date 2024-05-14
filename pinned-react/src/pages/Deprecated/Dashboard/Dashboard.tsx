@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import axios from "axios";
-import { BoardInterface } from "@/lib/types";
+import { IBoard } from "@/lib/types";
 import { UserButton } from "@clerk/clerk-react";
 
 const Dashboard = () => {
-  const [boards, setBoards] = useState<Array<BoardInterface>>([]);
+  const [boards, setBoards] = useState<Array<IBoard>>([]);
 
   useEffect(() => {
    axios.get("http://localhost:8080/api/boards/previews")

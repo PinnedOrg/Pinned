@@ -2,10 +2,10 @@
 import axios from 'axios';
 
 import PreviewImage from '../../Image/PreviewImage';
-import { EventInterface } from '@/lib/types';
+import { IEvent } from '@/lib/types';
 
 type EventPreviewProps = {
-    event: EventInterface,
+    event: IEvent,
     index: number
 }
 
@@ -25,7 +25,7 @@ const EventPreview = ({event, index}: EventPreviewProps) => {
         <h1 className="mb-2">{event.title}</h1>
         <p className="mb-2">{event.description}</p>
         <ul className="mb-2">
-            {event.tags.map((tag, i) => (
+            {event.tags.map((tag: string, i: number) => (
                 <li key={i}>{tag}</li>
             ))}
         </ul>

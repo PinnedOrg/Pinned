@@ -1,18 +1,22 @@
-export interface IBoard {
+export interface IClub {
     _id: string; //id
-    name: string;
-    about: string;
-    publicStatus: boolean;
-    owner: string; //id
-    admins: string[]; //id
-    subscribers: string[]; //id
-    location: string;
-    events: string[];
-    createdAt: Date;
-    updatedAt: Date;
+    name: string
+    overview: string
+    description: string
+    genre: string
+    lastActiveTerm: number
+    lastActiveYear: number
+    location: string
+    cost: number
+    meetingsFrequency: string
+    email: string
+    instagram: string
+    facebook: string
+    youtube: string
+    events: string[]
 }
 
-export type BoardContextType = IBoard | null;
+export type ClubContextType = IClub | null;
 
 export interface IEvent {
     _id: string;
@@ -24,7 +28,7 @@ export interface IEvent {
     time: string;
     location: string
     preview: Buffer
-    belongsToBoard: string; //id
+    belongsToClub: string; //id
     createdAt: Date;
     updatedAt: Date;
 }
