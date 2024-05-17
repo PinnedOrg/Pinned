@@ -24,4 +24,3 @@ root.render(
     </ClerkProvider>
   </React.StrictMode>
 );
-
