@@ -2,19 +2,27 @@ const Club = require("../models/Club");
 const Event = require("../models/Event")
 const mongoose = require("mongoose");
 
+// might need to look at warpping all functions with express async handler. Re, ChatTime
+
 const getClubPreviewsBasedOnFilters = async (req, res) => {
-    // TODO: change to account for filters, add parameters to find({}). eg: find({ genre: "Music", cost: 0 })
+    const { genre, isActive, cost } = req.query;
+    // TODO: name to search by name
+
+    // ensure that the query parameters are not undefined or null before adding them to the query
+    let query = {};
+    if (genre) query.genre = genre;
+    if (isActive) query.isActive = isActive;
+    if (cost) query.cost = cost;
 
     try {
         const clubPreviewsList = await Club
-                                    .find()
+                                    .find(query) // filters for clubs based on query parameters
                                     .select(" _id \
                                             name \
                                             overview \
                                             genre \
-                                            lastActiveTerm \
-                                            lastActiveYear \
-                                            cost")
+                                            isActive \
+                                            cost")  // only select these fields to return
                                     .sort({ name: 1 });
 
         return res.status(200).json(clubPreviewsList);
@@ -52,13 +60,13 @@ const createNewClub = async (req, res) => {
             overview: req.body.overview,
             description: req.body.description,
             genre: req.body.genre,
-            lastActiveTerm: req.body.lastActiveTerm,
-            lastActiveYear: req.body.lastActiveYear,
+            isActive: req.body.isActive,
             location: req.body.location,
             cost: req.body.cost,
             meetingsFrequency: req.body.meetingsFrequency,
             email: req.body.email,
             instagram: req.body.instagram,
+            discord: req.body.discord,
             facebook: req.body.facebook,
             youtube: req.body.youtube,
             events: []
@@ -92,9 +100,6 @@ const deleteClub = async (req, res) => {
     res.status(200).json(club);
 };
 
-// update a club
-
-// updating admins, events, and subscribers will require seperate functions
 const updateClub = async (req, res) => {
     // fetchs a single club based on id
     const { id } = req.params;
