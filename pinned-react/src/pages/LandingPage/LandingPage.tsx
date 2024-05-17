@@ -1,26 +1,42 @@
-
 import { SignInButton, SignOutButton, SignUpButton } from '@clerk/clerk-react';
 import { Link } from 'react-router-dom'
 import { Input } from "@/components/ui/input"
 
+/* ui components */
+import {
+   NavigationMenu,
+   NavigationMenuContent,
+   NavigationMenuIndicator,
+   NavigationMenuItem,
+   NavigationMenuLink,
+   NavigationMenuList,
+   NavigationMenuTrigger,
+   NavigationMenuViewport,
+ } from "@/components/ui/navigation-menu"
+
+import { Button } from "@/components/ui/button"
 
 const LandingPage = () => {
   
    // here we want a big search bar to directly seach for clubs, a button to take them to the directory page, and a sign-in/ sign-up button
   return (
      <div className='flex flex-center items-center justify-center'>
-         
          <div>
             <Input className='bg-white'/>
          </div>
-         <div>
+         <div> 
             <Link to="/directory">
                <div className='bg-primary p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
-                  Clubs Directory
+                  Club Hub
                </div>
             </Link>
          </div>
-         <SignInButton afterSignInUrl='/directory' mode='modal'/>
+         <Button>
+            <Link to="/directory">
+               Sign In
+            </Link>
+         </Button>
+         <SignInButton afterSignInUrl='/directory'/>
          <SignOutButton />
      </div>
   );

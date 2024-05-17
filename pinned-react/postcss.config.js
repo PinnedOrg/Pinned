@@ -1,6 +1,19 @@
+require('ts-node').register({ 
+  compilerOptions: { 
+    module: 'commonjs' 
+  } 
+})
+
 module.exports = {
-  plugins: [
-    require('tailwindcss'),
-    require('autoprefixer'),
-  ],
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
 };
+
+// module.exports = {
+//   plugins: [
+//     require('tailwindcss'),
+//     require('autoprefixer'),
+//   ],
+// };
