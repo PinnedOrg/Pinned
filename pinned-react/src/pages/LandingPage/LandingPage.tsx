@@ -20,7 +20,7 @@ const LandingPage = () => {
                </div>
             </Link>
          </div>
-         <SignInButton afterSignInUrl='/directory'/>
+         <SignInButton afterSignInUrl='/directory' mode='modal'/>
          <SignOutButton />
      </div>
   );

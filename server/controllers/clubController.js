@@ -6,7 +6,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
     // TODO: change to account for filters, add parameters to find({}). eg: find({ genre: "Music", cost: 0 })
 
     try {
-        const clubPreviews = await Club
+        const clubPreviewsList = await Club
                                     .find()
                                     .select(" _id \
                                             name \
@@ -14,20 +14,15 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                                             genre \
                                             lastActiveTerm \
                                             lastActiveYear \
-                                            cost \
-                                            email \
-                                            instagram \
-                                            facebook \
-                                            youtube")
+                                            cost")
                                     .sort({ name: 1 });
 
-        return res.status(200).json(clubPreviews);
+        return res.status(200).json(clubPreviewsList);
     } catch (error) {
         console.error("Error retrieving club previews: ", error);
         return res.status(500).json({ error: "Internal Server Error" });
     }
 }
-
 
 const getClubDetails = async (req, res) => {
     const { id } = req.params;
@@ -74,7 +69,6 @@ const createNewClub = async (req, res) => {
     }
 };
 
-// delete a club
 const deleteClub = async (req, res) => {
     //fetchs a single club based on id
     const { id } = req.params;

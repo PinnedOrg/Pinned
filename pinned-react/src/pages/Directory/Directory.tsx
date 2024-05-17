@@ -10,7 +10,7 @@ type FiltersType = {
 }
 
 const FetchBoards = () => {
-  return axios.get("http://localhost:8080/api/boards")
+  return axios.get("http://localhost:8080/api/clubs")
 }
 
 const Directory = () => {
