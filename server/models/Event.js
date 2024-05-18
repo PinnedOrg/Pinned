@@ -39,11 +39,11 @@ const eventSchema = new mongoose.Schema(
       data: Buffer,
       extension: String
     },
-    belongsToBoard: {
+    belongsToClub: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      immutable: [true, "Can not modify the board this event belongs to."],
-      ref: "Board"
+      immutable: [true, "Can not modify the club this event belongs to."],
+      ref: "Club"
     },
   },
   {

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import axios from "axios";
-import { BoardInterface } from "@/lib/types";
+import { IBoard } from "@/lib/types";
 import { UserButton } from "@clerk/clerk-react";
 
 const Dashboard = () => {
-  const [boards, setBoards] = useState<Array<BoardInterface>>([]);
+  const [boards, setBoards] = useState<Array<IBoard>>([]);
 
   useEffect(() => {
    axios.get("http://localhost:8080/api/boards/previews")
@@ -24,7 +24,7 @@ const Dashboard = () => {
          {boards.length > 0 && <div className="flex gap-3 mt-5 ml-5">
             {boards.map((board, index) => (
                <Link to={`/board/${board._id}`} key={index}>
-                  <div className="w-[24rem] h-[24rem] border border-actionOrange" >
+                  <div className="w-[24rem] h-[24rem] border border-primary" >
                      <h1 className="mb-2">{board.name}</h1>
                      <p className="mb-2">{board.about}</p>
                      <h2 className="mb-2">{"Owner: " + board.owner}</h2>

@@ -6,7 +6,7 @@ const { preview, handleUploadError } = require('../helpers/fileHelper')
 // Import controllers
 const {
   getAllEvents,
-  getBoardEventPreviews,
+  getClubEventPreviews,
   getEvent,
   createEvent,
   deleteEvent,
@@ -15,7 +15,7 @@ const {
 
 // API routes for Event Controller
 router.get("/", getAllEvents); // get all events
-router.get("/of-board/:id", getBoardEventPreviews); // get all events for a board based on its id
+router.get("/of-club/:id", getClubEventPreviews); // get all events for a club based on its id
 router.get("/:id", getEvent); // get a single event
 router.post("/", preview.single('preview'), handleUploadError, createEvent); // create a new event
 router.delete("/:id", deleteEvent); // delete an existing event

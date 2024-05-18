@@ -5,12 +5,12 @@ import axios from 'axios';
 import { useBoardContext } from '../../context/BoardContext';
 import NewEventSystem from '../../components/board/event system/NewEventSystem';
 import EventPreview from '../../components/board/event/EventPreview';
-import { EventInterface } from '@/lib/types';
+import { IEvent } from '@/lib/types';
 
 
 const EventsPage = () => {
   const { id } = useParams()
-  const [events, setEvents] = useState<Array<EventInterface>>([]);
+  const [events, setEvents] = useState<Array<IEvent>>([]);
   const { board } = useBoardContext(id);
 
    useEffect(() => {
