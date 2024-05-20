@@ -9,7 +9,7 @@ import LandingPage from '@/pages/LandingPage/LandingPage'
 import SignUpPage from "@/pages/Auth/SignUpPage";
 import SignInPage from "@/pages/Auth/SignInPage";
 import ClubHub from "@/pages/ClubHub/ClubHub";
-import Layout from "@/pages/Shared/Layout";
+import Layout from "@/components/shared/Layout";
 
 import { routes } from "@/routes/routes";
 
