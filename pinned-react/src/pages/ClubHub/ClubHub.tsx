@@ -13,7 +13,7 @@ const FetchBoards = () => {
   return axios.get("http://localhost:8080/api/clubs")
 }
 
-const Directory = () => {
+const ClubHub = () => {
   //const queryClient = useQueryClient();
 
   // fetch boards from database
@@ -43,4 +43,4 @@ const Directory = () => {
   )
 }
 
-export default Directory;
+export default ClubHub;

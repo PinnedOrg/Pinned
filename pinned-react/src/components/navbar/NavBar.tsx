@@ -1,40 +1,27 @@
-import { LuFilter } from "react-icons/lu";
-import { BiSearchAlt } from "react-icons/bi";
-import { BsPersonCircle } from "react-icons/bs";
+import { Link } from "react-router-dom";
+
+import { routes } from "@/routes/routes";
+// import { UserProfile } from "@clerk/clerk-react";
 
 const NavBar = () => {
   return (
-    <div className="text-center">
-      <header className="flex flex-row justify-between px-10 text-2xl text-white align-middle bg-primary">
-        <h1 className="self-center ml-10">Pinned</h1>
-        <div className="flex flex-row">
-          <div className="flex flex-row gap-1 mr-10">
-            <div
-              id="search_input"
-              className="m-2 text-white rounded-full bg-slate-600"
-            >
-              <input
-                type="search"
-                placeholder="Search"
-                className="px-5 py-2 text-sm text-white placeholder-white border-2 border-white rounded-full bg-slate-600"
-              />
-            </div>
-            <button
-              type="button"
-              className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2"
-            >
-              <BiSearchAlt />
-            </button>
-          </div>
-          <h1 className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2">
-            <LuFilter />
-          </h1>
-          <div className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2">
-            <BsPersonCircle />
-          </div>
+    <header className="h-[4rem] w-100% py-3 px-9 flex shadow-sm shadow-primary justify-between items-center">
+      <Link to={routes.Home} className="flex gap-[0.35rem]">
+        <h1 className="text-black font-semibold uppercase text-3xl">UW</h1>
+        <h1 className="text-primary font-bold uppercase text-3xl">Pinned</h1>
+      </Link>
+
+      <nav className="inline-flex gap-10 ">
+        <div className="flex gap-6 items-center">
+          <Link to={routes.ClubHub} className="text-black rounded-md px-3 py-2 font-medium uppercase hover:bg-black/10  ">
+            Club Hub
+          </Link>
         </div>
-      </header>
-    </div>
+        <Link to={routes.SignIn} className="text-white bg-primary rounded-md px-3 py-2 font-semibold uppercase hover:bg-primary-hover">
+          Sign In
+        </Link>
+      </nav>
+    </header>
   );
 };
 
