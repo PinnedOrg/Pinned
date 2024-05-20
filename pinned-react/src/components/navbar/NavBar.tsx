@@ -1,40 +1,41 @@
-import { LuFilter } from "react-icons/lu";
-import { BiSearchAlt } from "react-icons/bi";
-import { BsPersonCircle } from "react-icons/bs";
+import { Link } from "react-router-dom";
+
+import { routes } from "@/routes/routes";
+import ViewportWrapper from "../shared/ViewportWrapper";
+import { Button } from "../ui/button";
+// import { UserProfile } from "@clerk/clerk-react";
+
+const LinkStyles = "px-3 py-2 font-medium uppercase "; // ending space is important for tailwindcss to work properly
 
 const NavBar = () => {
   return (
-    <div className="text-center">
-      <header className="flex flex-row justify-between px-10 text-2xl text-white align-middle bg-primary">
-        <h1 className="self-center ml-10">Pinned</h1>
-        <div className="flex flex-row">
-          <div className="flex flex-row gap-1 mr-10">
-            <div
-              id="search_input"
-              className="m-2 text-white rounded-full bg-slate-600"
-            >
-              <input
-                type="search"
-                placeholder="Search"
-                className="px-5 py-2 text-sm text-white placeholder-white border-2 border-white rounded-full bg-slate-600"
-              />
-            </div>
-            <button
-              type="button"
-              className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2"
-            >
-              <BiSearchAlt />
-            </button>
-          </div>
-          <h1 className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2">
-            <LuFilter />
-          </h1>
-          <div className="p-3 m-auto text-2xl duration-150 border-none rounded-full text-slate-600 bg-none hover:text-white hover:bg-slate-600 hover:border-2">
-            <BsPersonCircle />
-          </div>
+    <header className="h-[4rem] w-100% py-3 px-9 flex shadow-sm shadow-primary justify-center sm:justify-between items-center">
+      <ViewportWrapper breakpoint="large">
+        <Link to={routes.Home} className="flex gap-[0.35rem] items-center">
+          <h1 className="text-black font-semibold uppercase text-2xl">UW</h1>
+          <h1 className="text-primary font-bold uppercase text-3xl">Pinned</h1>
+        </Link>
+      </ViewportWrapper>
+      {/* <ViewportWrapper breakpoint="mobile">
+        <Link to={routes.Home} className="">
+          <img src="@/public/images/PinnedAppLogo.png" alt="Pinned Logo" />
+        </Link>
+      </ViewportWrapper> */}
+
+      <nav className="inline-flex gap-12 ">
+        <div className="flex gap-2 items-center">
+          <Button variant={'ghost'} className={LinkStyles}>
+            <Link to={routes.ClubHub} >Club Hub</Link>
+          </Button>
+          <Button variant={'ghost'} className={LinkStyles}>
+            <Link to={routes.Register} >Register</Link>
+          </Button>
         </div>
-      </header>
-    </div>
+        <Button className={LinkStyles + "text-white font-semibold hover:bg-primary-hover"}>
+          <Link to={routes.SignIn} >Sign In</Link>
+        </Button>
+      </nav>
+    </header>
   );
 };
 
