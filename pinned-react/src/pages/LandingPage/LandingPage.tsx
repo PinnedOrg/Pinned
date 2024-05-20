@@ -1,42 +1,32 @@
-import { SignInButton, SignOutButton, SignUpButton } from '@clerk/clerk-react';
+import { SignInButton, SignOutButton } from '@clerk/clerk-react';
 import { Link } from 'react-router-dom'
+
 import { Input } from "@/components/ui/input"
-
-/* ui components */
-import {
-   NavigationMenu,
-   NavigationMenuContent,
-   NavigationMenuIndicator,
-   NavigationMenuItem,
-   NavigationMenuLink,
-   NavigationMenuList,
-   NavigationMenuTrigger,
-   NavigationMenuViewport,
- } from "@/components/ui/navigation-menu"
-
 import { Button } from "@/components/ui/button"
+
+import { routes } from '@/routes/routes';
 
 const LandingPage = () => {
   
-   // here we want a big search bar to directly seach for clubs, a button to take them to the directory page, and a sign-in/ sign-up button
+   // here we want a big search bar to directly seach for clubs, a button to take them to the ClubHub page, and a sign-in/ sign-up button
   return (
      <div className='flex flex-center items-center justify-center'>
          <div>
             <Input className='bg-white'/>
          </div>
          <div> 
-            <Link to="/directory">
-               <div className='bg-primary p-2 text-white font-semibold text-xl rounded-lg hover:cursor-pointer'>
+            <Link to={routes.ClubHub}>
+               <div className='bg-primary p-2 text-black font-semibold text-xl rounded-lg hover:cursor-pointer'>
                   Club Hub
                </div>
             </Link>
          </div>
          <Button>
-            <Link to="/directory">
+            <Link to={routes.SignIn}>
                Sign In
             </Link>
          </Button>
-         <SignInButton afterSignInUrl='/directory' mode='modal'/>
+         <SignInButton afterSignInUrl={routes.ClubHub} mode='modal'/>
          <SignOutButton />
      </div>
   );

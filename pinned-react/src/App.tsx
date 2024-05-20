@@ -3,17 +3,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { SignedOut, SignedIn } from "@clerk/clerk-react"
 
-import { BoardContextProvider } from '@/context/BoardContext';
+// import { BoardContextProvider } from '@/context/BoardContext';
 
 import LandingPage from '@/pages/LandingPage/LandingPage'
-// import BoardHome from '@/pages/Board/BoardHome';
-// import GeneralPage from "@/pages/Board/GeneralPage";
-// import EventsPage from "@/pages/Board/EventsPage";
-// import CalendarPage from "@/pages/Board/CalendarPage";
-// import Dashboard from "./pages/Dashboard/Dashboard";
-import SignUpPage from "./pages/Auth/SignUpPage";
-import SignInPage from "./pages/Auth/SignInPage";
-import Directory from "./pages/Directory/Directory";
+import SignUpPage from "@/pages/Auth/SignUpPage";
+import SignInPage from "@/pages/Auth/SignInPage";
+import ClubHub from "@/pages/ClubHub/ClubHub";
+import Layout from "@/pages/Shared/Layout";
+
+import { routes } from "@/routes/routes";
 
 const App = () => {
 
@@ -22,10 +20,12 @@ const App = () => {
 
   <BrowserRouter>
     <Routes>
-      <Route index element={<LandingPage/>} />
-      <Route path="directory" element={<Directory/>} />
-      <Route path="sign-up" element={<SignUpPage/>} />
-      <Route path="sign-in" element={<SignInPage/>} />
+      <Route index element={ <LandingPage/> } />
+      <Route path={routes.ClubHub} element={ <Layout>
+                                        <ClubHub/>
+                                      </Layout> } />
+      <Route path={routes.SignUp} element={ <SignUpPage/> } />
+      <Route path={routes.SignIn} element={ <SignInPage/> } />
 
       {/* <Route 
         path="/board/:id/*" 
