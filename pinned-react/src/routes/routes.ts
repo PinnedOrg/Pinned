@@ -5,4 +5,5 @@ export const routes = {
     Club: "/club",
     SignIn: "/sign-in",
     SignUp: "/sign-up",
+    Register: "/register",
 }
