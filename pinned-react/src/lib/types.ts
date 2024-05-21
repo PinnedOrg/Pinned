@@ -10,6 +10,7 @@ export interface IClub {
     cost: number
     meetingsFrequency: string
     email: string
+    discord: string
     instagram: string
     facebook: string
     youtube: string

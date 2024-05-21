@@ -13,8 +13,10 @@
       --popover: 0 0% 100%;
       --popover-foreground: 222.2 84% 4.9%;
 
-      --primary: #fd7d62;
-      --primary-hover: #ef755c;
+      /* --primary: #fd7d62; */
+      --primary: #60c322;
+      --primary-hover: #59b81e;
+      /* --primary-hover: #ef755c; */
       --primary-foreground: 210 40% 98%;
 
       --secondary: 210 40% 96.1%;

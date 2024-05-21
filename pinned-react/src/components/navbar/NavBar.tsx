@@ -5,11 +5,11 @@ import ViewportWrapper from "../shared/ViewportWrapper";
 import { Button } from "../ui/button";
 // import { UserProfile } from "@clerk/clerk-react";
 
-const LinkStyles = "px-3 py-2 font-medium uppercase "; // ending space is important for tailwindcss to work properly
+const LinkStyles = "px-3 py-2 font-medium text-sm uppercase tracking-wide"; // ending space is important for tailwindcss to work properly
 
 const NavBar = () => {
   return (
-    <header className="h-[4rem] w-100% py-3 px-9 flex shadow-sm shadow-primary justify-center sm:justify-between items-center">
+    <header className="h-[4.5rem] w-100% py-3 px-9 flex shadow-sm shadow-primary justify-center sm:justify-between items-center z-10 mb-1">
       <ViewportWrapper breakpoint="large">
         <Link to={routes.Home} className="flex gap-[0.35rem] items-center">
           <h1 className="text-black font-semibold uppercase text-2xl">UW</h1>

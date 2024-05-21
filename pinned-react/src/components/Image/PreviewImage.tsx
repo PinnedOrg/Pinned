@@ -1,4 +1,3 @@
-import React from 'react'
 import { Buffer } from 'buffer';
 
 const PreviewImage = ({ preview }) => {

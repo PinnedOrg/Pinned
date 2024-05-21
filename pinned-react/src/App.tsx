@@ -22,8 +22,8 @@ const App = () => {
     <Routes>
       <Route index element={ <LandingPage/> } />
       <Route path={routes.ClubHub} element={ <Layout>
-                                        <ClubHub/>
-                                      </Layout> } />
+                                              <ClubHub/>
+                                             </Layout> } />
       <Route path={routes.SignUp} element={ <SignUpPage/> } />
       <Route path={routes.SignIn} element={ <SignInPage/> } />
 
