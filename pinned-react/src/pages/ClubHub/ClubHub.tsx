@@ -110,7 +110,7 @@ const ClubHub = () => {
         <h1 className="font-bold text-5xl tracking-wide text-gray-800 mb-5">
           The Club Hub{/*<span className="bg-primary py-1 px-2 rounded-lg">Hub</span>*/}
         </h1>
-        <p>Find all the clubs and organizations UWaterloo has to offer!</p>
+        <p className="text-lg text-gray-500">Find all the clubs and organizations UWaterloo has to offer!</p>
       </div>
 
       <section className="my-10 mx-20 flex flex-wrap justify-center bg-gray-300 p-4 rounded-md space-y-4">
