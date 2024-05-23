@@ -20,6 +20,11 @@ const LandingPage = () => {
                   Club Hub
                </div>
             </Link>
+            <Link to={routes.Test}>
+               <div className='bg-primary p-2 text-black font-semibold text-xl rounded-lg hover:cursor-pointer'>
+                  Test
+               </div>
+            </Link>
          </div>
          <Button>
             <Link to={routes.SignIn}>

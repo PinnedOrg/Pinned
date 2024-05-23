@@ -1,6 +1,13 @@
 import { Buffer } from 'buffer';
 
-const PreviewImage = ({ preview }) => {
+interface Preview {
+  data: {
+    data: Buffer;
+  };
+  extension: string;
+}
+
+const PreviewImage: React.FC<{ preview: Preview }> = ({ preview }) => {
 
     if (preview.data == null) {
       console.error('No image data provided.');
