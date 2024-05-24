@@ -5,24 +5,32 @@ const mongoose = require("mongoose");
 // might need to look at warpping all functions with express async handler. Re, ChatTime
 
 const getClubPreviewsBasedOnFilters = async (req, res) => {
-    const { genre, isActive, cost } = req.query;
-    // TODO: name to search by name
+    const { name, genre, cost, size } = req.query;
 
-    // ensure that the query parameters are not undefined or null before adding them to the query
-    let query = {};
-    if (genre) query.genre = genre;
-    if (isActive) query.isActive = isActive;
-    if (cost) query.cost = cost;
+     // searches for either name or email to match searched name, "i" = case insensitive
+     const searchedName = name ? {
+        $or: [ 
+            { name: { $regex: name, $options: "i" } },
+            // add parameters fields to search for here
+        ]
+    } : {};
+
+    // ensure that the filters parameters are not undefined or null before adding them to the filters object
+    let filters = {};
+    if (genre) filters.genre = genre;
+    if (cost >= 0) filters.cost = cost;
+    if (size >= 0) filters.size = size;
 
     try {
         const clubPreviewsList = await Club
-                                    .find(query) // filters for clubs based on query parameters
+                                    .find(searchedName) // filters for clubs based on matching name
+                                    .find(filters) // filters for clubs based on query parameters
                                     .select(" _id \
                                             name \
                                             overview \
                                             genre \
-                                            isActive \
-                                            cost")  // only select these fields to return
+                                            cost \
+                                            size")  // only select these fields to return
                                     .sort({ name: 1 });
 
         return res.status(200).json(clubPreviewsList);
@@ -60,7 +68,6 @@ const createNewClub = async (req, res) => {
             overview: req.body.overview,
             description: req.body.description,
             genre: req.body.genre,
-            isActive: req.body.isActive,
             location: req.body.location,
             cost: req.body.cost,
             meetingsFrequency: req.body.meetingsFrequency,

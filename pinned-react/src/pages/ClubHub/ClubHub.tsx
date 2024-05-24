@@ -1,5 +1,7 @@
 "use client";
 
+// TODO: link to backend, and name searching, reset filters, and error handling
+
 import { Input } from "@/components/ui/input";
 import { IClub } from "@/lib/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -22,15 +24,18 @@ import {
 import { Button } from "@/components/ui/button";
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import { Search, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ClubPreviewCard from "@/components/clubs/ClubPreviewCard";
+import ClubLoadingPlaceholder from "@/components/clubs/ClubLoadingPlaceholder";
 
 
 type FiltersType = {
+  name: string
   genre: string,
-  isActive: boolean,
+  cost: number,
   size: number,
-  cost: number
 }
+
 
 const filters: Record<string, Record<string, string>> = {
   "Genre": {
@@ -63,14 +68,15 @@ const filters: Record<string, Record<string, string>> = {
   }
 }
 
-const FetchClubs = () => {
-  return axios.get("http://localhost:8080/api/clubs")
+const FetchClubs = ({ name, genre, cost, size}: FiltersType) => {
+  return axios.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
 }
 
 const ClubHub = () => {
+  const [name, setName] = useState<string>("");
   const [genre, setGenre] = useState<string>("");
-  const [cost, setCost] = useState<number>(0);
-  const [size, setSize] = useState<number>(0);
+  const [cost, setCost] = useState<number>(-1);
+  const [size, setSize] = useState<number>(-1);
   const [isCollapsibleOpen, setIsCollapsibleOpen] = useState<boolean>(false);
   //const queryClient = useQueryClient();
 
@@ -92,32 +98,28 @@ const ClubHub = () => {
   }
 
   // fetch clubs from database
-  const {isPending, isError, data, error } = useQuery({
-    queryKey: ["Clubs"],
-    queryFn: FetchClubs
-  })
-
-  if (isPending) {
-    // return ( <h1>Loading...</h1>)
-  }  
-  // if (isError) {
-  //   return ( <h1>{error.message}</h1>)
-  // }
+  const {isFetching, isError, data, error } = useQuery({
+    queryKey: ["Clubs", name, genre, cost, size], // query refreshes when any of these values change
+    queryFn: () => FetchClubs({name, genre, cost, size}),
+  });
 
   return (
-    <section className="w-full h-screen p-4 bg-gray-50">
-      <div className="mt-4 text-center">
+    <section className="w-full h-screen py-4 px-16 bg-gray-50">
+      <div className="mt-10 text-center">
         <h1 className="font-bold text-5xl tracking-wide text-gray-800 mb-5">
           The Club Hub{/*<span className="bg-primary py-1 px-2 rounded-lg">Hub</span>*/}
         </h1>
         <p className="text-lg text-gray-500">Find all the clubs and organizations UWaterloo has to offer!</p>
       </div>
 
-      <section className="my-10 mx-20 flex flex-wrap justify-center bg-gray-300 p-4 rounded-md space-y-4">
-        <div className="flex w-full justify-center items-center space-x-2">
+      <section className="my-10 flex flex-wrap justify-center bg-gray-300 p-4 rounded-md space-y-4">
+        <div className="flex w-full justify-center items-center space-x-2" >
           <Input
-            className="w-[60%] bg-white border-2  px-5"
+            className="w-[75%] bg-white border-2  px-5"
             placeholder="Search for a club"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
           />
           <Button type="submit" className="hover:bg-primary-hover">
             <ViewportWrapper breakpoint="large">
@@ -135,7 +137,7 @@ const ClubHub = () => {
             onClick={() => setIsCollapsibleOpen(!isCollapsibleOpen)}
           >
           {/* " ▼" : " ▲"  */}
-            Additional Filters { isCollapsibleOpen ?  <ChevronDown /> : <ChevronUp /> }
+            Additional Filters { isCollapsibleOpen ?  <ChevronUp /> : <ChevronDown /> }
           </CollapsibleTrigger>
           <CollapsibleContent>
             <div className="w-[100%] h-1 border-2 border-solid border-primary rounded-full mt-1 mb-2"></div>
@@ -159,8 +161,20 @@ const ClubHub = () => {
             </div>
           </CollapsibleContent>
         </Collapsible>
+      </section>
 
-
+      <section className="mt-10 flex flex-wrap min-h-[30rem] justify-start bg-gray-100 p-4 rounded-md gap-10">
+        {isFetching && 
+          <div className="flex gap-10">
+            <ClubLoadingPlaceholder />
+            <ClubLoadingPlaceholder />
+            <ClubLoadingPlaceholder />
+          </div>
+        }
+        {isError && <p>Error: {error.message}</p>}
+        {data && data.data.map((club: IClub) => (
+          <ClubPreviewCard club={club} />
+        ))}
       </section>
     </section>
   )

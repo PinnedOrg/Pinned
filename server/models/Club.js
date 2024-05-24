@@ -19,11 +19,6 @@ const clubSchema = new mongoose.Schema(
         type: String,
         required: [true, "Missing club genre."]
     },
-    isActive: {
-        type: Boolean,
-        required: true,
-        default: true
-    },
     cost: {
         type: Number,
         required: [true, "Missing cost."],

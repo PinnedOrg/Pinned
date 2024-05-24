@@ -4,10 +4,9 @@ export interface IClub {
     overview: string
     description: string
     genre: string
-    lastActiveTerm: number
-    lastActiveYear: number
     location: string
     cost: number
+    size: number
     meetingsFrequency: string
     email: string
     discord: string
