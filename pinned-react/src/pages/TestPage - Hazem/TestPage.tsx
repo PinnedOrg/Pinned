@@ -84,93 +84,93 @@ const TestPage = () => {
     }
   };
 
-  // const handleEventSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const data = new FormData();
-  //   Object.entries(formData).forEach(([key, value]) => {
-  //     data.append(key, value);
-  //   });
-  //   if (file) {
-  //     data.append('file', file);
-  //   }
-
-  //   try {
-  //     const response = await axios.post(`http://localhost:8080/api/events`, data, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-  //     useEffect(() => {
-  //       axios.get(`http://localhost:8080/api/events`)
-  //        .then((allEvents) => {
-  //           console.log(`GOT ${allEvents.data.length} events`)
-  //           setEvents(allEvents.data);
-  //        })
-  //        .catch((error) => {
-  //           console.log(error.message)
-  //        })
-  //      }, [])
-  //   } catch (error) {
-  //     console.error('Error creating event:', error);
-  //   }
-  // };
-
-  const handleEventSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    if (e === undefined) return;
-
+  const handleEventSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const {
-        title,
-        description,
-        contact,
-        tags,
-        date,
-        time,
-        location,
-        belongsToClub,
-        preview,
-    } = formData;
-
-    
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+    if (file) {
+      data.append('file', file);
+    }
 
     try {
-        // Create the event
-        const response = await axios.post('http://localhost:8080/api/events', 
-        {    
-            "title": title,
-            "description": description,
-            "contact": contact,
-            "tags": tags.split(','), // Assuming tags are comma-separated
-            "date": date,
-            "time": time,
-            "location": location,
-            "belongsToClub": belongsToClub,
-            "preview": preview,
-        });
-
-        console.log('Event created successfully:', response);
-
-        // Fetch all events again to update the events list
-        const allEventsResponse = await axios.get('http://localhost:8080/api/events');
-        console.log(`GOT ${allEventsResponse.data.length} events`);
-
-        // Update the events state with the newly fetched events
-        setEvents(allEventsResponse.data);
+      const response = await axios.post(`http://localhost:8080/api/events`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      useEffect(() => {
+        axios.get(`http://localhost:8080/api/events`)
+         .then((allEvents) => {
+            console.log(`GOT ${allEvents.data.length} events`)
+            setEvents(allEvents.data);
+         })
+         .catch((error) => {
+            console.log(error.message)
+         })
+       }, [])
     } catch (error) {
-        console.error('Error creating event:', error);
+      console.error('Error creating event:', error);
     }
+  };
+
+//   const handleEventSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+//     if (e === undefined) return;
+
+//     e.preventDefault();
+
+//     const {
+//         title,
+//         description,
+//         contact,
+//         tags,
+//         date,
+//         time,
+//         location,
+//         belongsToClub,
+//         preview,
+//     } = formData;
+
     
-    // Log event details and close menu
-    console.log('Event Title:', title);
-    console.log('Event Description:', description);
-    console.log('Event Contact:', contact);
-    console.log('Event Tags:', tags);
-    console.log('Event Date:', date);
-    console.log('Event Time:', time);
-    console.log('Event Location:', location);
-    console.log('Belongs to Club ID:', belongsToClub);
-};
+
+//     try {
+//         // Create the event
+//         const response = await axios.post('http://localhost:8080/api/events', 
+//         {    
+//             "title": title,
+//             "description": description,
+//             "contact": contact,
+//             "tags": tags.split(','), // Assuming tags are comma-separated
+//             "date": date,
+//             "time": time,
+//             "location": location,
+//             "belongsToClub": belongsToClub,
+//             "preview": preview,
+//         });
+
+//         console.log('Event created successfully:', response);
+
+//         // Fetch all events again to update the events list
+//         const allEventsResponse = await axios.get('http://localhost:8080/api/events');
+//         console.log(`GOT ${allEventsResponse.data.length} events`);
+
+//         // Update the events state with the newly fetched events
+//         setEvents(allEventsResponse.data);
+//     } catch (error) {
+//         console.error('Error creating event:', error);
+//     }
+    
+//     // Log event details and close menu
+//     console.log('Event Title:', title);
+//     console.log('Event Description:', description);
+//     console.log('Event Contact:', contact);
+//     console.log('Event Tags:', tags);
+//     console.log('Event Date:', date);
+//     console.log('Event Time:', time);
+//     console.log('Event Location:', location);
+//     console.log('Belongs to Club ID:', belongsToClub);
+// };
 
   return (
     <div>      
