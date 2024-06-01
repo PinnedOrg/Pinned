@@ -3,7 +3,7 @@
 // TODO: link to backend, and name searching, reset filters, and error handling
 
 import { Input } from "@/components/ui/input";
-import { IClub } from "@/lib/types";
+import { IClub, filters } from "@/lib/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import {
@@ -23,50 +23,62 @@ import {
 
 import { Button } from "@/components/ui/button";
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
-import { Search, ChevronDown, ChevronUp } from "lucide-react";
+import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import ClubPreviewCard from "@/components/clubs/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/clubs/ClubLoadingPlaceholder";
 
-
-type FiltersType = {
-  name: string
-  genre: string,
-  cost: number,
-  size: number,
-}
-
-
-const filters: Record<string, Record<string, string>> = {
-  "Genre": {
-    "Academic": "acaedemic",
-    "Business & Entrepreneurship": "b&e",
-    "Charity & Community Service": "charity",
-    "Arts": "arts",
-    "Culture": "cultural",
-    "Environment & Sustainability": "env",
-    "Games & Social": "g&s",
-    "Health & Well Being": "health",
-    "Politics & Social Awareness": "political",
-    "Sports": "sports",
-    "Design Team": "designteam",
-    "Media Literacy": "media",
-    "Religion & Spirituality": "religion"
+const hardcodeData: Array<IClub> = [
+  {
+    "_id": "664c08955c58341b46c62acc",
+    "name": "Ascend Canada Waterloo Chapter",
+    "preview": '',
+    "overview": "This is the short extract that you will be able to see in the directory. This is the short extract that you will be able to see in the directory. This is another sentence that I may write. Hello World",
+    "genre": "Sports",
+    "cost": 0,
+    "size": 100,
+    "colorTheme": "#007bff",
   },
-  "Cost": {
-    "Free": "0",
-    "Under $10": "10",
-    "$10 - $50": "50",
-    "$50 - $100": "100",
-    "Over $100": "101"
-  }, 
-  "Size": {
-    "Under 20": "20",
-    "20 to 50": "50",
-    "50 to 100": "100",
-    "Over 100": "101"
+  {
+    "_id": "66441aa4ccfc04b318c6b662",
+    "name": "Pinned",
+    "preview": '/images/PinnedAppLogo.png',
+    "overview": "This is the short extract that you will be able to see in the directory. This is the short extract that you will be able to see in the directory. This is another sentence that I may write. Hello World",
+    "genre": "Music",
+    "cost": 10,
+    "size": 50,
+    "colorTheme": "#DC3545",
+  },
+  {
+    "_id": "664ea3da37ce17ab6273b2f7",
+    "name": "Pinned",
+    "preview": '/images/flowchart.png',
+    "overview": "This is the short extract that you will be able to see in the directory.",
+    "genre": "Sports",
+    "cost": 15,
+    "size": 10,
+    "colorTheme": "#FFC107",
+  },
+  {
+    "_id": "664ebd77f062c321270e58de",
+    "name": "Pinned",
+    "overview": "This is the short extract that you will be able to see in the directory.",
+    "genre": "Charity & Community Service",
+    "cost": 60,
+    "size": 30,
+    "colorTheme": "#28A745",
+  },
+  {
+    "_id": "66441bb1e6c53af82cf6e7ba",
+    "name": "Test Club",
+    "overview": "This is the short extract that you will be able to see in the directory.",
+    "genre": "Music",
+    "cost": 50,
+    "size": 20,
+    "colorTheme": "#6610F2",
   }
-}
+]
+
 
 const FetchClubs = ({ name, genre, cost, size}: FiltersType) => {
   return axios.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
@@ -77,9 +89,11 @@ const ClubHub = () => {
   const [genre, setGenre] = useState<string>("");
   const [cost, setCost] = useState<number>(-1);
   const [size, setSize] = useState<number>(-1);
-  const [isCollapsibleOpen, setIsCollapsibleOpen] = useState<boolean>(false);
-  //const queryClient = useQueryClient();
 
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [isCollapsibleOpen, setIsCollapsibleOpen] = useState<boolean>(false);
+  //const queryClient = useQueryClient(); // can be used for certain things, not too sure if will be needed
+  
   const updateFilters = (newValue: string, filter: string) => {
     switch (filter) {
       case "Genre":
@@ -97,25 +111,33 @@ const ClubHub = () => {
     }
   }
 
+  const resetFilters = () => {
+    location.reload(); // refresh page, auto resets filters
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
+    e.preventDefault(); // prevent page refresh
+    setFetching(!fetching); // trigger a data fetch
+  }
   // fetch clubs from database
-  const {isFetching, isError, data, error } = useQuery({
-    queryKey: ["Clubs", name, genre, cost, size], // query refreshes when any of these values change
+  const {isFetching, isError, data } = useQuery({
+    queryKey: ["Clubs", fetching], // query refreshes when this value changes
     queryFn: () => FetchClubs({name, genre, cost, size}),
   });
 
   return (
-    <section className="w-full h-screen py-4 px-16 bg-gray-50">
+    <section className="w-full h-full px-4 py-4 bg-gray-100 lg:px-16">
       <div className="mt-10 text-center">
-        <h1 className="font-bold text-5xl tracking-wide text-gray-800 mb-5">
-          The Club Hub{/*<span className="bg-primary py-1 px-2 rounded-lg">Hub</span>*/}
+        <h1 className="mb-5 font-serif text-5xl font-bold tracking-wide text-gray-800">
+          The Club Hub{/*<span className="px-2 py-1 rounded-lg bg-primary">Hub</span>*/}
         </h1>
-        <p className="text-lg text-gray-500">Find all the clubs and organizations UWaterloo has to offer!</p>
+        <p className="text-lg text-gray-500 font-se">Find all the clubs and organizations UWaterloo has to offer!</p>
       </div>
 
-      <section className="my-10 flex flex-wrap justify-center bg-gray-300 p-4 rounded-md space-y-4">
-        <div className="flex w-full justify-center items-center space-x-2" >
+      <section className="flex flex-wrap justify-center p-4 my-10 space-y-4 bg-gray-100 rounded-md">
+        <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
-            className="w-[75%] bg-white border-2  px-5"
+            className="w-[80%] bg-white border-2  px-5"
             placeholder="Search for a club"
             onChange={(e) => {
               setName(e.target.value);
@@ -129,18 +151,29 @@ const ClubHub = () => {
               <Search />
             </ViewportWrapper>
           </Button>
-        </div>
+        </form>
 
         <Collapsible className="w-full">
-          <CollapsibleTrigger 
-            className="flex"
-            onClick={() => setIsCollapsibleOpen(!isCollapsibleOpen)}
-          >
-          {/* " ▼" : " ▲"  */}
-            Additional Filters { isCollapsibleOpen ?  <ChevronUp /> : <ChevronDown /> }
-          </CollapsibleTrigger>
+          <div className="flex justify-between">
+            <CollapsibleTrigger 
+              className="items-center w-full gap-3"
+              onClick={() => setIsCollapsibleOpen(!isCollapsibleOpen)}
+            >
+              <div className="flex">
+                Additional Filters { isCollapsibleOpen ? <ChevronUp /> : <ChevronDown /> }
+              </div>
+            <div className="w-[100%] h-1 border-2 border-solid bg-primary border-primary rounded-full mt-1 mb-2"></div>
+            {isCollapsibleOpen && 
+              <div className="flex gap-1 hover:cursor-pointer " onClick={resetFilters}>
+                Reset
+                <RotateCcw className="w-[1rem] h-auto " />
+              </div>
+            }
+            </CollapsibleTrigger>
+          </div>
+            
+          
           <CollapsibleContent>
-            <div className="w-[100%] h-1 border-2 border-solid border-primary rounded-full mt-1 mb-2"></div>
             <div className="flex flex-wrap justify-center lg:justify-evenly lg:gap-x-[4rem] gap-y-2 w-full">
               { Object.keys(filters).map((filter: string) => (
                 <Select 
@@ -163,18 +196,28 @@ const ClubHub = () => {
         </Collapsible>
       </section>
 
-      <section className="mt-10 flex flex-wrap min-h-[30rem] justify-start bg-gray-100 p-4 rounded-md gap-10">
-        {isFetching && 
-          <div className="flex gap-10">
+      <section className="mt-10 flex min-h-[30rem] justify-center py-4 rounded-md">
+        {/* {isFetching && 
+          <div className="flex flex-wrap w-full gap-10 justify-evenly">
+            <ClubLoadingPlaceholder />
+            <ClubLoadingPlaceholder />
+            <ClubLoadingPlaceholder />
             <ClubLoadingPlaceholder />
             <ClubLoadingPlaceholder />
             <ClubLoadingPlaceholder />
           </div>
         }
-        {isError && <p>Error: {error.message}</p>}
-        {data && data.data.map((club: IClub) => (
-          <ClubPreviewCard club={club} />
-        ))}
+        {isError && <h1 className="mt-20 text-3xl font-medium text-gray-700">Error fetching clubs</h1>} */}
+        {true && 
+        <div className="flex flex-wrap justify-center w-full gap-10 sm:justify-start">
+          {hardcodeData.map((club: IClub) => (
+            <ClubPreviewCard club={club} />
+          ))}
+          {/* {data.data.map((club: IClub) => (
+            <ClubPreviewCard club={club} />
+          ))} */}
+        </div>
+        }
       </section>
     </section>
   )

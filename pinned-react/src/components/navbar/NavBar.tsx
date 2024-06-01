@@ -12,8 +12,8 @@ const NavBar = () => {
     <header className="h-[4.5rem] w-100% py-3 px-9 flex shadow-sm shadow-primary justify-center sm:justify-between items-center z-10 mb-1">
       <ViewportWrapper breakpoint="large">
         <Link to={routes.Home} className="flex gap-[0.35rem] items-center">
-          <h1 className="text-black font-semibold uppercase text-2xl">UW</h1>
-          <h1 className="text-primary font-bold uppercase text-3xl">Pinned</h1>
+          <h1 className="text-2xl font-semibold text-black uppercase">UW</h1>
+          <h1 className="text-3xl font-bold uppercase text-primary">Pinned</h1>
         </Link>
       </ViewportWrapper>
       {/* <ViewportWrapper breakpoint="mobile">
@@ -23,7 +23,7 @@ const NavBar = () => {
       </ViewportWrapper> */}
 
       <nav className="inline-flex gap-12 ">
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Button variant={'ghost'} className={LinkStyles}>
             <Link to={routes.ClubHub} >Club Hub</Link>
           </Button>

@@ -18,8 +18,8 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
     // ensure that the filters parameters are not undefined or null before adding them to the filters object
     let filters = {};
     if (genre) filters.genre = genre;
-    if (cost >= 0) filters.cost = cost;
-    if (size >= 0) filters.size = size;
+    if (cost >= 0) filters.cost = {$lte: cost};
+    if (size >= 0) filters.size = {$lte: size};
 
     try {
         const clubPreviewsList = await Club

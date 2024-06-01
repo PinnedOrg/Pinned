@@ -1,6 +1,15 @@
 import { Buffer } from 'buffer';
 
-const PreviewImage = ({ preview }) => {
+type PreviewImageProps = {
+    preview: {
+      data: {
+        data: Buffer
+      };
+      extension: string;
+  }
+}
+
+const PreviewImage = ({ preview }: PreviewImageProps) => {
 
     if (preview.data == null) {
       console.error('No image data provided.');
