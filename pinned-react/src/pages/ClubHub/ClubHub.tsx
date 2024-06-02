@@ -32,7 +32,7 @@ const hardcodeData: Array<IClub> = [
   {
     "_id": "664c08955c58341b46c62acc",
     "name": "Ascend Canada Waterloo Chapter",
-    "preview": '',
+    "logo": '',
     "overview": "This is the short extract that you will be able to see in the directory. This is the short extract that you will be able to see in the directory. This is another sentence that I may write. Hello World",
     "genre": "Sports",
     "cost": 0,
@@ -42,7 +42,7 @@ const hardcodeData: Array<IClub> = [
   {
     "_id": "66441aa4ccfc04b318c6b662",
     "name": "Pinned",
-    "preview": '/images/PinnedAppLogo.png',
+    "logo": '/images/PinnedAppLogo.png',
     "overview": "This is the short extract that you will be able to see in the directory. This is the short extract that you will be able to see in the directory. This is another sentence that I may write. Hello World",
     "genre": "Music",
     "cost": 10,
@@ -52,7 +52,7 @@ const hardcodeData: Array<IClub> = [
   {
     "_id": "664ea3da37ce17ab6273b2f7",
     "name": "Pinned",
-    "preview": '/images/flowchart.png',
+    "logo": '/images/flowchart.png',
     "overview": "This is the short extract that you will be able to see in the directory.",
     "genre": "Sports",
     "cost": 15,
@@ -197,7 +197,7 @@ const ClubHub = () => {
       </section>
 
       <section className="mt-10 flex min-h-[30rem] justify-center py-4 rounded-md">
-        {/* {isFetching && 
+        {isFetching && 
           <div className="flex flex-wrap w-full gap-10 justify-evenly">
             <ClubLoadingPlaceholder />
             <ClubLoadingPlaceholder />
@@ -207,15 +207,15 @@ const ClubHub = () => {
             <ClubLoadingPlaceholder />
           </div>
         }
-        {isError && <h1 className="mt-20 text-3xl font-medium text-gray-700">Error fetching clubs</h1>} */}
-        {true && 
+        {isError && <h1 className="mt-20 text-3xl font-medium text-gray-700">Error fetching clubs</h1>}
+        {data && 
         <div className="flex flex-wrap justify-center w-full gap-10 sm:justify-start">
-          {hardcodeData.map((club: IClub) => (
-            <ClubPreviewCard club={club} />
-          ))}
-          {/* {data.data.map((club: IClub) => (
+          {/* {hardcodeData.map((club: IClub) => (
             <ClubPreviewCard club={club} />
           ))} */}
+          {data.data.map((club: IClub) => (
+            <ClubPreviewCard club={club} />
+          ))}
         </div>
         }
       </section>

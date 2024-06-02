@@ -1,7 +1,12 @@
 export interface IClub {
     _id: string; //id
     name: string
-    preview: Buffer | string
+    logo: {
+      data: {
+        data: Buffer
+      };
+      extension: string;
+    }
     overview: string
     description: string
     genre: string
@@ -40,27 +45,27 @@ type genreType = "Academic" |
                 "Charity & Community Service" | 
                 "Arts" |
                 "Culture" |
-                "Environment" |
-                "Social" |
+                "Environment & Sustainability" |
+                "Games & Social" |
                 "Health & Well Being" |
-                "Politics" |
+                "Politics & Social Awareness" |
                 "Sports" |
                 "Design Team" |
                 "Media Literacy" |
                 "Religion & Spirituality"
 
 const genreFilters: Record<string, string> = {
-    "Academic": "Acaedemic",
+    "Academic": "Academic",
     "Arts": "Arts",
     "Business & Entrepreneurship": "Business & Entrepreneurship",
     "Charity & Community Service": "Charity & Community Service",
-    "Culture": "Cultural",
+    "Culture": "Culture",
     "Design Team": "Design Team",
     "Environment & Sustainability": "Environment & Sustainability",
     "Games & Social": "Games & Social",
     "Health & Well Being": "Health & Well Being",
-    "Media Literacy": "Media",
-    "Politics & Social Awareness": "Politics  & Social Awareness",
+    "Media Literacy": "Media Literacy",
+    "Politics & Social Awareness": "Politics & Social Awareness",
     "Religion & Spirituality": "Religion & Spirituality",
     "Sports": "Sports",
   }

@@ -6,6 +6,11 @@ const clubSchema = new mongoose.Schema(
         type: String,
         required: [true, "Missing club name."], // Requirement with custom error message
     },
+    logo: {
+        type: Buffer,
+        extension: String,
+        required: false,
+    },
     overview: { // Short extract of the club
         type: String,
         required: [true, "Missing club overview."],
@@ -18,6 +23,11 @@ const clubSchema = new mongoose.Schema(
     genre: {
         type: String,
         required: [true, "Missing club genre."]
+    },
+    colorTheme: {
+        type: String,
+        required: false,
+        default: "#ffffff"
     },
     cost: {
         type: Number,
@@ -61,16 +71,6 @@ const clubSchema = new mongoose.Schema(
         required: false,
         ref: "Event"
     },
-    // publicStatus: {
-    //     type: Boolean,
-    //     required: true,
-    //     default: true // public by default
-    // },
-    // owner: {
-    //     type: String, //TODO: change to type username?
-    //     required: true,
-    //     default: "current user" // this should be filled in by default, in the future allow for ownership change
-    // },
     // admins: {
     //     type: [String], //TODO: change to type user
     //     required: false
@@ -79,7 +79,6 @@ const clubSchema = new mongoose.Schema(
     //     type: [String], //TODO: change to type user
     //     required: false
     // },
-    //logo, TODO
     //bgImage, // bg image like a notion club
     //organization, 
 

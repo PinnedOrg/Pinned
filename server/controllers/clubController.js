@@ -28,9 +28,11 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                                     .select(" _id \
                                             name \
                                             overview \
+                                            logo \
                                             genre \
                                             cost \
-                                            size")  // only select these fields to return
+                                            size \
+                                            colorTheme")  // only select these fields to return
                                     .sort({ name: 1 });
 
         return res.status(200).json(clubPreviewsList);
@@ -63,11 +65,19 @@ const getClubDetails = async (req, res) => {
 
 const createNewClub = async (req, res) => {
     try {
+        const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
+        const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
+
         const club = await Club.create({
             name: req.body.name,
             overview: req.body.overview,
+            logo: {
+                data: logoBuffer,
+                extension: extension
+            },
             description: req.body.description,
             genre: req.body.genre,
+            colorTheme: req.body.colorTheme,
             location: req.body.location,
             cost: req.body.cost,
             meetingsFrequency: req.body.meetingsFrequency,
@@ -117,6 +127,7 @@ const updateClub = async (req, res) => {
     }
 
     try {
+        
         const club = await Club.findByIdAndUpdate(id, {...req.body}, { new: true })
 
     // if club id does not exist

@@ -6,10 +6,12 @@ type PreviewImageProps = {
         data: Buffer
       };
       extension: string;
-  }
+  },
+  alt: string; // optional
+  className?: string; // optional
 }
 
-const PreviewImage = ({ preview }: PreviewImageProps) => {
+const PreviewImage = ({ preview, alt, className }: PreviewImageProps) => {
 
     if (preview.data == null) {
       console.error('No image data provided.');
@@ -19,7 +21,7 @@ const PreviewImage = ({ preview }: PreviewImageProps) => {
     const base64String = Buffer.from(preview.data.data);
 
     return (
-      <img src={`data:${preview.extension};base64,${base64String}`} alt="here"/>
+      <img src={`data:${preview.extension};base64,${base64String}`} alt={alt} className={className ? className : ""}/>
     );
   };
 

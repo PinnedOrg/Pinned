@@ -17,6 +17,7 @@ import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { FaUserFriends } from "react-icons/fa";
 import { hexToRGBObject } from '@/lib/utils'
 import { cp } from 'fs'
+import PreviewImage from '../Image/PreviewImage'
 
 type ClubPreviewCardProps = {
   club: IClub
@@ -46,15 +47,21 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
       return 'Over 100'
     }
   }
-  console.log(`to-[${club.colorTheme}]`)
   return (
     <div className="flex flex-col justify-between space-y-3 sm:w-[46%] lg:w-[30%] 2xl:w-[22%] max-w-[28rem] h-[30rem] px-5 py-6 rounded-lg shadow-md relative group" style={{ backgroundImage: `linear-gradient(to top, white, white, ${club.colorTheme})` }}>
       <div className='space-y-3'>
         <div className='flex justify-center h-[12rem] sm:h-[10rem] xl:h-[11rem] w-full'>
-        <Avatar className='w-auto h-full border-2 border-white aspect-square'>
-            <AvatarImage src={club.preview} className=''/>
+          {/* <Avatar className='w-auto h-full border-2 border-white aspect-square'>
+            <AvatarImage src={club.preview}/>
             <AvatarFallback> <img src="/images/LogoPlaceholder.png" alt="placeholder" /></AvatarFallback>
-          </Avatar>
+          </Avatar> */}
+        <div className='w-auto h-full rounded-full border-2 border-white aspect-square overflow-hidden'>
+            {club.logo ? (
+              <PreviewImage preview={club.logo} alt='club logo'/>
+            ) : (
+              <img src="/images/LogoPlaceholder.png" alt="placeholder" className='aspect-square'/>
+            )}
+        </div>
         </div>
         <h1 className='text-2xl font-semibold tracking-wide text-center text-gray-900 '>{club.name}</h1>
         <div className='flex items-center justify-center'>
