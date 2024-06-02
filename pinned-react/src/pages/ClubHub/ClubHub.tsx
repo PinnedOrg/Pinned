@@ -27,6 +27,7 @@ import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import ClubPreviewCard from "@/components/clubs/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/clubs/ClubLoadingPlaceholder";
+import { ImageOfStudents } from "/public/images/Waterloo Students.jpg"
 
 const hardcodeData: Array<IClub> = [
   {
@@ -126,15 +127,20 @@ const ClubHub = () => {
   });
 
   return (
-    <section className="w-full h-full px-4 py-4 bg-gray-100 lg:px-16">
-      <div className="mt-10 text-center">
-        <h1 className="mb-5 font-serif text-5xl font-bold tracking-wide text-gray-800">
+    <section className="w-full h-full pb-4 bg-gray-100">
+      <div className="h-[25rem] w-full text-center flex flex-col justify-end pb-12" style={{
+        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url(/images/WaterlooStudents.jpg)',
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        backgroundRepeat: 'no-repeat'
+      }}>
+        <h1 className="mb-5 font-serif text-5xl font-bold tracking-wide text-primary">
           The Club Hub{/*<span className="px-2 py-1 rounded-lg bg-primary">Hub</span>*/}
         </h1>
-        <p className="text-lg text-gray-500 font-se">Find all the clubs and organizations UWaterloo has to offer!</p>
+        <p className="text-lg text-gray-200 font-medium">Find all the clubs and organizations UWaterloo has to offer!</p>
       </div>
 
-      <section className="flex flex-wrap justify-center p-4 my-10 space-y-4 bg-gray-100 rounded-md">
+      <section className="flex flex-wrap justify-center p-4 my-10 space-y-4 bg-gray-100 px-4 lg:px-16">
         <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
             className="w-[80%] bg-white border-2  px-5"
@@ -196,7 +202,7 @@ const ClubHub = () => {
         </Collapsible>
       </section>
 
-      <section className="mt-10 flex min-h-[30rem] justify-center py-4 rounded-md">
+      <section className="mt-10 flex min-h-[30rem] justify-center py-4  px-4 lg:px-16">
         {isFetching && 
           <div className="flex flex-wrap w-full gap-10 justify-evenly">
             <ClubLoadingPlaceholder />
