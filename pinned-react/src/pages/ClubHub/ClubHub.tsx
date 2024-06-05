@@ -34,7 +34,7 @@ const hardcodeData: Array<IClub> = [
     "_id": "664c08955c58341b46c62acc",
     "name": "Ascend Canada Waterloo Chapter",
     "logo": '',
-    "overview": "This is the short extract that you will be able to see in the directory. This is the short extract that you will be able to see in the directory. This is another sentence that I may write. Hello World",
+    "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
     "genre": "Sports",
     "cost": 0,
     "size": 100,
@@ -44,7 +44,7 @@ const hardcodeData: Array<IClub> = [
     "_id": "66441aa4ccfc04b318c6b662",
     "name": "Pinned",
     "logo": '/images/PinnedAppLogo.png',
-    "overview": "This is the short extract that you will be able to see in the directory. This is the short extract that you will be able to see in the directory. This is another sentence that I may write. Hello World",
+    "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
     "genre": "Music",
     "cost": 10,
     "size": 50,
@@ -127,9 +127,9 @@ const ClubHub = () => {
   });
 
   return (
-    <section className="w-full h-full pb-4 bg-gray-100">
+    <section className="w-full h-full pb-4 bg-slate-900">
       <div className="h-[25rem] w-full text-center flex flex-col justify-end pb-12" style={{
-        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url(/images/WaterlooStudents.jpg)',
+        backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url(/images/WaterlooStudents.jpg)',
         backgroundSize: 'cover', 
         backgroundPosition: 'center', 
         backgroundRepeat: 'no-repeat'
@@ -140,16 +140,16 @@ const ClubHub = () => {
         <p className="text-lg text-gray-200 font-medium">Find all the clubs and organizations UWaterloo has to offer!</p>
       </div>
 
-      <section className="flex flex-wrap justify-center p-4 my-10 space-y-4 bg-gray-100 px-4 lg:px-16">
+      <section className="flex flex-wrap justify-center p-4 my-10 space-y-4 bg-slate-900 px-4 lg:px-16">
         <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
-            className="w-[80%] bg-white border-2  px-5"
+            className="w-[80%] bg-slate-900 border-gray-500 text-gray-500 px-5"
             placeholder="Search for a club"
             onChange={(e) => {
               setName(e.target.value);
             }}
           />
-          <Button type="submit" className="hover:bg-primary-hover">
+          <Button type="submit" variant='secondary' className=" text-gray-200">
             <ViewportWrapper breakpoint="large">
               Search
             </ViewportWrapper>
@@ -165,12 +165,12 @@ const ClubHub = () => {
               className="items-center w-full gap-3"
               onClick={() => setIsCollapsibleOpen(!isCollapsibleOpen)}
             >
-              <div className="flex">
+              <div className="flex text-gray-500">
                 Additional Filters { isCollapsibleOpen ? <ChevronUp /> : <ChevronDown /> }
               </div>
-            <div className="w-[100%] h-1 border-2 border-solid bg-primary border-primary rounded-full mt-1 mb-2"></div>
+            <div className="w-[100%] h-1 border-2 border-solid bg-secondary border-secondary rounded-full mt-1 mb-2"></div>
             {isCollapsibleOpen && 
-              <div className="flex gap-1 hover:cursor-pointer " onClick={resetFilters}>
+              <div className="flex gap-1 hover:cursor-pointer text-gray-500" onClick={resetFilters}>
                 Reset
                 <RotateCcw className="w-[1rem] h-auto " />
               </div>
@@ -213,7 +213,7 @@ const ClubHub = () => {
             <ClubLoadingPlaceholder />
           </div>
         }
-        {isError && <h1 className="mt-20 text-3xl font-medium text-gray-700">Error fetching clubs</h1>}
+        {isError && <h1 className="mt-20 text-3xl font-medium text-gray-500">Error fetching clubs</h1>}
         {data && 
         <div className="flex flex-wrap justify-center w-full gap-10 sm:justify-start">
           {/* {hardcodeData.map((club: IClub) => (
