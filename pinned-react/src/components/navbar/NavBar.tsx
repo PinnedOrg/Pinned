@@ -14,6 +14,7 @@ const NavBar = () => {
         <Link to={routes.Home} className="flex gap-[0.35rem] items-center">
           <h1 className="text-2xl font-semibold text-black uppercase">UW</h1>
           <h1 className="text-3xl font-bold uppercase text-primary">Pinned</h1>
+
         </Link>
       </ViewportWrapper>
       {/* <ViewportWrapper breakpoint="mobile">
@@ -24,6 +25,7 @@ const NavBar = () => {
 
       <nav className="inline-flex gap-12 ">
         <div className="flex items-center gap-2">
+
           <Button variant={'ghost'} className={LinkStyles}>
             <Link to={routes.ClubHub} >Club Hub</Link>
           </Button>
