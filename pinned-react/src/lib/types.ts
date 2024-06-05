@@ -1,15 +1,22 @@
 export interface IClub {
     _id: string; //id
     name: string
+    logo: {
+      data: {
+        data: Buffer
+      };
+      extension: string;
+    }
     overview: string
     description: string
     genre: string
-    lastActiveTerm: number
-    lastActiveYear: number
+    colorTheme: string
     location: string
     cost: number
+    size: number
     meetingsFrequency: string
     email: string
+    discord: string
     instagram: string
     facebook: string
     youtube: string
@@ -32,3 +39,53 @@ export interface IEvent {
     createdAt: Date;
     updatedAt: Date;
 }
+
+type genreType = "Academic" | 
+                 "Business & Entrepreneurship" |
+                "Charity & Community Service" | 
+                "Arts" |
+                "Culture" |
+                "Environment & Sustainability" |
+                "Games & Social" |
+                "Health & Well Being" |
+                "Politics & Social Awareness" |
+                "Sports" |
+                "Design Team" |
+                "Media Literacy" |
+                "Religion & Spirituality"
+
+const genreFilters: Record<string, string> = {
+    "Academic": "Academic",
+    "Arts": "Arts",
+    "Business & Entrepreneurship": "Business & Entrepreneurship",
+    "Charity & Community Service": "Charity & Community Service",
+    "Culture": "Culture",
+    "Design Team": "Design Team",
+    "Environment & Sustainability": "Environment & Sustainability",
+    "Games & Social": "Games & Social",
+    "Health & Well Being": "Health & Well Being",
+    "Media Literacy": "Media Literacy",
+    "Politics & Social Awareness": "Politics & Social Awareness",
+    "Religion & Spirituality": "Religion & Spirituality",
+    "Sports": "Sports",
+  }
+
+export const costFilters: Record<string, string> = {
+    "Free": "0",
+    "$0 - $10": "10",
+    "$10 - $50": "50",
+    "Over $50": "51",
+  }
+
+export const sizeFilters: Record<string, string> = {
+    "Under 20": "20",
+    "20 - 50": "50",
+    "50 - 100": "100",
+    "Over 100": "101"
+  }
+
+export const filters: Record<string, Record<string, string>> = {
+    "Genre": genreFilters,
+    "Cost": costFilters, 
+    "Size": sizeFilters,
+  }
