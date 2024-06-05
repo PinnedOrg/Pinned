@@ -58,7 +58,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
             <AvatarImage src={club.preview}/>
             <AvatarFallback> <img src="/images/LogoPlaceholder.png" alt="placeholder" /></AvatarFallback>
           </Avatar>
-        {/* <div className='w-auto h-full rounded-full border-2 border-gray-100 aspect-square overflow-hidden'>
+        {/* <div className='w-auto h-full overflow-hidden border-2 border-gray-100 rounded-full aspect-square'>
             {club.logo ? (
               <PreviewImage preview={club.logo} alt='club logo'/>
             ) : (
@@ -72,7 +72,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
             {club.genre}
           </Badge>
         </div>
-        <p className='text-center text-gray-700 dark:text-gray-500 px-6'>{club.overview}</p>
+        <p className='px-6 text-center text-gray-700 dark:text-gray-500'>{club.overview}</p>
       </div>
       <div className='flex justify-center w-full space-x-16 sm:space-x-8 md:space-x-16 lg:space-x-8 xl:space-x-16'>
         <Badge variant={'outline'} className='border-none text-zinc-500 bg-zinc-100 dark:text-gray-300 dark:bg-gray-800'>
