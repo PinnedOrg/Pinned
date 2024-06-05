@@ -12,6 +12,8 @@ import ClubHub from "@/pages/ClubHub/ClubHub";
 import Layout from "@/components/shared/Layout";
 
 import { routes } from "@/routes/routes";
+import TestPage from "./pages/TestPage - Hazem/TestPage";
+
 
 const App = () => {
 
@@ -22,10 +24,14 @@ const App = () => {
     <Routes>
       <Route index element={ <LandingPage/> } />
       <Route path={routes.ClubHub} element={ <Layout>
-                                        <ClubHub/>
-                                      </Layout> } />
+                                              <ClubHub/>
+                                             </Layout> } />
       <Route path={routes.SignUp} element={ <SignUpPage/> } />
       <Route path={routes.SignIn} element={ <SignInPage/> } />
+      <Route path={routes.Test} element={ <Layout>
+                                              <TestPage/>
+                                             </Layout> } />
+
 
       {/* <Route 
         path="/board/:id/*" 
