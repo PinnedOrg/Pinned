@@ -1,6 +1,7 @@
 export interface IClub {
     _id: string; //id
     name: string
+    preview: string // temp
     logo: {
       data: {
         data: Buffer
