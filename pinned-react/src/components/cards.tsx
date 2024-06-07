@@ -15,7 +15,7 @@ export const Cards = () => {
   return (
     <div className="hidden lg:flex flex-row flex-wrap gap-8 relative w-[700px] h-[500px]">
       {/*Our Team */}
-      <Card className="absolute right-[20px] top-4 w-80 flex flex-col justify-center items-center drop-shadow-xl shadow-black/10 dark:shadow-white/10">
+      <Card className="absolute right-[20px] top-4 w-80 flex flex-col justify-center items-center drop-shadow-xl shadow-black/10 dark:shadow-white/10 dark:border-slate-800">
         <CardHeader className="mt-8 flex justify-center items-center pb-2">
           <img
             src="src/components/shared/images/PinnedAppLogo.png"
@@ -53,7 +53,7 @@ export const Cards = () => {
       </Card>
 
       {/* Features */}
-      <Card className="absolute top-[75px] left-[50px] w-72  drop-shadow-xl shadow-black/10 dark:shadow-white/10">
+      <Card className="absolute top-[75px] left-[50px] w-72  drop-shadow-xl shadow-black/10 dark:shadow-white/10 dark:border-slate-800">
         <CardHeader>
           <CardTitle className="flex item-center justify-between">
             Our Features
@@ -89,7 +89,7 @@ export const Cards = () => {
       </Card>
 
       {/* Service */}
-      <Card className="absolute w-[350px] -right-[10px] bottom-[35px]  drop-shadow-xl shadow-black/10 dark:shadow-white/10">
+      <Card className="absolute w-[350px] -right-[10px] bottom-[35px]  drop-shadow-xl shadow-black/10 dark:shadow-white/10 dark:border-slate-800">
         <CardHeader className="space-y-1 flex md:flex-row justify-start items-start gap-4">
           <div className="mt-1 bg-primary/20 p-1 rounded-2xl">
           </div>

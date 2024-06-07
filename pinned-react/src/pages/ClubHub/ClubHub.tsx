@@ -33,7 +33,7 @@ const hardcodeData: Array<IClub> = [
   {
     "_id": "664c08955c58341b46c62acc",
     "name": "Ascend Canada Waterloo Chapter",
-    "logo": '',
+    "logo": '/images/PinnedAppLogo.png',
     "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
     "genre": "Sports",
     "cost": 0,
