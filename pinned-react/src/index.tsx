@@ -1,27 +1,30 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import '../app/globals.css';
 import './styles/tailwind.css';
 import App from './App';
+import { ClerkProvider } from '@clerk/clerk-react'
 import { ThemeProvider } from "@/components/theme-provider.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-const root = document.getElementById('root');
-
-if (!root) {
-  throw new Error("Root element not found");
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+ 
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key");
 }
 
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const queryClient = new QueryClient(); // React Query client
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </ThemeProvider>
-  </React.StrictMode>,
-  root
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} /* navigate={(to) => ...} */>
+      <ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </ClerkProvider>
+  </React.StrictMode>
 );
