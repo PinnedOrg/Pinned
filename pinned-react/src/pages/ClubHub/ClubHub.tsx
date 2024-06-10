@@ -77,6 +77,12 @@ const hardcodeData: Array<IClub> = [
   }
 ]
 
+type FiltersType = {
+  name: string,
+  genre: string,
+  cost: number,
+  size: number,
+}
 
 const FetchClubs = ({ name, genre, cost, size}: FiltersType) => {
   return axios.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
@@ -134,10 +140,10 @@ const ClubHub = () => {
         <h1 className="mb-5 font-serif text-5xl font-bold tracking-wide text-primary">
           The Club Hub{/*<span className="px-2 py-1 rounded-lg bg-primary">Hub</span>*/}
         </h1>
-        <p className="text-lg text-gray-200 font-medium">Find all the clubs and organizations UWaterloo has to offer!</p>
+        <p className="text-lg font-medium text-gray-200">Find all the clubs and organizations UWaterloo has to offer!</p>
       </div>
 
-      <section className="flex flex-wrap justify-center p-4 my-10 space-y-4 dark:bg-slate-950 px-4 lg:px-16">
+      <section className="flex flex-wrap justify-center p-4 px-4 my-10 space-y-4 dark:bg-slate-950 lg:px-16">
         <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
             className="w-[80%] bg-white border-primary dark:bg-slate-950 dark:text-gray-500 px-5"
@@ -146,7 +152,7 @@ const ClubHub = () => {
               setName(e.target.value);
             }}
           />
-          <Button type="submit" variant='secondary' className=" text-gray-200">
+          <Button type="submit" variant='secondary' className="text-gray-200 ">
             <ViewportWrapper breakpoint="large">
               Search
             </ViewportWrapper>
@@ -162,7 +168,7 @@ const ClubHub = () => {
               className="items-center w-full gap-3"
               onClick={() => setIsCollapsibleOpen(!isCollapsibleOpen)}
             >
-              <div className="flex dark:text-gray-500 pl-3">
+              <div className="flex pl-3 dark:text-gray-500">
                 Additional Filters { isCollapsibleOpen ? <ChevronUp /> : <ChevronDown /> }
               </div>
             <div className="w-[100%] h-1 border-2 border-solid bg-primary border-primary rounded-full mt-1 "></div>
