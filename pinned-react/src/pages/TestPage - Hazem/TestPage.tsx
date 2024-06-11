@@ -31,9 +31,14 @@ const TestPage = () => {
           </div>
         </div>
       </div>
-      <div className="p-8">
-        <ClubForm />
+      <div className="p-8 grid grid-cols-3 gap-4">
+        <div className="col-span-2">
+        </div>
+        <div className="col-span-1">
+          <ClubForm />
+        </div>
       </div>
+
     </div>
   );
 }
