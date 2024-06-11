@@ -33,13 +33,39 @@ const TestPage = () => {
         </div>
       </div>
       <div className="p-8 grid grid-cols-3 gap-4">
-        <div className="col-span-2">
+        <div className="col-span-2 mt-4 px-4 flex flex-wrap gap-4">
+          <ClubEvent 
+              imageUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhkZ6g42MpLvGsAntEa-0keBi52LBsX8Y_Cw&s" 
+              title="sodfjsoifdj sdfsdofn" 
+              description="sdofu souvndbd ovdo dso di dfih ix ix ix ix vi vsi vis visbv hidvhdlh." 
+            />
           <ClubEvent 
             imageUrl="https://preview.redd.it/i-got-bored-so-i-decided-to-draw-a-random-image-on-the-v0-4ig97vv85vjb1.png?width=640&crop=smart&auto=webp&s=22ed6cc79cba3013b84967f32726d087e539b699" 
             title="sodfjsoifdj sdfsdofn" 
             description="sdofu souvndbd ovdo dso di dfih ix ix ix ix vi vsi vis visbv hidvhdlh." 
           />
+          <ClubEvent 
+            imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg/1200px-Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg" 
+            title="sodfjsoifdj sdfsdofn" 
+            description="sdofu souvndbd ovdo dso di dfih ix ix ix ix vi vsi vis visbv hidvhdlh." 
+          />
+                  <ClubEvent 
+            imageUrl="https://uwaterloo.ca/electrical-computer-engineering/sites/default/files/styles/large/public/uploads/images/harder_douglas.jpg?itok=OPtGC5j-" 
+            title="sodfjsoifdj sdfsdofn" 
+            description="sdofu souvndbd ovdo dso di dfih ix ix ix ix vi vsi vis visbv hidvhdlh." 
+          />
+          <ClubEvent 
+            imageUrl="https://static.vecteezy.com/system/resources/previews/022/149/130/non_2x/cute-white-paw-in-pixel-art-style-vector.jpg" 
+            title="sodfjsoifdj sdfsdofn" 
+            description="sdofu souvndbd ovdo dso di dfih ix ix ix ix vi vsi vis visbv hidvhdlh." 
+          />
+                  <ClubEvent 
+            imageUrl="https://media.cnn.com/api/v1/images/stellar/prod/190326162345-lead-justin-bieber-crop.jpg?q=w_3000,c_fill" 
+            title="sodfjsoifdj sdfsdofn" 
+            description="sdofu souvndbd ovdo dso di dfih ix ix ix ix vi vsi vis visbv hidvhdlh." 
+          />
         </div>
+
         <div className="col-span-1">
           <ClubForm />
         </div>
