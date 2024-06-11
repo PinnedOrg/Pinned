@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@clerk/clerk-react": "^4.30.3",
-    "@hookform/resolvers": "^3.4.0",
+    "@hookform/resolvers": "^3.6.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-collapsible": "^1.0.3",
@@ -27,7 +27,7 @@
     "postcss-cli": "^10.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.51.4",
+    "react-hook-form": "^7.51.5",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.18.0",
     "tailwind-merge": "^2.3.0",

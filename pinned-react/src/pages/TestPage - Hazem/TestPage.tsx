@@ -1,4 +1,5 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { ClubForm } from "@/components/clubpage/ClubForm";
 
 const TestPage = () => {
   return (
@@ -29,6 +30,9 @@ const TestPage = () => {
             </Avatar>
           </div>
         </div>
+      </div>
+      <div className="p-8">
+        <ClubForm />
       </div>
     </div>
   );
