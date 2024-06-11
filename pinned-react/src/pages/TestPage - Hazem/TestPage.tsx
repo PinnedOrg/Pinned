@@ -1,5 +1,6 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ClubForm } from "@/components/clubpage/ClubForm";
+import { ClubEvent } from "@/components/clubpage/ClubEvent";
 
 const TestPage = () => {
   return (
@@ -33,6 +34,11 @@ const TestPage = () => {
       </div>
       <div className="p-8 grid grid-cols-3 gap-4">
         <div className="col-span-2">
+          <ClubEvent 
+            imageUrl="https://preview.redd.it/i-got-bored-so-i-decided-to-draw-a-random-image-on-the-v0-4ig97vv85vjb1.png?width=640&crop=smart&auto=webp&s=22ed6cc79cba3013b84967f32726d087e539b699" 
+            title="sodfjsoifdj sdfsdofn" 
+            description="sdofu souvndbd ovdo dso di dfih ix ix ix ix vi vsi vis visbv hidvhdlh." 
+          />
         </div>
         <div className="col-span-1">
           <ClubForm />
