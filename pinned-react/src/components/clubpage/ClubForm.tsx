@@ -49,8 +49,8 @@ export function ClubForm() {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Inquiries</h2>
+    <div className="bg-black p-6 rounded-lg">
+      <h2 className="text-2xl font-bold mb-4 text-white">Inquiries</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -58,9 +58,9 @@ export function ClubForm() {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel className="text-white">First Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="First Name" {...field} />
+                  <Input className="bg-black text-white" placeholder="First Name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -71,9 +71,9 @@ export function ClubForm() {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel className="text-white">Last Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Last Name" {...field} />
+                  <Input className="bg-black text-white" placeholder="Last Name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -84,16 +84,16 @@ export function ClubForm() {
             name="year"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Year</FormLabel>
+                <FormLabel className="text-white">Year</FormLabel>
                 <FormControl>
                   <Select {...field}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full bg-black text-white">
                       <SelectValue placeholder="Select Year" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-black text-white">
                       {["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"].map(
                         (year) => (
-                          <SelectItem key={year} value={year}>
+                          <SelectItem key={year} value={year} className="text-white">
                             {year}
                           </SelectItem>
                         )
@@ -110,9 +110,9 @@ export function ClubForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Waterloo Email</FormLabel>
+                <FormLabel className="text-white">Waterloo Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="example@uwaterloo.ca" {...field} />
+                  <Input className="bg-black text-white" placeholder="example@uwaterloo.ca" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -123,9 +123,9 @@ export function ClubForm() {
             name="question"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Question</FormLabel>
+                <FormLabel className="text-white">Question</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your question" {...field} />
+                  <Input className="bg-black text-white" placeholder="Your question" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
