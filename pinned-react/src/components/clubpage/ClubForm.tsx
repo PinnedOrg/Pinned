@@ -49,7 +49,7 @@ export function ClubForm() {
   };
 
   return (
-    <div className="bg-black p-6 rounded-lg">
+    <div className="bg-gray-800 p-6 rounded-lg">
       <h2 className="text-2xl font-bold mb-4 text-white">Inquiries</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -60,7 +60,7 @@ export function ClubForm() {
               <FormItem>
                 <FormLabel className="text-white">First Name</FormLabel>
                 <FormControl>
-                  <Input className="bg-black text-white" placeholder="First Name" {...field} />
+                  <Input className="bg-bg-gray-100 text-white" placeholder="First Name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,7 +73,7 @@ export function ClubForm() {
               <FormItem>
                 <FormLabel className="text-white">Last Name</FormLabel>
                 <FormControl>
-                  <Input className="bg-black text-white" placeholder="Last Name" {...field} />
+                  <Input className="bg-bg-gray-100 text-white" placeholder="Last Name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -87,10 +87,10 @@ export function ClubForm() {
                 <FormLabel className="text-white">Year</FormLabel>
                 <FormControl>
                   <Select {...field}>
-                    <SelectTrigger className="w-full bg-black text-white">
+                    <SelectTrigger className="w-full bg-gray-100">
                       <SelectValue placeholder="Select Year" />
                     </SelectTrigger>
-                    <SelectContent className="bg-black text-white">
+                    <SelectContent className="bg-gray-100">
                       {["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"].map(
                         (year) => (
                           <SelectItem key={year} value={year} className="text-white">
@@ -112,7 +112,7 @@ export function ClubForm() {
               <FormItem>
                 <FormLabel className="text-white">Waterloo Email</FormLabel>
                 <FormControl>
-                  <Input className="bg-black text-white" placeholder="example@uwaterloo.ca" {...field} />
+                  <Input className="bg-gray-100 text-white" placeholder="example@uwaterloo.ca" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -125,13 +125,13 @@ export function ClubForm() {
               <FormItem>
                 <FormLabel className="text-white">Question</FormLabel>
                 <FormControl>
-                  <Input className="bg-black text-white" placeholder="Your question" {...field} />
+                  <Input className="bg-gray-100 text-white" placeholder="Your question" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button className="bg-gray-100 text-black" type="submit">Submit</Button>
         </form>
       </Form>
     </div>

@@ -1,6 +1,7 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ClubForm } from "@/components/clubpage/ClubForm";
 import { ClubEvent } from "@/components/clubpage/ClubEvent";
+import { FAQAccordion } from "@/components/clubpage/FAQAccordion";
 
 const TestPage = () => {
   return (
@@ -70,7 +71,13 @@ const TestPage = () => {
           <ClubForm />
         </div>
       </div>
-
+        <div className="col-span-1 gap-2 w-1/2">
+          <FAQAccordion />
+        </div>
+        <div className="col-span-1">
+          <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+          <div class="elfsight-app-85253231-4f75-453c-b2e1-8034c0a9adec" data-elfsight-app-lazy></div>
+        </div>
     </div>
   );
 }
