@@ -1,3 +1,7 @@
+"use client";
+
+// TODO: link to backend, and name searching, reset filters, and error handling
+
 import { Input } from "@/components/ui/input";
 import { IClub, filters } from "@/lib/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,13 +28,12 @@ import { useEffect, useState } from "react";
 import ClubPreviewCard from "@/components/clubs/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/clubs/ClubLoadingPlaceholder";
 import { ImageOfStudents } from "/public/images/Waterloo Students.jpg"
-import clsx from "clsx";
 
 const hardcodeData: Array<IClub> = [
   {
     "_id": "664c08955c58341b46c62acc",
     "name": "Ascend Canada Waterloo Chapter",
-    "preview": '',
+    "logo": '/images/PinnedAppLogo.png',
     "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
     "genre": "Sports",
     "cost": 0,
@@ -40,7 +43,7 @@ const hardcodeData: Array<IClub> = [
   {
     "_id": "66441aa4ccfc04b318c6b662",
     "name": "Pinned",
-    "preview": '/images/PinnedAppLogo.png',
+    "logo": '/images/PinnedAppLogo.png',
     "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
     "genre": "Music",
     "cost": 10,
@@ -50,7 +53,7 @@ const hardcodeData: Array<IClub> = [
   {
     "_id": "664ea3da37ce17ab6273b2f7",
     "name": "Pinned",
-    "preview": '/images/flowchart.png',
+    "logo": '/images/flowchart.png',
     "overview": "This is the short extract that you will be able to see in the directory.",
     "genre": "Sports",
     "cost": 15,
@@ -77,12 +80,6 @@ const hardcodeData: Array<IClub> = [
   }
 ]
 
-type FiltersType = {
-  name: string,
-  genre: string,
-  cost: number,
-  size: number,
-}
 
 const FetchClubs = ({ name, genre, cost, size}: FiltersType) => {
   return axios.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
@@ -130,7 +127,7 @@ const ClubHub = () => {
   });
 
   return (
-    <section className="w-full h-full pb-4 bg-slate-5 dark:bg-slate-950 ">
+    <section className="w-full h-full pb-4 bg-slate-900">
       <div className="h-[25rem] w-full text-center flex flex-col justify-end pb-12" style={{
         backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url(/images/WaterlooStudents.jpg)',
         backgroundSize: 'cover', 
@@ -140,19 +137,19 @@ const ClubHub = () => {
         <h1 className="mb-5 font-serif text-5xl font-bold tracking-wide text-primary">
           The Club Hub{/*<span className="px-2 py-1 rounded-lg bg-primary">Hub</span>*/}
         </h1>
-        <p className="text-lg font-medium text-gray-200">Find all the clubs and organizations UWaterloo has to offer!</p>
+        <p className="text-lg text-gray-200 font-medium">Find all the clubs and organizations UWaterloo has to offer!</p>
       </div>
 
-      <section className="flex flex-wrap justify-center p-4 px-4 my-10 space-y-4 dark:bg-slate-950 lg:px-16">
+      <section className="flex flex-wrap justify-center p-4 my-10 space-y-4 bg-slate-900 px-4 lg:px-16">
         <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
-            className="w-[80%] bg-white border-primary dark:bg-slate-950 dark:text-gray-500 px-5"
+            className="w-[80%] bg-slate-900 border-gray-500 text-gray-500 px-5"
             placeholder="Search for a club"
             onChange={(e) => {
               setName(e.target.value);
             }}
           />
-          <Button type="submit" variant='secondary' className="text-gray-200 ">
+          <Button type="submit" variant='secondary' className=" text-gray-200">
             <ViewportWrapper breakpoint="large">
               Search
             </ViewportWrapper>
@@ -168,21 +165,21 @@ const ClubHub = () => {
               className="items-center w-full gap-3"
               onClick={() => setIsCollapsibleOpen(!isCollapsibleOpen)}
             >
-              <div className="flex pl-3 dark:text-gray-500">
+              <div className="flex text-gray-500">
                 Additional Filters { isCollapsibleOpen ? <ChevronUp /> : <ChevronDown /> }
               </div>
-            <div className="w-[100%] h-1 border-2 border-solid bg-primary border-primary rounded-full mt-1 "></div>
-            </CollapsibleTrigger>
-          </div>
-            
-          
-          <CollapsibleContent className={clsx("bg-primary-light rounded-b-md px-2 pt-1 pb-2 shadow-sm shadow-gray-200 transition-all duration-1000 overflow-hidden")}>
+            <div className="w-[100%] h-1 border-2 border-solid bg-secondary border-secondary rounded-full mt-1 mb-2"></div>
             {isCollapsibleOpen && 
-              <div className="flex gap-1 hover:cursor-pointer dark:text-gray-500" onClick={resetFilters}>
+              <div className="flex gap-1 hover:cursor-pointer text-gray-500" onClick={resetFilters}>
                 Reset
                 <RotateCcw className="w-[1rem] h-auto " />
               </div>
             }
+            </CollapsibleTrigger>
+          </div>
+            
+          
+          <CollapsibleContent>
             <div className="flex flex-wrap justify-center lg:justify-evenly lg:gap-x-[4rem] gap-y-2 w-full">
               { Object.keys(filters).map((filter: string) => (
                 <Select 
@@ -206,7 +203,7 @@ const ClubHub = () => {
       </section>
 
       <section className="mt-10 flex min-h-[30rem] justify-center py-4  px-4 lg:px-16">
-        {false && 
+        {isFetching && 
           <div className="flex flex-wrap w-full gap-10 justify-evenly">
             <ClubLoadingPlaceholder />
             <ClubLoadingPlaceholder />
@@ -216,15 +213,15 @@ const ClubHub = () => {
             <ClubLoadingPlaceholder />
           </div>
         }
-        {false && <h1 className="mt-20 text-3xl font-medium dark:text-gray-500">Error fetching clubs</h1>}
-        {true && 
+        {isError && <h1 className="mt-20 text-3xl font-medium text-gray-500">Error fetching clubs</h1>}
+        {data && 
         <div className="flex flex-wrap justify-center w-full gap-10 sm:justify-start">
-          {hardcodeData.map((club: IClub) => (
-            <ClubPreviewCard club={club} />
-          ))}
-          {/* {data.data.map((club: IClub) => (
+          {/* {hardcodeData.map((club: IClub) => (
             <ClubPreviewCard club={club} />
           ))} */}
+          {data.data.map((club: IClub) => (
+            <ClubPreviewCard club={club} />
+          ))}
         </div>
         }
       </section>
