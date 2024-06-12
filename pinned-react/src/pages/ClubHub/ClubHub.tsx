@@ -94,7 +94,6 @@ const ClubHub = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [isCollapsibleOpen, setIsCollapsibleOpen] = useState<boolean>(false);
   //const queryClient = useQueryClient(); // can be used for certain things, not too sure if will be needed
-  
   const updateFilters = (newValue: string, filter: string) => {
     switch (filter) {
       case "Genre":

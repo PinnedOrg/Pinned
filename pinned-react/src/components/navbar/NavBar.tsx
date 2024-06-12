@@ -4,7 +4,6 @@ import { routes } from "@/routes/routes";
 import ViewportWrapper from "../shared/ViewportWrapper";
 import { Button } from "../ui/button";
 // import { UserProfile } from "@clerk/clerk-react";
-
 const LinkStyles = "px-3 py-2 font-medium text-sm uppercase tracking-wide text-gray-200 hover:text-gray-200 hover:bg-gray-800"; // ending space is important for tailwindcss to work properly
 
 const NavBar = () => {

@@ -14,7 +14,6 @@ import Layout from "@/components/shared/Layout";
 import { routes } from "@/routes/routes";
 import TestPage from "./pages/TestPage - Hazem/TestPage";
 
-
 const App = () => {
 
   return (
@@ -31,7 +30,6 @@ const App = () => {
       <Route path={routes.Test} element={ <Layout>
                                               <TestPage/>
                                              </Layout> } />
-
 
       {/* <Route 
         path="/board/:id/*" 
