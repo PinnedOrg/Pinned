@@ -7,5 +7,4 @@ export const routes = {
     SignUp: "/sign-up",
     Register: "/register",
     Test: "/test",
-    
 }

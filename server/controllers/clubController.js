@@ -5,24 +5,34 @@ const mongoose = require("mongoose");
 // might need to look at warpping all functions with express async handler. Re, ChatTime
 
 const getClubPreviewsBasedOnFilters = async (req, res) => {
-    const { genre, isActive, cost } = req.query;
-    // TODO: name to search by name
+    const { name, genre, cost, size } = req.query;
 
-    // ensure that the query parameters are not undefined or null before adding them to the query
-    let query = {};
-    if (genre) query.genre = genre;
-    if (isActive) query.isActive = isActive;
-    if (cost) query.cost = cost;
+     // searches for either name or email to match searched name, "i" = case insensitive
+     const searchedName = name ? {
+        $or: [ 
+            { name: { $regex: name, $options: "i" } },
+            // add parameters fields to search for here
+        ]
+    } : {};
+
+    // ensure that the filters parameters are not undefined or null before adding them to the filters object
+    let filters = {};
+    if (genre) filters.genre = genre;
+    if (cost >= 0) filters.cost = {$lte: cost};
+    if (size >= 0) filters.size = {$lte: size};
 
     try {
         const clubPreviewsList = await Club
-                                    .find(query) // filters for clubs based on query parameters
+                                    .find(searchedName) // filters for clubs based on matching name
+                                    .find(filters) // filters for clubs based on query parameters
                                     .select(" _id \
                                             name \
                                             overview \
+                                            logo \
                                             genre \
-                                            isActive \
-                                            cost")  // only select these fields to return
+                                            cost \
+                                            size \
+                                            colorTheme")  // only select these fields to return
                                     .sort({ name: 1 });
 
         return res.status(200).json(clubPreviewsList);
@@ -55,12 +65,19 @@ const getClubDetails = async (req, res) => {
 
 const createNewClub = async (req, res) => {
     try {
+        const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
+        const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
+
         const club = await Club.create({
             name: req.body.name,
             overview: req.body.overview,
+            logo: {
+                data: logoBuffer,
+                extension: extension
+            },
             description: req.body.description,
             genre: req.body.genre,
-            isActive: req.body.isActive,
+            colorTheme: req.body.colorTheme,
             location: req.body.location,
             cost: req.body.cost,
             meetingsFrequency: req.body.meetingsFrequency,
@@ -110,6 +127,7 @@ const updateClub = async (req, res) => {
     }
 
     try {
+        
         const club = await Club.findByIdAndUpdate(id, {...req.body}, { new: true })
 
     // if club id does not exist

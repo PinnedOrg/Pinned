@@ -14,12 +14,15 @@
       --popover-foreground: 222.2 84% 4.9%;
 
       /* --primary: #fd7d62; */
-      --primary: #60c322;
-      --primary-hover: #59b81e;
+      --primary: rgb(65, 156, 255);
+      --primary-hover: rgb(52,51,94)  ;
+      --primary-light: rgba(65, 156, 255, 0.2);
+      ;
       /* --primary-hover: #ef755c; */
+
       --primary-foreground: 210 40% 98%;
 
-      --secondary: 210 40% 96.1%;
+      --secondary: rgb(91, 61, 196);
       --secondary-foreground: 222.2 47.4% 11.2%;
 
       --muted: 210 40% 96.1%;
