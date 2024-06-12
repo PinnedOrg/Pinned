@@ -14,9 +14,8 @@ const PreviewImage: React.FC<{ preview: Preview }> = ({ preview }) => {
     }
     
     const base64String = Buffer.from(preview.data.data);
-
     return (
-      <img src={`data:${preview.extension};base64,${base64String}`} alt={alt} className={className ? className : ""}/>
+      <img src={`data:${preview.extension};base64,${base64String}`}/>
     );
   };
 
