@@ -8,9 +8,8 @@ const clubSchema = new mongoose.Schema(
         maxLength: 50
     },
     logo: {
-        type: Buffer,
-        extension: String,
-        required: false,
+        data: Buffer,
+        extension: String
     },
     overview: { // Short extract of the club
         type: String,
@@ -93,9 +92,6 @@ const clubSchema = new mongoose.Schema(
     //     type: [String], //TODO: change to type user
     //     required: false
     // },
-    //bgImage, // bg image like a notion club
-    //organization, 
-
   },
   {
     timestamps: true,
