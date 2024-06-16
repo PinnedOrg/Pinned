@@ -70,45 +70,45 @@ const EventCreate = () => {
 };
   return (
     <div>      
-      <form onSubmit={handleEventSubmit} className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h2 className="text-2xl font-bold mb-4">Create Event</h2>
+      <form onSubmit={handleEventSubmit} className="max-w-md px-8 pt-6 pb-8 mx-auto mb-4 bg-white rounded shadow-md">
+        <h2 className="mb-4 text-2xl font-bold">Create Event</h2>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">Title:</label>
-          <input type="text" name="title" value={formData.title} onChange={handleEventChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="title">Title:</label>
+          <input type="text" name="title" value={formData.title} onChange={handleEventChange} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description:</label>
-          <textarea name="description" value={formData.description} onChange={handleEventChange} className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="description">Description:</label>
+          <textarea name="description" value={formData.description} onChange={handleEventChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded resize-none focus:outline-none focus:shadow-outline"></textarea>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contact">Contact:</label>
-          <input type="text" name="contact" value={formData.contact} onChange={handleEventChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="contact">Contact:</label>
+          <input type="text" name="contact" value={formData.contact} onChange={handleEventChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tags">Tags (comma-separated):</label>
-          <input type="text" name="tags" value={formData.tags} onChange={handleEventChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="tags">Tags (comma-separated):</label>
+          <input type="text" name="tags" value={formData.tags} onChange={handleEventChange} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">Date:</label>
-          <input type="date" name="date" value={formData.date} onChange={handleEventChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="date">Date:</label>
+          <input type="date" name="date" value={formData.date} onChange={handleEventChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="time">Time:</label>
-          <input type="time" name="time" value={formData.time} onChange={handleEventChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="time">Time:</label>
+          <input type="time" name="time" value={formData.time} onChange={handleEventChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location:</label>
-          <input type="text" name="location" value={formData.location} onChange={handleEventChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="location">Location:</label>
+          <input type="text" name="location" value={formData.location} onChange={handleEventChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="belongsToClub">Belongs to Club ID:</label>
-          <input type="text" name="belongsToClub" value={formData.belongsToClub} onChange={handleEventChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="belongsToClub">Belongs to Club ID:</label>
+          <input type="text" name="belongsToClub" value={formData.belongsToClub} onChange={handleEventChange} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">Upload Image:</label>
-          <input type="file" onChange={handleFileChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="file">Upload Image:</label>
+          <input type="file" onChange={handleFileChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
         </div>
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Event</button>
+        <button type="submit" className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">Create Event</button>
       </form>
     </div>
   );
