@@ -8,9 +8,9 @@ import SignInPage from "@/pages/Auth/SignInPage";
 import ClubHub from "@/pages/ClubHub";
 import Layout from "@/components/shared/Layout";
 
-import { routes } from "@/lib/routes";
-import TestPage from "./pages/TestPage - Hazem/TestPage";
-import ClubProfile from "./pages/ClubProfile";
+import { routes } from "@/routes/routes";
+import EventCreate from "./pages/Creations/EventCreate";
+import ClubCreate from "./pages/Creations/ClubCreate";
 
 const App = () => {
   return (
@@ -25,9 +25,6 @@ const App = () => {
                                                 </Layout> } />
           <Route path={routes.SignUp} element={ <SignUpPage/> } />
           <Route path={routes.SignIn} element={ <SignInPage/> } />
-          <Route path={routes.Test} element={ <Layout>
-                                                  <TestPage/>
-                                                </Layout> } />
           <Route path={routes.ClubProfile} element={ <Layout>
                                                 <ClubProfile/>
                                                 </Layout> } />
