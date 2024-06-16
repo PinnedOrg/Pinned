@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const app = require("../app");
 
 const Event = require("../models/Event");
-const Board = require("../models/Board");
+const Club = require("../models/Club");
 
 const chai = require("chai");
 const chaiHttp = require("chai-http");
@@ -66,7 +66,7 @@ module.exports = {
     after,
     faker,
     Event,
-    Board,
+    Club,
     imageBuffer,
     pdfBuffer,
     connectToDatabase,

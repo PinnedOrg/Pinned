@@ -4,12 +4,11 @@ const clubSchema = new mongoose.Schema(
   {
     name: {
         type: String,
-        required: [true, "Missing club name."], // Requirement with custom error message
+        required: [true, "Missing club name."],
     },
     logo: {
-        type: Buffer,
-        extension: String,
-        required: false,
+        data: Buffer,
+        extension: String
     },
     overview: { // Short extract of the club
         type: String,
@@ -79,9 +78,6 @@ const clubSchema = new mongoose.Schema(
     //     type: [String], //TODO: change to type user
     //     required: false
     // },
-    //bgImage, // bg image like a notion club
-    //organization, 
-
   },
   {
     timestamps: true,
