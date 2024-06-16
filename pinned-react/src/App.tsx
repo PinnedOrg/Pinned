@@ -12,7 +12,8 @@ import ClubHub from "@/pages/ClubHub/ClubHub";
 import Layout from "@/components/shared/Layout";
 
 import { routes } from "@/routes/routes";
-import TestPage from "./pages/TestPage - Hazem/TestPage";
+import EventCreate from "./pages/Creations/EventCreate";
+import ClubCreate from "./pages/Creations/ClubCreate";
 
 const App = () => {
 
@@ -21,15 +22,12 @@ const App = () => {
 
   <BrowserRouter>
     <Routes>
-      <Route index element={ <LandingPage/> } />
-      <Route path={routes.ClubHub} element={ <Layout>
-                                              <ClubHub/>
-                                             </Layout> } />
+      <Route index element={ <Layout> <LandingPage/> </Layout> } />
+      <Route path={routes.ClubHub} element={ <Layout> <ClubHub/> </Layout> } />
       <Route path={routes.SignUp} element={ <SignUpPage/> } />
       <Route path={routes.SignIn} element={ <SignInPage/> } />
-      <Route path={routes.Test} element={ <Layout>
-                                              <TestPage/>
-                                             </Layout> } />
+      <Route path={routes.EventCreate} element={ <Layout> <EventCreate/> </Layout> } />
+      <Route path={routes.ClubCreate} element={ <Layout> <ClubCreate/> </Layout> } />
 
       {/* <Route 
         path="/board/:id/*" 
