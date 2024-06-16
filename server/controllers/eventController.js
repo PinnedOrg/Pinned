@@ -99,7 +99,6 @@ const createEvent = async (req, res) => {
       }
     });
     
-
     res.status(201).json(event);
   } catch (error) {
     res.status(400).json({ error: error.message });
