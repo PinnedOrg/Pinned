@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import PreviewImage from '/src/components/Image/PreviewImage';
+import PreviewImage from '../../components/Image/PreviewImage';
 
 interface Event {
   _id: string;
@@ -19,7 +18,7 @@ interface Event {
   };
 }
 
-const TestPage = () => {
+const EventCreate = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -34,6 +33,8 @@ const TestPage = () => {
 
   const [file, setFile] = useState<File | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [eventsPerPage] = useState(6);
 
   useEffect(() => {
     axios.get(`http://localhost:8080/api/events`)
@@ -46,31 +47,40 @@ const TestPage = () => {
      })
    }, [])
 
-   const renderEventsList = () => {
+  const renderEventsList = () => {
     if (events.length === 0) {
       return <p>No events available</p>;
     }
-  
+
+    const indexOfLastEvent = currentPage * eventsPerPage;
+    const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+    const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+
     return (
-      <ul className="divide-y divide-gray-200">
-        {events.map((event) => (
-          <li key={event._id} className="py-6">
-            <div className="flex space-x-4">
-              <div className="flex-1">
-                <p className="text-lg font-semibold">{event.title}</p>
-                <p className="text-sm text-gray-500 mb-2">{event.description}</p>
-                <p className="text-sm text-gray-500 mb-2">Contact: {event.contact}</p>
-                <p className="text-sm text-gray-500 mb-2">Tags: {event.tags}</p>
-                <p className="text-sm text-gray-500 mb-2">Date: {event.date}</p>
-                <p className="text-sm text-gray-500 mb-2">Time: {event.time}</p>
-                <p className="text-sm text-gray-500 mb-2">Location: {event.location}</p>
-                <p className="text-sm text-gray-500 mb-2">Belongs to Club ID: {event.belongsToClub}</p>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {currentEvents.map((event) => (
+          <div key={event._id} className="bg-white shadow-md rounded-lg p-4 max-h-128 overflow-hidden">
+            <h3 className="text-lg font-semibold mb-2">{event.title}</h3>
+            <p className="text-sm text-gray-500 mb-2">{event.description}</p>
+            <p className="text-sm text-gray-500 mb-2">Contact: {event.contact}</p>
+            <p className="text-sm text-gray-500 mb-2">Tags: {event.tags.join(', ')}</p>
+            <p className="text-sm text-gray-500 mb-2">Date: {event.date}</p>
+            <p className="text-sm text-gray-500 mb-2">Time: {event.time}</p>
+            <p className="text-sm text-gray-500 mb-2">Location: {event.location}</p>
+            <p className="text-sm text-gray-500 mb-2">Belongs to Club ID: {event.belongsToClub}</p>
+            <p className="text-sm text-gray-500 mb-2">Event ID: {event._id}</p>
+            {event.preview && event.preview.data ? (
+              <div className="flex items-center justify-center border-2 border-gray-500 max-h-[300px] h-[300px]">
+                <PreviewImage preview={event.preview} class="max-h-[300px]"/>
               </div>
-              {event.preview && <div className="max-w-[500px]"><PreviewImage preview={event.preview} /></div>}
-            </div>
-          </li>
+            ) : (
+              <div className="flex items-center justify-center h-[300px] bg-gray-800 border-2 border-gray-500">
+                <p className="text-white">No image</p>
+              </div>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
     );
   };
 
@@ -116,7 +126,6 @@ const TestPage = () => {
     }
 
     try {
-        // Create the event
         const response = await axios.post('http://localhost:8080/api/events', data, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -125,16 +134,16 @@ const TestPage = () => {
 
         console.log('Event created successfully:', response);
 
-        // Fetch all events again to update the events list
         const allEventsResponse = await axios.get('http://localhost:8080/api/events');
         console.log(`GOT ${allEventsResponse.data.length} events`);
 
-        // Update the events state with the newly fetched events
         setEvents(allEventsResponse.data);
     } catch (error) {
         console.error('Error creating event:', error);
     }
 };
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div>      
@@ -186,10 +195,25 @@ const TestPage = () => {
       <div>
         <h2 className="text-2xl font-bold mb-4">Events List</h2>
         {renderEventsList()}
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === Math.ceil(events.length / eventsPerPage)}
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
+          >
+            Next
+          </button>
+        </div>
       </div>
-
     </div>
   );
 };
 
-export default TestPage;
+export default EventCreate;
