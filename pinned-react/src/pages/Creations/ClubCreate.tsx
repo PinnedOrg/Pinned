@@ -131,26 +131,26 @@ const ClubCreate = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full p-4 gap-20">
+    <div className="flex items-center justify-center w-full gap-20 p-4">
       <div className="w-full max-w-xl p-4">
-        <form onSubmit={handleClubSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <h2 className="text-2xl font-bold mb-4">Register Club</h2>
+        <form onSubmit={handleClubSubmit} className="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md">
+          <h2 className="mb-4 text-2xl font-bold">Register Club</h2>
           {/* Form fields for club details */}
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name:</label>
-            <input type="text" name="name" value={formData.name} onChange={handleClubChange} required maxLength={50} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="name">Name:</label>
+            <input type="text" name="name" value={formData.name} onChange={handleClubChange} required maxLength={50} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="overview">Overview (max 100 characters):</label>
-            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={100} required className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="overview">Overview (max 100 characters):</label>
+            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={100} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded resize-none focus:outline-none focus:shadow-outline"></textarea>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description (max 2500 characters):</label>
-            <textarea name="description" value={formData.description} onChange={handleClubChange} maxLength={2500} required className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="description">Description (max 2500 characters):</label>
+            <textarea name="description" value={formData.description} onChange={handleClubChange} maxLength={2500} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded resize-none focus:outline-none focus:shadow-outline"></textarea>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="genre">Genre:</label>
-            <select name="genre" value={formData.genre} onChange={handleSelectChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="genre">Genre:</label>
+            <select name="genre" value={formData.genre} onChange={handleSelectChange} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline">
               <option value="" disabled>Select Genre</option>
               {Object.keys(genreFilters).map((genre) => (
                 <option key={genre} value={genre}>{genre}</option>
@@ -158,46 +158,46 @@ const ClubCreate = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="colorTheme">Color Theme:</label>
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="colorTheme">Color Theme:</label>
             <div className="flex items-center">
-              <input type="color" name="colorTheme" value={formData.colorTheme || '#ffffff'} onChange={handleClubChange} className="appearance-none border rounded w-10 h-10 p-0" />
+              <input type="color" name="colorTheme" value={formData.colorTheme || '#ffffff'} onChange={handleClubChange} className="w-10 h-10 p-0 border rounded appearance-none" />
               <span className="ml-4 text-gray-700">{formData.colorTheme || '#ffffff'}</span>
             </div>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cost">Cost:</label>
-            <input type="number" name="cost" value={formData.cost < 0 ? 0 : formData.cost || 0} onChange={handleClubChange} required min={0} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="cost">Cost:</label>
+            <input type="number" name="cost" value={formData.cost < 0 ? 0 : formData.cost || 0} onChange={handleClubChange} required min={0} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location:</label>
-            <input type="text" name="location" value={formData.location} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="location">Location:</label>
+            <input type="text" name="location" value={formData.location} onChange={handleClubChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="meetingsFrequency">Meetings Frequency:</label>
-            <input type="text" name="meetingsFrequency" value={formData.meetingsFrequency} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="meetingsFrequency">Meetings Frequency:</label>
+            <input type="text" name="meetingsFrequency" value={formData.meetingsFrequency} onChange={handleClubChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email:</label>
-            <input type="email" name="email" value={formData.email} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">Email:</label>
+            <input type="email" name="email" value={formData.email} onChange={handleClubChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instagram">Instagram:</label>
-            <input type="text" name="instagram" value={formData.instagram} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="instagram">Instagram:</label>
+            <input type="text" name="instagram" value={formData.instagram} onChange={handleClubChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="discord">Discord:</label>
-            <input type="text" name="discord" value={formData.discord} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="discord">Discord:</label>
+            <input type="text" name="discord" value={formData.discord} onChange={handleClubChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="facebook">Facebook:</label>
-            <input type="text" name="facebook" value={formData.facebook} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="facebook">Facebook:</label>
+            <input type="text" name="facebook" value={formData.facebook} onChange={handleClubChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="logo">Logo:</label>
-            <input type="file" name="logo" onChange={handleFileChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="logo">Logo:</label>
+            <input type="file" name="logo" onChange={handleFileChange} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="flex items-center justify-between">
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button type="submit" className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">
               Submit
             </button>
           </div>
@@ -205,8 +205,8 @@ const ClubCreate = () => {
       </div>
       <div className="w-full max-w-xl p-4">
         <div className="mb-4">
-          <h2 className="text-2xl font-bold mb-4">Preview</h2>
-          <div className="bg-white shadow-md rounded p-4">
+          <h2 className="mb-4 text-2xl font-bold">Preview</h2>
+          <div className="p-4 bg-white rounded shadow-md">
             <div className="flex flex-col space-y-2">
               <p className="text-lg font-semibold break-words">Name: {formData.name}</p>
               <p className="text-sm text-gray-500 break-words">Overview: {formData.overview}</p>
