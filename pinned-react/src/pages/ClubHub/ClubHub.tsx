@@ -20,11 +20,13 @@ import {
 import { Button } from "@/components/ui/button";
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ClubPreviewCard from "@/components/clubs/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/clubs/ClubLoadingPlaceholder";
 import { ImageOfStudents } from "/public/images/Waterloo Students.jpg"
 import clsx from "clsx";
+import { useTheme } from "@/components/shared/ThemeProvider";
+import ClubHubBanner from "@/components/ClubHubBanner";
 
 const hardcodeData: Array<IClub> = [
   {
@@ -97,6 +99,7 @@ const ClubHub = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [isCollapsibleOpen, setIsCollapsibleOpen] = useState<boolean>(false);
   //const queryClient = useQueryClient(); // can be used for certain things, not too sure if will be needed
+  const { theme } = useTheme();
   
   const updateFilters = (newValue: string, filter: string) => {
     switch (filter) {
@@ -130,23 +133,13 @@ const ClubHub = () => {
   });
 
   return (
-    <section className="w-full h-full pb-4 bg-slate-5 dark:bg-slate-950 ">
-      <div className="h-[25rem] w-full text-center flex flex-col justify-end pb-12" style={{
-        backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url(/images/WaterlooStudents.jpg)',
-        backgroundSize: 'cover', 
-        backgroundPosition: 'center', 
-        backgroundRepeat: 'no-repeat'
-      }}>
-        <h1 className="mb-5 font-serif text-5xl font-bold tracking-wide text-primary">
-          The Club Hub{/*<span className="px-2 py-1 rounded-lg bg-primary">Hub</span>*/}
-        </h1>
-        <p className="text-lg font-medium text-gray-200">Find all the clubs and organizations UWaterloo has to offer!</p>
-      </div>
+    <section className="inline-flex flex-col items-center w-full h-full pb-4 bg-slate-5 dark:bg-slate-950">
+      <ClubHubBanner />
 
-      <section className="flex flex-wrap justify-center p-4 px-4 my-10 space-y-4 dark:bg-slate-950 lg:px-16">
+      <section className="flex flex-wrap justify-center p-4 px-4 mt-10 mb-5 space-y-4 dark:bg-slate-950 lg:px-16 max-w-[80rem] w-full">
         <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
-            className="w-[80%] bg-white border-primary dark:bg-slate-950 dark:text-gray-500 px-5"
+            className="w-[80%] bg-white border-slate-500 dark:bg-slate-950 dark:text-gray-500 px-5"
             placeholder="Search for a club"
             onChange={(e) => {
               setName(e.target.value);
@@ -171,24 +164,24 @@ const ClubHub = () => {
               <div className="flex pl-3 dark:text-gray-500">
                 Additional Filters { isCollapsibleOpen ? <ChevronUp /> : <ChevronDown /> }
               </div>
-            <div className="w-[100%] h-1 border-2 border-solid bg-primary border-primary rounded-full mt-1 "></div>
+            <div className="w-[100%] h-1 border-2 border-solid bg-slate-500 border-slate-500 rounded-full mt-1 "></div>
             </CollapsibleTrigger>
           </div>
             
           
-          <CollapsibleContent className={clsx("bg-primary-light rounded-b-md px-2 pt-1 pb-2 shadow-sm shadow-gray-200 transition-all duration-1000 overflow-hidden")}>
+          <CollapsibleContent className={clsx("rounded-b-md px-2 pt-1 pb-4 shadow-md shadow-slate-200 dark:shadow-slate-800 transition-all duration-1000 overflow-hidden")}>
             {isCollapsibleOpen && 
               <div className="flex gap-1 hover:cursor-pointer dark:text-gray-500" onClick={resetFilters}>
                 Reset
                 <RotateCcw className="w-[1rem] h-auto " />
               </div>
             }
-            <div className="flex flex-wrap justify-center lg:justify-evenly lg:gap-x-[4rem] gap-y-2 w-full">
+            <div className="mt-2 flex flex-wrap justify-center lg:justify-evenly lg:gap-x-[4rem] gap-y-2 w-full">
               { Object.keys(filters).map((filter: string) => (
                 <Select 
                   key={filter} 
                   onValueChange={(newValue: string) => updateFilters(newValue, filter)}>
-                  <SelectTrigger className=" min-w-[6rem] max-w-[18rem]">
+                  <SelectTrigger className=" min-w-[6rem] max-w-[18rem] border-slate-500">
                     <SelectValue placeholder={filter} />
                   </SelectTrigger>
                   <SelectContent>
@@ -205,7 +198,7 @@ const ClubHub = () => {
         </Collapsible>
       </section>
 
-      <section className="mt-10 flex min-h-[30rem] justify-center py-4  px-4 lg:px-16">
+      <section className=" flex min-h-[30rem] justify-center py-4 px-4 lg:px-16 max-w-[90rem]">
         {false && 
           <div className="flex flex-wrap w-full gap-10 justify-evenly">
             <ClubLoadingPlaceholder />
@@ -220,7 +213,7 @@ const ClubHub = () => {
         {true && 
         <div className="flex flex-wrap justify-center w-full gap-10 sm:justify-start">
           {hardcodeData.map((club: IClub) => (
-            <ClubPreviewCard club={club} />
+            <ClubPreviewCard club={club} key={club._id}/>
           ))}
           {/* {data.data.map((club: IClub) => (
             <ClubPreviewCard club={club} />

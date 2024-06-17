@@ -14,7 +14,7 @@ const NavBar = () => {
       <ViewportWrapper breakpoint="large">
         <Link to={routes.Home} className="flex gap-[0.35rem] items-center">
           <h1 className="text-2xl font-bold uppercase dark:text-gray-200">UW</h1>
-          <h1 className="text-3xl font-bold text-transparent uppercase bg-gradient-to-r to-secondary from-primary bg-clip-text">Pinned</h1>
+          <h1 className="text-3xl font-bold text-transparent uppercase bg-gradient-to-r to-primary from-secondary bg-clip-text">Pinned</h1>
         </Link>
       </ViewportWrapper>
       {/* <ViewportWrapper breakpoint="mobile">
