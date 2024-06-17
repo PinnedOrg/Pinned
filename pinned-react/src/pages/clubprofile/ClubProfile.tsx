@@ -1,11 +1,11 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { ClubForm } from "@/components/clubpage/ClubForm";
-import { ClubEvent } from "@/components/clubpage/ClubEvent";
-import { FAQAccordion } from "@/components/clubpage/FAQAccordion";
+import { ClubForm } from "@/components/clubprofile/ClubForm";
+import { ClubEvent } from "@/components/clubprofile/ClubEvent";
+import { FAQAccordion } from "@/components/clubprofile/FAQAccordion";
 import { InstagramEmbed } from 'react-social-media-embed';
 import { Badge } from "@/components/ui/badge";
 import { FaUserFriends } from "react-icons/fa";
-const TestPage = () => {
+const ClubProfile = () => {
   return (
     <div className="relative w-full">
       <div className="relative w-full h-[30vh] rounded-lg overflow-hidden">
@@ -97,4 +97,4 @@ const TestPage = () => {
   );
 }
 
-export default TestPage;
+export default ClubProfile;
