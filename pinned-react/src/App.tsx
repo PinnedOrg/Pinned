@@ -13,6 +13,7 @@ import Layout from "@/components/shared/Layout";
 
 import { routes } from "@/routes/routes";
 import TestPage from "./pages/TestPage - Hazem/TestPage";
+import ClubProfile from "./pages/clubprofile/ClubProfile";
 
 const App = () => {
 
@@ -30,7 +31,9 @@ const App = () => {
       <Route path={routes.Test} element={ <Layout>
                                               <TestPage/>
                                              </Layout> } />
-
+      <Route path={routes.ClubProfile} element={ <Layout>
+                                            <ClubProfile/>
+                                            </Layout> } />
       {/* <Route 
         path="/board/:id/*" 
         element={
