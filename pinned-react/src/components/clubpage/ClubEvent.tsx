@@ -8,7 +8,7 @@ interface ClubEventProps {
 
 export function ClubEvent({ imageUrl, title, description }: ClubEventProps) {
   return (
-    <Card className="max-w-sm rounded-lg overflow-hidden shadow-lg">
+    <Card className="max-w-sm rounded-lg overflow-hidden shadow-lg border-none">
       <img src={imageUrl} alt={title} className="w-full h-48 object-cover" />
       <CardHeader>
         <CardTitle>{title}</CardTitle>

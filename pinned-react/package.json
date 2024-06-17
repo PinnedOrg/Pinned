@@ -32,6 +32,7 @@
     "react-hook-form": "^7.51.5",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.18.0",
+    "react-social-media-embed": "^2.5.13",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "web-vitals": "^2.1.4",
