@@ -33,8 +33,6 @@ module.exports = {
         },
         secondary: {
           DEFAULT: "var(--secondary)",
-          hover: "var(--secondary-hover)",
-          light: "var(--secondary-light)",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {

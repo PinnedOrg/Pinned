@@ -13,8 +13,8 @@ const NavBar = () => {
     <header className="h-[4.5rem] w-100% py-3 px-9 flex shadow-sm shadow-primary justify-center sm:justify-between items-center z-10  dark:bg-slate-950">
       <ViewportWrapper breakpoint="large">
         <Link to={routes.Home} className="flex gap-[0.35rem] items-center">
-          <h1 className="text-2xl font-bold dark:text-gray-200 uppercase">UW</h1>
-          <h1 className="text-3xl font-bold uppercase text-transparent bg-gradient-to-r to-secondary from-primary bg-clip-text">Pinned</h1>
+          <h1 className="text-2xl font-bold uppercase dark:text-gray-200">UW</h1>
+          <h1 className="text-3xl font-bold text-transparent uppercase bg-gradient-to-r to-primary from-secondary bg-clip-text">Pinned</h1>
         </Link>
       </ViewportWrapper>
       {/* <ViewportWrapper breakpoint="mobile">
