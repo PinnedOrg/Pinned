@@ -14,6 +14,7 @@ import Layout from "@/components/shared/Layout";
 import { routes } from "@/routes/routes";
 import ClubProfile from "./pages/clubprofile/ClubProfile";
 
+import TestPage from "./pages/TestPage - Hazem/TestPage";
 
 const App = () => {
 
@@ -31,7 +32,9 @@ const App = () => {
       <Route path={routes.ClubProfile} element={ <Layout>
                                               <ClubProfile/>
                                              </Layout> } />
-
+      <Route path={routes.Test} element={ <Layout>
+                                            <TestPage/>
+                                            </Layout> } />
 
       {/* <Route 
         path="/board/:id/*" 

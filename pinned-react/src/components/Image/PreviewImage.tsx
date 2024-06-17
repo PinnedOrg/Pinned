@@ -1,17 +1,12 @@
 import { Buffer } from 'buffer';
-
-type PreviewImageProps = {
-    preview: {
-      data: {
-        data: Buffer
-      };
-      extension: string;
-  },
-  alt: string; // optional
-  className?: string; // optional
+interface Preview {
+  data: {
+    data: Buffer;
+  };
+  extension: string;
 }
 
-const PreviewImage = ({ preview, alt, className }: PreviewImageProps) => {
+const PreviewImage: React.FC<{ preview: Preview }> = ({ preview }) => {
 
     if (preview.data == null) {
       console.error('No image data provided.');
@@ -19,9 +14,8 @@ const PreviewImage = ({ preview, alt, className }: PreviewImageProps) => {
     }
     
     const base64String = Buffer.from(preview.data.data);
-
     return (
-      <img src={`data:${preview.extension};base64,${base64String}`} alt={alt} className={className ? className : ""}/>
+      <img src={`data:${preview.extension};base64,${base64String}`}/>
     );
   };
 
