@@ -3,7 +3,8 @@ import { ClubForm } from "@/components/clubpage/ClubForm";
 import { ClubEvent } from "@/components/clubpage/ClubEvent";
 import { FAQAccordion } from "@/components/clubpage/FAQAccordion";
 import { InstagramEmbed } from 'react-social-media-embed';
-
+import { Badge } from "@/components/ui/badge";
+import { FaUserFriends } from "react-icons/fa";
 const TestPage = () => {
   return (
     <div className="relative w-full">
@@ -32,6 +33,16 @@ const TestPage = () => {
               <AvatarFallback>Web</AvatarFallback>
             </Avatar>
           </div>
+          <div className='flex w-full pt-20 space-x-8 sm:space-x-4 md:space-x-8 lg:space-x-4 xl:space-x-8'>
+            <Badge variant={'outline'} className='border-none text-zinc-500 bg-zinc-100 dark:text-gray-300 dark:bg-gray-800'>
+              Free
+            </Badge>
+            <Badge variant={'outline'} className='gap-2 border-none text-zinc-500 bg-zinc-100 dark:text-gray-300 dark:bg-gray-800'>
+              Over 100
+              <FaUserFriends />
+            </Badge>
+          </div>
+
         </div>
       </div>
       <div className="p-8 grid grid-cols-3 gap-4">
