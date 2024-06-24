@@ -1,6 +1,9 @@
 import clsx from "clsx";
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+
+import { IClub } from "@/lib/types";
+import { filters } from "@/lib/data";
+import { useQuery } from "@tanstack/react-query";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -18,14 +21,11 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-import { IClub } from "@/lib/types";
-import { filters } from "@/lib/data";
-import { axiosInstance } from "@/lib/utils";
-
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/cards/ClubLoadingPlaceholder";
 import ClubHubBanner from "@/components/ClubHubBanner";
+import { axiosInstance } from "@/lib/utils";
 
 import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
 import PageErrorMessage from "@/components/shared/PageErrorMessage";
