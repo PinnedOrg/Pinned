@@ -5,8 +5,7 @@
 import { Input } from "@/components/ui/input";
 import { IClub } from "@/lib/types";
 import { filters } from "@/lib/data";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import {
   Select,
   SelectContent,
@@ -29,8 +28,9 @@ import ClubPreviewCard from "@/components/Cards/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/clubs/ClubLoadingPlaceholder";
 import clsx from "clsx";
 import ClubHubBanner from "@/components/ClubHubBanner";
+import { axiosInstance } from "@/lib/utils";
 
-const hardcodeData: Array<IClub> = [
+const hardcodeData = [
   {
     "_id": "664c08955c58341b46c62acc",
     "name": "Ascend Canada Waterloo Chapter",
@@ -137,6 +137,15 @@ type FiltersType = {
 
 const FetchClubs = ({ name, genre, cost, size }: FiltersType) => {
   return axios.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
+type FiltersProps = {
+  name: string,
+  genre: string,
+  cost: number,
+  size: number,
+}
+
+const FetchClubs = ({ name, genre, cost, size }: FiltersProps) => {
+  return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
 }
 
 const ClubHub = () => {

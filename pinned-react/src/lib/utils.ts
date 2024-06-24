@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import axios from 'axios';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -25,3 +26,8 @@ export function tintColor (hexColor: string, tintFactor: number) {
   };
   return `rgb(${tintedRgb.r}, ${tintedRgb.g}, ${tintedRgb.b})`;
 };
+
+
+export const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_AXIOS_BASE_URL,
+});
