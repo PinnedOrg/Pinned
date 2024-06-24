@@ -57,7 +57,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
         <div className='flex justify-center h-[8.5rem] sm:h-[8rem] md:h-[8.5rem] w-full'>
           <Avatar className='w-auto h-full border-2 border-slate-200 dark:border-slate-800 aspect-square'>
             <AvatarImage src={club.preview}/>
-            <AvatarFallback> <img src="/images/LogoPlaceholder.png" alt="placeholder" /></AvatarFallback>
+            <AvatarFallback> <img src="/images/logos/LogoPlaceholder.png" alt="placeholder" className='aspect-square'/></AvatarFallback>
           </Avatar>
         {/* <div className='w-auto h-full overflow-hidden border-2 border-gray-100 rounded-full aspect-square'>
             {club.logo ? (
