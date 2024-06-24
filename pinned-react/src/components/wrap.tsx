@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { ArrowUpToLine } from "lucide-react";
 
-export const Wrap = () => {
+const Wrap = () => {
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   useEffect(() => {
@@ -27,12 +27,14 @@ export const Wrap = () => {
       {showTopBtn && (
         <Button
           onClick={goToTop}
-          className="fixed bottom-4 right-4 opacity-90 shadow-md"
+          className="fixed shadow-md bottom-4 right-4 opacity-90"
           size="icon"
         >
-          <ArrowUpToLine className="h-4 w-4" />
+          <ArrowUpToLine className="w-4 h-4" />
         </Button>
       )}
     </>
   );
 };
+
+export default Wrap;

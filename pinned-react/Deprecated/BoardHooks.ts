@@ -1,4 +1,4 @@
-import { BoardInterface } from "./types";
+import { BoardInterface } from "../src/lib/types";
 
 export const setBoardToLocalStorage = (board: BoardInterface) => {
     localStorage.setItem(`Board ${board._id}`, JSON.stringify(board));

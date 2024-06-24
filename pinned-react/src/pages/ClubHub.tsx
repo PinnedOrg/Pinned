@@ -3,7 +3,8 @@
 // TODO: link to backend, and name searching, reset filters, and error handling
 
 import { Input } from "@/components/ui/input";
-import { IClub, filters } from "@/lib/types";
+import { IClub } from "@/lib/types";
+import { filters } from "@/lib/data";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import {
@@ -25,11 +26,9 @@ import { Button } from "@/components/ui/button";
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
 import { useState } from "react";
-import ClubPreviewCard from "@/components/clubs/ClubPreviewCard";
+import ClubPreviewCard from "@/components/Cards/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/clubs/ClubLoadingPlaceholder";
-import { ImageOfStudents } from "/public/images/Waterloo Students.jpg"
 import clsx from "clsx";
-import { useTheme } from "@/components/shared/ThemeProvider";
 import ClubHubBanner from "@/components/ClubHubBanner";
 
 const hardcodeData: Array<IClub> = [
@@ -97,7 +96,6 @@ const ClubHub = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [isCollapsibleOpen, setIsCollapsibleOpen] = useState<boolean>(false);
   //const queryClient = useQueryClient(); // can be used for certain things, not too sure if will be needed
-  const { theme } = useTheme();
   
   const updateFilters = (newValue: string, filter: string) => {
     switch (filter) {
@@ -143,7 +141,7 @@ const ClubHub = () => {
               setName(e.target.value);
             }}
           />
-          <Button type="submit" variant='secondary' className=" text-gray-200">
+          <Button type="submit" variant='secondary' className="text-gray-200 ">
             <ViewportWrapper breakpoint="large">
               Search
             </ViewportWrapper>
@@ -169,7 +167,7 @@ const ClubHub = () => {
           
           <CollapsibleContent className={clsx("rounded-b-md px-2 pt-1 pb-4 shadow-md shadow-slate-200 dark:shadow-slate-800 transition-all duration-1000 overflow-hidden")}>
             {isCollapsibleOpen && 
-              <div className="flex gap-1 hover:cursor-pointer text-gray-500" onClick={resetFilters}>
+              <div className="flex gap-1 text-gray-500 hover:cursor-pointer" onClick={resetFilters}>
                 Reset
                 <RotateCcw className="w-[1rem] h-auto " />
               </div>
@@ -197,7 +195,7 @@ const ClubHub = () => {
       </section>
 
       <section className=" flex min-h-[30rem] justify-center py-4 px-4 lg:px-16 max-w-[90rem]">
-        {false && 
+        {isFetching && 
           <div className="flex flex-wrap w-full gap-10 justify-evenly">
             <ClubLoadingPlaceholder />
             <ClubLoadingPlaceholder />
@@ -209,12 +207,9 @@ const ClubHub = () => {
         }
         {isError && <h1 className="mt-20 text-3xl font-medium text-gray-500">Error fetching clubs</h1>}
         {data && 
-        <div className="flex flex-wrap justify-center w-full gap-10 sm:justify-start">
-          {hardcodeData.map((club: IClub) => (
+        <div className="flex flex-wrap justify-center w-full gap-4 sm:justify-start">
+          {/* {hardcodeData.map((club: IClub) => (
             <ClubPreviewCard club={club} key={club._id}/>
-          ))}
-          {/* {data.data.map((club: IClub) => (
-            <ClubPreviewCard club={club} />
           ))} */}
           {data.data.map((club: IClub) => (
             <ClubPreviewCard club={club} />

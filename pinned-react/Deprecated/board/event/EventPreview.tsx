@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-import PreviewImage from '../../Image/PreviewImage';
+import PreviewImage from '../../../src/components/Image/PreviewImage';
 import { IEvent } from '@/lib/types';
 
 type EventPreviewProps = {

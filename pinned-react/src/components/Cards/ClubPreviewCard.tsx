@@ -1,4 +1,5 @@
-import { IClub, costFilters, sizeFilters } from '@/lib/types'
+import { IClub} from '@/lib/types'
+import { costFilters, sizeFilters } from '@/lib/data'
 import { Badge } from '../ui/badge'
 import {
   Avatar,
@@ -16,7 +17,6 @@ import { Link } from 'react-router-dom'
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { FaUserFriends } from "react-icons/fa";
 import { hexToRGBObject, tintColor } from '@/lib/utils'
-import PreviewImage from '../Image/PreviewImage'
 import { useTheme } from '@/components/shared/ThemeProvider'
 
 type ClubPreviewCardProps = {
