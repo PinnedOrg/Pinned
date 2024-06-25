@@ -235,6 +235,10 @@ const ClubCreate = () => {
           </div>
         </div>
       </div>
+      <div className="w-full p-4">
+        <h2 className="mb-4 text-2xl font-bold">Clubs List</h2>
+        {renderClubsList()}
+      </div>
     </div>
   );
 };
