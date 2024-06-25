@@ -1,6 +1,6 @@
 import { team } from "../lib/data";
 import { AboutCardType } from "../lib/types";
-import AboutCard from "./Cards/AboutCard";
+import AboutCard from "./cards/AboutCard";
 const OurTeam = () => {
   return (
     <section className="container">

@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
-import  Cards from "./Cards/HeroCards.tsx";
+import  HeroCards from "./cards/HeroCards.tsx";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { Link } from 'react-router-dom';
 
@@ -56,9 +56,9 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* cards sections */}
+      {/* sections */}
       <div className="z-10">
-        <Cards />
+        <HeroCards />
       </div>
 
       {/* Shadow effect */}

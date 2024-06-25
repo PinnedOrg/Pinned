@@ -1,11 +1,8 @@
-"use client";
-
-// TODO: link to backend, and name searching, reset filters, and error handling
+import clsx from "clsx";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import { IClub } from "@/lib/types";
-import { filters } from "@/lib/data";
-import { useQuery } from "@tanstack/react-query";
 import {
   Select,
   SelectContent,
@@ -13,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -21,14 +17,18 @@ import {
 } from "@/components/ui/collapsible"
 
 import { Button } from "@/components/ui/button";
-import ViewportWrapper from "@/components/shared/ViewportWrapper";
-import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
-import { useState } from "react";
-import ClubPreviewCard from "@/components/Cards/ClubPreviewCard";
-import ClubLoadingPlaceholder from "@/components/clubs/ClubLoadingPlaceholder";
-import clsx from "clsx";
-import ClubHubBanner from "@/components/ClubHubBanner";
+
+import { IClub } from "@/lib/types";
+import { filters } from "@/lib/data";
 import { axiosInstance } from "@/lib/utils";
+
+import ViewportWrapper from "@/components/shared/ViewportWrapper";
+import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
+import ClubLoadingPlaceholder from "@/components/cards/ClubLoadingPlaceholder";
+import ClubHubBanner from "@/components/ClubHubBanner";
+
+import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
+import PageErrorMessage from "@/components/shared/PageErrorMessage";
 
 const hardcodeData = [
   {
@@ -189,11 +189,12 @@ const ClubHub = () => {
     queryFn: () => FetchClubs({name, genre, cost, size}),
   });
 
+  console.log(data);
   return (
-    <section className="inline-flex flex-col items-center w-full h-full pb-4 bg-slate-5 dark:bg-slate-950">
+    <section className="inline-flex flex-col items-center w-full h-full pb-4 bg-slate-5 bg-background">
       <ClubHubBanner />
 
-      <section className="flex flex-wrap justify-center p-4 px-4 mt-10 mb-5 space-y-4 dark:bg-slate-950 lg:px-16 max-w-[80rem] w-full">
+      <section className="container flex flex-wrap justify-center p-4 px-4 mt-10 mb-5 space-y-4 dark:bg-slate-950 lg:px-16 max-w-[80rem] w-full">
         <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
             className="w-[80%] bg-white border-slate-500 dark:bg-slate-950 dark:text-gray-500 px-5"
@@ -221,7 +222,7 @@ const ClubHub = () => {
               <div className="flex text-gray-500">
                 Additional Filters { isCollapsibleOpen ? <ChevronUp /> : <ChevronDown /> }
               </div>
-            <div className="w-[100%] h-1 border-2 border-solid bg-slate-500 border-slate-500 rounded-full mt-1 "></div>
+            <hr className="w-[100%] border border-solid border-slate-500 rounded-full mt-1 "></hr>
             </CollapsibleTrigger>
           </div>
             
@@ -255,28 +256,30 @@ const ClubHub = () => {
         </Collapsible>
       </section>
 
-      <section className=" flex min-h-[30rem] justify-center py-4 px-4 lg:px-16 max-w-[90rem]">
-        {isFetching && 
-          <div className="flex flex-wrap w-full gap-10 justify-evenly">
-            <ClubLoadingPlaceholder />
-            <ClubLoadingPlaceholder />
-            <ClubLoadingPlaceholder />
-            <ClubLoadingPlaceholder />
-            <ClubLoadingPlaceholder />
-            <ClubLoadingPlaceholder />
+      <section className="container flex min-h-[30rem] justify-center">
+        {(isError) ? (
+          <div className="mt-20">
+            <PageErrorMessage />
           </div>
-        }
-        {isError && <h1 className="mt-20 text-3xl font-medium text-gray-500">Error fetching clubs</h1>}
-        {data && 
-        <div className="flex flex-wrap justify-center w-full gap-4 sm:justify-start">
-          {/* {hardcodeData.map((club: IClub) => (
-            <ClubPreviewCard club={club} key={club._id}/>
-          ))} */}
-          {data.data.map((club: IClub) => (
-            <ClubPreviewCard club={club} />
-          ))}
-        </div>
-        }
+        ) : (
+          <div className={clsx("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4", {"gap-6": data})}>
+            
+            {data ? data.data.map((club: IClub) => (
+                <ClubPreviewCard club={club} />
+              )) : (
+                <>
+                  <ClubLoadingPlaceholder />
+                  <ClubLoadingPlaceholder />
+                  <ClubLoadingPlaceholder />
+                  <ClubLoadingPlaceholder />
+                  <ClubLoadingPlaceholder />
+                  <ClubLoadingPlaceholder />
+                  <ClubLoadingPlaceholder />
+                  <ClubLoadingPlaceholder />
+                </>
+              )}
+          </div>
+        )}
       </section>
     </section>
   )
