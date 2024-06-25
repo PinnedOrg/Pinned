@@ -1,5 +1,4 @@
 import { Button } from "./ui/button";
-import { buttonVariants } from "./ui/button";
 import  HeroCards from "@/components/cards/HeroCards";
 import { routes } from "@/lib/routes";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
@@ -30,7 +29,7 @@ const Hero = () => {
             
         {/* Buttons */}
         <div className="space-y-4 md:space-y-0 md:space-x-4">
-            <Link to="/clubhub">
+            <Link to={routes.ClubHub}>
                 <Button className="w-full md:w-1/3">Browse Clubs!</Button>
             </Link>
             <Link to={routes.Register}>
@@ -39,16 +38,6 @@ const Hero = () => {
                 <PlusCircledIcon className="w-5 h-5 ml-2" />
               </Button>
             </Link>
-          {/* <Link to="/clubsignin">
-                <button
-                    className={`w-full md:w-1/3 ${buttonVariants({
-                    variant: "outline",
-                    })}`}
-                >
-                    Create a Club
-                    <PlusCircledIcon className="w-5 h-5 ml-2" />
-                </button>
-            </Link> */}
         </div>
       </div>
 
