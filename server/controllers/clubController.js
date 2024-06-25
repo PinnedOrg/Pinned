@@ -85,11 +85,11 @@ const createClub = async (req, res) => {
         return res.status(400).json({ error: 'Can not own more than 1 club.' });
     }
 
-    let club;
+  let club;
 
-    try {
-        const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
-        const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
+  try {
+    const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
+    const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
 
         club = await Club.create({
             name,
@@ -113,8 +113,8 @@ const createClub = async (req, res) => {
 
         res.status(201).json(club);
     } catch (error) {
-        res.status(400).json({ error: error });
-    }
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const deleteClub = async (req, res) => {
