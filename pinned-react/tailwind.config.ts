@@ -28,11 +28,12 @@ module.exports = {
         primary: {
           DEFAULT: "var(--primary)",
           hover: "var(--primary-hover)",
-          light: "var(--primary-light)",
+          background: "var(--primary-background)",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "var(--secondary)",
+          background: "var(--secondary-background)",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {

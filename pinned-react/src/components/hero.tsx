@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
-import  HeroCards from "./cards/HeroCards.tsx";
+import  HeroCards from "@/components/cards/HeroCards";
+import { routes } from "@/lib/routes";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { Link } from 'react-router-dom';
 
@@ -12,17 +13,14 @@ const Hero = () => {
         <main className="text-5xl font-bold md:text-6xl">
           <h1 className="inline">
           <span className="inline text-transparent bg-gradient-to-r from-secondary to-primary bg-clip-text">
+            </span>{" "}
               Pinned
-            </span>{" "}
-            ClubHub
-          </h1>{" "}
           for{" "}
-          <h2 className="inline">
-            <span className="inline bg-gradient-to-r from-[#FAE100] to-[#EAAB00] text-transparent bg-clip-text">
+            <span className="inline bg-gradient-to-tr from-[#eaab00] to-[#e9d100]  text-transparent bg-clip-text">
               UWaterloo
-            </span>{" "}
-            students
-          </h2>
+            </span>
+          </h1>
+          
         </main>
 
         {/* replace with our mission statement */}
@@ -35,19 +33,12 @@ const Hero = () => {
             <Link to="/clubhub">
                 <Button className="w-full md:w-1/3">Browse Clubs!</Button>
             </Link>
-            {/* choose either google form or seperate page for club creation */}
-          <a
-            rel="noreferrer noopener"
-            href="" // add google form link to create a club page
-            target="_blank"
-            className={`w-full md:w-1/3 ${buttonVariants({
-              variant: "outline",
-            })}`}
-          >
-            Create a Club
-            <PlusCircledIcon className="w-5 h-5 ml-2" />
-          </a>
-
+            <Link to={routes.Register}>
+              <Button variant={"ghost"}>
+                Register a Club
+                <PlusCircledIcon className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           {/* <Link to="/clubsignin">
                 <button
                     className={`w-full md:w-1/3 ${buttonVariants({

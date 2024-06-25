@@ -36,7 +36,7 @@ html {
     right: 460px;
   }
   to {
-    background: hsl(var(--primary-shadow) / 80%);
+    background: hsl(var(--primary-shadow) / 50%);
     right: 160px;
   }
 }
