@@ -6,9 +6,11 @@ interface Club {
   _id: string;
   name: string;
   logo?: {
-    data: string; // changed from Buffer to string for simplicity
-    extension: string;
-  };
+    data: {
+      data: string | null;
+    },
+    extension: string | null;
+  } | null;
   overview: string;
   description: string;
   genre: string;
@@ -36,7 +38,7 @@ const ClubCreate = () => {
     instagram: '',
     discord: '',
     facebook: '',
-    logo: null,
+    logo: null as { data: {data :string | null}, extension: string | null } | null,
   });
 
   const [file, setFile] = useState<File | null>(null);
@@ -76,9 +78,9 @@ const ClubCreate = () => {
               <p className="text-sm text-gray-500">Instagram: {club.instagram}</p>
               <p className="text-sm text-gray-500">Discord: {club.discord}</p>
               <p className="text-sm text-gray-500">Facebook: {club.facebook}</p>
-              {club.logo && club.logo.data ? (
+                {club.logo && club.logo.data ? (
                 <div className="flex items-center justify-center border-2 border-gray-500 max-h-[300px] h-[300px]">
-                  <PreviewImage preview={club.logo} className="max-h-[300px]" />
+                  <PreviewImage preview={club.logo} />
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-[300px] bg-gray-800 border-2 border-gray-500">
@@ -99,7 +101,25 @@ const ClubCreate = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      setFile(selectedFile);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (reader.result) {
+          const base64String = (reader.result as string).split(',')[1];
+          const previewData = {
+            data: {
+              data: base64String
+            },
+            extension: selectedFile.type,
+          };
+          setFormData((prevState) => ({
+            ...prevState,
+            logo: previewData,
+          }));
+        }
+      };
+      reader.readAsDataURL(selectedFile);
     }
   };
 
@@ -121,7 +141,6 @@ const ClubCreate = () => {
         instagram,
         discord,
         facebook,
-        logo,
       } = formData;
       
       const data = new FormData();
@@ -162,7 +181,7 @@ const ClubCreate = () => {
   return (
     <div className="flex flex-col">
       <div className="flex w-full">
-        <div className="w-1/2 p-4">
+        <div className="w-full p-4">
           <form onSubmit={handleClubSubmit} className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <h2 className="text-2xl font-bold mb-4">Create Club</h2>
             <div className="mb-4">
@@ -224,7 +243,7 @@ const ClubCreate = () => {
             </div>
           </form>
         </div>
-        <div className="w-1/2 p-4">
+        <div className="w-full p-4">
           <div className="mb-4">
             <h2 className="text-2xl font-bold mb-4">Preview</h2>
             <div className="bg-white shadow-md rounded p-4">
@@ -242,10 +261,12 @@ const ClubCreate = () => {
                 <p className="text-sm text-gray-500">Discord: {formData.discord}</p>
                 <p className="text-sm text-gray-500">Facebook: {formData.facebook}</p>
                 {formData.logo ? (
-                  <div className="flex items-center justify-center border-2 border-gray-500 max-h-[300px] h-[300px]">
-                    <PreviewImage preview={formData.logo} className="max-h-[300px]" />
+                  console.log(formData.logo),
+                  <div className="flex items-center justify-center border-2 border-gray-500 h-[300px]">
+                    <PreviewImage preview={formData.logo} />
                   </div>
                 ) : (
+                  console.log(formData.logo),
                   <div className="flex items-center justify-center h-[300px] bg-gray-800 border-2 border-gray-500">
                     <p className="text-white">No Logo</p>
                   </div>
@@ -253,9 +274,11 @@ const ClubCreate = () => {
               </div>
             </div>
           </div>
-          <h2 className="text-2xl font-bold mb-4">Clubs List</h2>
-          {renderClubsList()}
         </div>
+      </div>
+      <div className="w-full p-4">
+        <h2 className="text-2xl font-bold mb-4">Clubs List</h2>
+        {renderClubsList()}
       </div>
     </div>
   );

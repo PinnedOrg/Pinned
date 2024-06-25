@@ -9,13 +9,12 @@ interface Preview {
 const PreviewImage: React.FC<{ preview: Preview }> = ({ preview }) => {
 
     if (preview.data == null) {
-      console.error('No image data provided.');
       return null;
     }
     
     const base64String = Buffer.from(preview.data.data);
     return (
-      <img src={`data:${preview.extension};base64,${base64String}`}/>
+      <img src={`data:${preview.extension};base64,${base64String}`} className="object-contain w-full h-full" />
     );
   };
 
