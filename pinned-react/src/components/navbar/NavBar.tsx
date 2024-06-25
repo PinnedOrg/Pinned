@@ -9,7 +9,7 @@ const LinkStyles = "px-3 py-2 font-medium text-sm uppercase tracking-wide dark:t
 
 const NavBar = () => {
   return (
-    <header className="h-[4.5rem] w-100% py-3 px-9 flex shadow-sm shadow-primary justify-center sm:justify-between items-center z-10  dark:bg-slate-950">
+    <header className="h-[4.5rem] py-3 px-9 flex justify-center sm:justify-between items-center z-[11] bg-transparent">
       <ViewportWrapper breakpoint="large">
         <Link to={routes.Home} className="flex gap-[0.35rem] items-center">
           <h1 className="text-2xl font-bold uppercase dark:text-gray-200">UW</h1>
