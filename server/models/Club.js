@@ -4,12 +4,12 @@ const clubSchema = new mongoose.Schema(
   {
     name: {
         type: String,
-        required: [true, "Missing club name."],
-        maxLength: 50
+        required: [true, "Missing club name."], // Requirement with custom error message
     },
     logo: {
-        data: Buffer,
-        extension: String
+        type: Buffer,
+        extension: String,
+        required: false,
     },
     overview: { // Short extract of the club
         type: String,
@@ -75,10 +75,6 @@ const clubSchema = new mongoose.Schema(
         required: false,
         trim: true
     },
-    validation: {
-        type: Boolean,
-        default: false
-    },
     events: {
         type: [mongoose.Schema.Types.ObjectId],
         required: false,
@@ -109,6 +105,9 @@ const clubSchema = new mongoose.Schema(
     //     type: [String], //TODO: change to type user
     //     required: false
     // },
+    //bgImage, // bg image like a notion club
+    //organization, 
+
   },
   {
     timestamps: true,
