@@ -9,8 +9,8 @@ const Affiliates = () => {
       id="sponsors"
       className="container pt-24 sm:py-32"
     >
-      <h2 className="mb-8 font-bold text-center text-md lg:text-xl text-primary">
-        Affiliations
+      <h2 className="mb-8 font-bold text-center text-md lg:text-xl text-secondary">
+        Made For Students at
       </h2>
 
       <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">

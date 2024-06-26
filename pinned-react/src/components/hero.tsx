@@ -24,13 +24,13 @@ const Hero = () => {
 
         {/* replace with our mission statement */}
         <p className="mx-auto text-xl text-muted-foreground md:w-10/12 lg:mx-0">
-            Your trusted source for clubs, events, and opportunities at the University of Waterloo!
+            Your trusted source for clubs and opportunities and ways to get involved at the University of Waterloo!
         </p>
             
         {/* Buttons */}
-        <div className="space-y-4 md:space-y-0 md:space-x-4">
+        <div className="justify-center gap-5 space-y-4 md:space-y-0 md:space-x-4">
             <Link to={routes.ClubHub}>
-                <Button className="w-full md:w-1/3">Browse Clubs!</Button>
+                <Button variant={"secondary"} className="px-8 ">Browse Clubs!</Button>
             </Link>
             <Link to={routes.Register}>
               <Button variant={"ghost"}>

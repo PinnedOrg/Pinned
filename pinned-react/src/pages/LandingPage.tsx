@@ -6,7 +6,7 @@ import OurTeam from '@/components/team.tsx';
 
 const LandingPage = () => {
   return (
-      <section className=''>
+      <section className='space-y-9'>
          <div className='fixed w-full h-screen bg-gradient-to-b from-background to-primary-background -z-10'></div>
          <Hero />
          <Affiliates />

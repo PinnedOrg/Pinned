@@ -13,6 +13,7 @@ import { uses } from "@/lib/data";
 import { Check } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
+import { routes } from "@/lib/routes";
 
 const HeroCards = () => {
   return (
@@ -66,9 +67,9 @@ const HeroCards = () => {
           </CardDescription>
         </CardHeader>
         
-        <Link to="/sign-up">
+        <Link to={routes.SignUp}>
             <CardContent>
-                <Button className="w-full">Register</Button>
+                <Button className="w-full">Sign Up</Button>
             </CardContent>
         </Link>
 
