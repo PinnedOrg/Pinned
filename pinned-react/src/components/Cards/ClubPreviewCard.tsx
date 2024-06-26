@@ -44,9 +44,9 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
             {club.genre}
           </Badge>
         </CardHeader>
-        <CardContent className='flex flex-col justify-between'>
+        <CardContent className=''>
           <CardDescription className='text-center'>{club.overview}</CardDescription>
-          <CardFooter className='flex justify-center gap-4'>
+          <CardFooter className='absolute bottom-0 left-0 flex justify-center w-full gap-4 '>
             <Badge variant={'outline'} className='border-none bg-muted text-nowrap'>
               {costLabel(club.cost)}
             </Badge>
