@@ -151,10 +151,9 @@ const ClubCreate = () => {
           <div className="mb-4">
             <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="genre">Genre:</label>
             <select name="genre" value={formData.genre} onChange={handleSelectChange} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline">
-              {Object.keys(filters.Genre).map((genre: string) => (
-                <option key={genre} value={genre}>
-                  {genre}
-                </option>
+              <option value="" disabled>Select Genre</option>
+              {Object.keys(genreFilters).map((genre) => (
+                <option key={genre} value={genre}>{genre}</option>
               ))}
             </select>
           </div>
