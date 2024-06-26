@@ -1,5 +1,5 @@
 import { affiliates } from "@/lib/data";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AffiliateType } from "@/lib/types";
 
   
@@ -25,7 +25,7 @@ const Affiliates = () => {
                 <AvatarFallback>{affiliate.initials}</AvatarFallback>
               </Avatar>
             </span>
-            <h3 className="text-xl font-bold">{affiliate.name}</h3>
+            <h3 className="ml-2 text-xl font-bold">{affiliate.name}</h3>
           </div>
         ))}
       </div>

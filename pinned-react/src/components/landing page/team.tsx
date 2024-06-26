@@ -1,6 +1,6 @@
-import { team } from "../lib/data";
-import { AboutCardType } from "../lib/types";
-import AboutCard from "./cards/AboutCard";
+import { team } from "@/lib/data";
+import { AboutCardType } from "@/lib/types";
+import AboutCard from "@/components/cards/AboutCard";
 const OurTeam = () => {
   return (
     <section className="container">
