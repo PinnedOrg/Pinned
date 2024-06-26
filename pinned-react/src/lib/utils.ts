@@ -44,13 +44,10 @@ export function costLabel (cost: number) {
 }
 
 export function sizeLabel(size: number) {
-  if (size <= parseInt(sizeFilters['Under 20' as keyof typeof sizeFilters])) {
-    return 'Under 20'
-  } else if (size <= parseInt(sizeFilters['20 - 50' as keyof typeof sizeFilters])) {
-    return '20 - 50'
-  } else if (size <= parseInt(sizeFilters['50 - 100' as keyof typeof sizeFilters])) {
-    return '50 - 100'
-  } else {
-    return 'Over 100'
+  for (const [text, threshold] of Object.entries(sizeFilters)) {
+    if (size <= parseInt(threshold)) {
+      return text;
+    }
   }
+  return Object.keys(sizeFilters)[Object.keys(sizeFilters).length - 1];
 }

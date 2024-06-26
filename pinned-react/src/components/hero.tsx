@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
-    <section className="container grid gap-10 py-20 lg:grid-cols-2 place-items-center md:py-32">
+    <section className="container grid gap-10 pt-16 pb-20 lg:grid-cols-2 place-items-center md:pb-32">
       <div className="space-y-6 text-center lg:text-start">
         {/* replace with pinned phrase */}
         <main className="text-5xl font-bold md:text-6xl">
