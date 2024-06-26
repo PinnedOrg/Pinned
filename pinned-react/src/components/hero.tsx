@@ -36,17 +36,12 @@ const Hero = () => {
                 <Button className="w-full md:w-1/3">Browse Clubs!</Button>
             </Link>
             {/* choose either google form or seperate page for club creation */}
-          <a
-            rel="noreferrer noopener"
-            href="" // add google form link to create a club page
-            target="_blank"
-            className={`w-full md:w-1/3 ${buttonVariants({
-              variant: "outline",
-            })}`}
-          >
-            Create a Club
-            <PlusCircledIcon className="w-5 h-5 ml-2" />
-          </a>
+            <Link to="/register">
+              <Button className={`w-full md:w-1/3 ${buttonVariants({ variant: "outline" })}`}>
+              Create a Club
+                <PlusCircledIcon className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
 
           {/* <Link to="/clubsignin">
                 <button
