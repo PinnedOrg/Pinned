@@ -38,6 +38,12 @@ const clubSchema = new mongoose.Schema(
         default: 0,
         min: 0
     },
+    size: {
+        type: Number,
+        required: [true, "Missing size."],
+        default: 0,
+        min: 0
+    },
     location: {
         type: String,
         required: false,
