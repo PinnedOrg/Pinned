@@ -141,8 +141,8 @@ const ClubCreate = () => {
             <input type="text" name="name" value={formData.name} onChange={handleClubChange} required maxLength={50} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="overview">Overview (max 100 characters):</label>
-            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={100} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded resize-none focus:outline-none focus:shadow-outline"></textarea>
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="overview">Overview (max 200 characters):</label>
+            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={200} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded resize-none focus:outline-none focus:shadow-outline"></textarea>
           </div>
           <div className="mb-4">
             <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="description">Description (max 2500 characters):</label>
@@ -151,9 +151,10 @@ const ClubCreate = () => {
           <div className="mb-4">
             <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="genre">Genre:</label>
             <select name="genre" value={formData.genre} onChange={handleSelectChange} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline">
-              <option value="" disabled>Select Genre</option>
-              {Object.keys(genreFilters).map((genre) => (
-                <option key={genre} value={genre}>{genre}</option>
+              {Object.keys(filters.Genre).map((genre: string) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
               ))}
             </select>
           </div>
@@ -234,10 +235,6 @@ const ClubCreate = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-full p-4">
-        <h2 className="mb-4 text-2xl font-bold">Clubs List</h2>
-        {renderClubsList()}
       </div>
     </div>
   );
