@@ -1,30 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import PreviewImage from '../../components/Image/PreviewImage';
-
-interface Club {
-  _id: string;
-  name: string;
-  logo?: {
-    data: {
-      data: string | null;
-    },
-    extension: string | null;
-  } | null;
-  overview: string;
-  description: string;
-  genre: string;
-  colorTheme?: string;
-  cost: number;
-  location?: string;
-  meetingsFrequency?: string;
-  email?: string;
-  instagram?: string;
-  discord?: string;
-  facebook?: string;
-}
+import { filters } from '../../lib/types';
 
 const ClubCreate = () => {
+  // State to manage form data
   const [formData, setFormData] = useState({
     name: '',
     overview: '',
@@ -41,64 +21,22 @@ const ClubCreate = () => {
     logo: null as { data: {data :string | null}, extension: string | null } | null,
   });
 
+  // State to manage the selected file
   const [file, setFile] = useState<File | null>(null);
-  const [clubs, setClubs] = useState<Club[]>([]);
 
-  useEffect(() => {
-    axios.get(`http://localhost:8080/api/clubs`)
-      .then((allClubs) => {
-        console.log(`GOT ${allClubs.data.length} clubs`);
-        setClubs(allClubs.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }, []);
-
-  const renderClubsList = () => {
-    if (clubs.length === 0) {
-      return <p>No clubs available</p>;
-    }
-
-    return (
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {clubs.map((club) => (
-          <div key={club._id} className="bg-white shadow-md rounded-lg p-4">
-            <div className="flex flex-col space-y-2">
-              <p className="text-lg font-semibold">ID: {club._id}</p>
-              <p className="text-lg font-semibold">Name: {club.name}</p>
-              <p className="text-sm text-gray-500">Overview: {club.overview}</p>
-              <p className="text-sm text-gray-500">Description: {club.description}</p>
-              <p className="text-sm text-gray-500">Genre: {club.genre}</p>
-              <p className="text-sm text-gray-500">Color Theme: {club.colorTheme}</p>
-              <p className="text-sm text-gray-500">Cost: {club.cost}</p>
-              <p className="text-sm text-gray-500">Location: {club.location}</p>
-              <p className="text-sm text-gray-500">Meetings Frequency: {club.meetingsFrequency}</p>
-              <p className="text-sm text-gray-500">Email: {club.email}</p>
-              <p className="text-sm text-gray-500">Instagram: {club.instagram}</p>
-              <p className="text-sm text-gray-500">Discord: {club.discord}</p>
-              <p className="text-sm text-gray-500">Facebook: {club.facebook}</p>
-                {club.logo && club.logo.data ? (
-                <div className="flex items-center justify-center border-2 border-gray-500 max-h-[300px] h-[300px]">
-                  <PreviewImage preview={club.logo} />
-                </div>
-              ) : (
-                <div className="flex items-center justify-center h-[300px] bg-gray-800 border-2 border-gray-500">
-                  <p className="text-white">No Logo</p>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
+  // Handle changes in text inputs and textareas for previews
   const handleClubChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  // Handle changes in select element for genreType
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  // Handle changes in file input
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
@@ -123,11 +61,13 @@ const ClubCreate = () => {
     }
   };
 
+  // Handle form submission for previews
   const handleClubSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     if (e === undefined) return;
     
     e.preventDefault();
-
+    
+    // Extract form data
     const {
         name,
         overview,
@@ -168,117 +108,116 @@ const ClubCreate = () => {
       });
 
       console.log('Club created successfully:', response);
-
-      const allClubsResponse = await axios.get('http://localhost:8080/api/clubs');
-      console.log(`GOT ${allClubsResponse.data.length} clubs`);
-
-      setClubs(allClubsResponse.data);
     } catch (error) {
       console.error('Error creating club:', error);
     }
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="flex w-full">
-        <div className="w-full p-4">
-          <form onSubmit={handleClubSubmit} className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h2 className="text-2xl font-bold mb-4">Create Club</h2>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name:</label>
-              <input type="text" name="name" value={formData.name || ''} onChange={handleClubChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="overview">Overview:</label>
-              <textarea name="overview" value={formData.overview || ''} onChange={handleClubChange} className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description:</label>
-              <textarea name="description" value={formData.description || ''} onChange={handleClubChange} className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="genre">Genre:</label>
-              <input type="text" name="genre" value={formData.genre || ''} onChange={handleClubChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="colorTheme">Color Theme:</label>
-              <input type="text" name="colorTheme" value={formData.colorTheme || '#ffffff'} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cost">Cost:</label>
-              <input type="number" name="cost" value={formData.cost || 0} onChange={handleClubChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location:</label>
-              <input type="text" name="location" value={formData.location || ''} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="meetingsFrequency">Meetings Frequency:</label>
-              <input type="text" name="meetingsFrequency" value={formData.meetingsFrequency || ''} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email:</label>
-              <input type="email" name="email" value={formData.email || ''} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instagram">Instagram:</label>
-              <input type="text" name="instagram" value={formData.instagram || ''} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="discord">Discord:</label>
-              <input type="text" name="discord" value={formData.discord || ''} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="facebook">Facebook:</label>
-              <input type="text" name="facebook" value={formData.facebook || ''} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="logo">Logo:</label>
-              <input type="file" name="logo" onChange={handleFileChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </div>
-            <div className="flex items-center justify-between">
-              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="w-full p-4">
+    <div className="flex justify-center items-center w-full p-4 gap-20">
+      <div className="w-full max-w-xl p-4">
+        <form onSubmit={handleClubSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <h2 className="text-2xl font-bold mb-4">Register Club</h2>
+          {/* Form fields for club details */}
           <div className="mb-4">
-            <h2 className="text-2xl font-bold mb-4">Preview</h2>
-            <div className="bg-white shadow-md rounded p-4">
-              <div className="flex flex-col space-y-2">
-                <p className="text-lg font-semibold">Name: {formData.name}</p>
-                <p className="text-sm text-gray-500">Overview: {formData.overview}</p>
-                <p className="text-sm text-gray-500">Description: {formData.description}</p>
-                <p className="text-sm text-gray-500">Genre: {formData.genre}</p>
-                <p className="text-sm text-gray-500">Color Theme: {formData.colorTheme}</p>
-                <p className="text-sm text-gray-500">Cost: {formData.cost}</p>
-                <p className="text-sm text-gray-500">Location: {formData.location}</p>
-                <p className="text-sm text-gray-500">Meetings Frequency: {formData.meetingsFrequency}</p>
-                <p className="text-sm text-gray-500">Email: {formData.email}</p>
-                <p className="text-sm text-gray-500">Instagram: {formData.instagram}</p>
-                <p className="text-sm text-gray-500">Discord: {formData.discord}</p>
-                <p className="text-sm text-gray-500">Facebook: {formData.facebook}</p>
-                {formData.logo ? (
-                  console.log(formData.logo),
-                  <div className="flex items-center justify-center border-2 border-gray-500 h-[300px]">
-                    <PreviewImage preview={formData.logo} />
-                  </div>
-                ) : (
-                  console.log(formData.logo),
-                  <div className="flex items-center justify-center h-[300px] bg-gray-800 border-2 border-gray-500">
-                    <p className="text-white">No Logo</p>
-                  </div>
-                )}
-              </div>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name:</label>
+            <input type="text" name="name" value={formData.name} onChange={handleClubChange} required maxLength={50} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="overview">Overview (max 200 characters):</label>
+            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={200} required className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description (max 2500 characters):</label>
+            <textarea name="description" value={formData.description} onChange={handleClubChange} maxLength={2500} required className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="genre">Genre:</label>
+            <select name="genre" value={formData.genre} onChange={handleSelectChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+              {Object.keys(filters.Genre).map((genre: string) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="colorTheme">Color Theme:</label>
+            <div className="flex items-center">
+              <input type="color" name="colorTheme" value={formData.colorTheme || '#ffffff'} onChange={handleClubChange} className="appearance-none border rounded w-10 h-10 p-0" />
+              <span className="ml-4 text-gray-700">{formData.colorTheme || '#ffffff'}</span>
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cost">Cost:</label>
+            <input type="number" name="cost" value={formData.cost < 0 ? 0 : formData.cost || 0} onChange={handleClubChange} required min={0} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">Location:</label>
+            <input type="text" name="location" value={formData.location} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="meetingsFrequency">Meetings Frequency:</label>
+            <input type="text" name="meetingsFrequency" value={formData.meetingsFrequency} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email:</label>
+            <input type="email" name="email" value={formData.email} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instagram">Instagram:</label>
+            <input type="text" name="instagram" value={formData.instagram} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="discord">Discord:</label>
+            <input type="text" name="discord" value={formData.discord} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="facebook">Facebook:</label>
+            <input type="text" name="facebook" value={formData.facebook} onChange={handleClubChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="logo">Logo:</label>
+            <input type="file" name="logo" onChange={handleFileChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          </div>
+          <div className="flex items-center justify-between">
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className="w-full max-w-xl p-4">
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold mb-4">Preview</h2>
+          <div className="bg-white shadow-md rounded p-4">
+            <div className="flex flex-col space-y-2">
+              <p className="text-lg font-semibold break-words">Name: {formData.name}</p>
+              <p className="text-sm text-gray-500 break-words">Overview: {formData.overview}</p>
+              <p className="text-sm text-gray-500 break-words">Description: {formData.description}</p>
+              <p className="text-sm text-gray-500 break-words">Genre: {formData.genre}</p>
+              <p className="text-sm text-gray-500 break-words">Color Theme: {formData.colorTheme}</p>
+              <p className="text-sm text-gray-500 break-words">Cost: {formData.cost}</p>
+              <p className="text-sm text-gray-500 break-words">Location: {formData.location}</p>
+              <p className="text-sm text-gray-500 break-words">Meetings Frequency: {formData.meetingsFrequency}</p>
+              <p className="text-sm text-gray-500 break-words">Email: {formData.email}</p>
+              <p className="text-sm text-gray-500 break-words">Instagram: {formData.instagram}</p>
+              <p className="text-sm text-gray-500 break-words">Discord: {formData.discord}</p>
+              <p className="text-sm text-gray-500 break-words">Facebook: {formData.facebook}</p>
+              {formData.logo ? (
+                console.log(formData.logo),
+                <div className="flex items-center justify-center border-2 border-gray-500 h-[300px]">
+                  <PreviewImage preview={formData.logo} />
+                </div>
+              ) : (
+                console.log(formData.logo),
+                <div className="flex items-center justify-center h-[300px] bg-gray-800 border-2 border-gray-500">
+                  <p className="text-white">No Logo</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-full p-4">
-        <h2 className="text-2xl font-bold mb-4">Clubs List</h2>
-        {renderClubsList()}
       </div>
     </div>
   );

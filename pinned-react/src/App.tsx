@@ -9,8 +9,7 @@ import ClubHub from "@/pages/ClubHub";
 import Layout from "@/components/shared/Layout";
 
 import { routes } from "@/routes/routes";
-import EventCreate from "./pages/Creations/EventCreate";
-import ClubCreate from "./pages/Creations/ClubCreate";
+import RegisterClub from "@/pages/Creations/ClubCreate";
 
 const App = () => {
   return (
