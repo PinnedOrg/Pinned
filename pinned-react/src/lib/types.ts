@@ -1,6 +1,7 @@
 export interface IClub {
     _id: string; //id
     name: string
+    preview: string // temp
     logo: {
       data: {
         data: Buffer
@@ -40,7 +41,7 @@ export interface IEvent {
     updatedAt: Date;
 }
 
-type genreType = "Academic" | 
+export type genreType = "Academic" | 
                  "Business & Entrepreneurship" |
                 "Charity & Community Service" | 
                 "Arts" |
@@ -54,38 +55,15 @@ type genreType = "Academic" |
                 "Media Literacy" |
                 "Religion & Spirituality"
 
-const genreFilters: Record<string, string> = {
-    "Academic": "Academic",
-    "Arts": "Arts",
-    "Business & Entrepreneurship": "Business & Entrepreneurship",
-    "Charity & Community Service": "Charity & Community Service",
-    "Culture": "Culture",
-    "Design Team": "Design Team",
-    "Environment & Sustainability": "Environment & Sustainability",
-    "Games & Social": "Games & Social",
-    "Health & Well Being": "Health & Well Being",
-    "Media Literacy": "Media Literacy",
-    "Politics & Social Awareness": "Politics & Social Awareness",
-    "Religion & Spirituality": "Religion & Spirituality",
-    "Sports": "Sports",
-  }
+export type AboutCardType = {
+  name: string;
+  picture: string;
+  about: string;
+  initials: string;
+}
 
-export const costFilters: Record<string, string> = {
-    "Free": "0",
-    "$0 - $10": "10",
-    "$10 - $50": "50",
-    "Over $50": "51",
-  }
-
-export const sizeFilters: Record<string, string> = {
-    "Under 20": "20",
-    "20 - 50": "50",
-    "50 - 100": "100",
-    "Over 100": "101"
-  }
-
-export const filters: Record<string, Record<string, string>> = {
-    "Genre": genreFilters,
-    "Cost": costFilters, 
-    "Size": sizeFilters,
-  }
+export type AffiliateType = {
+  name: string;
+  icon: string;
+  initials: string;
+}

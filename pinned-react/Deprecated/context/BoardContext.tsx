@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 
-import { getBoardFromLocalStorage } from "../lib/BoardHooks"
+import { getBoardFromLocalStorage } from "../BoardHooks"
 import { BoardContextType } from '@/lib/types';
 
 type BoardContextProviderProps = {

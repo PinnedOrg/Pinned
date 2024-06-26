@@ -1,4 +1,4 @@
-@tailwind base;
+  @tailwind base;
   @tailwind components;
   @tailwind utilities;
 
@@ -13,13 +13,9 @@
       --popover: 0 0% 100%;
       --popover-foreground: 222.2 84% 4.9%;
 
-      /* --primary: #fd7d62; */
       --primary: rgb(65, 156, 255);
-      --primary-hover: rgb(52,51,94)  ;
+      --primary-hover: rgb(52,51,94);
       --primary-light: rgba(65, 156, 255, 0.2);
-      ;
-      /* --primary-hover: #ef755c; */
-
       --primary-foreground: 210 40% 98%;
 
       --secondary: rgb(91, 61, 196);
@@ -39,22 +35,26 @@
       --ring: 222.2 84% 4.9%;
 
       --radius: 0.5rem;
+
+      --body-text: 
     }
 
     .dark {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
 
-      --card: 222.2 84% 4.9%;
-      --card-foreground: 210 40% 98%;
+      /* --card: 217.2,32.6%,17.5%; */
+      --card: 224,32.6%,17.5%;
+      --card-foreground: 0 0 95%;
 
       --popover: 222.2 84% 4.9%;
       --popover-foreground: 210 40% 98%;
 
-      --primary: 210 40% 98%;
+      --primary: rgb(65, 156, 255);
+      --primary-shadow: 210 40% 98%;
       --primary-foreground: 222.2 47.4% 11.2%;
 
-      --secondary: 217.2 32.6% 17.5%;
+      --secondary: rgb(91, 61, 196);
       --secondary-foreground: 210 40% 98%;
 
       --muted: 217.2 32.6% 17.5%;
@@ -71,7 +71,6 @@
       --ring: 212.7 26.8% 83.9%;
     }
   }
-
   @layer base {
     * {
       @apply border-border;

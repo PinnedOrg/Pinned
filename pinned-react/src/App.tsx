@@ -1,21 +1,18 @@
 //  https://clerk.com/docs/references/react/add-react-router
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import { SignedOut, SignedIn } from "@clerk/clerk-react"
 
-// import { BoardContextProvider } from '@/context/BoardContext';
-
-import LandingPage from '@/pages/LandingPage/LandingPage'
+import LandingPage from '@/pages/LandingPage'
 import SignUpPage from "@/pages/Auth/SignUpPage";
 import SignInPage from "@/pages/Auth/SignInPage";
-import ClubHub from "@/pages/ClubHub/ClubHub";
+import ClubHub from "@/pages/ClubHub";
 import Layout from "@/components/shared/Layout";
 
-import { routes } from "@/routes/routes";
+import { routes } from "@/lib/routes";
 import RegisterClub from "@/pages/Creations/ClubCreate";
+import ClubProfile from "./pages/ClubProfile";
 
 const App = () => {
-
   return (
   <div>
 
@@ -26,6 +23,7 @@ const App = () => {
       <Route path={routes.SignUp} element={ <SignUpPage/> } />
       <Route path={routes.SignIn} element={ <SignInPage/> } />
       <Route path={routes.Register} element={ <Layout> <RegisterClub/> </Layout> } />
+      <Route path={routes.ClubProfile} element={ <Layout> <ClubProfile/> </Layout> } />
 
       {/* <Route 
         path="/board/:id/*" 
