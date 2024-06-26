@@ -1,5 +1,5 @@
-import NavBar from "@/components/navbar/NavBar";
-import Footer from "@/components/footer";
+import NavBar from "@/components/shared/navbar";
+import Footer from "@/components/shared/footer";
 
 type LayoutProps = {
     children: React.ReactNode;

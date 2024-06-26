@@ -1,4 +1,4 @@
-import { useTheme } from "./shared/ThemeProvider"
+import { useTheme } from "@/components/shared/ThemeProvider"
 
 const ClubHubBanner = () => {
   const { theme } = useTheme();

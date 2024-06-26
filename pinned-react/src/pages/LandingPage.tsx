@@ -1,13 +1,15 @@
-import  Hero  from '@/components/hero';
-import  Affiliates  from '@/components/affiliates';
-import  About  from '@/components/about.tsx'; 
-import Wrap  from '@/components/wrap.tsx'; 
-import OurTeam from '@/components/team.tsx';
+import  Hero  from '@/components/landing page/hero';
+import  Affiliates  from '@/components/landing page/affiliates';
+import  About  from '@/components/landing page/about'; 
+import Wrap  from '@/components/shared/wrap'; 
+import OurTeam from '@/components/landing page/team';
 
 const LandingPage = () => {
   return (
       <section className='space-y-9'>
+         {/* Background Shadow */}
          <div className='fixed w-full h-screen bg-gradient-to-b from-background to-primary-background -z-10'></div>
+         
          <Hero />
          <Affiliates />
          <About />

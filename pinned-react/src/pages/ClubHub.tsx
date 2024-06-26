@@ -28,7 +28,8 @@ import ClubHubBanner from "@/components/ClubHubBanner";
 import { axiosInstance } from "@/lib/utils";
 
 import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
-import PageErrorMessage from "@/components/shared/PageErrorMessage";
+import PageErrorMessage from "@/components/error/PageErrorMessage";
+import ClubNotFoundErrorMessage from "@/components/error/ClubNotFoundErrorMessage";
 
 const hardcodeData = [
   {
@@ -257,9 +258,13 @@ const ClubHub = () => {
       </section>
 
       <section className="container flex min-h-[30rem] justify-center">
-        {(isError) ? (
+        {(isError || (data?.data.length === 0)) ? (
           <div className="mt-20">
-            <PageErrorMessage />
+            {isError ? (
+              <PageErrorMessage />
+            ) : (
+              <ClubNotFoundErrorMessage />
+            )}
           </div>
         ) : (
           <div className={clsx("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4", {"gap-6": data})}>
