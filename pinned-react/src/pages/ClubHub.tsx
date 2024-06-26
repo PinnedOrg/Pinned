@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { IClub } from "@/lib/types";
@@ -21,6 +22,10 @@ import {
 
 
 import { Button } from "@/components/ui/button";
+
+import { IClub } from "@/lib/types";
+import { filters } from "@/lib/data";
+import { axiosInstance } from "@/lib/utils";
 
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
