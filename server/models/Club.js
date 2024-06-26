@@ -5,6 +5,7 @@ const clubSchema = new mongoose.Schema(
     name: {
         type: String,
         required: [true, "Missing club name."],
+        maxLength: 50
     },
     logo: {
         data: Buffer,
