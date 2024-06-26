@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import PreviewImage from '../../components/Image/PreviewImage';
-import { filters } from '../../lib/types';
+import { genreFilters } from '../../lib/data';
 
 const ClubCreate = () => {
   // State to manage form data
@@ -134,10 +134,9 @@ const ClubCreate = () => {
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="genre">Genre:</label>
             <select name="genre" value={formData.genre} onChange={handleSelectChange} required className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-              {Object.keys(filters.Genre).map((genre: string) => (
-                <option key={genre} value={genre}>
-                  {genre}
-                </option>
+              <option value="" disabled>Select Genre</option>
+              {Object.keys(genreFilters).map((genre) => (
+                <option key={genre} value={genre}>{genre}</option>
               ))}
             </select>
           </div>
