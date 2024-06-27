@@ -14,7 +14,7 @@ const clubSchema = new mongoose.Schema(
     overview: { // Short extract of the club
         type: String,
         required: [true, "Missing club overview."],
-        maxLength: 200
+        maxLength: 100
     },
     description: {  // Full description of the club
         type: String,

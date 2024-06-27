@@ -2,8 +2,30 @@ import { useState } from 'react';
 import axios from 'axios';
 import PreviewImage from '../../components/Image/PreviewImage';
 import { genreFilters } from '../../lib/data';
+import { useMutation } from '@tanstack/react-query';
+import { IClub } from '../../lib/types';
+
+const postClub = async (formData: FormData): Promise<IClub> => {
+  const response = await axios.post('http://localhost:8080/api/clubs', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data as IClub;
+};
 
 const ClubCreate = () => {
+  const mutation = useMutation<IClub, Error, FormData>({
+    mutationFn: postClub,
+    onSuccess: (data: IClub) => {
+      console.log('Club created successfully:', data);
+    },
+    onError: (error: any) => {
+      console.error('Error creating club:', error);
+    },
+  });
+  
   // State to manage form data
   const [formData, setFormData] = useState({
     name: '',
@@ -99,18 +121,13 @@ const ClubCreate = () => {
       if (file) {
         data.append('logo', file);
       }
-
-    try {
-      const response = await axios.post('http://localhost:8080/api/clubs', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      console.log('Club created successfully:', response);
-    } catch (error) {
-      console.error('Error creating club:', error);
-    }
+  
+      try {
+        const result = await mutation.mutateAsync(data);
+        console.log('Club created successfully:', result);
+      } catch (error) {
+        console.error('Error creating club:', error);
+      }
   };
 
   return (
@@ -124,8 +141,8 @@ const ClubCreate = () => {
             <input type="text" name="name" value={formData.name} onChange={handleClubChange} required maxLength={50} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="overview">Overview (max 200 characters):</label>
-            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={200} required className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="overview">Overview (max 100 characters):</label>
+            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={100} required className="resize-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description (max 2500 characters):</label>
@@ -223,3 +240,4 @@ const ClubCreate = () => {
 };
 
 export default ClubCreate;
+
