@@ -131,7 +131,7 @@ const hardcodeData: Array<IClub> = [
 
 
 const FetchClubs = ({ name, genre, cost, size }: FiltersType) => {
-  return axios.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&validation=false`);
+  return axios.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
 }
 
 const ClubHub = () => {
@@ -253,11 +253,13 @@ const ClubHub = () => {
           </div>
         }
         {isError && <h1 className="mt-20 text-3xl font-medium text-gray-500">Error fetching clubs</h1>}
-        {/* set to false for now to see clubs */}
         {data && 
         <div className="flex flex-wrap justify-center w-full gap-4 sm:justify-start">
-          {data.data.filter((club: IClub) => !club.validation).map((club: IClub) => (
-            <ClubPreviewCard club={club} key={club._id} />
+          {/* {hardcodeData.map((club: IClub) => (
+            <ClubPreviewCard club={club} key={club._id}/>
+          ))} */}
+          {data.data.map((club: IClub) => (
+            <ClubPreviewCard club={club} />
           ))}
         </div>
         }
