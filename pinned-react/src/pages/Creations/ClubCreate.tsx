@@ -141,8 +141,8 @@ const ClubCreate = () => {
             <input type="text" name="name" value={formData.name} onChange={handleClubChange} required maxLength={50} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-4">
-            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="overview">Overview (max 200 characters):</label>
-            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={200} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded resize-none focus:outline-none focus:shadow-outline"></textarea>
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="overview">Overview (max 100 characters):</label>
+            <textarea name="overview" value={formData.overview} onChange={handleClubChange} maxLength={100} required className="w-full px-3 py-2 leading-tight text-gray-700 border rounded resize-none focus:outline-none focus:shadow-outline"></textarea>
           </div>
           <div className="mb-4">
             <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="description">Description (max 2500 characters):</label>
