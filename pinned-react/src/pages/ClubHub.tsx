@@ -145,8 +145,8 @@ type FiltersProps = {
   size: number,
 }
 
-const FetchClubs = ({ name, genre, cost, size }: FiltersProps) => {
-  return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
+const FetchClubs = ({ name, genre, cost, size}: FiltersType) => {
+  return axiosInstance.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
 }
 
 const ClubHub = () => {
