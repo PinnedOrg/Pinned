@@ -23,8 +23,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
 
     try {
         const clubPreviewsList = await Club
-                                    .find(searchedName) // filters for clubs based on matching name
-                                    .find(filters) // filters for clubs based on query parameters
+                                    .find({ ...searchedName, ...filters, validation: true })
                                     .select(" _id \
                                             name \
                                             overview \
@@ -34,7 +33,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                                             size \
                                             colorTheme")  // only select these fields to return
                                     .sort({ name: 1 });
-
+                                    
         return res.status(200).json(clubPreviewsList);
     } catch (error) {
         console.error("Error retrieving club previews: ", error);

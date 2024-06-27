@@ -66,6 +66,10 @@ const clubSchema = new mongoose.Schema(
         required: false,
         trim: true
     },
+    validation: {
+        type: Boolean,
+        default: false
+    },
     events: {
         type: [mongoose.Schema.Types.ObjectId],
         required: false,

@@ -1,8 +1,7 @@
 export interface IClub {
     _id: string; //id
     name: string
-    preview: string // temp
-    logo: {
+    logo?: {
       data: {
         data: Buffer
       };
@@ -22,6 +21,7 @@ export interface IClub {
     facebook: string
     youtube: string
     events: string[]
+    validation: boolean
 }
 
 export type ClubContextType = IClub | null;
