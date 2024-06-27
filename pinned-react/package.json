@@ -43,7 +43,7 @@
   "scripts": {
     "local": "vite --host --mode network",
     "start": "vite",
-    "build": "vite build",
+     "build": "vite build",
     "build:css": "tailwindcss build src/styles/tailwind.css -o src/styles/main.css",
     "test": "vite test",
     "eject": "vite eject"
