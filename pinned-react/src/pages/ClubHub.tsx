@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/cards/ClubLoadingPlaceholder";
-import ClubHubBanner from "@/components/ClubHubBanner";
+import ClubHubBanner from "@/components/clubhub/clubhubbanner";
 import { axiosInstance } from "@/lib/utils";
 
 import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";

@@ -93,19 +93,19 @@ const HeroCards = () => {
       </Card>
 
       {/* Service */}
-      <Card className="absolute w-[350px] -right-[10px] bottom-[35px]  drop-shadow-xl shadow-black/10 dark:shadow-white/10 border-none">
+      {/* <Card className="absolute w-[350px] -right-[10px] bottom-[35px]  drop-shadow-xl shadow-black/10 dark:shadow-white/10 border-none">
         <CardHeader className="flex items-start justify-start gap-4 space-y-1 md:flex-row">
           <div className="p-1 mt-1 bg-primary/20 rounded-2xl">
           </div>
           <div>
-            {/* connect to backend to populate stats */}
+            {/* connect to backend to populate stats 
             <CardTitle>30+ Clubs and 500+ Users</CardTitle>
             <CardDescription className="mt-2 text-md">
               As UW's top club source, we have a wide variety of clubs for you to get involved with!
             </CardDescription>
           </div>
         </CardHeader>
-      </Card>
+      </Card> */}
     </div>
   );
 };
