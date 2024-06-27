@@ -7,7 +7,7 @@ export const uses =
     "Personalized dashboard", 
     "Connect with new people"]
     
-const genreFilters: Record<string, genreType> = {
+export const genreFilters: Record<string, genreType> = {
     "Academic": "Academic",
     "Arts": "Arts",
     "Business & Entrepreneurship": "Business & Entrepreneurship",

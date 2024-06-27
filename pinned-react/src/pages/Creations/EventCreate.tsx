@@ -1,25 +1,7 @@
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import PreviewImage from '/src/components/Image/PreviewImage';
 
-interface Event {
-  _id: string;
-  title: string;
-  description: string;
-  contact: string;
-  tags: string[];
-  date: string;
-  time: string;
-  location: string;
-  belongsToClub: string;
-  preview?: {
-    data: string | null;
-    extension: string | null;
-  };
-}
-
-const TestPage = () => {
+const EventCreate = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -33,46 +15,6 @@ const TestPage = () => {
   });
 
   const [file, setFile] = useState<File | null>(null);
-  const [events, setEvents] = useState<Event[]>([]);
-
-  useEffect(() => {
-    axios.get(`http://localhost:8080/api/events`)
-     .then((allEvents) => {
-        console.log(`GOT ${allEvents.data.length} events`)
-        setEvents(allEvents.data);
-     })
-     .catch((error) => {
-        console.log(error.message)
-     })
-   }, [])
-
-   const renderEventsList = () => {
-    if (events.length === 0) {
-      return <p>No events available</p>;
-    }
-  
-    return (
-      <ul className="divide-y divide-gray-200">
-        {events.map((event) => (
-          <li key={event._id} className="py-6">
-            <div className="flex space-x-4">
-              <div className="flex-1">
-                <p className="text-lg font-semibold">{event.title}</p>
-                <p className="text-sm text-gray-500 mb-2">{event.description}</p>
-                <p className="text-sm text-gray-500 mb-2">Contact: {event.contact}</p>
-                <p className="text-sm text-gray-500 mb-2">Tags: {event.tags}</p>
-                <p className="text-sm text-gray-500 mb-2">Date: {event.date}</p>
-                <p className="text-sm text-gray-500 mb-2">Time: {event.time}</p>
-                <p className="text-sm text-gray-500 mb-2">Location: {event.location}</p>
-                <p className="text-sm text-gray-500 mb-2">Belongs to Club ID: {event.belongsToClub}</p>
-              </div>
-              {event.preview && <div className="max-w-[500px]"><PreviewImage preview={event.preview} /></div>}
-            </div>
-          </li>
-        ))}
-      </ul>
-    );
-  };
 
   const handleEventChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -99,7 +41,6 @@ const TestPage = () => {
         time,
         location,
         belongsToClub,
-        preview,
     } = formData;
 
     const data = new FormData();
@@ -116,7 +57,6 @@ const TestPage = () => {
     }
 
     try {
-        // Create the event
         const response = await axios.post('http://localhost:8080/api/events', data, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -124,18 +64,10 @@ const TestPage = () => {
         });
 
         console.log('Event created successfully:', response);
-
-        // Fetch all events again to update the events list
-        const allEventsResponse = await axios.get('http://localhost:8080/api/events');
-        console.log(`GOT ${allEventsResponse.data.length} events`);
-
-        // Update the events state with the newly fetched events
-        setEvents(allEventsResponse.data);
     } catch (error) {
         console.error('Error creating event:', error);
     }
 };
-
   return (
     <div>      
       <form onSubmit={handleEventSubmit} className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -178,18 +110,8 @@ const TestPage = () => {
         </div>
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Event</button>
       </form>
-
-      <br />
-      <br />
-      <br />
-
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Events List</h2>
-        {renderEventsList()}
-      </div>
-
     </div>
   );
 };
 
-export default TestPage;
+export default EventCreate;
