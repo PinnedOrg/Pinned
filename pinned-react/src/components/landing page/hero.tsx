@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Hero = () => {
   return (
     <section className="container grid gap-10 pt-16 pb-20 lg:grid-cols-2 place-items-center md:pb-32">
-      <div className="space-y-6 text-center lg:text-start">
+      <div className="z-10 space-y-6 text-center lg:text-start">
         {/* replace with pinned phrase */}
         <main className="text-5xl font-bold md:text-6xl">
           <h1 className="inline">
@@ -24,7 +24,7 @@ const Hero = () => {
 
         {/* replace with our mission statement */}
         <p className="mx-auto text-xl text-muted-foreground md:w-10/12 lg:mx-0">
-            Your trusted source for clubs and opportunities and ways to get involved at the University of Waterloo!
+            Your trusted source for getting involved and connecting with others at the University of Waterloo!
         </p>
             
         {/* Buttons */}

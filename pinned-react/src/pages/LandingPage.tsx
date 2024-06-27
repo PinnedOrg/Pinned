@@ -6,9 +6,9 @@ import OurTeam from '@/components/landing page/team';
 
 const LandingPage = () => {
   return (
-      <section className='space-y-9'>
+      <section className='space-y-20'>
          {/* Background Shadow */}
-         <div className='fixed w-full h-screen bg-gradient-to-b from-background to-primary-background -z-10'></div>
+         <div className='fixed top-0 w-full h-screen bg-gradient-to-b from-background via-background to-primary-background -z-10'></div>
          
          <Hero />
          <Affiliates />

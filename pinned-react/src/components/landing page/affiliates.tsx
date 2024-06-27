@@ -7,7 +7,7 @@ const Affiliates = () => {
   return (
     <section
       id="sponsors"
-      className="container pt-24 sm:py-32"
+      className="container"
     >
       <h2 className="mb-8 font-bold text-center text-md lg:text-xl text-secondary">
         Made For Students at
