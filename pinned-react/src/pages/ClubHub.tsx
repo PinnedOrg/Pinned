@@ -129,7 +129,7 @@ const hardcodeData = [
   }
 ]
 
-type FiltersProps = {
+type FiltersType = {
   name: string,
   genre: string,
   cost: number,
@@ -186,16 +186,16 @@ const ClubHub = () => {
     <section className="inline-flex flex-col items-center w-full h-full pb-4 bg-slate-5 bg-background">
       <ClubHubBanner />
 
-      <section className="container flex flex-wrap justify-center p-4 px-4 mt-10 mb-5 space-y-4 dark:bg-slate-950 lg:px-16 max-w-[80rem] w-full">
+      <section className="container flex flex-wrap justify-center p-4 px-4 mt-10 mb-5 space-y-4 bg-background lg:px-16 max-w-[80rem] w-full">
         <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
-            className="w-[80%] bg-white border-slate-500 dark:bg-slate-950 dark:text-gray-500 px-5"
+            className="w-[80%] border-muted-foreground bg-background text-muted-foreground px-5"
             placeholder="Search for a club"
             onChange={(e) => {
               setName(e.target.value);
             }}
           />
-          <Button type="submit" variant='secondary' className="text-gray-200 ">
+          <Button type="submit" variant='secondary' className="text-accent-foreground">
             <ViewportWrapper breakpoint="large">
               Search
             </ViewportWrapper>
@@ -211,7 +211,7 @@ const ClubHub = () => {
               className="items-center w-full gap-3"
               onClick={() => setIsCollapsibleOpen(!isCollapsibleOpen)}
             >
-              <div className="flex text-gray-500">
+              <div className="flex text-muted-foreground">
                 Additional Filters { isCollapsibleOpen ? <ChevronUp /> : <ChevronDown /> }
               </div>
             <hr className="w-[100%] border border-solid border-slate-500 rounded-full mt-1 "></hr>
@@ -221,7 +221,7 @@ const ClubHub = () => {
           
           <CollapsibleContent className={clsx("rounded-b-md px-2 pt-1 pb-4 shadow-md shadow-slate-200 dark:shadow-slate-800 transition-all duration-1000 overflow-hidden")}>
             {isCollapsibleOpen && 
-              <div className="flex gap-1 text-gray-500 hover:cursor-pointer" onClick={resetFilters}>
+              <div className="flex gap-1 text-muted-foreground hover:cursor-pointer" onClick={resetFilters}>
                 Reset
                 <RotateCcw className="w-[1rem] h-auto " />
               </div>

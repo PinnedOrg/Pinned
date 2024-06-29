@@ -1,12 +1,21 @@
 import { AboutCardType, AffiliateType, genreType } from "./types"
 
-export const uses = 
-    ["Stay updated with events", 
-    "Find and join clubs", 
-    "Attract new members",
-    "Personalized dashboard", 
-    "Connect with new people"]
-    
+export const userUses = 
+    [   
+        "Connect with new people",
+        "Get involved immediately",
+        "Stay updated with events", 
+        "W.I.P", 
+    ]
+
+export const clubUses =
+    [
+        "Attract new members",
+        "Build your community",
+        "Personalize your profile",
+        "Promote events",
+    ]
+
 export const genreFilters: Record<string, genreType> = {
     "Academic": "Academic",
     "Arts": "Arts",

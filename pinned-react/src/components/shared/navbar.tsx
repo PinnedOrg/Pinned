@@ -19,7 +19,7 @@ const NavBar = () => {
       </ViewportWrapper>
       {/* <ViewportWrapper breakpoint="mobile">
         <Link to={routes.Home} className="">
-          <img src="@/public/images/PinnedAppLogo.png" alt="Pinned Logo" />
+          <img src="/images/logos/PinnedAppLogo.png" alt="Pinned Logo" />
         </Link>
       </ViewportWrapper> */}
 
