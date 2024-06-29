@@ -129,6 +129,12 @@ const hardcodeData: Array<IClub> = [
   }
 ]
 
+type FiltersType = {
+  name: string;
+  genre: string;
+  cost: number;
+  size: number;
+};
 
 const FetchClubs = ({ name, genre, cost, size }: FiltersType) => {
   return axios.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
