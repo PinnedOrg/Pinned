@@ -21,7 +21,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 
-
 import { Button } from "@/components/ui/button";
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";

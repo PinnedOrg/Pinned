@@ -4,7 +4,7 @@ import PreviewImage from '../../components/Image/PreviewImage';
 import { genreFilters } from '../../lib/data';
 import { useMutation } from '@tanstack/react-query';
 import { IClub } from '../../lib/types';
-import { SignedOut, SignedIn, RedirectToSignIn } from '@clerk/clerk-react';
+// import { SignedOut, SignedIn, RedirectToSignIn } from '@clerk/clerk-react';
 
 
 const postClub = async (formData: FormData): Promise<IClub> => {
@@ -134,11 +134,11 @@ const ClubCreate = () => {
 
   return (
     <div>
-      <SignedOut>
+      {/* <SignedOut>
         <RedirectToSignIn />
-      </SignedOut>
+      </SignedOut> */}
 
-      <SignedIn>
+      {/* <SignedIn> */}
         <div className="flex justify-center items-center w-full p-4 gap-20">
           <div className="w-full max-w-xl p-4">
             <form onSubmit={handleClubSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -229,12 +229,10 @@ const ClubCreate = () => {
                   <p className="text-sm text-gray-500 break-words">Discord: {formData.discord}</p>
                   <p className="text-sm text-gray-500 break-words">Facebook: {formData.facebook}</p>
                   {formData.logo ? (
-                    console.log(formData.logo),
                     <div className="flex items-center justify-center border-2 border-gray-500 h-[300px]">
                       <PreviewImage preview={formData.logo} />
                     </div>
                   ) : (
-                    console.log(formData.logo),
                     <div className="flex items-center justify-center h-[300px] bg-gray-800 border-2 border-gray-500">
                       <p className="text-white">No Logo</p>
                     </div>
@@ -244,7 +242,7 @@ const ClubCreate = () => {
             </div>
           </div>
         </div>
-      </SignedIn>
+      {/* </SignedIn> */}
     </div>
   );
 };
