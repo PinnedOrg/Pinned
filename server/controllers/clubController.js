@@ -27,7 +27,6 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                                     .select(" _id \
                                             name \
                                             overview \
-                                            logo \
                                             genre \
                                             cost \
                                             size \
