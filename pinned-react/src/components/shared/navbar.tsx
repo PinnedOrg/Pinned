@@ -23,19 +23,19 @@ const NavBar = () => {
         </Link>
       </ViewportWrapper> */}
 
-      <nav className="inline-flex gap-12 ">
-        <div className="flex items-center gap-2">
+      <nav className="inline-flex -mr-6">
+        <div className="flex items-center gap-6">
           <Button variant='ghost' className={LinkStyles}>
             <Link to={routes.ClubHub} >Club Hub</Link>
           </Button>
           <Button variant='ghost' className={LinkStyles}>
             <Link to={routes.Register} >Register</Link>
           </Button>
+          <Button variant='secondary' className={LinkStyles + " font-semibold focus:bg-secondary"}>
+            <Link to={routes.SignIn} >Sign In</Link>
+          </Button>
+          <ModeToggle />
         </div>
-        <Button variant='secondary' className={LinkStyles + " font-semibold focus:bg-secondary"}>
-          <Link to={routes.SignIn} >Sign In</Link>
-        </Button>
-        <ModeToggle />
       </nav>
     </header>
   );
