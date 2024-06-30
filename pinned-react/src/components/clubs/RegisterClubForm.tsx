@@ -1,21 +1,26 @@
-import { useState } from 'react';
 import axios from 'axios';
 import PreviewImage from '../../components/Image/PreviewImage';
 import { genreFilters } from '../../lib/data';
 import { useMutation } from '@tanstack/react-query';
 import { IClub } from '../../lib/types';
-
-const postClub = async (formData: FormData): Promise<IClub> => {
-    const response = await axios.post('http://localhost:8080/api/clubs', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  
-    return response.data as IClub;
-  };
+import React, { useState } from 'react'
+import { useAuth } from '@clerk/clerk-react'
 
 const RegisterClubForm = () => {
+    const { getToken } = useAuth()
+    
+    const postClub = async (formData: FormData): Promise<IClub> => {
+        const token = await getToken()
+        const response = await axios.post('http://localhost:8080/api/clubs', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      
+        return response.data as IClub;
+      };
+
     const mutation = useMutation<IClub, Error, FormData>({
         mutationFn: postClub,
         onSuccess: (data: IClub) => {
