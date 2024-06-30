@@ -2,12 +2,13 @@ import  Hero  from '@/components/landing page/hero';
 import  Affiliates  from '@/components/landing page/affiliates';
 
 import Wrap  from '@/components/shared/wrap'; 
+import GradientBackground from '@/components/shared/gradientbackground';
 
 const LandingPage = () => {
   return (
       <section>
          {/* Background Shadow */}
-         <div className='fixed top-0 w-full h-screen bg-gradient-to-b from-background via-background to-primary-background -z-10'></div>
+         <GradientBackground />
          
          <div className='space-y-20'>
             <Hero />
