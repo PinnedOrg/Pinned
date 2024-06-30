@@ -4,6 +4,8 @@ import { routes } from "@/lib/routes";
 import ViewportWrapper from "./ViewportWrapper";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../context/mode-toggle";
+
+import { FaHome } from "react-icons/fa";
 // import { UserProfile } from "@clerk/clerk-react";
 
 const LinkStyles = "px-3 py-2 font-medium text-sm uppercase tracking-wide dark:text-gray-200 dark:hover:text-gray-200"; // ending space is important for tailwindcss to work properly
@@ -17,14 +19,15 @@ const NavBar = () => {
           <h1 className="text-3xl font-bold text-transparent uppercase bg-gradient-to-r to-primary from-secondary bg-clip-text">Pinned</h1>
         </Link>
       </ViewportWrapper>
-      {/* <ViewportWrapper breakpoint="mobile">
-        <Link to={routes.Home} className="">
-          <img src="/images/logos/PinnedAppLogo.png" alt="Pinned Logo" />
-        </Link>
-      </ViewportWrapper> */}
 
       <nav className="inline-flex -mr-6">
         <div className="flex items-center gap-6">
+        {/* Add all mobile routes here. Will need a drawer moving forward */}
+          <ViewportWrapper breakpoint="mobile">
+            <Link to={routes.Home} className="">
+              <FaHome className="text-lg font-bold"/>
+            </Link>
+          </ViewportWrapper>
           <Button variant='ghost' className={LinkStyles}>
             <Link to={routes.ClubHub} >Club Hub</Link>
           </Button>
