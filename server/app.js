@@ -15,16 +15,6 @@ app.use(morgan("dev")); // Morgan for logging HTTP requests
 app.use(cors({ origin: true, credentials: true })); // CORS setup for allowing cross-origin requests
 app.use(express.json()); // Parse incoming JSON requests
 
-// Use the strict middleware that raises an error when unauthenticated
-app.post('/api/clubs', ClerkExpressRequireAuth(), (req, res) => {
-  res.json(req.auth)
-})
-
-app.use((err, req, res, next) => {
-  console.error(err.stack)
-  res.status(401).send('Unauthenticated. Please log in.')
-})
-
 // Connect to MongoDB function
 const connectToDatabase = (connectionString) => {
   // Close the existing connection before opening a new one
