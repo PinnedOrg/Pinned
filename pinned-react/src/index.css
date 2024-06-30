@@ -127,6 +127,33 @@ html {
   animation: shadow-slide-purple infinite 4s linear alternate;
 }
 
+.shadow-blue-4 {
+  position: absolute;
+  background: hsla(240, 100%, 50%, 0%);
+  border-radius: 24px;
+  rotate: 74deg;
+
+  width: 100px;
+  right: 0px;
+  top: 2100px;
+  height: 300px;
+  filter: blur(150px);
+  animation: shadow-slide-blue infinite 4s linear alternate;
+}
+
+.shadow-purple-4 {
+  position: absolute;
+  background: hsla(280, 100%, 50%, 0%);
+  border-radius: 24px;
+  rotate: 13deg;
+
+  width: 40px;
+  left: 500px;
+  top: 2200px;
+  height: 300px;
+  filter: blur(100px);
+  animation: shadow-slide-purple infinite 4s linear alternate;
+}
 @keyframes shadow-slide-blue {
   from {
     background: hsla(240, 100%, 50%, 20%);

@@ -40,7 +40,9 @@ const ClubProfile = () => {
         <div className="shadow-purple-2"></div>
         <div className="shadow-blue-3"></div>
         <div className="shadow-purple-3"></div>
-
+        <div className="shadow-blue-4"></div>
+        <div className="shadow-purple-4"></div>
+        
         <div
           className={`relative -top-16 left-64 z-10 flex flex-col justify-center p-6 w-1/2 transition-transform duration-1000 ${
             isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
