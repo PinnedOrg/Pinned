@@ -12,112 +12,103 @@ import { clubUses, userUses } from "@/lib/data";
 
 import { Check, View } from "lucide-react";
 import ViewPortWrapper from "@/components/shared/ViewportWrapper";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { Link } from "react-router-dom";
-import { routes } from "@/lib/routes";
 
 const HeroCards = () => {
   return (
     <div>
-      <ViewPortWrapper breakpoint="large" >
-        <div className=" relative w-[700px] h-[500px]">
-          {/* Features */}
-          <Card className="absolute flex flex-col items-center justify-center top-10 left-2 w-[16.5rem] shadow-xl shadow-black/20 dark:shadow-black/50 border-none hover:scale-105 transition-all ease-linear">
-            <CardHeader className="flex items-center justify-center pb-0 mt-6">
-              <img
-                src="https://avatar.iran.liara.run/public/33"
-                alt="user logo"
-                className="absolute grayscale-[0%] -top-12 rounded-full w-24 h-24 aspect-square object-cover"
-              />
-              <CardTitle className="text-lg text-center">
-                For those who want to get involved...
-              </CardTitle>
-            </CardHeader>
-            
-            <CardContent className="pb-0 text-center">
-              <CardDescription className="text-xs" >
-                Whether your want to gain useful experience, make new friends, or just have fun.
-              </CardDescription>
-            </CardContent>
-
-            <hr className="w-4/5 mx-auto my-4 border-accent-foreground" />
-
-            <CardFooter className="block">
-              <div className="space-y-4">
-                {userUses.map(
-                  (benefit: string) => (
-                    <span
-                      key={benefit}
-                      className="flex"
-                    >
-                      <Check className="text-green-500" />  
-                      <h3 className="ml-2 text-sm">{benefit}</h3>
-                    </span>
-                  )
-                )}
-              </div>
-              
-            </CardFooter>
-          </Card>
-          <Card className="absolute left-[20rem] top-[7.5rem] w-[16.5rem] flex flex-col items-center justify-center shadow-xl shadow-black/20 dark:shadow-black/50 border-none hover:scale-105 transition-all ease-linear">
-            <CardHeader className="flex items-center justify-center pb-0 mt-6">
-              <img
-                src="https://avatar.iran.liara.run/public/68"
-                alt="user logo"
-                className="absolute grayscale-[0%] -top-12 rounded-full w-24 h-24 aspect-square object-cover"
-              />
-              <CardTitle className="text-lg text-center">
-                ... And for those looking to expand
-              </CardTitle>
-            </CardHeader>
-            
-            <CardContent className="pb-0 text-center">
-              <CardDescription className="text-xs" >
-                Whether you're an established club or just starting out, we have the tools to help you grow.
-              </CardDescription>
-            </CardContent>
-
-            <hr className="w-4/5 mx-auto my-4 border-accent-foreground" />
-
-            <CardFooter className="block">
-              <div className="space-y-4">
-                {clubUses.map(
-                  (benefit: string) => (
-                    <span
-                      key={benefit}
-                      className="flex"
-                    >
-                      <Check className="text-green-500" />  
-                      <h3 className="ml-2 text-sm">{benefit}</h3>
-                    </span>
-                  )
-                )}
-              </div>
-              
-            </CardFooter>
-          </Card>
-
+      <div className=" relative max-w-full lg:w-[700px] lg:h-[500px] flex flex-wrap justify-center gap-10 gap-y-16 md:gap-16 mt-20 lg:mt-0">
+        {/* Students */}
+        <Card className="lg:absolute flex flex-col items-center justify-center lg:top-10 left-[-4.5rem] xl:left-[-1rem] w-[16.5rem] shadow-xl shadow-black/20 dark:shadow-black/50 border-none hover:scale-105 transition-all ease-linear animate-fade-in-scale">
+          <CardHeader className="relative flex items-center justify-center pb-0 mt-6">
+            <img
+              src="/images/MaleStudent.png"
+              alt="user logo"
+              className="absolute grayscale-[0%] top-[-4.5rem] rounded-full w-24 h-24 aspect-square object-cover"
+            />
+            <CardTitle className="text-lg leading-tight text-center">
+              For those who want to get involved...
+            </CardTitle>
+          </CardHeader>
           
+          <CardContent className="pb-0 mt-1 text-center">
+            <CardDescription className="text-sm" >
+              Whether your want to gain useful experience, make new friends, or just have fun.
+            </CardDescription>
+          </CardContent>
 
-          {/* Service */}
-          <Card className="absolute w-[20rem] bottom-[-6rem] left-[-4rem]  drop-shadow-xl shadow-black/10 dark:shadow-white/10 border-none">
-            <CardHeader className="flex items-start justify-start gap-4 space-y-1 md:flex-row">
-              <div className="p-1 mt-1 bg-primary/20 rounded-2xl">
+          <hr className="w-4/5 mx-auto my-4 border-accent-foreground" />
+
+          <CardFooter className="block">
+            <div className="space-y-4">
+              {userUses.map(
+                (benefit: string) => (
+                  <span
+                    key={benefit}
+                    className="flex"
+                  >
+                    <Check className="text-green-500" />  
+                    <h3 className="ml-2 text-sm">{benefit}</h3>
+                  </span>
+                )
+              )}
+            </div>
+          </CardFooter>
+        </Card>
+
+        {/* Clubs */}
+        <Card className="lg:absolute left-[14rem] xl:left-[17.5rem] lg:top-[7.5rem] w-[16.5rem] flex flex-col items-center justify-center shadow-xl shadow-black/20 dark:shadow-black/50 border-none hover:scale-105 transition-all ease-linear animate-fade-in-scale">
+          <CardHeader className="relative flex items-center justify-center pb-0 mt-6">
+            <img
+              src="/images/FemaleStudent.png"
+              alt="user logo"
+              className="absolute grayscale-[0%] top-[-4.5rem] rounded-full w-24 h-auto aspect-square object-cover"
+            />
+            <CardTitle className="text-lg leading-tight text-center ">
+              ... And for those looking to expand
+            </CardTitle>
+          </CardHeader>
+          
+          <CardContent className="pb-0 mt-1 text-center ">
+            <CardDescription className="text-sm" >
+              Whether you're an established club or just starting out, we have the tools to help you grow.
+            </CardDescription>
+          </CardContent>
+
+          <hr className="w-4/5 mx-auto my-4 border-accent-foreground" />
+
+          <CardFooter className="block">
+            <div className="space-y-4">
+              {clubUses.map(
+                (benefit: string) => (
+                  <span
+                    key={benefit}
+                    className="flex"
+                  >
+                    <Check className="text-green-500" />  
+                    <h3 className="ml-2 text-sm">{benefit}</h3>
+                  </span>
+                )
+              )}
+            </div>
+            
+          </CardFooter>
+        </Card>
+
+        {/* Club of the Week */}
+        <Card className="lg:absolute flex flex-col items-center justify-center lg:top-[27.5rem] left-[-10rem] xl:left-[-8rem] w-[22rem] shadow-xl shadow-black/20 dark:shadow-black/50 border-none hover:scale-105 transition-all ease-linear animate-fade-in-scale">
+          <CardHeader className="py-4">
+              <CardTitle className="text-lg text-center">Discover Club of the Week</CardTitle>
+              <CardDescription className="mt-2 text-sm text-center">
+                Every week we feature a club that we think deserves some recognition.
+              </CardDescription>
+              <div className="flex justify-center">
+                <Button variant={"secondary"} className="w-2/3">
+                  Check it out!
+                </Button>
               </div>
-              <div>
-                <CardTitle>30+ Clubs and 500+ Users</CardTitle>
-                <CardDescription className="mt-2 text-md">
-                  As UW's top club source, we have a wide variety of clubs for you to get involved with!
-                </CardDescription>
-              </div>
-            </CardHeader>
-          </Card>
-        </div>
-      </ViewPortWrapper>
-      <ViewPortWrapper breakpoint="mobile">
-        <div>
-        </div>
-      </ViewPortWrapper>
+          </CardHeader>
+        </Card>
+      </div>
     </div>
   );
 };

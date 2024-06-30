@@ -29,6 +29,7 @@ import { axiosInstance } from "@/lib/utils";
 import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
 import PageErrorMessage from "@/components/error/PageErrorMessage";
 import ClubNotFoundErrorMessage from "@/components/error/ClubNotFoundErrorMessage";
+import GradientBackground from "@/components/shared/gradientbackground";
 
 const hardcodeData = [
   {
@@ -182,10 +183,11 @@ const ClubHub = () => {
 
   console.log(data);
   return (
-    <section className="inline-flex flex-col items-center w-full h-full pb-4 bg-slate-5 bg-background">
+    <section className="inline-flex flex-col items-center w-full h-full pb-4 bg-slate-5">
+      {/* <GradientBackground /> */}
       <ClubHubBanner />
 
-      <section className="container flex flex-wrap justify-center p-4 px-4 mt-10 mb-5 space-y-4 bg-background lg:px-16 max-w-[80rem] w-full">
+      <section className="container flex flex-wrap justify-center p-4 px-4 mt-10 mb-5 space-y-4 bg-transparent lg:px-16 max-w-[80rem] w-full">
         <form className="flex items-center justify-center w-full space-x-2" onSubmit={(e) => handleSubmit(e)}>
           <Input
             className="w-[80%] border-muted-foreground bg-background text-muted-foreground px-5"
@@ -247,7 +249,7 @@ const ClubHub = () => {
         </Collapsible>
       </section>
 
-      <section className="container flex min-h-[30rem] justify-center">
+      <section className="container flex min-h-[30rem] justify-center bg-transparent">
         {(isError || (data?.data.length === 0)) ? (
           <div className="mt-20">
             {isError ? (
