@@ -3,6 +3,8 @@ import  Affiliates  from '@/components/landing page/affiliates';
 
 import Wrap  from '@/components/shared/wrap'; 
 import GradientBackground from '@/components/shared/gradientbackground';
+import { Club } from 'lucide-react';
+import ClubOfTheWeek from '@/components/landing page/cluboftheweek';
 
 const LandingPage = () => {
   return (
@@ -10,10 +12,12 @@ const LandingPage = () => {
          {/* Background Shadow */}
          <GradientBackground />
          
-         <div className='space-y-20'>
+         <div className='space-y-48'>
             <Hero />
             {/* <Affiliates /> */}
+            <ClubOfTheWeek />
             <Wrap />
+
          </div>
       </section>
    );
