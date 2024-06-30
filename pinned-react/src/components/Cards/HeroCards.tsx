@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,8 +10,7 @@ import {
 
 import { clubUses, userUses } from "@/lib/data";
 
-import { Check, View } from "lucide-react";
-import ViewPortWrapper from "@/components/shared/ViewportWrapper";
+import { Check } from "lucide-react";
 
 const HeroCards = () => {
   return (
