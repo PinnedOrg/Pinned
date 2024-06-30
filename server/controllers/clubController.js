@@ -63,7 +63,7 @@ const getClubDetails = async (req, res) => {
 };
 
 const createClub = async (req, res) => {
-  const {
+    const {
     name,
     overview,
     description,
@@ -76,37 +76,37 @@ const createClub = async (req, res) => {
     instagram,
     discord,
     facebook,
-  } = req.body;
+    } = req.body;
 
-  let club;
+    let club;
 
-  try {
+    try {
     const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
     const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
 
     club = await Club.create({
-      name,
-      overview,
-      logo: {
+        name,
+        overview,
+        logo: {
         data: logoBuffer,
         extension: extension
-      },
-      description,
-      genre,
-      colorTheme,
-      location,
-      cost,
-      meetingsFrequency,
-      email,
-      instagram,
-      discord,
-      facebook,
+        },
+        description,
+        genre,
+        colorTheme,
+        location,
+        cost,
+        meetingsFrequency,
+        email,
+        instagram,
+        discord,
+        facebook,
     });
 
     res.status(201).json(club);
-  } catch (error) {
+    } catch (error) {
     res.status(400).json({ error: error.message });
-  }
+    }
 };
 
 const deleteClub = async (req, res) => {
