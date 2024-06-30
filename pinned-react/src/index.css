@@ -17,6 +17,7 @@ html {
 }
 
 /* Landing Page Cards background shadow */
+
 .shadow {
   position: absolute;
   background: hsl(var(--primary-shadow) / 0%);
@@ -41,6 +42,84 @@ html {
   }
 }
 
+
+.shadow-blue {
+  position: absolute;
+  background: hsla(240, 100%, 50%, 0%);
+  border-radius: 24px;
+  rotate: 29deg;
+
+  width: 200px;
+  left: 250px;
+  top: 150px;
+  height: 500px;
+  filter: blur(150px);
+  animation: shadow-slide-blue infinite 4s linear alternate;
+}
+
+.shadow-purple {
+  position: absolute;
+  background: hsla(280, 100%, 50%, 0%);
+  border-radius: 24px;
+  rotate: 93deg;
+
+  width: 100px;
+  right: 0px;
+  top: 1px;
+  height: 300px;
+  filter: blur(100px);
+  animation: shadow-slide-purple infinite 4s linear alternate;
+}
+
+.shadow-blue-2 {
+  position: absolute;
+  background: hsla(240, 100%, 50%, 0%);
+  border-radius: 24px;
+  rotate: 74deg;
+
+  width: 150px;
+  right: 50px;
+  top: 800px;
+  height: 500px;
+  filter: blur(150px);
+  animation: shadow-slide-blue infinite 4s linear alternate;
+}
+
+.shadow-purple-2 {
+  position: absolute;
+  background: hsla(280, 100%, 50%, 0%);
+  border-radius: 24px;
+  rotate: 194deg;
+
+  width: 40px;
+  left: 0px;
+  top: 800px;
+  height: 300px;
+  filter: blur(100px);
+  animation: shadow-slide-purple infinite 4s linear alternate;
+}
+
+@keyframes shadow-slide-blue {
+  from {
+    background: hsla(240, 100%, 50%, 20%);
+    right: 460px;
+  }
+  to {
+    background: hsla(240, 100%, 50%, 80%);
+    right: 160px;
+  }
+}
+
+@keyframes shadow-slide-purple {
+  from {
+    background: hsla(280, 100%, 50%, 20%);
+    right: 460px;
+  }
+  to {
+    background: hsla(280, 100%, 50%, 80%);
+    right: 160px;
+  }
+}
 @media (max-width: 1024px) {
   .shadow {
     top: 70px;
