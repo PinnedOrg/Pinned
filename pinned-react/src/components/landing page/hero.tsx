@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import  HeroCards from "@/components/cards/HeroCards";
 import { routes } from "@/lib/routes";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { Link } from 'react-router-dom';
 
 const Hero = () => {

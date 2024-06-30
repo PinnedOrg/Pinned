@@ -1,10 +1,8 @@
 import  Hero  from '@/components/landing page/hero';
-import  Affiliates  from '@/components/landing page/affiliates';
+import ClubOfTheWeek from '@/components/landing page/cluboftheweek';
 
 import Wrap  from '@/components/shared/wrap'; 
 import GradientBackground from '@/components/shared/gradientbackground';
-import { Club } from 'lucide-react';
-import ClubOfTheWeek from '@/components/landing page/cluboftheweek';
 
 const LandingPage = () => {
   return (
