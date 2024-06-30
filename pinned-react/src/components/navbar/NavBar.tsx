@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import { routes } from "@/lib/routes";
 import ViewportWrapper from "../shared/ViewportWrapper";
 import { Button } from "../ui/button";
