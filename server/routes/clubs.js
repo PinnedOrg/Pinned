@@ -26,7 +26,7 @@ const {
 router.get("/", getClubPreviewsBasedOnFilters); 
 router.get("/:id", getClubDetails); 
 router.post("/", customRequireAuth, preview.single('logo'), handleUploadError, createClub); 
-router.delete("/:id", deleteClub);
-router.patch("/:id", updateClub); 
+router.delete("/:id", customRequireAuth, deleteClub);
+router.patch("/:id", customRequireAuth, updateClub); 
 
 module.exports = router;
