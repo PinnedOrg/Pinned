@@ -175,6 +175,7 @@ html {
     right: 160px;
   }
 }
+
 @media (max-width: 1024px) {
   .shadow {
     top: 70px;
