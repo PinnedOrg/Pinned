@@ -1,17 +1,17 @@
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
-import { Cards } from "./cards.tsx";
+import  Cards from "./Cards/HeroCards.tsx";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { Link } from 'react-router-dom';
 
-export const Hero = () => {
+const Hero = () => {
   return (
-    <section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10">
-      <div className="text-center lg:text-start space-y-6">
+    <section className="container grid gap-10 py-20 lg:grid-cols-2 place-items-center md:py-32">
+      <div className="space-y-6 text-center lg:text-start">
         {/* replace with pinned phrase */}
-        <main className="text-5xl md:text-6xl font-bold">
+        <main className="text-5xl font-bold md:text-6xl">
           <h1 className="inline">
-          <span className="inline bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">
+          <span className="inline text-transparent bg-gradient-to-r from-secondary to-primary bg-clip-text">
               Pinned
             </span>{" "}
             ClubHub
@@ -26,7 +26,7 @@ export const Hero = () => {
         </main>
 
         {/* replace with our mission statement */}
-        <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
+        <p className="mx-auto text-xl text-muted-foreground md:w-10/12 lg:mx-0">
             Your trusted source for clubs, events, and opportunities at the University of Waterloo!
         </p>
             
@@ -36,17 +36,12 @@ export const Hero = () => {
                 <Button className="w-full md:w-1/3">Browse Clubs!</Button>
             </Link>
             {/* choose either google form or seperate page for club creation */}
-          <a
-            rel="noreferrer noopener"
-            href="" // add google form link to create a club page
-            target="_blank"
-            className={`w-full md:w-1/3 ${buttonVariants({
-              variant: "outline",
-            })}`}
-          >
-            Create a Club
-            <PlusCircledIcon className="ml-2 w-5 h-5" />
-          </a>
+            <Link to="/register">
+              <Button className={`w-full md:w-1/3 ${buttonVariants({ variant: "outline" })}`}>
+              Create a Club
+                <PlusCircledIcon className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
 
           {/* <Link to="/clubsignin">
                 <button
@@ -55,7 +50,7 @@ export const Hero = () => {
                     })}`}
                 >
                     Create a Club
-                    <PlusCircledIcon className="ml-2 w-5 h-5" />
+                    <PlusCircledIcon className="w-5 h-5 ml-2" />
                 </button>
             </Link> */}
         </div>
@@ -71,3 +66,5 @@ export const Hero = () => {
     </section>
   );
 };
+
+export default Hero;

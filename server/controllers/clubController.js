@@ -23,8 +23,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
 
     try {
         const clubPreviewsList = await Club
-                                    .find(searchedName) // filters for clubs based on matching name
-                                    .find(filters) // filters for clubs based on query parameters
+                                    .find({ ...searchedName, ...filters, validation: true })
                                     .select(" _id \
                                             name \
                                             overview \
@@ -34,7 +33,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                                             size \
                                             colorTheme")  // only select these fields to return
                                     .sort({ name: 1 });
-
+                                    
         return res.status(200).json(clubPreviewsList);
     } catch (error) {
         console.error("Error retrieving club previews: ", error);
@@ -63,35 +62,51 @@ const getClubDetails = async (req, res) => {
     // on a user dashclub or search, show other stuff
 };
 
-const createNewClub = async (req, res) => {
-    try {
-        const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
-        const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
+const createClub = async (req, res) => {
+  const {
+    name,
+    overview,
+    description,
+    genre,
+    colorTheme,
+    location,
+    cost,
+    meetingsFrequency,
+    email,
+    instagram,
+    discord,
+    facebook,
+  } = req.body;
 
-        const club = await Club.create({
-            name: req.body.name,
-            overview: req.body.overview,
-            logo: {
-                data: logoBuffer,
-                extension: extension
-            },
-            description: req.body.description,
-            genre: req.body.genre,
-            colorTheme: req.body.colorTheme,
-            location: req.body.location,
-            cost: req.body.cost,
-            meetingsFrequency: req.body.meetingsFrequency,
-            email: req.body.email,
-            instagram: req.body.instagram,
-            discord: req.body.discord,
-            facebook: req.body.facebook,
-            youtube: req.body.youtube,
-            events: []
-        });
-        res.status(201).json(club);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+  let club;
+
+  try {
+    const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
+    const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
+
+    club = await Club.create({
+      name,
+      overview,
+      logo: {
+        data: logoBuffer,
+        extension: extension
+      },
+      description,
+      genre,
+      colorTheme,
+      location,
+      cost,
+      meetingsFrequency,
+      email,
+      instagram,
+      discord,
+      facebook,
+    });
+
+    res.status(201).json(club);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const deleteClub = async (req, res) => {
@@ -145,12 +160,10 @@ const updateClub = async (req, res) => {
     }
 };
 
-
-//exporting all methods
 module.exports = {
     getClubPreviewsBasedOnFilters,
     getClubDetails,
-    createNewClub,
+    createClub,
     deleteClub,
     updateClub,
 }

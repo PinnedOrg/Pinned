@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
+const { preview, handleUploadError } = require('../helpers/fileHelper')
+
 // Import controllers
 const {
     getClubPreviewsBasedOnFilters,
     getClubDetails,
-    createNewClub,
+    createClub,
     deleteClub,
     updateClub,
 } = require("../controllers/clubController")
@@ -13,7 +15,7 @@ const {
 // API routes for Club Controller
 router.get("/", getClubPreviewsBasedOnFilters); 
 router.get("/:id", getClubDetails); 
-router.post("/", createNewClub); 
+router.post("/", preview.single('logo'), handleUploadError, createClub); 
 router.delete("/:id", deleteClub);
 router.patch("/:id", updateClub); 
 

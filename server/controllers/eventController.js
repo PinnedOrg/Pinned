@@ -99,7 +99,6 @@ const createEvent = async (req, res) => {
       }
     });
     
-
     res.status(201).json(event);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -136,7 +135,7 @@ const deleteEvent = async (req, res) => {
 // update an event
 const updateEvent = async (req, res) => {
   // fetchs a single event based on id
-  const { id, belongsToClub } = req.params;
+  const { id } = req.params;
 
   // if event id is invalid
   if (!mongoose.Types.ObjectId.isValid(id)) {
