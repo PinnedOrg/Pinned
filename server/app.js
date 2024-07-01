@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require('path')
-const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node')
 require("dotenv").config(); // Load environment variables from a .env file if present
 
 // Create an Express app
