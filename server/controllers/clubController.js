@@ -81,7 +81,7 @@ const createClub = async (req, res) => {
 
     const existingClub = await Club.findOne({ owner: userId });
     if (existingClub) {
-        return res.status(400).json({ error: 'Can not own more than 1 club.' });
+        return res.status(400).json({ error: 'Cannot own more than 1 club.' });
     }
 
   let club;
