@@ -4,7 +4,6 @@ import SignUpPage from "@/pages/Auth/SignUpPage";
 import SignInPage from "@/pages/Auth/SignInPage";
 import ClubHub from "@/pages/ClubHub";
 import Layout from "@/components/shared/Layout";
-
 import { routes } from "@/lib/routes";
 import RegisterClub from "@/pages/Creations/ClubCreate";
 import ClubProfile from "@/pages/ClubProfile";
