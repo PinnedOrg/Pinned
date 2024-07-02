@@ -76,7 +76,7 @@ const clubSchema = new mongoose.Schema(
         ref: "Event"
     },
     owner: {
-        type: String, //TODO: change to type user
+        type: String,
         required: true
     },
     // subscribers: {
