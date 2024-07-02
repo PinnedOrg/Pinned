@@ -16,7 +16,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 
-
 import { Button } from "@/components/ui/button";
 
 import { IClub } from "@/lib/types";
