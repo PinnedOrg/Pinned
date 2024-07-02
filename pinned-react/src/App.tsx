@@ -1,13 +1,9 @@
-//  https://clerk.com/docs/references/react/add-react-router
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import LandingPage from '@/pages/LandingPage'
 import SignUpPage from "@/pages/Auth/SignUpPage";
 import SignInPage from "@/pages/Auth/SignInPage";
 import ClubHub from "@/pages/ClubHub";
 import Layout from "@/components/shared/Layout";
-
 import { routes } from "@/lib/routes";
 import RegisterClub from "@/pages/Creations/ClubCreate";
 import ClubProfile from "@/pages/ClubProfile";
