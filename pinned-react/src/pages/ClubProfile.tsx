@@ -41,17 +41,6 @@ const ClubProfile = () => {
       <div className="relative min-h-screen text-white flex items-center">
         <GradientBackground />
         <ClubProfileHero isVisible={isVisible} />
-        <div
-          className={`absolute right-48 -top-16 bottom-0 w-1/3 flex items-center justify-center transition-transform duration-1000 ${
-            isVisible ? 'transform translate-x-0' : 'transform translate-x-full'
-          }`}
-        >
-          <img
-            src="https://images.pexels.com/photos/7658616/pexels-photo-7658616.jpeg?cs=srgb&dl=pexels-ekaterina-bolovtsova-7658616.jpg&fm=jpg"
-            alt="Club"
-            className="w-2/3 h-auto object-cover rounded-lg shadow-lg"
-          />
-        </div>
       </div>
       <ClubProfileAboutUs hasScrolledAboutUs={hasScrolledAboutUs} />
       <ClubProfileItemizedDescription hasScrolledFacts={hasScrolledFacts} />
