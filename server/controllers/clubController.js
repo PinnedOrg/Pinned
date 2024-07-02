@@ -85,14 +85,7 @@ const createClub = async (req, res) => {
         return res.status(400).json({ error: 'Can not own more than 1 club.' });
     }
 
-    const { userId } = req.auth;
-
-    const existingClub = await Club.findOne({ owner: userId });
-    if (existingClub) {
-        return res.status(400).json({ error: 'Cannot own more than 1 club.' });
-    }
-
-  let club;
+    let club;
 
     try {
         const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
