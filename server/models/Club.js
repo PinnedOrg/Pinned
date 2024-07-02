@@ -88,6 +88,23 @@ const clubSchema = new mongoose.Schema(
         type: String, // this is a userid (from clerk)
         required: true
     },
+    apply_link: {
+        type: String,
+        required: true,
+        match: [/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/, 'Please use a valid URL.'] // This is a regex pattern for URL, ensures valid URL
+    },
+    facts: [
+        {
+            title: {
+                type: String,
+                required: true
+            },
+            description: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     // subscribers: {
     //     type: [String], //TODO: change to type user
     //     required: false
