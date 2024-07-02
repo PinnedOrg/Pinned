@@ -15,7 +15,7 @@ import { Check } from "lucide-react";
 const HeroCards = () => {
   return (
     <div>
-      <div className=" relative max-w-full lg:w-[700px] lg:h-[500px] flex flex-wrap justify-center gap-10 gap-y-16 md:gap-16 mt-20 lg:mt-0 z-10">
+      <div className=" relative max-w-full lg:w-[700px] lg:h-[500px] flex flex-wrap justify-center gap-10 gap-y-16 md:gap-16 mt-20 lg:mt-0 z-10 xl:ml-10">
         {/* Students */}
         <Card className="lg:absolute flex flex-col items-center justify-center lg:top-10 left-[-4.5rem] xl:left-[-1rem] w-[16.5rem] shadow-xl shadow-black/20 dark:shadow-black/50 border-none hover:scale-105 transition-all ease-linear animate-fade-in-scale">
           <CardHeader className="relative flex items-center justify-center pb-0 mt-6">
