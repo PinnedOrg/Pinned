@@ -18,9 +18,6 @@ const LandingPage = () => {
 
 export default LandingPage;
 
-
-
-
 {/* <div className="flex items-center w-screen pl-3 bg-gray-100 border-b border-black h-14 text-primary">
             <h1 className="text-3xl font-bold">
                   <Link to="/"> Pinned </Link>

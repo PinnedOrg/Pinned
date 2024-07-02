@@ -75,10 +75,10 @@ const clubSchema = new mongoose.Schema(
         required: false,
         ref: "Event"
     },
-    // admins: {
-    //     type: [String], //TODO: change to type user
-    //     required: false
-    // },
+    owner: {
+        type: String,
+        required: true
+    },
     // subscribers: {
     //     type: [String], //TODO: change to type user
     //     required: false
