@@ -75,7 +75,14 @@ const createClub = async (req, res) => {
     instagram,
     discord,
     facebook,
-  } = req.body;
+    } = req.body;
+
+    const { userId } = req.auth;
+
+    const existingClub = await Club.findOne({ owner: userId });
+    if (existingClub) {
+        return res.status(400).json({ error: 'Cannot own more than 1 club.' });
+    }
 
   let club;
 
@@ -124,6 +131,14 @@ const deleteClub = async (req, res) => {
     if (!club) {
         return res.status(404).json({ error: "Club not found." });
     }
+    
+    // if user is not the owner of the club
+    if (club.owner !== req.auth.userId) {
+        return res.status(403).json({ error: "Cannot delete a club you do not own." });
+    }
+
+    // Delete the club
+    await club.deleteOne();
 
     // delete all events in the club
     await Event.deleteMany({ _id: { $in: club.events } })
@@ -144,10 +159,17 @@ const updateClub = async (req, res) => {
         
         const club = await Club.findByIdAndUpdate(id, {...req.body}, { new: true })
 
-    // if club id does not exist
-    if (!club) {
-        return res.status(404).json({ error: "Club not found." });
-    }
+        // if club id does not exist
+        if (!club) {
+            return res.status(404).json({ error: "Club not found." });
+        }
+
+        if (club.owner !== req.auth.userId) {
+            return res.status(403).json({ error: "Cannot make changes to a club you do not own." });
+        }
+
+        Object.assign(club, req.body);
+        await club.save();
 
     res.status(200).json(club);
 
