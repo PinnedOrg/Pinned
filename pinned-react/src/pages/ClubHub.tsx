@@ -83,6 +83,7 @@ const ClubHub = () => {
   const {isFetching, isError, data } = useQuery({
     queryKey: ["Clubs", fetching], // query refreshes when this value changes
     queryFn: () => FetchClubs({name, genre, cost, size}),
+    refetchOnWindowFocus: false,
   });
 
   console.log(data);
