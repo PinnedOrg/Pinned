@@ -24,6 +24,7 @@
     "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.1.5",
     "lucide-react": "^0.378.0",
     "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
@@ -41,7 +42,7 @@
   "scripts": {
     "local": "vite --host --mode network",
     "start": "vite",
-     "build": "vite build",
+    "build": "vite build",
     "build:css": "tailwindcss build src/styles/tailwind.css -o src/styles/main.css",
     "test": "vite test",
     "eject": "vite eject"
