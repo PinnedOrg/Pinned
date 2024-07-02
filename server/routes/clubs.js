@@ -14,8 +14,8 @@ const {
 // API routes for Club Controller
 router.get("/", getClubPreviewsBasedOnFilters); 
 router.get("/:id", getClubDetails); 
-router.post("/", preview.single('logo'), handleUploadError, createClub); 
-router.delete("/:id", deleteClub);
-router.patch("/:id", updateClub); 
+router.post("/", customRequireAuth, preview.single('logo'), handleUploadError, createClub); 
+router.delete("/:id", customRequireAuth, deleteClub);
+router.patch("/:id", customRequireAuth, updateClub); 
 
 module.exports = router;

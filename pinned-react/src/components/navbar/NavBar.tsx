@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-
 import { routes } from "@/lib/routes";
 import ViewportWrapper from "../shared/ViewportWrapper";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../mode-toggle";
-// import { UserProfile } from "@clerk/clerk-react";
+import { UserButton, SignedIn, SignedOut } from "@clerk/clerk-react";
 
 const LinkStyles = "px-3 py-2 font-medium text-sm uppercase tracking-wide dark:text-gray-200 dark:hover:text-gray-200 dark:hover:bg-gray-800"; // ending space is important for tailwindcss to work properly
 
@@ -32,9 +31,14 @@ const NavBar = () => {
             <Link to={routes.Register} >Register</Link>
           </Button>
         </div>
-        <Button variant='secondary' className={LinkStyles + " text-white font-semibold hover:bg-secondary-hover"}>
-          <Link to={routes.SignIn} >Sign In</Link>
-        </Button>
+        <SignedIn>
+          <UserButton /> 
+        </SignedIn>
+        <SignedOut>
+          <Button variant='secondary' className={LinkStyles + " text-white font-semibold hover:bg-secondary-hover"}>
+            <Link to={routes.SignIn} >Sign In</Link>
+          </Button>
+        </SignedOut>
         <ModeToggle />
       </nav>
     </header>

@@ -63,7 +63,7 @@ const getClubDetails = async (req, res) => {
 };
 
 const createClub = async (req, res) => {
-  const {
+    const {
     name,
     overview,
     description,
@@ -82,42 +82,49 @@ const createClub = async (req, res) => {
 
     const existingClub = await Club.findOne({ owner: userId });
     if (existingClub) {
+        return res.status(400).json({ error: 'Can not own more than 1 club.' });
+    }
+
+    const { userId } = req.auth;
+
+    const existingClub = await Club.findOne({ owner: userId });
+    if (existingClub) {
         return res.status(400).json({ error: 'Cannot own more than 1 club.' });
     }
 
   let club;
 
-  try {
-    const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
-    const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
+    try {
+        const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
+        const extension = req.file ? `image/${req.file.originalname.split('.').pop()}` : null;
 
-    club = await Club.create({
-      name,
-      overview,
-      logo: {
-        data: logoBuffer,
-        extension: extension
-      },
-      description,
-      genre,
-      colorTheme,
-      location,
-      cost,
-      meetingsFrequency,
-      email,
-      instagram,
-      discord,
-      facebook,
-    });
+        club = await Club.create({
+            name,
+            overview,
+            logo: {
+            data: logoBuffer,
+            extension: extension
+            },
+            description,
+            genre,
+            colorTheme,
+            location,
+            cost,
+            meetingsFrequency,
+            email,
+            instagram,
+            discord,
+            facebook,
+            owner: userId
+        });
 
-    res.status(201).json(club);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+        res.status(201).json(club);
+    } catch (error) {
+        res.status(400).json({ error: error });
+    }
 };
 
 const deleteClub = async (req, res) => {
-    //fetchs a single club based on id
     const { id } = req.params;
 
     // if club id is invalid
@@ -126,7 +133,7 @@ const deleteClub = async (req, res) => {
     }
 
     // find the club and delete it by id
-    const club = await Club.findByIdAndDelete(id);
+    const club = await Club.findById(id);
 
     // if club id does not exist
     if (!club) {
@@ -148,7 +155,6 @@ const deleteClub = async (req, res) => {
 };
 
 const updateClub = async (req, res) => {
-    // fetchs a single club based on id
     const { id } = req.params;
 
     // if club id is invalid
@@ -157,8 +163,7 @@ const updateClub = async (req, res) => {
     }
 
     try {
-        
-        const club = await Club.findByIdAndUpdate(id, {...req.body}, { new: true })
+        const club = await Club.findById(id)
 
         // if club id does not exist
         if (!club) {
