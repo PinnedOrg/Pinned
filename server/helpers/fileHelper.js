@@ -1,6 +1,7 @@
 // For file uploads
 const multer = require('multer');
 const path = require('path');
+const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node');
 
 // Mount multer middleware before the route handler with a max file size of 10MB
 const preview = multer({
@@ -28,7 +29,18 @@ const handleUploadError = (err, req, res, next) => {
     next();
 };
 
+// Use the ClerkExpressRequireAuth middleware to require authentication for a route
+const customRequireAuth = (req, res, next) => {
+    ClerkExpressRequireAuth()(req, res, (err) => {
+      if (err) {
+        return res.status(401).json({ error: "Unauthorized: Please sign-in." });
+      }
+      next();
+    });
+};
+
 module.exports = {
     preview,
     handleUploadError,
+    customRequireAuth,
 };
