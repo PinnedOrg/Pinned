@@ -17,6 +17,7 @@ html {
 }
 
 /* Landing Page Cards background shadow */
+
 .shadow {
   position: absolute;
   background: hsl(var(--primary-shadow) / 0%);
@@ -37,6 +38,28 @@ html {
   }
   to {
     background: hsl(var(--primary-shadow) / 80%);
+    right: 160px;
+  }
+}
+
+@keyframes shadow-slide-blue {
+  from {
+    background: hsla(240, 100%, 50%, 20%);
+    right: 460px;
+  }
+  to {
+    background: hsla(240, 100%, 50%, 80%);
+    right: 160px;
+  }
+}
+
+@keyframes shadow-slide-purple {
+  from {
+    background: hsla(280, 100%, 50%, 20%);
+    right: 460px;
+  }
+  to {
+    background: hsla(280, 100%, 50%, 80%);
     right: 160px;
   }
 }
