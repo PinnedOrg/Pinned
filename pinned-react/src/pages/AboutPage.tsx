@@ -4,11 +4,12 @@ import GradientBackground from '@/components/shared/gradientbackground';
 
 const AboutPage = () => {
   return (
-    <section className='mt-0 space-y-10'>
+    <section className='mt-8'>
       <GradientBackground />
-         
-      <About />
-      <OurTeam />
+      <div className='space-y-20'>
+        <About />
+        <OurTeam />
+      </div>
     </section>
   )
 }

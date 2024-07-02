@@ -32,104 +32,6 @@ import PageErrorMessage from "@/components/error/PageErrorMessage";
 import ClubNotFoundErrorMessage from "@/components/error/ClubNotFoundErrorMessage";
 import GradientBackground from "@/components/shared/gradientbackground";
 
-const hardcodeData = [
-  {
-    "_id": "664c08955c58341b46c62acc",
-    "name": "Ascend Canada Waterloo Chapter",
-    "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
-    "description": "Full description of Ascend Canada Waterloo Chapter.",
-    "genre": "Sports",
-    "colorTheme": "#007bff",
-    "location": "Waterloo, ON",
-    "cost": 0,
-    "size": 100,
-    "meetingsFrequency": "Weekly",
-    "email": "ascend@waterloo.ca",
-    "discord": "ascend_discord",
-    "instagram": "ascend_instagram",
-    "facebook": "ascend_facebook",
-    "youtube": "ascend_youtube",
-    "events": [],
-    "validation": true
-  },
-  {
-    "_id": "66441aa4ccfc04b318c6b662",
-    "name": "Pinned",
-    "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
-    "description": "Full description of Pinned.",
-    "genre": "Music",
-    "colorTheme": "#DC3545",
-    "location": "Toronto, ON",
-    "cost": 10,
-    "size": 50,
-    "meetingsFrequency": "Bi-weekly",
-    "email": "pinned@music.ca",
-    "discord": "pinned_discord",
-    "instagram": "pinned_instagram",
-    "facebook": "pinned_facebook",
-    "youtube": "pinned_youtube",
-    "events": [],
-    "validation": true
-  },
-  {
-    "_id": "664ea3da37ce17ab6273b2f7",
-    "name": "Pinned",
-    "overview": "This is the short extract that you will be able to see in the directory.",
-    "description": "Full description of Pinned.",
-    "genre": "Sports",
-    "colorTheme": "#FFC107",
-    "location": "Vancouver, BC",
-    "cost": 15,
-    "size": 10,
-    "meetingsFrequency": "Monthly",
-    "email": "pinned@sports.ca",
-    "discord": "pinned_discord",
-    "instagram": "pinned_instagram",
-    "facebook": "pinned_facebook",
-    "youtube": "pinned_youtube",
-    "events": [],
-    "validation": true
-  },
-  {
-    "_id": "664ebd77f062c321270e58de",
-    "name": "Pinned",
-    "overview": "This is the short extract that you will be able to see in the directory.",
-    "description": "Full description of Pinned.",
-    "genre": "Charity & Community Service",
-    "colorTheme": "#28A7",
-    "location": "Montreal, QC",
-    "cost": 60,
-    "size": 30,
-    "meetingsFrequency": "Weekly",
-    "email": "pinned@charity.ca",
-    "discord": "pinned_discord",
-    "instagram": "pinned_instagram",
-    "facebook": "pinned_facebook",
-    "youtube": "pinned_youtube",
-    "events": [],
-    "validation": true
-  },
-  {
-    "_id": "66441bb1e6c53af82cf6e7ba",
-    "name": "Test Club",
-    "overview": "This is the short extract that you will be able to see in the directory.",
-    "description": "Full description of Test Club.",
-    "genre": "Music",
-    "colorTheme": "#6610F2",
-    "location": "Ottawa, ON",
-    "cost": 50,
-    "size": 20,
-    "meetingsFrequency": "Bi-weekly",
-    "email": "testclub@music.ca",
-    "discord": "testclub_discord",
-    "instagram": "testclub_instagram",
-    "facebook": "testclub_facebook",
-    "youtube": "testclub_youtube",
-    "events": [],
-    "validation": true
-  }
-]
-
 type FiltersType = {
   name: string,
   genre: string,
@@ -275,6 +177,7 @@ const ClubHub = () => {
                   <ClubLoadingPlaceholder />
                 </>
               )}
+              
           </div>
         )}
       </section>

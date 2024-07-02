@@ -1,5 +1,5 @@
 import  Hero  from '@/components/landing page/hero';
-import ClubOfTheWeek from '@/components/landing page/cluboftheweek';
+import FeaturedClubs from '@/components/landing page/featuredclubs';
 
 import Wrap  from '@/components/shared/wrap'; 
 import GradientBackground from '@/components/shared/gradientbackground';
@@ -10,10 +10,10 @@ const LandingPage = () => {
          {/* Background Shadow */}
          <GradientBackground />
          
-         <div className='space-y-48'>
+         <div className='space-y-64'>
             <Hero />
             {/* <Affiliates /> */}
-            <ClubOfTheWeek />
+            <FeaturedClubs />
             <Wrap />
 
          </div>
