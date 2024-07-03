@@ -88,7 +88,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
       <TooltipProvider >
         <Tooltip >
           <TooltipTrigger className='absolute top-0 right-2'>
-            <Link to={`/${club._id}`}>
+            <Link to={`/clubprofile/${club._id}`}>
               <FaArrowUpRightFromSquare size={20} className='text-gray-300 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300 hover:scale-[1.05] transition' />
             </Link>
           </TooltipTrigger>
