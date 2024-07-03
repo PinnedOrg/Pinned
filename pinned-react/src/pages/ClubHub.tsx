@@ -2,10 +2,6 @@ import clsx from "clsx";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { IClub } from "@/lib/types";
-import { filters } from "@/lib/data";
-import { useQuery } from "@tanstack/react-query";
-
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -30,7 +26,6 @@ import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/cards/ClubLoadingPlaceholder";
 import ClubHubBanner from "@/components/clubhub/clubhubbanner";
-import { axiosInstance } from "@/lib/utils";
 
 import { Search, ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
 import PageErrorMessage from "@/components/error/PageErrorMessage";
@@ -160,11 +155,6 @@ const ClubHub = () => {
       <section className="container flex min-h-[30rem] justify-center bg-transparent">
         {(isError || (data?.data.length === 0)) ? (
           <div className="mt-20">
-            {isError ? (
-              <PageErrorMessage />
-            ) : (
-              <ClubNotFoundErrorMessage />
-            )}
             {isError ? (
               <PageErrorMessage />
             ) : (

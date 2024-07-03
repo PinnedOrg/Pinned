@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../context/mode-toggle";
 
 import { FaHome } from "react-icons/fa";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 // import { UserProfile } from "@clerk/clerk-react";
 
 const LinkStyles = "px-3 py-2 font-medium text-sm uppercase tracking-wide dark:text-gray-200 dark:hover:text-gray-200"; // ending space is important for tailwindcss to work properly
@@ -34,9 +35,14 @@ const NavBar = () => {
           <Button variant='ghost' className={LinkStyles}>
             <Link to={routes.Register} >Register</Link>
           </Button>
-          <Button variant='secondary' className={LinkStyles + " font-semibold focus:bg-secondary"}>
-            <Link to={routes.SignIn} >Sign In</Link>
-          </Button>
+          <SignedIn>
+            <UserButton /> 
+          </SignedIn>
+          <SignedOut>
+            <Button variant='secondary' className={LinkStyles + " text-white font-semibold hover:bg-secondary-hover"}>
+              <Link to={routes.SignIn} >Sign In</Link>
+            </Button>
+          </SignedOut>
           <ModeToggle />
         </div>
       </nav>
