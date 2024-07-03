@@ -81,7 +81,7 @@ const clubSchema = new mongoose.Schema(
     },
     apply_link: {
         type: String,
-        required: true,
+        required: false,
         match: [/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/, 'Please use a valid URL.'] // This is a regex pattern for URL, ensures valid URL
     },
     facts: [
