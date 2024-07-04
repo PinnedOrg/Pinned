@@ -64,6 +64,15 @@ html {
   }
 }
 
+@media (max-width: 768px) {
+  .shadow {
+    width: 100px;
+    height: 200px;
+    filter: blur(60px);
+  }
+}
+
+
 @media (max-width: 1024px) {
   .shadow {
     top: 70px;

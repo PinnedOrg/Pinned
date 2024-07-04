@@ -10,12 +10,12 @@ const ClubProfilePhotos = ({ hasScrolledPhotos }) => {
 
   return (
     <div
-      className={`relative z-10 -top-4 flex flex-col items-center justify-center mt-24 px-6 w-full max-w-6xl mx-auto transition-opacity duration-1000 ${
+      className={`relative z-10 flex flex-col items-center justify-center mt-16 lg:mt-24 px-4 lg:px-6 w-full max-w-6xl mx-auto transition-opacity duration-1000 ${
         hasScrolledPhotos ? 'opacity-100' : 'opacity-0'
       }`}
     >
       <h3 className="text-3xl font-bold text-white mb-8 text-left w-full">Photos of Us</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {photos.map((src, index) => (
           <ClubProfilePhoto key={index} src={src} />
         ))}

@@ -36,7 +36,7 @@ const ClubProfileItemizedDescription = ({ hasScrolledFacts }) => {
 
   return (
     <div
-      className={`relative z-10 -top-16 flex flex-col items-center justify-center mt-24 px-6 w-full max-w-6xl mx-auto transition-opacity duration-1000 ${
+      className={`relative z-10 flex flex-col items-center justify-center mt-16 lg:mt-24 px-4 lg:px-6 w-full max-w-6xl mx-auto transition-opacity duration-1000 ${
         hasScrolledFacts ? 'opacity-100' : 'opacity-0'
       }`}
     >
