@@ -5,10 +5,9 @@ import {
   CarouselNext,
   CarouselPrevious
 } from "@/components/ui/carousel";
-import { AboutCardType, IClub } from "@/lib/types";
+import { IClub } from "@/lib/types";
 import { testClubData } from "@/lib/data";
-import AboutCard from "../cards/AboutCard";
-import ClubPreviewCard from "../cards/ClubPreviewCard";
+import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
 
 
 const FeaturedClubs = () => {
