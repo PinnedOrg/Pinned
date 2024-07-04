@@ -27,7 +27,6 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                                     .select(" _id \
                                             name \
                                             overview \
-                                            logo \
                                             genre \
                                             cost \
                                             size \
@@ -88,7 +87,7 @@ const createClub = async (req, res) => {
     //     return res.status(400).json({ error: 'Can not own more than 1 club.' });
     // }
 
-    let club;
+  let club;
 
     try {
         const logoBuffer = req.file ? req.file.buffer.toString('base64') : null;
@@ -118,8 +117,8 @@ const createClub = async (req, res) => {
 
         res.status(201).json(club);
     } catch (error) {
-        res.status(400).json({ error: error });
-    }
+      res.status(400).json({ error: error.message });
+  }
 };
 
 const deleteClub = async (req, res) => {
@@ -140,7 +139,7 @@ const deleteClub = async (req, res) => {
     
     // if user is not the owner of the club
     if (club.owner !== req.auth.userId) {
-        return res.status(403).json({ error: "Cannot delete a club you do not own." });
+        return res.status(403).json({ error: "Can not delete a club you do not own." });
     }
 
     // Delete the club
@@ -169,13 +168,13 @@ const updateClub = async (req, res) => {
         }
 
         if (club.owner !== req.auth.userId) {
-            return res.status(403).json({ error: "Cannot make changes to a club you do not own." });
+            return res.status(403).json({ error: "Can not update a club you do not own." });
         }
 
         Object.assign(club, req.body);
         await club.save();
 
-    res.status(200).json(club);
+        res.status(200).json(club);
 
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError) {

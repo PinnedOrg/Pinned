@@ -1,4 +1,4 @@
-import { useTheme } from "./shared/ThemeProvider"
+import { useTheme } from "@/components/shared/ThemeProvider"
 
 const ClubHubBanner = () => {
   const { theme } = useTheme();
@@ -11,10 +11,10 @@ const ClubHubBanner = () => {
         backgroundPosition: 'center top', 
         backgroundRepeat: 'no-repeat'
       }}>
-        <h1 className="mb-5 text-5xl font-bold tracking-wide text-gray-200">
+        <h1 className="mb-5 text-5xl font-bold tracking-wide text-gray-200 dark:text-gray-300">
           The Club Hub{/*<span className="px-2 py-1 rounded-lg bg-primary">Hub</span>*/}
         </h1>
-        <p className="text-lg font-medium text-gray-400">Find all the clubs and organizations UWaterloo has to offer!</p>
+        <p className="text-lg font-medium text-gray-300 dark:text-gray-400">Find all the clubs and organizations UWaterloo has to offer!</p>
       </div>
   )
 }

@@ -14,11 +14,14 @@
       --popover-foreground: 222.2 84% 4.9%;
 
       --primary: rgb(65, 156, 255);
-      --primary-hover: rgb(52,51,94);
-      --primary-light: rgba(65, 156, 255, 0.2);
+      --primary-hover: rgb(56, 133, 216);
+      --primary-background: rgb(167, 217, 254);
+      --primary-shadow: 253 53% 50%;
       --primary-foreground: 210 40% 98%;
-
-      --secondary: rgb(91, 61, 196);
+      
+      --secondary: rgb(146, 116, 254);
+      --secondary-hover: rgb(52,51,94);
+      --secondary-background: rgb(183, 168, 250);
       --secondary-foreground: 222.2 47.4% 11.2%;
 
       --muted: 210 40% 96.1%;
@@ -43,18 +46,19 @@
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
 
-      /* --card: 217.2,32.6%,17.5%; */
       --card: 224,32.6%,17.5%;
       --card-foreground: 0 0 95%;
 
       --popover: 222.2 84% 4.9%;
       --popover-foreground: 210 40% 98%;
 
-      --primary: rgb(65, 156, 255);
+      --primary: rgb(77, 162, 253);
+      --primary-background: rgb(14, 53, 95);
       --primary-shadow: 210 40% 98%;
       --primary-foreground: 222.2 47.4% 11.2%;
-
+      
       --secondary: rgb(91, 61, 196);
+      --secondary-background: rgb(46, 31, 98);
       --secondary-foreground: 210 40% 98%;
 
       --muted: 217.2 32.6% 17.5%;

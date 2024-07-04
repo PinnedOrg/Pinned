@@ -1,4 +1,5 @@
-import NavBar from "@/components/navbar/NavBar";
+import NavBar from "@/components/shared/navbar";
+import Footer from "@/components/shared/footer";
 
 type LayoutProps = {
     children: React.ReactNode;
@@ -9,6 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
         <NavBar />
         {children}
+        <Footer />
     </>
   )
 }

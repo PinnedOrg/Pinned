@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Button } from "./ui/button";
-import { ArrowUpToLine } from "lucide-react";
+import { Button } from "../ui/button";
+import { RxPinTop } from "react-icons/rx";
 
 const Wrap = () => {
   const [showTopBtn, setShowTopBtn] = useState(false);
@@ -26,11 +26,12 @@ const Wrap = () => {
     <>
       {showTopBtn && (
         <Button
+          variant={"secondary"}
           onClick={goToTop}
           className="fixed shadow-md bottom-4 right-4 opacity-90"
           size="icon"
         >
-          <ArrowUpToLine className="w-4 h-4" />
+          <RxPinTop className="text-lg" />
         </Button>
       )}
     </>

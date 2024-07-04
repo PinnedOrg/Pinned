@@ -1,5 +1,5 @@
 import { affiliates } from "@/lib/data";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AffiliateType } from "@/lib/types";
 
   
@@ -7,10 +7,10 @@ const Affiliates = () => {
   return (
     <section
       id="sponsors"
-      className="container pt-24 sm:py-32"
+      className="container"
     >
-      <h2 className="mb-8 font-bold text-center text-md lg:text-xl text-primary">
-        Affiliations
+      <h2 className="mb-8 font-bold text-center text-md lg:text-xl text-secondary">
+        Made For Students at
       </h2>
 
       <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
@@ -25,7 +25,7 @@ const Affiliates = () => {
                 <AvatarFallback>{affiliate.initials}</AvatarFallback>
               </Avatar>
             </span>
-            <h3 className="text-xl font-bold">{affiliate.name}</h3>
+            <h3 className="ml-2 text-xl font-bold">{affiliate.name}</h3>
           </div>
         ))}
       </div>

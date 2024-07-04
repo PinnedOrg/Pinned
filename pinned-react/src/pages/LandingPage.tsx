@@ -1,17 +1,22 @@
-import  Hero  from '@/components/hero';
-import  Affiliates  from '@/components/affiliates';
-import  About  from '@/components/about.tsx'; 
-import Wrap  from '@/components/wrap.tsx'; 
-import OurTeam from '@/components/team.tsx';
+import  Hero  from '@/components/landing page/hero';
+import FeaturedClubs from '@/components/landing page/featuredclubs';
+
+import Wrap  from '@/components/shared/wrap'; 
+import GradientBackground from '@/components/shared/gradientbackground';
 
 const LandingPage = () => {
   return (
-      <section className=''>
-         <Hero />
-         <Affiliates />
-         <About />
-         <OurTeam />
-         <Wrap />
+      <section>
+         {/* Background Shadow */}
+         <GradientBackground />
+         
+         <div className='space-y-64'>
+            <Hero />
+            {/* <Affiliates /> */}
+            <FeaturedClubs />
+            <Wrap />
+
+         </div>
       </section>
    );
 };
