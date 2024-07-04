@@ -32,7 +32,7 @@ import PageErrorMessage from "@/components/error/PageErrorMessage";
 import ClubNotFoundErrorMessage from "@/components/error/ClubNotFoundErrorMessage";
 import GradientBackground from "@/components/shared/gradientbackground";
 
-type FiltersType = {
+type FiltersProps = {
   name: string,
   genre: string,
   cost: number,
