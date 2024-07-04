@@ -112,8 +112,8 @@ const createClub = async (req, res) => {
 
         res.status(201).json(club);
     } catch (error) {
-        res.status(400).json({ error: error });
-    }
+      res.status(400).json({ error: error.message });
+  }
 };
 
 const deleteClub = async (req, res) => {

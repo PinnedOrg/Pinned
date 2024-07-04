@@ -32,14 +32,15 @@ import PageErrorMessage from "@/components/error/PageErrorMessage";
 import ClubNotFoundErrorMessage from "@/components/error/ClubNotFoundErrorMessage";
 import GradientBackground from "@/components/shared/gradientbackground";
 
-type FiltersType = {
+type FiltersProps = {
   name: string,
   genre: string,
   cost: number,
   size: number,
 }
 
-const FetchClubs = ({ name, genre, cost, size}: FiltersType) => {
+
+const FetchClubs = ({ name, genre, cost, size}: FiltersProps) => {
   return axiosInstance.get(`http://localhost:8080/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
 }
 
