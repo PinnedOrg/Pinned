@@ -17,8 +17,8 @@ const App = () => {
     <Routes>
       <Route index element={ <Layout> <LandingPage/> </Layout> } />
       <Route path={routes.ClubHub} element={ <Layout> <ClubHub/> </Layout> } />
-      <Route path={routes.SignUp} element={ <SignUpPage/> } />
-      <Route path={routes.SignIn} element={ <SignInPage redirectTo="" /> } />
+      <Route path={routes.SignUp} element={ <Layout> <SignUpPage/>  </Layout>} />
+      <Route path={routes.SignIn} element={ <Layout> <SignInPage redirectTo="" /> </Layout> } />
       <Route path={routes.About} element={ <Layout> <AboutPage/> </Layout> } />
       <Route path={routes.Register} element={ <Layout> <RegisterClub/> </Layout> } />
       <Route path={routes.ClubProfile} element={ <Layout> <ClubProfile/> </Layout> } />
