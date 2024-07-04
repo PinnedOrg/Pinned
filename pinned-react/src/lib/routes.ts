@@ -9,7 +9,6 @@ export const routes = {
     SignIn: "/sign-in",
     SignUp: "/sign-up",
     Register: "/register",
+    ClubProfile: "/clubprofile/:clubId",
     EventCreate: "/event-create",
-    ClubCreate: "/club-create",
-    ClubProfile: "/clubprofile",
 }
