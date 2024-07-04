@@ -18,11 +18,11 @@ const NavBar = () => {
         </Link>
       </ViewportWrapper>
 
-      <nav className="inline-flex -mr-6">
-        <div className="flex items-center gap-6">
+      <nav className="inline-flex -mr-10">
+        <div className="flex items-center gap-6 justify-evenly">
         {/* Add all mobile routes here. Will need a drawer moving forward */}
           <ViewportWrapper breakpoint="mobile">
-            <Link to={routes.Home} className="">
+            <Link to={routes.Home} className="p-2">
               <FaHome className="text-lg font-bold"/>
             </Link>
           </ViewportWrapper>
