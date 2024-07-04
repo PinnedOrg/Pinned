@@ -56,19 +56,20 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
             </Badge>
           </CardFooter>
         </CardContent>
-      <TooltipProvider >
-        <Tooltip >
-          <TooltipTrigger className='absolute top-0 right-2'>
-            <Link to={`/clubprofile/${club._id}`}>
-              <FaArrowUpRightFromSquare size={20} className='text-gray-300 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300 hover:scale-[1.05] transition' />
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Visit Page</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    </div>
+        <TooltipProvider >
+          <Tooltip >
+            <TooltipTrigger className='absolute top-2 right-2'>
+              <Link to={`/clubprofile/${club._id}`}>
+                <FaArrowUpRightFromSquare size={20} className='text-gray-300 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300 hover:scale-[1.05] transition' />
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Visit Page</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </Card>
+    </Link>
   )
 }
 

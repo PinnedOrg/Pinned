@@ -1,6 +1,3 @@
-import About from "@/components/landing page/about";
-
-// all routes in the app
 export const routes = {
     Home: "/",
     ClubHub: "/clubhub",
