@@ -27,15 +27,15 @@ const ClubProfileHero = ({ isVisible }) => {
         </div>
       </div>
       <div
-        className={`w-full lg:w-1/2 flex items-center justify-center lg:justify-end transition-transform duration-1000 py-12 lg:py-0 ${
+        className={`w-full lg:w-1/2 flex items-center justify-center lg:justify-end transition-transform duration-1000 ${
           isVisible ? 'transform translate-x-0' : 'transform translate-x-full'
         }`}
       >
-        <div className="lg:py-[50px]">
+        <div className="w-full h-full flex items-center justify-center">
           <img
             src="https://images.pexels.com/photos/7658616/pexels-photo-7658616.jpeg?cs=srgb&dl=pexels-ekaterina-bolovtsova-7658616.jpg&fm=jpg"
             alt="Club"
-            className="w-full lg:w-3/4 h-auto object-cover rounded-lg shadow-lg"
+            className="w-auto max-w-full max-h-[70vh] object-cover rounded-lg shadow-lg"
           />
         </div>
       </div>
