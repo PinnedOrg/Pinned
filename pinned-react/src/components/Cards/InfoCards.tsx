@@ -12,7 +12,7 @@ import { clubUses, userUses } from "@/lib/data";
 
 import { Check } from "lucide-react";
 
-const HeroCards = () => {
+const InfoCards = () => {
   return (
     <div className="container flex flex-wrap justify-center w-full gap-10 md:gap-20 lg:gap-24">
       {/* Students */}
@@ -110,4 +110,4 @@ const HeroCards = () => {
   );
 };
 
-export default HeroCards;
+export default InfoCards;

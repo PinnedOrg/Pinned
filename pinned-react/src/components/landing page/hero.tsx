@@ -40,12 +40,12 @@ const Hero = () => {
             <Link to={routes.ClubHub}>
                 <Button variant={"secondary"} className="px-8 ">Browse Clubs!</Button>
             </Link>
-            <Link to={routes.About}>
+            <a href="#info">
               <Button variant={"ghost"}>
                 Learn More
                 {/* <PlusCircledIcon className="w-5 h-5 ml-2" /> */}
               </Button>
-            </Link>
+            </a>
         </div>
       </div>
 

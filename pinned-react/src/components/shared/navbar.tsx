@@ -36,7 +36,7 @@ const NavBar = () => {
             <UserButton /> 
           </SignedIn>
           <SignedOut>
-            <Button variant='secondary' className={LinkStyles + " text-white font-semibold hover:bg-secondary-hover"}>
+            <Button variant='secondary' className={LinkStyles + " text-accent-foreground font-semibold hover:bg-secondary-hover"}>
               <Link to={routes.SignIn} >Sign In</Link>
             </Button>
           </SignedOut>

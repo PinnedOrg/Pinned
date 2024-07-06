@@ -3,7 +3,7 @@ import FeaturedClubs from '@/components/landing page/featuredclubs';
 
 import Wrap  from '@/components/shared/wrap'; 
 import GradientBackground from '@/components/shared/gradientbackground';
-import HeroCards from '@/components/cards/HeroCards';
+import InfoCards from '@/components/cards/InfoCards';
 
 const LandingPage = () => {
   return (
@@ -11,10 +11,10 @@ const LandingPage = () => {
          {/* Background Shadow */}
          <GradientBackground />
          
-         <div className='space-y-12 2xl:space-y-56'>
+         <div className='space-y-12 2xl:space-y-36'>
             <Hero />
             {/* <Affiliates /> */}
-            <HeroCards />
+            <InfoCards />
             {/* <FeaturedClubs /> */}
             <Wrap />
 

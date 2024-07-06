@@ -11,7 +11,7 @@ export const userUses =
 export const clubUses =
     [
         "Attract new members",
-        "Build your community",
+        "Update your community",
         "Personalize your profile",
         "Promote events",
     ]
