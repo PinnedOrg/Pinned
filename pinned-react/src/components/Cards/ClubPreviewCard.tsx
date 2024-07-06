@@ -34,11 +34,10 @@ const ClubPreviewCard = ({ club, featureText }: ClubPreviewCardProps) => {
 
 const CardBackground = () => {
   if (featureText) {
-    // Each color now includes an alpha value for opacity
-    return 'radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.2) 0%, rgba(248, 214, 78, 0.2) 25%, rgba(212, 175, 55, 0.2) 50%, rgba(176, 141, 87, 0.2) 75%, rgba(128, 99, 20, 0.2) 100%)';
+    // Updated radial gradient for a smoother gold look
+    return 'radial-gradient(circle at 50% 50%, #ffd700 0%, #f8d64e 25%, #d4af37 50%, #b08d57 75%, #806314 100%)';
   }
-  // Adjust the linear gradient similarly if needed
-  return `linear-gradient(to top, ${theme === 'light' ? 'rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)' : 'rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.2)'}, ${theme == 'light' ? club.colorTheme : tintColor(club.colorTheme, tintFactor)})`;
+  return `linear-gradient(to top, ${theme === 'light' ? 'white, white' : '#0f172a, #0f172a'}, ${theme == 'light' ? club.colorTheme : tintColor(club.colorTheme, tintFactor)})`;
 }
 
 
