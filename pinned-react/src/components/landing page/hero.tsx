@@ -1,20 +1,29 @@
 import { Button } from "@/components/ui/button";
-import  HeroCards from "@/components/cards/HeroCards";
 import { routes } from "@/lib/routes";
 import { Link } from 'react-router-dom';
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import { testClubData } from "@/lib/data";
+import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
+import { IClub } from "@/lib/types";
+import Autoplay from "embla-carousel-autoplay"
+import { useRef } from "react";
 
 const Hero = () => {
+  // Carousel docs: https://www.embla-carousel.com/plugins/autoplay/
+  const carouselPlugin = useRef(Autoplay({
+    delay: 6000,
+    stopOnMouseEnter: true,
+  }))
+
+
   return (
-    <section className="container grid grid-cols-1 gap-10 pb-20 mt-10 lg:mt-4 lg:grid-cols-2 md:pb-32">
-      <div className="z-10 space-y-6 text-center lg:text-start">
+    <section className="container flex flex-wrap justify-center pb-20 mt-20 gap-y-20 lg:mt-4 md:pb-32">
+      <div className="z-10 w-full space-y-6 text-center lg:w-7/12 lg:text-start lg:pl-4">
         {/* replace with pinned phrase */}
         <main className="pr-3 text-5xl font-bold md:text-6xl lg:mt-40 animate-fade-in-up">
-          <h1 className="inline">
-          <span className="inline text-transparent bg-gradient-to-r from-secondary to-primary bg-clip-text">
-            </span>{" "}
-              Pinned
-          for{" "}
-            <span className="inline bg-gradient-to-tr from-[#eaab00] to-[#e9d100]  text-transparent bg-clip-text">
+          <h1>
+              Pinned for{" "}
+            <span className="bg-gradient-to-tr from-[#eaab00] to-[#e9d100]  text-transparent bg-clip-text">
               UWaterloo
             </span>
           </h1>
@@ -40,10 +49,30 @@ const Hero = () => {
         </div>
       </div>
 
-      <HeroCards />
+      <div className="flex justify-start pl-4 mt-12 lg:w-5/12 animate-fade-in-scale">
+        <Carousel 
+          opts={{
+            active: true,
+            loop: true,
+          }}
+          plugins={[carouselPlugin.current]}
+          onMouseLeave={() => carouselPlugin.current?.play()}
+          className="max-w-sm"
+        >
+          <CarouselContent>
+              <CarouselItem className="p-6 sha">
+                <ClubPreviewCard club={testClubData[0]} featureText="Club of the Week"/>
+              </CarouselItem>
+              <CarouselItem className="py-6">
+                <ClubPreviewCard club={testClubData[1]} featureText="The Up'n Comer"/>
+              </CarouselItem>
+          </CarouselContent>
+        </Carousel>
+      </div>
+      
 
       {/* Shadow effect */}
-      <div className="shadow"></div>
+      {/* <div className="shadow"></div> */}
     </section>
   );
 };

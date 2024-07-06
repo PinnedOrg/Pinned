@@ -19,18 +19,34 @@ import { costLabel, sizeLabel, tintColor } from '@/lib/utils'
 import { useTheme } from '@/components/shared/ThemeProvider'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import PreviewImage from '../Image/PreviewImage'
+import { routes } from '@/lib/routes'
+import clsx from 'clsx'
 
 type ClubPreviewCardProps = {
   club: IClub
+  featureText?: string
 }
 
-const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
+const ClubPreviewCard = ({ club, featureText }: ClubPreviewCardProps) => {
   const { theme } = useTheme();
   const tintFactor = 0.75;
 // #020617
+
+const CardBackground = () => {
+  if (featureText) {
+    // Each color now includes an alpha value for opacity
+    return 'radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.2) 0%, rgba(248, 214, 78, 0.2) 25%, rgba(212, 175, 55, 0.2) 50%, rgba(176, 141, 87, 0.2) 75%, rgba(128, 99, 20, 0.2) 100%)';
+  }
+  // Adjust the linear gradient similarly if needed
+  return `linear-gradient(to top, ${theme === 'light' ? 'rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)' : 'rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.2)'}, ${theme == 'light' ? club.colorTheme : tintColor(club.colorTheme, tintFactor)})`;
+}
+
+
   return (
-   <Link to={`/${club._id}`}>
-      <Card className='h-[25rem] max-w-[22rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300' style={{ backgroundImage: `linear-gradient(to top, ${theme === 'light'? 'white, white' : '#0f172a, #0f172a'}, ${theme == 'light'? club.colorTheme : tintColor(club.colorTheme, tintFactor)})` }}>
+   <Link to={`${routes.ClubProfile}${club._id}`}>
+      <Card 
+        className={clsx('h-[25rem] max-w-[22rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300', {'shadow-lg shadow-white/10 transition-all bg-opacity-20': featureText})} 
+        style={{ backgroundImage: CardBackground() }}>
         <CardHeader className='flex flex-col items-center pb-2'>
           <Avatar className='w-[8.5rem] sm:w-[8rem] md:w-[8.5rem] h-auto aspect-square border-2 border-slate-200 dark:border-slate-800'>
             <AvatarImage src={club.preview}/>
@@ -47,19 +63,28 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
         <CardContent className=''>
           <CardDescription className='text-center'>{club.overview}</CardDescription>
           <CardFooter className='absolute bottom-0 left-0 flex justify-center w-full gap-4 '>
-            <Badge variant={'outline'} className='border-none bg-muted text-nowrap'>
-              {costLabel(club.cost)}
-            </Badge>
-            <Badge variant={'outline'} className='gap-2 border-none bg-muted text-nowrap '>
-              {sizeLabel(club.size)}
-              <FaUserFriends />
-            </Badge>
+            {!featureText ? 
+              <>
+                <Badge variant={'outline'} className='border-none bg-muted text-nowrap'>
+                  {costLabel(club.cost)}
+                </Badge>
+                <Badge variant={'outline'} className='gap-2 border-none bg-muted text-nowrap '>
+                  {sizeLabel(club.size)}
+                  <FaUserFriends />
+                </Badge>
+              </> 
+              : 
+              <div className="relative w-full">
+                <img src='/images/goldbanner1.png' alt='banner' className='object-cover w-full h-12' />
+                <h1 className='absolute left-0 w-full font-bold text-center text-gray-900 top-[0.15rem]'>{featureText}</h1>
+              </div>
+          }
           </CardFooter>
         </CardContent>
         <TooltipProvider >
           <Tooltip >
             <TooltipTrigger className='absolute top-2 right-2'>
-              <Link to={`/clubprofile/${club._id}`}>
+              <Link to={`${routes.ClubProfile}${club._id}`}>
                 <FaArrowUpRightFromSquare size={20} className='text-gray-300 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300 hover:scale-[1.05] transition' />
               </Link>
             </TooltipTrigger>
