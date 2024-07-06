@@ -7,6 +7,7 @@ import ClubProfileAboutUs from '@/components/clubprofile/ClubProfileAboutUs';
 import ClubProfileItemizedDescription from '@/components/clubprofile/ClubProfileItemizedDescription';
 import ClubProfilePhotos from '@/components/clubprofile/ClubProfilePhotos';
 import ClubDoesNotExistErrorMessage from '@/components/error/ClubDoesNotExistErrorMessage';
+import LoadingSpinner from '@/components/shared/LoadingSpinner';
 
 const ClubProfile = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,12 +15,14 @@ const ClubProfile = () => {
   const [hasScrolledFacts, setHasScrolledFacts] = useState(false);
   const [hasScrolledPhotos, setHasScrolledPhotos] = useState(false);
   const [clubData, setClubData] = useState();
+  const [isFetching, setIsFetching] = useState(true);
 
   const { clubId } = useParams()
 
   async function getClubData( clubId ) {
     const data = await axios.get(`http://localhost:8080/api/clubs/${clubId}`);
     setClubData(data.data);
+    setIsFetching(false);
   }
 
   useEffect(() => {
@@ -53,20 +56,24 @@ const ClubProfile = () => {
 
   return (
     <>
-    {clubData ? 
-    (<div>
-      <div className="relative min-h-screen text-white flex items-center">
-        <GradientBackground />
-        <ClubProfileHero isVisible={isVisible} clubData={clubData}/>
-      </div>
-      <ClubProfileAboutUs hasScrolledAboutUs={hasScrolledAboutUs} clubData={clubData}/>
-      <ClubProfileItemizedDescription hasScrolledFacts={hasScrolledFacts} clubData={clubData}/>
-      <ClubProfilePhotos hasScrolledPhotos={hasScrolledPhotos} clubData={clubData}/>
-    </div>)
-    : 
-    (
-      <ClubDoesNotExistErrorMessage />
-    )}
+    {isFetching ? 
+      (<LoadingSpinner />)
+      :
+      (clubData ? 
+      (<div>
+        <div className="relative min-h-screen text-white flex items-center">
+          <GradientBackground />
+          <ClubProfileHero isVisible={isVisible} clubData={clubData}/>
+        </div>
+        <ClubProfileAboutUs hasScrolledAboutUs={hasScrolledAboutUs} clubData={clubData}/>
+        <ClubProfileItemizedDescription hasScrolledFacts={hasScrolledFacts} clubData={clubData}/>
+        <ClubProfilePhotos hasScrolledPhotos={hasScrolledPhotos} clubData={clubData}/>
+      </div>)
+      : 
+      (
+        <ClubDoesNotExistErrorMessage />
+      ))
+    }
     </>
   );
 };
