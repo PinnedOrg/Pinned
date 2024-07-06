@@ -1,4 +1,4 @@
-const ClubProfileHero = ({ isVisible }) => {
+const ClubProfileHero = ({ isVisible, clubData }) => {
     return (
       <>
         <div
@@ -7,23 +7,23 @@ const ClubProfileHero = ({ isVisible }) => {
           }`}
         >
           <h1 className="text-lg font-medium">WELCOME TO OUR CLUB</h1>
-          <h2 className="mt-2 text-7xl font-extrabold">JOIN THE NSBE</h2>
+          <h2 className="mt-2 text-7xl font-extrabold">{clubData.name}</h2>
           <p className="mt-6 text-lg max-w-md">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo adipiscing faucibus nunc amet convallis posuere diam nulla. Pellentesque vulputate dui posuere orci tellus dolor, semper convallis sed.
+            {clubData.overview}
           </p>
-          <button className="mt-6 w-48 px-6 py-2 bg-purple-600 text-white font-semibold rounded-full hover:bg-purple-700 transition duration-300">
-            Join Here
-          </button>
+          {clubData.apply_link && <button className="mt-6 w-48 px-6 py-2 bg-purple-600 text-white font-semibold rounded-full hover:bg-purple-700 transition duration-300">
+            <a href={clubData.apply_link}>Join Here</a>
+          </button>}
           <div className="mt-4 flex space-x-4">
-            <a href="#" className="text-gray-400 hover:text-white">
+            {clubData.facebook && <a href={`facebook.com/${clubData.facebook}/`} className="text-gray-400 hover:text-white">
               FB
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            </a>}
+            {clubData.instagram && <a href={`instagram.com/${clubData.instagram}/`} className="text-gray-400 hover:text-white">
               IG
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              TW
-            </a>
+            </a>}
+            {clubData.discord && <a href={`instagram.com/${clubData.discord}/`} className="text-gray-400 hover:text-white">
+              DC
+            </a>}
           </div>
           </div>
               <div
