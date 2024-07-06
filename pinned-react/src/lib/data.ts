@@ -56,27 +56,33 @@ export const team: Array<AboutCardType> = [
     {
         "name": "Eshaan Mehta",
         "picture": "/images/team/Eshaan.jpg",
-        "about": "I am a second year student at the University of Waterloo studying Computer Science. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         "initials": "EM"  
     },
     {
         "name": "Hazem Saad",
         "picture": "/images/team/Hazem.jpg",
-        "about": "I am a second year student at the University of Waterloo studying Computer Science. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         "initials": "HS"
     },
     {
         "name": "Darius Rudaitis",
         "picture": "/images/team/Darius.jpg",
-        "about": "I am a second year student at the University of Waterloo studying Computer Science. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         "initials": "DR"
     },
     {
         "name": "Tony Yu",
         "picture": "/images/team/Tony.jpg",
-        "about": "I am a second year student at the University of Waterloo studying Computer Science. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         "initials": "TY"
     },
+    {
+        "name": "Roni Kant",
+        "picture": "/images/team/Roni.jpg",
+        "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "initials": "RK"
+    }
 ]
 
 export const affiliates: Array<AffiliateType> = [
