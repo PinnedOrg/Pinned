@@ -21,7 +21,7 @@ const ClubProfileHero = ({ isVisible, clubData }) => {
             {clubData.instagram && <a href={`instagram.com/${clubData.instagram}/`} className="text-gray-400 hover:text-white">
               IG
             </a>}
-            {clubData.discord && <a href={`instagram.com/${clubData.discord}/`} className="text-gray-400 hover:text-white">
+            {clubData.discord && <a href={`discord.gg/${clubData.discord}/`} className="text-gray-400 hover:text-white">
               DC
             </a>}
           </div>
