@@ -6,6 +6,6 @@ export const routes = {
     SignIn: "/sign-in",
     SignUp: "/sign-up",
     Register: "/register",
-    ClubProfile: "/clubprofile/:clubId",
+    ClubProfile: "/clubprofile/",
     EventCreate: "/event-create",
 }
