@@ -131,7 +131,7 @@ const ClubHub = () => {
                 <RotateCcw className="w-[1rem] h-auto " />
               </div>
             }
-            <div className="mt-2 flex flex-wrap justify-center lg:justify-evenly lg:gap-x-[4rem] gap-y-2 w-full">
+            <div className="mt-2 flex flex-wrap justify-center lg:justify-evenly gap-x-2 lg:gap-x-[4rem] gap-y-2 w-full">
               { Object.keys(filters).map((filter: string) => (
                 <Select 
                   key={filter} 

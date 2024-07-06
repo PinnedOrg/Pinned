@@ -44,7 +44,7 @@ const CardBackground = () => {
   return (
    <Link to={`${routes.ClubProfile}${club._id}`}>
       <Card 
-        className={clsx('h-[25rem] max-w-[22rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300', {'shadow-lg shadow-white/10 transition-all bg-opacity-20': featureText})} 
+        className={clsx('h-[25rem] max-w-[20.5rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300', {'shadow-lg shadow-white/10 transition-all bg-opacity-20': featureText})} 
         style={{ backgroundImage: CardBackground() }}>
         <CardHeader className='flex flex-col items-center pb-2'>
           <Avatar className='w-[8.5rem] sm:w-[8rem] md:w-[8.5rem] h-auto aspect-square border-2 border-slate-200 dark:border-slate-800'>
