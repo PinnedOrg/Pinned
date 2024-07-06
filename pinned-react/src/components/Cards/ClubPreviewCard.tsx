@@ -33,10 +33,10 @@ const ClubPreviewCard = ({ club, featureText }: ClubPreviewCardProps) => {
 // #020617
 
 const CardBackground = () => {
-  if (featureText) {
-    // Updated radial gradient for a smoother gold look
-    return 'radial-gradient(circle at 50% 50%, #ffd700 0%, #f8d64e 25%, #d4af37 50%, #b08d57 75%, #806314 100%)';
-  }
+  // if (featureText) {
+  //   // Updated radial gradient for a smoother gold look
+  //   return 'radial-gradient(circle at 50% 50%, #ffd700 0%, #f8d64e 25%, #d4af37 50%, #b08d57 75%, #806314 100%)';
+  // }
   return `linear-gradient(to top, ${theme === 'light' ? 'white, white' : '#0f172a, #0f172a'}, ${theme == 'light' ? club.colorTheme : tintColor(club.colorTheme, tintFactor)})`;
 }
 
