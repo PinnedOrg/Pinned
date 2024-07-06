@@ -6,22 +6,22 @@ const ClubProfileHero = ({ isVisible }) => {
           isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
         }`}
       >
-        <h1 className="text-lg font-medium">WELCOME TO OUR CLUB</h1>
-        <h2 className="mt-2 text-5xl lg:text-7xl font-extrabold">JOIN THE NSBE</h2>
-        <p className="mt-6 text-lg max-w-md">
+        <h1 className="text-lg font-medium text-gray-700 dark:text-gray-300">WELCOME TO OUR CLUB</h1>
+        <h2 className="mt-2 text-5xl lg:text-7xl font-extrabold text-gray-900 dark:text-white">JOIN THE NSBE</h2>
+        <p className="mt-6 text-lg max-w-md text-gray-600 dark:text-gray-300">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo adipiscing faucibus nunc amet convallis posuere diam nulla. Pellentesque vulputate dui posuere orci tellus dolor, semper convallis sed.
         </p>
         <button className="mt-6 w-48 px-6 py-3 bg-purple-600 text-white font-semibold rounded-full hover:bg-purple-700 transition duration-300">
           Join Here
         </button>
         <div className="mt-4 flex space-x-4">
-          <a href="#" className="text-gray-400 hover:text-white">
+          <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400">
             FB
           </a>
-          <a href="#" className="text-gray-400 hover:text-white">
+          <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400">
             IG
           </a>
-          <a href="#" className="text-gray-400 hover:text-white">
+          <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400">
             TW
           </a>
         </div>

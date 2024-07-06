@@ -5,7 +5,7 @@ const ClubProfileItemizedDescription = ({ hasScrolledFacts }) => {
     {
       number: '1',
       title: 'Game Change 2025',
-      description: 'The 2020–2025 Strategic Plan of the National Society of Black Engineers (NSBE), reshapes the work of the Society’s mission to enable greater success in the coming era of social and economic transformation.',
+      description: "The 2020–2025 Strategic Plan of the National Society of Black Engineers (NSBE), reshapes the work of the Society's mission to enable greater success in the coming era of social and economic transformation.",
     },
     {
       number: '2',
@@ -40,8 +40,8 @@ const ClubProfileItemizedDescription = ({ hasScrolledFacts }) => {
         hasScrolledFacts ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      <h3 className="text-3xl font-bold text-white mb-8 text-left w-full">What We Do</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-white w-full">
+      <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-left w-full">What We Do</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
         {items.map((item) => (
           <ClubProfileItem
             key={item.number}
@@ -53,7 +53,6 @@ const ClubProfileItemizedDescription = ({ hasScrolledFacts }) => {
       </div>
     </div>
   );
-
 };
 
 export default ClubProfileItemizedDescription;

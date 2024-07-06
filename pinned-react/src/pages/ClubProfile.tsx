@@ -38,7 +38,7 @@ const ClubProfile = () => {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="relative min-h-screen text-white flex items-center">
+      <div className="relative min-h-screen text-white dark:text-white flex items-center">
         <GradientBackground />
         <ClubProfileHero isVisible={isVisible} />
       </div>
@@ -47,7 +47,6 @@ const ClubProfile = () => {
       <ClubProfilePhotos hasScrolledPhotos={hasScrolledPhotos} />
     </div>
   );
-
 };
 
 export default ClubProfile;
