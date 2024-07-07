@@ -35,7 +35,7 @@ const ClubProfileHero = ({ isVisible }) => {
           <img
             src="https://images.pexels.com/photos/7658616/pexels-photo-7658616.jpeg?cs=srgb&dl=pexels-ekaterina-bolovtsova-7658616.jpg&fm=jpg"
             alt="Club"
-            className="w-auto max-w-full max-h-[70vh] object-cover rounded-lg shadow-lg"
+            className="w-auto h-auto max-w-[55%] sm:max-h-[65vh] md:max-h-[70vh] lg:max-h-[75vh] xl:max-h-[80vh] object-cover rounded-lg shadow-lg"
           />
         </div>
       </div>
