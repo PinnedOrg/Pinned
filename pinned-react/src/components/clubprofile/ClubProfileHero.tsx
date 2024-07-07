@@ -1,4 +1,11 @@
-const ClubProfileHero = ({ isVisible, clubData }) => {
+import { useEffect, useState } from 'react';
+
+const ClubProfileHero = ({ clubData }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
     return (
       <>
         <div
@@ -15,13 +22,13 @@ const ClubProfileHero = ({ isVisible, clubData }) => {
             <a href={clubData.apply_link}>Join Here</a>
           </button>}
           <div className="mt-4 flex space-x-4">
-            {clubData.facebook && <a href={`http://facebook.com/${clubData.facebook}/`} className="text-gray-400 hover:text-white">
+            {clubData.facebook && <a href={clubData.facebook} className="text-gray-400 hover:text-white">
               FB
             </a>}
-            {clubData.instagram && <a href={`http://instagram.com/${clubData.instagram}/`} className="text-gray-400 hover:text-white">
+            {clubData.instagram && <a href={clubData.instagram} className="text-gray-400 hover:text-white">
               IG
             </a>}
-            {clubData.discord && <a href={`http://discord.gg/${clubData.discord}/`} className="text-gray-400 hover:text-white">
+            {clubData.discord && <a href={clubData.discord} className="text-gray-400 hover:text-white">
               DC
             </a>}
           </div>

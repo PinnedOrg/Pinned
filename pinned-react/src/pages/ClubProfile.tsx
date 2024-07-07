@@ -1,4 +1,5 @@
-import axios from 'axios';
+import { axiosInstance } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import GradientBackground from '@/components/clubprofile/GradientBackground';
@@ -8,26 +9,24 @@ import ClubProfileItemizedDescription from '@/components/clubprofile/ClubProfile
 import ClubProfilePhotos from '@/components/clubprofile/ClubProfilePhotos';
 import ClubDoesNotExistErrorMessage from '@/components/error/ClubDoesNotExistErrorMessage';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
+import ClubErrorMessage from "@/components/error/ClubErrorMessage";
 
 const ClubProfile = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [hasScrolledAboutUs, setHasScrolledAboutUs] = useState(false);
   const [hasScrolledFacts, setHasScrolledFacts] = useState(false);
   const [hasScrolledPhotos, setHasScrolledPhotos] = useState(false);
-  const [clubData, setClubData] = useState();
-  const [isFetching, setIsFetching] = useState(true);
 
   const { clubId } = useParams()
 
-  async function getClubData( clubId ) {
-    const data = await axios.get(`http://localhost:8080/api/clubs/${clubId}`);
-    setClubData(data.data);
-    setIsFetching(false);
+  const fetchClubData = ( clubId ) => {
+    return axiosInstance.get(`http://localhost:8080/api/clubs/${clubId}`);
   }
 
-  useEffect(() => {
-    getClubData(clubId);
-  }, [])
+  const {isFetching, isError, data } = useQuery({
+    queryKey: ["Club"], // query refreshes when this value changes
+    queryFn: () => fetchClubData( clubId ),
+    refetchOnWindowFocus: false,
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,29 +49,31 @@ const ClubProfile = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
+  const clubData = data?.data;
+  console.log(clubData);
   return (
     <>
     {isFetching ? 
       (<LoadingSpinner />)
       :
-      (clubData ? 
-      (<div>
-        <div className="relative min-h-screen text-white flex items-center">
-          <GradientBackground />
-          <ClubProfileHero isVisible={isVisible} clubData={clubData}/>
-        </div>
-        <ClubProfileAboutUs hasScrolledAboutUs={hasScrolledAboutUs} clubData={clubData}/>
-        <ClubProfileItemizedDescription hasScrolledFacts={hasScrolledFacts} clubData={clubData}/>
-        <ClubProfilePhotos hasScrolledPhotos={hasScrolledPhotos} clubData={clubData}/>
-      </div>)
-      : 
-      (
-        <ClubDoesNotExistErrorMessage />
-      ))
+      (isError ? 
+        <ClubErrorMessage /> 
+        :
+        (clubData ? 
+        (<div>
+          <div className="relative min-h-screen text-white flex items-center">
+            <GradientBackground />
+            <ClubProfileHero clubData={clubData}/>
+          </div>
+          <ClubProfileAboutUs hasScrolledAboutUs={hasScrolledAboutUs} clubData={clubData}/>
+          <ClubProfileItemizedDescription hasScrolledFacts={hasScrolledFacts} clubData={clubData}/>
+          <ClubProfilePhotos hasScrolledPhotos={hasScrolledPhotos} clubData={clubData}/>
+        </div>)
+        : 
+        (
+          <ClubDoesNotExistErrorMessage />
+        ))
+      )
     }
     </>
   );
