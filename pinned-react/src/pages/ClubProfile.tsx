@@ -18,7 +18,7 @@ const ClubProfile = () => {
 
   const { clubId } = useParams()
 
-  const fetchClubData = ( clubId ) => {
+  const fetchClubData = ( clubId: string ) => {
     return axiosInstance.get(`http://localhost:8080/api/clubs/${clubId}`);
   }
 

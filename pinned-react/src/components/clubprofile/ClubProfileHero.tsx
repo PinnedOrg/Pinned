@@ -1,6 +1,11 @@
+import { IClub } from '@/lib/types';
 import { useEffect, useState } from 'react';
 
-const ClubProfileHero = ({ clubData }) => {
+type ClubProfileHeroProps = {
+  clubData: IClub
+}
+
+const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {

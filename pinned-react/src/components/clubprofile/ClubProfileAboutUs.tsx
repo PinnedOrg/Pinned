@@ -1,4 +1,11 @@
-const ClubProfileAboutUs = ({ hasScrolledAboutUs, clubData }) => {
+import { IClub } from "@/lib/types";
+
+type ClubProfileAboutUsProps = {
+  clubData: IClub,
+  hasScrolledAboutUs: boolean
+}
+
+const ClubProfileAboutUs = ({ hasScrolledAboutUs, clubData }: ClubProfileAboutUsProps) => {
     return (
       <div
         className={`relative z-10 flex flex-col -top-32 items-center justify-center mt-24 px-6 w-full max-w-3xl mx-auto transition-opacity duration-1000 ${

@@ -1,6 +1,11 @@
 import ClubProfileItem from './ClubProfileItem';
 
-const ClubProfileItemizedDescription = ({ hasScrolledFacts, clubData }) => {
+type ClubProfileItemizedDescriptionProps = {
+  clubData: IClub,
+  hasScrolledFacts: boolean
+}
+
+const ClubProfileItemizedDescription = ({ hasScrolledFacts, clubData }: ClubProfileItemizedDescriptionProps) => {
   return (
     <>
     {(clubData.facts.length != 0) && <div
