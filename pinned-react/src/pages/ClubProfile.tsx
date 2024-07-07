@@ -37,7 +37,7 @@ const ClubProfile = () => {
   }, []);
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-hidden">
       <div className="relative min-h-screen text-white dark:text-white flex items-center">
         <GradientBackground />
         <ClubProfileHero isVisible={isVisible} />
