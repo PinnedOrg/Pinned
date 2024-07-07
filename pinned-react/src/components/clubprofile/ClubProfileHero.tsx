@@ -2,9 +2,10 @@ const ClubProfileHero = ({ isVisible }) => {
   return (
     <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center w-full px-6 lg:px-16 pt-8 lg:pt-0 lg:min-h-screen">
       <div
-        className={`w-full lg:w-1/2 mb-8 lg:mb-0 transition-transform duration-1000 pl-4 pt-4 lg:pl-64 lg:-mt-16 ${
+        className={`w-full lg:w-1/2 mb-8 lg:mb-0 transition-transform duration-1000 pl-4 -mt-32 lg:-mt-16 pt-4 lg:pl-64 ${
           isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
         }`}
+
       >
         <h1 className="text-lg font-medium text-gray-700 dark:text-gray-300">WELCOME TO OUR CLUB</h1>
         <h2 className="mt-2 text-5xl lg:text-7xl font-extrabold text-gray-900 dark:text-white">JOIN THE NSBE</h2>
