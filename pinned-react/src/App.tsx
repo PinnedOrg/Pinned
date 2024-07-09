@@ -21,7 +21,7 @@ const App = () => {
       <Route path={routes.SignIn} element={ <Layout> <SignInPage redirectTo="" /> </Layout> } />
       <Route path={routes.About} element={ <Layout> <AboutPage/> </Layout> } />
       <Route path={routes.Register} element={ <Layout> <RegisterClub/> </Layout> } />
-      <Route path={routes.ClubProfile} element={ <Layout> <ClubProfile/> </Layout> } />
+      <Route path={`${routes.ClubProfile}:clubId`} element={ <Layout> <ClubProfile/> </Layout> } />
     </Routes>
   </BrowserRouter>
   

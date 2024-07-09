@@ -19,6 +19,7 @@ import { costLabel, sizeLabel, tintColor } from '@/lib/utils'
 import { useTheme } from '@/components/shared/ThemeProvider'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import PreviewImage from '../Image/PreviewImage'
+import { routes } from '@/lib/routes'
 
 type ClubPreviewCardProps = {
   club: IClub
@@ -29,7 +30,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
   const tintFactor = 0.75;
 // #020617
   return (
-   <Link to={`/${club._id}`}>
+   <Link to={`${routes.ClubProfile}${club._id}`}>
       <Card className='h-[23.2rem] max-w-[21rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300' style={{ backgroundImage: `linear-gradient(to top, ${theme === 'light'? 'white, white' : '#0f172a, #0f172a'}, ${theme == 'light'? club.colorTheme : tintColor(club.colorTheme, tintFactor)})` }}>
         <CardHeader className='flex flex-col items-center pb-2'>
           <Avatar className='w-[7rem] md:w-[8rem] h-auto aspect-square border-2 border-slate-200 dark:border-slate-800'>
@@ -59,9 +60,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
         <TooltipProvider >
           <Tooltip >
             <TooltipTrigger className='absolute top-2 right-2'>
-              <Link to={`/clubprofile/${club._id}`}>
-                <FaArrowUpRightFromSquare size={20} className='text-gray-300 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300 hover:scale-[1.05] transition' />
-              </Link>
+              <FaArrowUpRightFromSquare size={20} className='text-gray-300 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300 hover:scale-[1.05] transition' />
             </TooltipTrigger>
             <TooltipContent>
               <p>Visit Page</p>
