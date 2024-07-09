@@ -223,7 +223,7 @@ export default ClubHub;
 //Dialog Filters implementation current bugs
 // 1. Dialog does not work with default form, will need to use ShadCN's form. (can't link apply button to submit form and close dialog at the same time)
 // 2. Clicking enter in the input field opens the dialog
-// 3. Filters from state need to be populated when opening the dialog
+// 3. Filters from state need to be populated when opening the dialog.
 
 {/* <form className="flex items-center justify-center w-3/5 mt-16 space-x-2" onSubmit={(e) => handleSubmit(e)} onChange={() => console.log('change')}>
           <Dialog>
