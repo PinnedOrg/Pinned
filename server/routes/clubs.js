@@ -1,22 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { preview, handleUploadError } = require('../helpers/fileHelper');
-const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node');
+const { preview, handleUploadError, customRequireAuth } = require('../helpers/fileHelper');
 
-// Use the ClerkExpressRequireAuth middleware to require authentication for a route
-const customRequireAuth = (req, res, next) => {
-    ClerkExpressRequireAuth()(req, res, (err) => {
-      if (err) {
-        return res.status(401).json({ error: "Unauthorized: Please sign-in." });
-      }
-      next();
-    });
-};
 
 // Import controllers
 const {
     getClubPreviewsBasedOnFilters,
     getClubDetails,
+    getClubEvents,
     createClub,
     deleteClub,
     updateClub,
@@ -25,6 +16,7 @@ const {
 // API routes for Club Controller
 router.get("/", getClubPreviewsBasedOnFilters); 
 router.get("/:id", getClubDetails); 
+router.get("/events/:id", getClubEvents); // get all events for a club based on its id
 router.post("/", customRequireAuth, preview.single('logo'), handleUploadError, createClub); 
 router.delete("/:id", customRequireAuth, deleteClub);
 router.patch("/:id", customRequireAuth, updateClub); 
