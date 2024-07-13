@@ -30,7 +30,7 @@ export const genreFilters: Record<string, genreType> = {
     "Politics & Social Awareness": "Politics & Social Awareness",
     "Religion & Spirituality": "Religion & Spirituality",
     "Sports": "Sports",
-    }
+}
 
 export const costFilters: Record<string, string> = {
     "Free": "0",
