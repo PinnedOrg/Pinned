@@ -25,8 +25,6 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
         filters.isActive = true; // only filter for active clubs
     } 
 
-    console.log({ ...searchedName, ...filters })
-
     try {
         const clubPreviewsList = await Club
                                     .find({ ...searchedName, ...filters })
