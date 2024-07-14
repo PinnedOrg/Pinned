@@ -2,8 +2,7 @@ import { IClub} from '@/lib/types'
 import { Badge } from '../ui/badge'
 import {
   Avatar,
-  AvatarFallback,
-  AvatarImage,
+  AvatarFallback
 } from "@/components/ui/avatar"
 import {
   Tooltip,
