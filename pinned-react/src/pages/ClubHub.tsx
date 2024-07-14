@@ -172,7 +172,7 @@ const ClubHub = () => {
               </Select>
             </div>
             <div className="flex items-center mt-3 space-x-2">
-              <Checkbox id="inactive" onCheckedChange={(checked: boolean) => handleUpdateFilters(checked, "showInactive")} /> 
+              <Checkbox id="inactive" onCheckedChange={(checked: boolean) => handleUpdateFilters(checked, "showInactive")} />
               <label
                 htmlFor="inactive"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
