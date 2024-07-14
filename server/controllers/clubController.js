@@ -3,11 +3,10 @@ const Event = require("../models/Event")
 const mongoose = require("mongoose");
 
 // might need to look at warpping all functions with express async handler. Re, ChatTime
-
 const getClubPreviewsBasedOnFilters = async (req, res) => {
-    const { name, genre, cost, size } = req.query;
+    const { name, genre, cost, size, showInactive } = req.query;
 
-     // searches for either name or email to match searched name, "i" = case insensitive
+     // searches for name to match searched name, "i" = case insensitive
      const searchedName = name ? {
         $or: [ 
             { name: { $regex: name, $options: "i" } },
@@ -16,20 +15,28 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
     } : {};
 
     // ensure that the filters parameters are not undefined or null before adding them to the filters object
-    let filters = {};
+    let filters = {
+        validation: true
+    };
     if (genre) filters.genre = genre;
     if (cost >= 0) filters.cost = {$lte: cost};
     if (size >= 0) filters.size = {$lte: size};
+    if (showInactive == "false") {
+        filters.isActive = true; // only filter for active clubs
+    } 
+
+    console.log({ ...searchedName, ...filters })
 
     try {
         const clubPreviewsList = await Club
-                                    .find({ ...searchedName, ...filters, validation: true })
+                                    .find({ ...searchedName, ...filters })
                                     .select(" _id \
                                             name \
                                             overview \
                                             genre \
                                             cost \
                                             size \
+                                            isActive \
                                             colorTheme")  // only select these fields to return
                                     .sort({ name: 1 });
                                     
@@ -212,6 +219,36 @@ const updateClub = async (req, res) => {
     }
 };
 
+
+// const addFieldToAllEntries = async (req, res) => {
+//     const { field, value } = req.body;
+
+//     if (!field) {
+//         return res.status(400).json({ error: "Field is required" });
+//     }
+
+//     try {
+//         await Club.updateMany({}, { [field]: value });
+
+//         res.status(200).json({ message: `Added ${field} to all entries` });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// }
+
+// const removeFieldFromAllEntries = async (req, res) => {
+//     const { field } = req.body;
+
+//     try {
+//         await Club.updateMany({}, { $unset: { [field]: "" } });
+
+//         res.status(200).json({ message: `Removed ${field} from all entries` });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// }
+
+
 module.exports = {
     getClubPreviewsBasedOnFilters,
     getClubDetails,
@@ -219,4 +256,5 @@ module.exports = {
     createClub,
     deleteClub,
     updateClub,
+    // addFieldToAllEntries,
 }
