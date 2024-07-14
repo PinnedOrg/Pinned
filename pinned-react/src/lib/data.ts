@@ -1,6 +1,5 @@
 import { AboutCardType, AffiliateType, genreType, imagekitURLType } from "./types"
 
-export const imagekitPublicKey = 'public_bIJVq6kbOvZntY0xG7qzQAuInEc'
 export const imagekitEndpoints: Record<imagekitURLType, string> = {
     'default': 'https://ik.imagekit.io/pinnedorg/',
     'club-logos': 'https://ik.imagekit.io/pinnedorg/club-logos/',
