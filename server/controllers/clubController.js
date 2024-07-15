@@ -61,6 +61,34 @@ const getClubDetails = async (req, res) => {
     // on a user dashclub or search, show other stuff
 };
 
+// get all the events associated with this club
+const getClubEvents = async (req, res) => {
+	const { id } = req.params;
+
+	// if club id is invalid
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(404).json({ error: "Club not found." });
+	}
+
+	try {
+		// Find the club based on the provided ID
+		const club = await Club.findById(id);
+
+		if (!club) {
+			return res.status(404).json({ error: "Club not found." });
+		}
+
+		// Find the club based on the provided ID
+		const events = await Event.find({ belongsToClub: id })
+			.select("_id title description tags preview createdAt updatedAt")
+			.sort({ createdAt: -1 });
+
+		return res.status(200).json(events);
+	} catch (error) {
+		return res.status(500).json({ error: error.message });
+	}
+};
+
 const createClub = async (req, res) => {
     const {
     name,
@@ -187,6 +215,7 @@ const updateClub = async (req, res) => {
 module.exports = {
     getClubPreviewsBasedOnFilters,
     getClubDetails,
+	getClubEvents,
     createClub,
     deleteClub,
     updateClub,

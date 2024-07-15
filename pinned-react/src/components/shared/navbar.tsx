@@ -18,7 +18,7 @@ const NavBar = () => {
         </Link>
       </ViewportWrapper>
 
-      <nav className="inline-flex -mr-10">
+      <nav className="inline-flex -mr-10 sm:mr-0">
         <div className="flex items-center gap-6 justify-evenly">
         {/* Add all mobile routes here. Will need a drawer moving forward */}
           <ViewportWrapper breakpoint="mobile">

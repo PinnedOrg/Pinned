@@ -1,4 +1,11 @@
-import { AboutCardType, AffiliateType, genreType } from "./types"
+import { AboutCardType, AffiliateType, genreType, imagekitURLType } from "./types"
+
+export const imagekitEndpoints: Record<imagekitURLType, string> = {
+    'default': 'https://ik.imagekit.io/pinnedorg/',
+    'club-logos': 'https://ik.imagekit.io/pinnedorg/club-logos/',
+    'club-images': 'https://ik.imagekit.io/pinnedorg/club-images/',
+    'club-events': 'https://ik.imagekit.io/pinnedorg/club-events/',
+}
 
 export const userUses = 
     [   
@@ -30,7 +37,7 @@ export const genreFilters: Record<string, genreType> = {
     "Politics & Social Awareness": "Politics & Social Awareness",
     "Religion & Spirituality": "Religion & Spirituality",
     "Sports": "Sports",
-    }
+}
 
 export const costFilters: Record<string, string> = {
     "Free": "0",

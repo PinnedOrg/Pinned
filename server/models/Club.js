@@ -84,10 +84,6 @@ const clubSchema = new mongoose.Schema(
         required: false,
         ref: "Event"
     },
-    owner: {
-        type: String, // this is a userid (from clerk)
-        required: true
-    },
     apply_link: {
         type: String,
         required: false,
@@ -105,10 +101,14 @@ const clubSchema = new mongoose.Schema(
             }
         }
     ],
-    // subscribers: {
-    //     type: [String], //TODO: change to type user
-    //     required: false
-    // },
+    owner: {
+        type: String, // this is a userid (from clerk)
+        required: true
+    },
+    subscribers: {
+        type: [String], // this is a list of userids (from clerk)
+        required: false
+    },
   },
   {
     timestamps: true,
