@@ -8,4 +8,5 @@ export const routes = {
     Register: "/register",
     ClubProfile: "/clubprofile/",
     EventCreate: "/event-create",
+    UserCalendar: "/user-calendar",
 }

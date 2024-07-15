@@ -1,0 +1,15 @@
+/* Monthly View - Out-of-range days */
+.rbc-month-view .rbc-day-bg.rbc-off-range-bg {
+    background-color: #967985;
+  }
+  
+  /* Change color of dates in month view */
+  .rbc-month-view .rbc-date-cell {
+    color: #2B2B2B;
+  }
+  
+  /* Change color of dates in day and week views */
+  .rbc-time-view .rbc-time-header-cell {
+    color: #2B2B2B;
+  }
+  

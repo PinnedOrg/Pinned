@@ -12,6 +12,7 @@ const GradientBackground = () => {
         height="500px"
         left="250px"
         top="150px"
+        right=""
         filter="blur(150px)"
         animationName="shadow-slide-blue"
       />
@@ -24,6 +25,7 @@ const GradientBackground = () => {
         height="300px"
         right="0px"
         top="1px"
+        left=""
         filter="blur(100px)"
         animationName="shadow-slide-purple"
       />
@@ -36,6 +38,7 @@ const GradientBackground = () => {
         height="500px"
         right="50px"
         top="800px"
+        left=""
         filter="blur(150px)"
         animationName="shadow-slide-blue"
       />
@@ -48,6 +51,7 @@ const GradientBackground = () => {
         height="300px"
         left="0px"
         top="800px"
+        right=""
         filter="blur(100px)"
         animationName="shadow-slide-purple"
       />
@@ -60,6 +64,7 @@ const GradientBackground = () => {
         height="419px"
         left="286px"
         top="1500px"
+        right=""
         filter="blur(150px)"
         animationName="shadow-slide-blue"
       />
@@ -72,6 +77,7 @@ const GradientBackground = () => {
         height="302px"
         right="0px"
         top="1700px"
+        left=""
         filter="blur(100px)"
         animationName="shadow-slide-purple"
       />
@@ -84,6 +90,7 @@ const GradientBackground = () => {
         height="300px"
         right="0px"
         top="2100px"
+        left=""
         filter="blur(150px)"
         animationName="shadow-slide-blue"
       />
@@ -96,6 +103,7 @@ const GradientBackground = () => {
         height="300px"
         left="500px"
         top="2200px"
+        right=""
         filter="blur(100px)"
         animationName="shadow-slide-purple"
       />

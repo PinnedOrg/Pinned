@@ -9,6 +9,7 @@ import RegisterClub from "@/pages/Creations/ClubCreate";
 import ClubProfile from "@/pages/ClubProfile";
 import AboutPage from "@/pages/AboutPage";
 import PageDoesNotExistErrorMessage from "./components/error/PageDoesNotExistErrorMessage";
+import UserCalendar from "./pages/UserCalendar";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
       <Route path={routes.About} element={ <Layout> <AboutPage/> </Layout> } />
       <Route path={routes.Register} element={ <Layout> <RegisterClub/> </Layout> } />
       <Route path={`${routes.ClubProfile}:clubId`} element={ <Layout> <ClubProfile/> </Layout> } />
+      <Route path={routes.UserCalendar} element={ <Layout> <UserCalendar/> </Layout> } />
       <Route path={"*"} element={ <Layout> <PageDoesNotExistErrorMessage/> </Layout>} />
     </Routes>
   </BrowserRouter>

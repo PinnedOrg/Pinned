@@ -60,7 +60,7 @@ const ClubProfile = () => {
         <ClubErrorMessage /> 
         :
         (clubData ? 
-        (<div>
+        (<div className="overflow-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <div className="relative min-h-screen text-white flex items-center">
             <GradientBackground />
             <ClubProfileHero clubData={clubData}/>
