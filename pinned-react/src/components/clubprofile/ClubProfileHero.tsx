@@ -18,9 +18,9 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
         isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
       }`}>
         <div className="w-full lg:w-1/2 lg:-top-16 lg:left-64 z-10 flex flex-col justify-center p-6 order-2 lg:order-1">
-          <h1 className="text-lg font-medium">WELCOME TO OUR CLUB</h1>
-          <h2 className="mt-2 text-4xl lg:text-7xl font-extrabold">{clubData.name}</h2>
-          <p className="mt-6 text-base lg:text-lg max-w-md">
+          <h1 className="text-lg font-medium text-purple-600 dark:text-purple-400">WELCOME TO OUR CLUB</h1>
+          <h2 className="mt-2 text-4xl lg:text-7xl font-extrabold text-gray-900 dark:text-white">{clubData.name}</h2>
+          <p className="mt-6 text-base lg:text-lg max-w-md text-gray-700 dark:text-gray-300">
             {clubData.overview}
           </p>
           {clubData.apply_link && (
@@ -30,17 +30,17 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
           )}
           <div className="mt-4 flex space-x-4">
             {clubData.facebook && (
-              <a href={clubData.facebook} className="text-gray-400 hover:text-white">
+              <a href={clubData.facebook} className="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-white">
                 FB
               </a>
             )}
             {clubData.instagram && (
-              <a href={clubData.instagram} className="text-gray-400 hover:text-white">
+              <a href={clubData.instagram} className="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-white">
                 IG
               </a>
             )}
             {clubData.discord && (
-              <a href={clubData.discord} className="text-gray-400 hover:text-white">
+              <a href={clubData.discord} className="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-white">
                 DC
               </a>
             )}
