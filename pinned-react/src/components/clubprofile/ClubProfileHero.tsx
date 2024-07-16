@@ -52,7 +52,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
           <img
             src="https://as2.ftcdn.net/v2/jpg/05/21/15/83/1000_F_521158350_czdCbzL74T78pgPhT7pT4KnDBkldoHvy.jpg"
             alt="Club"
-            className="w-2/3 h-auto object-cover rounded-lg shadow-lg"
+            className="w-full h-auto max-h-[500px] object-contain rounded-lg shadow-lg"
           />
         </div>
       </div>
