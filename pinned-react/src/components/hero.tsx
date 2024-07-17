@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
-import  Cards from "./cards/HeroCards.tsx";
+import  Cards from "@/components/cards/HeroCards.tsx";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { Link } from 'react-router-dom';
 
