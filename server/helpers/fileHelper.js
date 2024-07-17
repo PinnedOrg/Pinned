@@ -20,7 +20,7 @@ const preview = multer({
 const handleUploadError = (err, req, res, next) => {
     if (err instanceof multer.MulterError) {
         // Multer errors (e.g., file size exceeded)
-        return res.status(400).json({ error: 'File upload error.' });
+        return res.status(400).json({ error: err });
     } else if (err) {
         // Custom error message from fileFilter
         return res.status(400).json({ error: err });
