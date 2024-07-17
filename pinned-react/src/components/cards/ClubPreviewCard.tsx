@@ -35,11 +35,11 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
         <CardHeader className='flex flex-col items-center pb-2'>
           <IKContext urlEndpoint={imagekitEndpoints['default']} publicKey={import.meta.env.IMAGEKIT_PUBLIC_KEY}>
             <Avatar className='w-[8.5rem] sm:w-[8rem] md:w-[8.5rem] h-auto aspect-square border-2 border-slate-200 dark:border-slate-800'>
-              <IKImage path={'Eshaan.jpg'} alt={""} transformation={[{ height: "150", width: "150", }]} loading="lazy" lqip={{ active:true, quality:20 }} className='aspect-square' />
-              
-              <AvatarFallback>
+              {club.logo != null ? (
+                <IKImage urlEndpoint={imagekitEndpoints['club']} src={club.logo.url} alt={""} transformation={[{ height: "150", width: "150", }]} loading="lazy" lqip={{ active:true, quality:20 }} className='aspect-square' />
+              ) : (
                 <img src="/images/logos/LogoPlaceholder.png" alt="placeholder" className='aspect-square'/>
-              </AvatarFallback>
+              )}
             </Avatar>
           </IKContext>
           <CardTitle className='text-center'>{club.name}</CardTitle>
@@ -60,7 +60,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
           </CardFooter>
         </CardContent>
         <TooltipProvider >
-          <Tooltip >
+          <Tooltip>
             <TooltipTrigger className='absolute top-2 right-2'>
               <FaArrowUpRightFromSquare size={20} className='text-gray-300 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300 hover:scale-[1.05] transition' />
             </TooltipTrigger>
