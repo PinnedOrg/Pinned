@@ -46,8 +46,9 @@ type FormDataType = {
 }
 
 
-const FetchClubs = ({ name, genre, cost, size}: FormDataType) => {
-  return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}`);
+
+const FetchClubs = ({ name, genre, cost, size, active }: FormDataType) => {
+  return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&active=${active}`);
 }
 
 const resetFilters = () => {
