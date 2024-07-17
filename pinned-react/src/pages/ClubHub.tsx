@@ -43,12 +43,11 @@ type FormDataType = {
   genre: string,
   cost: number,
   size: number,
+  showInactive: boolean,
 }
 
-
-
-const FetchClubs = ({ name, genre, cost, size, active }: FormDataType) => {
-  return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&active=${active}`);
+const FetchClubs = ({ name, genre, cost, size, showInactive }: FormDataType) => {
+  return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&showInactive=${showInactive}`);
 }
 
 const resetFilters = () => {
@@ -60,7 +59,8 @@ const ClubHub = () => {
     name: "",
     genre: "",
     cost: -1,
-    size: -1
+    size: -1,
+    showInactive: false,
   });
 
   const [isCollapsibleOpen, setIsCollapsibleOpen] = useState<boolean>(false);
@@ -171,7 +171,7 @@ const ClubHub = () => {
               </Select>
             </div>
             <div className="flex items-center mt-3 space-x-2">
-              <Checkbox id="inactive" />
+              <Checkbox id="inactive" onCheckedChange={(checked: boolean) => handleUpdateFilters(checked, "showInactive")} /> 
               <label
                 htmlFor="inactive"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

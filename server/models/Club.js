@@ -30,6 +30,11 @@ const clubSchema = new mongoose.Schema(
         maxLength: 2500,
         trim: true,
     },
+    isActive: {
+        type: Boolean,
+        required: false,
+        default: true
+    },
     genre: {
         type: String,
         required: [true, "Missing club genre."]
