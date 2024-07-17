@@ -39,8 +39,16 @@ const customRequireAuth = (req, res, next) => {
     });
 };
 
+const requireInternalAuth = (req, res, next) => {
+    if (!(req.auth.password == process.env.INTERNAL_PASSWORD)) {
+        return res.status(401).json({ error: 'Unauthorized access.' });
+    }
+    next();
+};
+
 module.exports = {
     preview,
     handleUploadError,
     customRequireAuth,
+    requireInternalAuth
 };
