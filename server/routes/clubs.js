@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { preview, handleUploadError, customRequireAuth, requireInternalAuth } = require('../helpers/fileHelper');
 
-
 // Import controllers
 const {
     getClubPreviewsBasedOnFilters,

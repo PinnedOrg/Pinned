@@ -48,10 +48,12 @@ const startServer = () => {
 // Routes setup
 const eventRoutes = require("./routes/events");
 const clubRoutes = require("./routes/clubs");
+const userRoutes = require("./routes/users");
 // const imageRoutes = require("./routes/images");
 
 app.use("/api/events", eventRoutes); // Mount event routes under the /api/events path
 app.use("/api/clubs", clubRoutes); // Mount club routes under the /api/clubs path
+app.use("/api/users", userRoutes); // Mount user routes under the /api/users path
 // app.use("/api/images", imageRoutes); // Mount image routes under the /api/images path
 
 // Initial connection to MongoDB using the provided URI

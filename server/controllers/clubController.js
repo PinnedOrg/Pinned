@@ -196,8 +196,6 @@ const updateClub = async (req, res) => {
     }
 };
 
-
-
 // const addFieldToAllEntries = async (req, res) => {
 //     const { field, value } = req.body;
 
