@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8b49e451-4677-4395-a701-dc9ae188b7c1" name="Changes" comment="fixed not being able to create club when no image is provided. Prevent club creation limit in dev. Adding min width to card in clubhub.">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/Cards/AboutCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/Cards/ClubLoadingPlaceholder.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/Cards/ClubPreviewCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/cards/ClubPreviewCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/Cards/InfoCards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/cards/InfoCards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/clubhub/clubhubbanner.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfileAboutUs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfileAboutUs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfileHero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfileHero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfileItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfileItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfileItemizedDescription.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfileItemizedDescription.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfilePhotos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/clubprofile/ClubProfilePhotos.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/error/ClubNotFoundErrorMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/error/ClubNotFoundErrorMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/components/ui/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/components/ui/input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/lib/data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/lib/data.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/lib/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/lib/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/lib/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pinned-react/src/pages/ClubProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pinned-react/src/pages/ClubProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/clubController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/clubController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/eventController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/eventController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/helpers/fileHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/helpers/fileHelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/Club.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/Club.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/clubs.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/clubs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/events.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;eshaan-mehta&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/PinnedOrg/Pinned.git&quot;,
+    &quot;accountId&quot;: &quot;4d5896b2-5c0f-4c55-83f7-2259a43fc19a&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2jOd7pRxKuQ6ZZ9pyTJQe2kIM3k" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.localhost:5173.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging featured-clubs",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Pinned\\pinned-react\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="localhost:5173" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:5173/">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.localhost:5173" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8b49e451-4677-4395-a701-dc9ae188b7c1" name="Changes" comment="" />
+      <created>1721261892839</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721261892839</updated>
+      <workItem from="1721261895360" duration="2145000" />
+      <workItem from="1721265468668" duration="1510000" />
+      <workItem from="1721267379001" duration="123000" />
+    </task>
+    <task id="LOCAL-00001" summary="rebase">
+      <option name="closed" value="true" />
+      <created>1721262601317</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1721262601317</updated>
+    </task>
+    <task id="LOCAL-00002" summary="removed unused">
+      <option name="closed" value="true" />
+      <created>1721262709187</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721262709187</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fixed not being able to create club when no image is provided. Prevent club creation limit in dev. Adding min width to card in clubhub.">
+      <option name="closed" value="true" />
+      <created>1721265789548</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1721265789548</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pinned-react/tailwind.config.js" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="rebase" />
+    <MESSAGE value="removed unused" />
+    <MESSAGE value="fixed not being able to create club when no image is provided. Prevent club creation limit in dev. Adding min width to card in clubhub." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed not being able to create club when no image is provided. Prevent club creation limit in dev. Adding min width to card in clubhub." />
+  </component>
+</project>
