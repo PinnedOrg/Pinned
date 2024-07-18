@@ -27,11 +27,9 @@ export function tintColor (hexColor: string, tintFactor: number) {
   return `rgb(${tintedRgb.r}, ${tintedRgb.g}, ${tintedRgb.b})`;
 };
 
-
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_AXIOS_BASE_URL,
 });
-
 
 import { costFilters, sizeFilters } from "./data";
 export function costLabel (cost: number) {

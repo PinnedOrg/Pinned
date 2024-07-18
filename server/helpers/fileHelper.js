@@ -20,7 +20,7 @@ const preview = multer({
 const handleUploadError = (err, req, res, next) => {
     if (err instanceof multer.MulterError) {
         // Multer errors (e.g., file size exceeded)
-        return res.status(400).json({ error: 'File upload error.' });
+        return res.status(400).json({ error: err });
     } else if (err) {
         // Custom error message from fileFilter
         return res.status(400).json({ error: err });
@@ -39,8 +39,16 @@ const customRequireAuth = (req, res, next) => {
     });
 };
 
+const requireInternalAuth = (req, res, next) => {
+    if (!(req.auth.password == process.env.INTERNAL_PASSWORD)) {
+        return res.status(401).json({ error: 'Unauthorized access.' });
+    }
+    next();
+};
+
 module.exports = {
     preview,
     handleUploadError,
     customRequireAuth,
+    requireInternalAuth
 };

@@ -8,8 +8,15 @@ const clubSchema = new mongoose.Schema(
         maxLength: 50
     },
     logo: {
-        data: Buffer,
-        extension: String
+        type: {
+            fileId: {
+                type: String
+            },
+            url: {
+                type: String,
+            }
+        },
+        required: false
     },
     overview: { // Short extract of the club
         type: String,
@@ -22,6 +29,11 @@ const clubSchema = new mongoose.Schema(
         required: [true, "Missing club description."],
         maxLength: 2500,
         trim: true,
+    },
+    isActive: {
+        type: Boolean,
+        required: false,
+        default: true
     },
     genre: {
         type: String,
@@ -84,10 +96,6 @@ const clubSchema = new mongoose.Schema(
         required: false,
         ref: "Event"
     },
-    owner: {
-        type: String, // this is a userid (from clerk)
-        required: true
-    },
     apply_link: {
         type: String,
         required: false,
@@ -105,10 +113,14 @@ const clubSchema = new mongoose.Schema(
             }
         }
     ],
-    // subscribers: {
-    //     type: [String], //TODO: change to type user
-    //     required: false
-    // },
+    owner: {
+        type: String, // this is a userid (from clerk)
+        required: true
+    },
+    subscribers: {
+        type: [String], // this is a list of user ids (from clerk)
+        required: false
+    },
   },
   {
     timestamps: true,
