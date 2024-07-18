@@ -41,7 +41,7 @@ export interface IEvent {
 
 export interface IUser {
   _id: string; //id
-  clerk_id: string
+  clerkId: string
   clubs: string[]
 }
 

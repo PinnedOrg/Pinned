@@ -6,23 +6,24 @@ const createUser = async (req) => {
     const { userId } = req.auth;
 
     const newUser = new User({
-      clerk_id: userId, // Clerk user ID
+      clerkId: userId, // Clerk user ID
       clubs: []
     });
 
     const savedUser = await newUser.save();
 }
 
+// handles subscribing and unsubscribing to clubs
 const subscribe = async (req, res) => {
   const { clubId } = req.params;
   const { userId } = req.auth;
 
   try {
-    const user = await User.findOne({ clerk_id: userId });
+    const user = await User.findOne({ clerkId: userId });
 
     if (!user) {
       createUser(req);
-      user = await User.findOne({ clerk_id: userId })
+      user = await User.findOne({ clerkId: userId })
     }
 
     if (!mongoose.Types.ObjectId.isValid(clubId)) {
