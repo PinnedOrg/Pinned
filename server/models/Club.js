@@ -107,12 +107,13 @@ const clubSchema = new mongoose.Schema(
         }
     ],
     owner: {
-        type: String, // this is a userid (from clerk)
-        required: true
+        type: String, // this is a clerk user_id (not the User_id from the model we have)
+        required: (true, "Missing owner."),
     },
     subscribers: {
-        type: [String], // this is a list of userids (from clerk)
-        required: false
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "User",
+        default: []
     },
   },
   {
