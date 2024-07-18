@@ -1,7 +1,10 @@
 export interface IClub {
     _id: string; //id
     name: string
-    logo: string // imagekit path
+    logo: {
+        fileId: string;
+        url: string;
+    } // imagekit path
     overview: string
     description: string
     genre: string
@@ -42,7 +45,13 @@ export interface IUser {
   clubs: string[]
 }
 
-export type imagekitURLType = 'default' | 'club-logos' | 'club-images' | 'club-events'
+export interface IUser {
+  _id: string; //id
+  clerk_id: string
+  clubs: string[]
+}
+
+export type imagekitURLType = 'default' | 'club'
 
 export type genreType = "Academic" | 
                  "Business & Entrepreneurship" |
