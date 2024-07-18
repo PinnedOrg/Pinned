@@ -46,7 +46,6 @@ type FormDataType = {
   showInactive: boolean,
 }
 
-
 const FetchClubs = ({ name, genre, cost, size, showInactive }: FormDataType) => {
   return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&showInactive=${showInactive}`);
 }
@@ -172,7 +171,7 @@ const ClubHub = () => {
               </Select>
             </div>
             <div className="flex items-center mt-3 space-x-2">
-              <Checkbox id="inactive" onCheckedChange={(checked: boolean) => handleUpdateFilters(checked, "showInactive")} /> 
+              <Checkbox id="inactive" onCheckedChange={(checked: boolean) => handleUpdateFilters(checked, "showInactive")} />
               <label
                 htmlFor="inactive"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

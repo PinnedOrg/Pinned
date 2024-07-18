@@ -8,8 +8,15 @@ const clubSchema = new mongoose.Schema(
         maxLength: 50
     },
     logo: {
-        data: Buffer,
-        extension: String
+        type: {
+            fileId: {
+                type: String
+            },
+            url: {
+                type: String,
+            }
+        },
+        required: false
     },
     overview: { // Short extract of the club
         type: String,
@@ -111,7 +118,7 @@ const clubSchema = new mongoose.Schema(
         required: true
     },
     subscribers: {
-        type: [String], // this is a list of userids (from clerk)
+        type: [String], // this is a list of user ids (from clerk)
         required: false
     },
   },
