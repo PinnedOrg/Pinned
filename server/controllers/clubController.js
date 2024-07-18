@@ -128,7 +128,7 @@ const createClub = async (req, res) => {
         return res.status(400).json({ error: "Missing club name" });
     }
     const existingClub = await Club.findOne({ name: { $regex: name, $options: "i" } }); // case-insensitive search
-    if (existingClub) {
+    if (existingClub && process.env.ENVIRONMENT === 'Production') {
         return res.status(400).json({ error: 'Club with that name already exists.' });
     }
 
@@ -166,10 +166,7 @@ const createClub = async (req, res) => {
             name,
             overview,
             isActive: true,
-            logo: {
-                fileId: image.fileId,
-                url: image.url
-            },
+            logo: image ? { fileId: image.fileId, url: image.url } : null,
             description,
             genre,
             colorTheme,
@@ -199,6 +196,7 @@ const createClub = async (req, res) => {
                 console.log(`Unable to delete ${image.fileId} from ImageKit: ${err.message}`);
             });
         }
+        console.log(error.message)
         res.status(400).json({ error: error.message });
     }
 }
