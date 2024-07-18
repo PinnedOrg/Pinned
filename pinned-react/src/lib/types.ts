@@ -45,12 +45,6 @@ export interface IUser {
   clubs: string[]
 }
 
-export interface IUser {
-  _id: string; //id
-  clerk_id: string
-  clubs: string[]
-}
-
 export type imagekitURLType = 'default' | 'club'
 
 export type genreType = "Academic" | 
