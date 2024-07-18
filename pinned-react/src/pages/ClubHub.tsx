@@ -46,7 +46,6 @@ type FormDataType = {
   showInactive: boolean,
 }
 
-
 const FetchClubs = ({ name, genre, cost, size, showInactive }: FormDataType) => {
   return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&showInactive=${showInactive}`);
 }

@@ -38,8 +38,8 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                                             genre \
                                             cost \
                                             size \
-                                            isActive \
                                             logo \
+                                            isActive \
                                             colorTheme")  // only select these fields to return
                                     .sort({ name: 1 });
                                     
@@ -69,7 +69,7 @@ const getClubDetails = async (req, res) => {
 
     // get all of its events as well when opened
     // on a user dashclub or search, show other stuff
-};
+}
 
 // get all the events associated with this club
 const getClubEvents = async (req, res) => {
@@ -97,7 +97,7 @@ const getClubEvents = async (req, res) => {
 	} catch (error) {
 		return res.status(500).json({ error: error.message });
 	}
-};
+}
 
 const createClub = async (req, res) => {
     const {
