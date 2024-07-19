@@ -13,8 +13,9 @@ const reviewSchema = new mongoose.Schema(
             required: true,
         },
         clubId: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
+            ref: 'Club'
         }
     },
     {
