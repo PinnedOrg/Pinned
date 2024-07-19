@@ -39,6 +39,12 @@ export interface IEvent {
     updatedAt: Date;
 }
 
+export interface IUser {
+  _id: string; //id
+  clerkId: string
+  clubs: string[]
+}
+
 export type imagekitURLType = 'default' | 'club'
 
 export type genreType = "Academic" | 

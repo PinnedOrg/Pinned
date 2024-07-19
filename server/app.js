@@ -47,13 +47,16 @@ const startServer = () => {
 // Routes setup
 const eventRoutes = require("./routes/events");
 const clubRoutes = require("./routes/clubs");
+const userRoutes = require("./routes/users");
 const reviewRoutes = require("./routes/reviews");
 
-app.use("/api/events", eventRoutes);
-app.use("/api/clubs", clubRoutes);
+app.use("/api/events", eventRoutes); // Mount event routes under the /api/events path
+app.use("/api/clubs", clubRoutes); // Mount club routes under the /api/clubs path
+app.use("/api/users", userRoutes); // Mount user routes under the /api/users path
 app.use("/api/reviews", reviewRoutes);
+// app.use("/api/images", imageRoutes); // Mount image routes under the /api/images path
 
-
+// Initial connection to MongoDB using the provided URI
 connectToDatabase(process.env.MONGO_URI);
 
 module.exports = app;

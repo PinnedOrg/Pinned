@@ -27,17 +27,17 @@ const NavBar = () => {
             </Link>
           </ViewportWrapper>
           <Button variant='ghost' className={LinkStyles}>
-            <Link to={routes.ClubHub} >Club Hub</Link>
+            <Link to={routes.ClubHub}>Club Hub</Link>
           </Button>
           <Button variant='ghost' className={LinkStyles}>
-            <Link to={routes.Register} >Register</Link>
+            <Link to={routes.Register}>Register</Link>
           </Button>
           <SignedIn>
             <UserButton /> 
           </SignedIn>
           <SignedOut>
             <Button variant='secondary' className={LinkStyles + " text-white font-semibold hover:bg-secondary-hover"}>
-              <Link to={routes.SignIn} >Sign In</Link>
+              <Link to={routes.SignIn}>Sign In</Link>
             </Button>
           </SignedOut>
           <ModeToggle />
