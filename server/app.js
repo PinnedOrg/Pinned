@@ -38,7 +38,6 @@ const connectToDatabase = (connectionString) => {
 
 // Start the server function
 const startServer = () => {
-  // Start the server
   const port = process.env.PORT || 8080;
   const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
@@ -48,14 +47,13 @@ const startServer = () => {
 // Routes setup
 const eventRoutes = require("./routes/events");
 const clubRoutes = require("./routes/clubs");
-// const imageRoutes = require("./routes/images");
+const reviewRoutes = require("./routes/reviews");
 
-app.use("/api/events", eventRoutes); // Mount event routes under the /api/events path
-app.use("/api/clubs", clubRoutes); // Mount club routes under the /api/clubs path
-// app.use("/api/images", imageRoutes); // Mount image routes under the /api/images path
+app.use("/api/events", eventRoutes);
+app.use("/api/clubs", clubRoutes);
+app.use("/api/reviews", reviewRoutes);
 
-// Initial connection to MongoDB using the provided URI
+
 connectToDatabase(process.env.MONGO_URI);
 
-// Export the Express app for testing purposes
 module.exports = app;
