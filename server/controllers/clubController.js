@@ -53,42 +53,33 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
 const getClubDetails = async (req, res) => {
     const { id } = req.params;
 
-    // checks for valid id
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "Club not found." });
     }
 
     const club = await Club.findById(id);
 
-    // check if club exists
     if (!club) {
         return res.status(404).json({ error: "Club not found." });
     }
 
     return res.status(200).json(club);
+};
 
-    // get all of its events as well when opened
-    // on a user dashclub or search, show other stuff
-}
-
-// get all the events associated with this club
 const getClubEvents = async (req, res) => {
 	const { id } = req.params;
 
-	// if club id is invalid
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).json({ error: "Club not found." });
 	}
 
 	try {
-		// Find the club based on the provided ID
 		const club = await Club.findById(id);
 
 		if (!club) {
 			return res.status(404).json({ error: "Club not found." });
 		}
 
-		// Find the club based on the provided ID
 		const events = await Event.find({ belongsToClub: id })
 			.select("_id title description tags preview createdAt updatedAt")
 			.sort({ createdAt: -1 });
@@ -204,28 +195,22 @@ const createClub = async (req, res) => {
 const deleteClub = async (req, res) => {
     const { id } = req.params;
 
-    // if club id is invalid
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "Club not found." });
     }
 
-    // find the club and delete it by id
     const club = await Club.findById(id);
 
-    // if club id does not exist
     if (!club) {
         return res.status(404).json({ error: "Club not found." });
     }
     
-    // if user is not the owner of the club
     if (club.owner !== req.auth.userId) {
         return res.status(403).json({ error: "Can not delete a club you do not own." });
     }
 
-    // Delete the club
     await club.deleteOne();
 
-    // delete all events in the club
     await Event.deleteMany({ _id: { $in: club.events } })
 
     res.status(200).json(club);
@@ -234,7 +219,6 @@ const deleteClub = async (req, res) => {
 const updateClub = async (req, res) => {
     const { id } = req.params;
 
-    // if club id is invalid
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "Club not found." });
     }
@@ -242,7 +226,6 @@ const updateClub = async (req, res) => {
     try {
         const club = await Club.findById(id)
 
-        // if club id does not exist
         if (!club) {
             return res.status(404).json({ error: "Club not found." });
         }
@@ -257,13 +240,9 @@ const updateClub = async (req, res) => {
         res.status(200).json(club);
 
     } catch (error) {
-        if (error instanceof mongoose.Error.ValidationError) {
-            // Handle validation error
-            return res.status(400).json({ error: error.message });
-          }
+        return res.status(400).json({ error: error.message });
     }
 };
-
 
 // const addFieldToAllEntries = async (req, res) => {
 //     const { field, value } = req.body;
@@ -301,5 +280,4 @@ module.exports = {
     createClub,
     deleteClub,
     updateClub,
-    // addFieldToAllEntries,
 }
