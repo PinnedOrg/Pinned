@@ -8,7 +8,7 @@ const Event = require("../models/Event");
 // might need to look at wrapping all functions with express async handler. Re, ChatTime
 
 const getClubPreviewsBasedOnFilters = async (req, res) => {
-    const { name, genre, cost, size, showInactive } = req.query;
+    const { name, genre, cost, size, showInactive, rating } = req.query;
 
      // searches for name to match searched name, "i" = case insensitive
      const searchedName = name ? {
@@ -30,19 +30,50 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
     }
 
     try {
-        const clubPreviewsList = await Club
-                                    .find({ ...searchedName, ...filters })
-                                    .select(" _id \
-                                            name \
-                                            overview \
-                                            genre \
-                                            cost \
-                                            size \
-                                            logo \
-                                            isActive \
-                                            colorTheme")  // only select these fields to return
-                                    .sort({ name: 1 });
-                                    
+        const threshold = 4; // Example threshold for average rating
+
+        const clubPreviewsList = await Club.aggregate([
+        {
+            $match: { ...searchedName, ...filters }
+        },
+        {
+                $lookup: {
+                from: 'reviews',
+                localField: 'reviews',
+                foreignField: '_id',
+                as: 'reviewDetails'
+            }
+        },
+        {
+            $addFields: {
+                averageRating: { $avg: '$reviewDetails.rating' }
+            }
+        },
+        {
+            $match: {
+                averageRating: { $gt: rating }
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                name: 1,
+                overview: 1,
+                genre: 1,
+                cost: 1,
+                size: 1,
+                logo: 1,
+                isActive: 1,
+                reviews: 1,
+                colorTheme: 1,
+                averageRating: 1
+            }
+        },
+        {
+            $sort: { name: 1 }
+        }
+        ]);
+
         return res.status(200).json(clubPreviewsList);
     } catch (error) {
         console.error("Error retrieving club previews: ", error);

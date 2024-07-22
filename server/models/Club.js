@@ -122,6 +122,11 @@ const clubSchema = new mongoose.Schema(
         ref: "User",
         default: []
     },
+    reviews: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Review",
+        default: []
+    }
   },
   {
     timestamps: true,

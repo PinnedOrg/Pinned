@@ -5,14 +5,15 @@ const reviewSchema = new mongoose.Schema(
         rating: {
             type: Number,
             required: true,
-            min: 0,
-            max: 5,
+            min: [0, "Rating too low."],
+            max: [5, "Rating too high."],
         },
-        userId: {
-            type: String,
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
+            ref: 'User'
         },
-        clubId: {
+        club: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'Club'

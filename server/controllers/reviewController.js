@@ -7,23 +7,38 @@ const addOrUpdateReview = async (req, res) => {
     const { rating, clubId } = req.body;
     const { userId } = req.auth
 
-    console.log(userId, rating, clubId)
+    try {
+        const user = await User.findOne({ clerkId: userId });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
-    // ensure user is signed in before proceeding (middleware)
-    // check if user already has a review for that club, and update it
-    // update the club list of reviews
-    // create new review for user, add it to their list
-
-    const user = await User.find({clerkId: userId});
-    if (!user) {
-        return res.status(401).json({ error: "User not found" });
+        const club = await Club.findById(clubId);
+        if (!club) {
+            return res.status(404).json({ error: "Club not found" });
+        }
+    
+        const existingReview = await Review.findOne({ user: user._id, club: club._id })
+        if (existingReview) {
+            existingReview.rating = rating;
+            await existingReview.save();
+            return res.status(202).json({ existingReview })
+        }
+    
+        const review = await Review.create({ rating, userId, clubId });
+    
+        // Add review to list of user reviews
+        user.reviews.push(review._id);
+        await user.save();
+    
+        // Add review to list of club reviews
+        club.reviews.push(review._id);
+        await club.save();
+    
+        return res.status(201).json({ review })
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
     }
-
-    const existingReview = user.reviews.find(review => review.userId === userId)
-
-
-
-    return res.status(200).json({})
 }
 
 
