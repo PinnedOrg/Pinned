@@ -1,31 +1,38 @@
 const mongoose = require('mongoose');
 const Review = require('../models/Review');
-// const Club = require('../models/Club');
+const Club = require('../models/Club');
 const User = require('../models/User');
 
 const addOrUpdateReview = async (req, res) => {
-    const { rating, clubId } = req.body;
+    const { rating, clubId } = req.query;
     const { userId } = req.auth
 
     try {
-        const user = await User.findOne({ clerkId: userId });
+        let user = await User.findOne({ clerkId: userId });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        const club = await Club.findById(clubId);
+        if (!mongoose.Types.ObjectId.isValid(clubId)) {
+            return res.status(400).json({ error: "Invalid club id." });
+        }
+
+        let club = await Club.findById(clubId);
         if (!club) {
             return res.status(404).json({ error: "Club not found" });
         }
     
-        const existingReview = await Review.findOne({ user: user._id, club: club._id })
+        let existingReview = await Review.findOneAndUpdate(
+            { user: user._id, club: club._id },
+            { rating },
+            { runValidators: true, new: true });
         if (existingReview) {
-            existingReview.rating = rating;
-            await existingReview.save();
             return res.status(202).json({ existingReview })
         }
-    
-        const review = await Review.create({ rating, userId, clubId });
+
+        const review = await Review.create({ rating, user: user._id, club: clubId });
+
+        console.log(review)
     
         // Add review to list of user reviews
         user.reviews.push(review._id);

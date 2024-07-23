@@ -8,6 +8,6 @@ const {
 } = require("../controllers/reviewController");
 
 // API routes for Event Controller
-router.put("/", customRequireAuth, addOrUpdateReview); // update an existing event
+router.put("/", customRequireAuth, addOrUpdateReview);
 
 module.exports = router;

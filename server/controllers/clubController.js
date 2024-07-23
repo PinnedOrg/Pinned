@@ -25,54 +25,23 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
     if (genre) filters.genre = genre;
     if (cost >= 0) filters.cost = {$lte: cost};
     if (size >= 0) filters.size = {$lte: size};
-    if (showInactive == "false") {
+    if (showInactive === "false") {
         filters.isActive = true; // only filter for active clubs
     }
 
     try {
-        const threshold = 4; // Example threshold for average rating
-
-        const clubPreviewsList = await Club.aggregate([
-        {
-            $match: { ...searchedName, ...filters }
-        },
-        {
-                $lookup: {
-                from: 'reviews',
-                localField: 'reviews',
-                foreignField: '_id',
-                as: 'reviewDetails'
-            }
-        },
-        {
-            $addFields: {
-                averageRating: { $avg: '$reviewDetails.rating' }
-            }
-        },
-        {
-            $match: {
-                averageRating: { $gt: rating }
-            }
-        },
-        {
-            $project: {
-                _id: 1,
-                name: 1,
-                overview: 1,
-                genre: 1,
-                cost: 1,
-                size: 1,
-                logo: 1,
-                isActive: 1,
-                reviews: 1,
-                colorTheme: 1,
-                averageRating: 1
-            }
-        },
-        {
-            $sort: { name: 1 }
-        }
-        ]);
+        const clubPreviewsList = await Club
+            .find({ ...searchedName, ...filters })
+            .select("   _id \
+                            name \
+                            genre \
+                            cost \
+                            size \
+                            logo \
+                            isActive \
+                            colorTheme")  // only select these fields to return
+            .populate("reviews", "_id rating")
+            .sort({ name: 1 });
 
         return res.status(200).json(clubPreviewsList);
     } catch (error) {
@@ -124,7 +93,6 @@ const getClubEvents = async (req, res) => {
 const createClub = async (req, res) => {
     const {
         name,
-        overview,
         description,
         genre,
         colorTheme,
@@ -186,7 +154,6 @@ const createClub = async (req, res) => {
     try {
         let club = await Club.create({
             name,
-            overview,
             isActive: true,
             logo: image ? { fileId: image.fileId, url: image.url } : null,
             description,

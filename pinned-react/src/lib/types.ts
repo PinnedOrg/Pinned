@@ -1,25 +1,33 @@
+export interface IReview {
+    _id: string;
+    rating: number;
+}
+
+export interface ILogo {
+    fileId: string;
+    url: string; // imagekit path
+}
+
 export interface IClub {
     _id: string; //id
-    name: string
-    logo: {
-        fileId: string;
-        url: string;
-    } // imagekit path
-    overview: string
-    description: string
-    genre: string
-    colorTheme: string
-    location: string
-    cost: number
-    size: number
-    meetingsFrequency: string
-    email: string
-    discord: string
-    instagram: string
-    facebook: string
-    youtube: string
-    events: string[]
-    validation: boolean
+    name: string;
+    logo: ILogo;
+    overview: string;
+    description: string;
+    genre: string;
+    colorTheme: string;
+    location: string;
+    cost: number;
+    size: number;
+    meetingsFrequency: string;
+    email: string;
+    discord: string;
+    instagram: string;
+    facebook: string;
+    youtube: string;
+    events: string[];
+    validation: boolean;
+    reviews: IReview[]
 }
 
 export type ClubContextType = IClub | null;

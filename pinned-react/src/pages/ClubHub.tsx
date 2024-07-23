@@ -87,7 +87,7 @@ const ClubHub = () => {
 
   return (
     <section>
-      <GradientBackground />
+      {/*<GradientBackground />*/}
       <div className="container flex flex-col items-center mt-12">
         <div className="flex flex-col items-center w-full">
           <h1 className="mb-3 text-5xl font-bold tracking-wide text-accent-foreground">

@@ -18,16 +18,10 @@ const clubSchema = new mongoose.Schema(
         },
         required: false
     },
-    overview: { // Short extract of the club
-        type: String,
-        required: [true, "Missing club overview."],
-        maxLength: 100,
-        trim: true, 
-    },
-    description: {  // Full description of the club
+    description: {
         type: String,
         required: [true, "Missing club description."],
-        maxLength: 2500,
+        maxLength: 300,
         trim: true,
     },
     isActive: {

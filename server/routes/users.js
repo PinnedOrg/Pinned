@@ -5,11 +5,13 @@ const { customRequireAuth  } = require('../helpers/fileHelper');
 // Import controllers
 const {
     createUser,
-    subscribe
+    subscribe,
+    getAllUsers
   } = require("../controllers/userController");
 
 router.post("/register", createUser);
 router.post("/subscribe/:clubId", customRequireAuth, subscribe);
+router.get("/", getAllUsers)
 
 
 module.exports = router;
