@@ -55,6 +55,7 @@ app.use("/api/clubs", clubRoutes);
 app.use("/api/users", userRoutes); 
 app.use("/api/reviews", reviewRoutes);
 
+
 // Initial connection to MongoDB using the provided URI
 connectToDatabase(process.env.MONGO_URI);
 

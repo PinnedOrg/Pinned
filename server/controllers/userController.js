@@ -3,6 +3,7 @@ const Club = require("../models/Club");
 const mongoose = require("mongoose");
 
 const createUser = async (req, res) => {
+
     const { userId } = req.auth;
 
     const newUser = new User({

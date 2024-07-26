@@ -13,5 +13,4 @@ router.post("/register", createUser);
 router.post("/subscribe/:clubId", customRequireAuth, subscribe);
 router.get("/", getAllUsers)
 
-
 module.exports = router;
