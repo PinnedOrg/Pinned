@@ -24,9 +24,9 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-import { IClub } from "@/lib/types";
+import {IClub, IReview} from "@/lib/types";
 import { filters } from "@/lib/data";
-import { axiosInstance } from "@/lib/utils";
+import {axiosInstance, computeAverageRating} from "@/lib/utils";
 
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import GradientBackground from "@/components/shared/gradientbackground";
@@ -87,7 +87,7 @@ const ClubHub = () => {
 
   return (
     <section>
-      {/*<GradientBackground />*/}
+      <GradientBackground />
       <div className="container flex flex-col items-center mt-12">
         <div className="flex flex-col items-center w-full">
           <h1 className="mb-3 text-5xl font-bold tracking-wide text-accent-foreground">

@@ -21,7 +21,7 @@ const clubSchema = new mongoose.Schema(
     description: {
         type: String,
         required: [true, "Missing club description."],
-        maxLength: 300,
+        maxLength: 400,
         trim: true,
     },
     isActive: {

@@ -38,6 +38,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                             cost \
                             size \
                             logo \
+                            description \
                             isActive \
                             colorTheme")  // only select these fields to return
             .populate("reviews", "_id rating")

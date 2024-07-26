@@ -6,7 +6,7 @@ import GradientBackground from '@/components/shared/gradientbackground';
 
 const LandingPage = () => {
   return (
-      <section>
+      <section >
          {/* Background Shadow */}
          <GradientBackground />
          
