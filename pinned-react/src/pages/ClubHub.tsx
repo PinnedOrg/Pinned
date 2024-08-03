@@ -24,9 +24,9 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-import {IClub, IReview} from "@/lib/types";
+import {IClub} from "@/lib/types";
 import { filters } from "@/lib/data";
-import {axiosInstance, computeAverageRating} from "@/lib/utils";
+import {axiosInstance} from "@/lib/utils";
 
 import ViewportWrapper from "@/components/shared/ViewportWrapper";
 import GradientBackground from "@/components/shared/gradientbackground";
@@ -34,7 +34,7 @@ import GradientBackground from "@/components/shared/gradientbackground";
 import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
 import ClubLoadingPlaceholder from "@/components/cards/ClubLoadingPlaceholder";
 
-import PageErrorMessage from "@/components/error/PageErrorMessage";
+import ClubFetchingErrorMessage from "@/components/error/ClubFetchingErrorMessage.tsx";
 import ClubNotFoundErrorMessage from "@/components/error/ClubNotFoundErrorMessage";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
@@ -45,6 +45,8 @@ type FormDataType = {
   size: number,
   showInactive: boolean,
 }
+
+
 
 const FetchClubs = ({ name, genre, cost, size, showInactive }: FormDataType) => {
   return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&showInactive=${showInactive}`);
@@ -188,7 +190,7 @@ const ClubHub = () => {
         {(isError || (data?.data.length === 0)) ? (
           <div className="mt-20">
             {isError ? (
-              <PageErrorMessage />
+              <ClubFetchingErrorMessage />
             ) : (
               <ClubNotFoundErrorMessage />
             )}

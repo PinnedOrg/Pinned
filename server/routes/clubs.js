@@ -15,7 +15,7 @@ const {
 
 // API routes for Club Controller
 router.get("/", getClubPreviewsBasedOnFilters); 
-router.get("/:id", getClubDetails); 
+router.get("/:id", getClubDetails);
 router.get("/events/:id", getClubEvents); // get all events for a club based on its id
 router.post("/", customRequireAuth, preview.single('logo'), handleUploadError, createClub); 
 router.delete("/:id", customRequireAuth, deleteClub);

@@ -1,35 +1,44 @@
-import { 
-  Carousel, 
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from "@/components/ui/carousel";
-import { IClub } from "@/lib/types";
-import { testClubData } from "@/lib/data";
 import ClubPreviewCard from "@/components/cards/ClubPreviewCard";
+import {useQuery} from "@tanstack/react-query";
+import ClubLoadingPlaceholder from "@/components/cards/ClubLoadingPlaceholder.tsx";
 
+import {IClub} from "@/lib/types.ts";
+import {axiosInstance} from "@/lib/utils.ts";
+import ClubFetchingErrorMessage from "@/components/error/ClubFetchingErrorMessage.tsx";
+
+
+const fetchFeaturedClubs = async () => {
+  return axiosInstance.get('/api/clubs/?featured=true')
+}
 
 const FeaturedClubs = () => {
-  const ClubOfTheWeekId = "667cb486bc94145d7cf2b468";
-  const upcomingClubId = "664c08955c58341b46c62acc";
 
+  const {isFetching, isError, isSuccess, data } = useQuery({
+    queryKey: ["Clubs"], // query refreshes when this value changes
+    queryFn: fetchFeaturedClubs,
+  });
 
   return (
     <section className="container flex flex-wrap justify-center gap-y-10" id="featured-clubs-section">
       <h1 className="w-full text-2xl font-bold text-center lg:text-3xl">Featured Clubs</h1>
-      <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-        <div className="relative">
-        <ClubPreviewCard club={testClubData[0]} />
-        <div className="absolute rotate-[-30deg] bg-[#FFD700] shadow-sm px-2 py-1 rounded-md top-0 left-[-2rem]  ">
-          Club of the Week
-        </div>
-        </div>
-        <div>
-        <ClubPreviewCard club={testClubData[1]} />
-        
-        </div>
-      </div>  
+      <div className={`grid grid-cols-1 gap-16 ${!isError ? 'md:grid-cols-2' : ''} h-[25rem] `}>
+          {isFetching &&
+            <>
+              <ClubLoadingPlaceholder />
+              <ClubLoadingPlaceholder />
+            </>
+          }
+          {isError &&
+              <div className='h-full mt-24'>
+                <ClubFetchingErrorMessage />
+              </div>
+          }
+          {isSuccess &&
+              data?.data.map((club: IClub) => (
+                <ClubPreviewCard club={club} key={club._id}/>
+              ))
+          }
+      </div>
 
     </section>
   )
