@@ -27,6 +27,7 @@ export interface IClub {
     events: string[];
     validation: boolean;
     reviews: IReview[]
+    featured: number;
 }
 
 export type ClubContextType = IClub | null;

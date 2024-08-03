@@ -109,7 +109,7 @@ const clubSchema = new mongoose.Schema(
     ],
     owner: {
         type: String, // this is a clerk user_id (not the User_id from the model we have)
-        required: (true, "Missing owner."),
+        required: [true, "Missing owner."],
     },
     subscribers: {
         type: [mongoose.Schema.Types.ObjectId],
@@ -120,7 +120,11 @@ const clubSchema = new mongoose.Schema(
         type: [mongoose.Schema.Types.ObjectId],
         ref: "Review",
         default: []
-    }
+    },
+    featured: {
+      type: Number,
+      default: 0
+    },
   },
   {
     timestamps: true,
