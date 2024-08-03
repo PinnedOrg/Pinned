@@ -8,30 +8,38 @@ const Event = require("../models/Event");
 // might need to look at wrapping all functions with express async handler. Re, ChatTime
 
 const getClubPreviewsBasedOnFilters = async (req, res) => {
-    const { name, genre, cost, size, showInactive, rating } = req.query;
+    const { name, genre, cost, size, showInactive, rating, featured } = req.query;
 
-     // searches for name to match searched name, "i" = case insensitive
-     const searchedName = name ? {
-        $or: [ 
-            { name: { $regex: name, $options: "i" } },
-            // add parameters fields to search for here
-        ]
-    } : {};
 
     // ensure that the filters parameters are not undefined or null before adding them to the filters object
     let filters = {
         validation: true
     };
-    if (genre) filters.genre = genre;
-    if (cost >= 0) filters.cost = {$lte: cost};
-    if (size >= 0) filters.size = {$lte: size};
-    if (showInactive === "false") {
-        filters.isActive = true; // only filter for active clubs
+
+    if (featured) {
+        filters.featured = {$gt: 0}; // non zero values are featured
+    } else {
+        if (genre) filters.genre = genre;
+        if (cost >= 0) filters.cost = {$lte: cost};
+        if (size >= 0) filters.size = {$lte: size};
+        if (showInactive === "false") {
+            filters.isActive = true; // only filter for active clubs
+        }
+
+         // searches for name to match searched name, "i" = case insensitive
+         const searchedName = name ? {
+            $or: [
+                { name: { $regex: name, $options: "i" } },
+                // add parameters fields to search for here
+            ]
+        } : {};
+
+        filters = { ...searchedName, ...filters };
     }
 
     try {
         const clubPreviewsList = await Club
-            .find({ ...searchedName, ...filters })
+            .find(filters)
             .select("   _id \
                             name \
                             genre \
@@ -40,7 +48,8 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                             logo \
                             description \
                             isActive \
-                            colorTheme")  // only select these fields to return
+                            colorTheme \
+                            featured")  // only select these fields to return
             .populate("reviews", "_id rating")
             .sort({ name: 1 });
 
