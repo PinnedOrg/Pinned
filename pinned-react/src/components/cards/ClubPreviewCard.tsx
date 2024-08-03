@@ -11,12 +11,14 @@ import {
 import { Link } from 'react-router-dom'
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { FaUserFriends } from "react-icons/fa";
-import { costLabel, sizeLabel, tintColor } from '@/lib/utils'
+import {computeAverageRating, costLabel, sizeLabel, tintColor} from '@/lib/utils'
 import { useTheme } from '@/components/shared/ThemeProvider'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { IKContext, IKImage } from 'imagekitio-react'
 import { imagekitEndpoints } from '@/lib/data'
 import { routes } from '@/lib/routes'
+import shadow from "@/components/clubprofile/Shadow.tsx";
+import StarRating from "@/components/shared/StarRating.tsx";
 
 type ClubPreviewCardProps = {
   club: IClub
@@ -28,8 +30,11 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
 // #020617
   return (
    <Link to={`${routes.ClubProfile}${club._id}`}>
-      <Card className='h-[23.2rem] min-w-[18rem] max-w-[21rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300' style={{ backgroundImage: `linear-gradient(to top, ${theme === 'light'? 'white, white' : '#0f172a, #0f172a'}, ${theme == 'light'? club.colorTheme : tintColor(club.colorTheme, tintFactor)})` }}>
-        <CardHeader className='flex flex-col items-center pb-2'>
+     {/*style={{ backgroundImage: `linear-gradient(to top, ${theme === 'light'? 'white, white' : '#0f172a, #0f172a'}, ${theme == 'light'? club.colorTheme : tintColor(club.colorTheme, tintFactor)})` }}
+     Or add shadow or change the title color for each card
+     */}
+      <Card className='h-[25rem] min-w-[18rem] max-w-[21rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300' >
+        <CardHeader className='flex flex-col items-center pb-2 space-y-2'>
           <IKContext urlEndpoint={imagekitEndpoints['club']} publicKey={import.meta.env.IMAGEKIT_PUBLIC_KEY}>
             <Avatar className='w-[8.5rem] sm:w-[8rem] md:w-[8.5rem] h-auto aspect-square border-2 border-slate-200 dark:border-slate-800'>
               {club.logo != null ? (
@@ -39,26 +44,33 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
               )}
             </Avatar>
           </IKContext>
-          <CardTitle className='text-center'>{club.name}</CardTitle>
-          <Badge variant={'outline'} className='mt-2 bg-white border-none text-primary bg-primary-background'>
-            {club.genre}
-          </Badge>
+          <CardTitle className='text-center' >{club.name}</CardTitle>
+          <StarRating rating={computeAverageRating(club.reviews)} />
         </CardHeader>
-        <CardContent className=''>
-          <CardDescription className='text-sm text-center'>{club.overview}</CardDescription>
-          <CardFooter className='absolute bottom-0 left-0 flex justify-center w-full gap-4 '>
-            <Badge variant={'outline'} className='border-none bg-muted text-nowrap'>
+
+        <CardContent className='space-y-2 mt-2 overflow-hidden'>
+          <CardDescription className='text-sm text-center overflow-hidden h-16'>
+            {club.description}
+          </CardDescription>
+          <div className='flex justify-center'>
+            <Badge variant={'outline'} className='bg-white border-none text-primary bg-primary-background w-max'>
+              {club.genre}
+            </Badge>
+          </div>
+          <CardFooter className=' mt-4 flex justify-center w-full gap-4 h-min '>
+            <Badge variant={'outline'} className=' border-muted-foreground bg-muted text-nowrap w-24 justify-center'>
               {costLabel(club.cost)}
             </Badge>
-            <Badge variant={'outline'} className='gap-2 border-none bg-muted text-nowrap '>
+            <Badge variant={'outline'} className='gap-2 border-muted-foreground bg-muted text-nowrap '>
               {sizeLabel(club.size)}
               <FaUserFriends />
             </Badge>
           </CardFooter>
         </CardContent>
+
         <TooltipProvider >
           <Tooltip>
-            <TooltipTrigger className='absolute top-2 right-2'>
+            <TooltipTrigger className='absolute top-3 right-3'>
               <FaArrowUpRightFromSquare size={20} className='text-gray-300 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300 hover:scale-[1.05] transition' />
             </TooltipTrigger>
             <TooltipContent>

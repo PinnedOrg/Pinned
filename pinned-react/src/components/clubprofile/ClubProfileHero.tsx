@@ -21,7 +21,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
           <h1 className="text-lg font-medium text-purple-600 dark:text-purple-400">WELCOME TO OUR CLUB</h1>
           <h2 className="mt-2 text-4xl lg:text-7xl font-extrabold text-gray-900 dark:text-white">{clubData.name}</h2>
           <p className="mt-6 text-base lg:text-lg max-w-md text-gray-700 dark:text-gray-300">
-            {clubData.overview}
+            {clubData.description}
           </p>
           {clubData.apply_link && (
             <button className="mt-6 w-48 px-6 py-2 bg-purple-600 text-white font-semibold rounded-full hover:bg-purple-700 transition duration-300">

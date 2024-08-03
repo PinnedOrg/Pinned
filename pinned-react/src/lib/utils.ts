@@ -32,6 +32,7 @@ export const axiosInstance = axios.create({
 });
 
 import { costFilters, sizeFilters } from "./data";
+import {IReview} from "@/lib/types.ts";
 export function costLabel (cost: number) {
   for (const [text, threshold] of Object.entries(costFilters)) {
     if (cost <= parseInt(threshold)) {
@@ -48,4 +49,15 @@ export function sizeLabel(size: number) {
     }
   }
   return Object.keys(sizeFilters)[Object.keys(sizeFilters).length - 1];
+}
+
+export function computeAverageRating(reviews: Array<IReview>) {
+  if (!reviews) return 0;
+  if (reviews.length === 0) return 0;
+
+  let avg = 0;
+  reviews.forEach(review => {
+    avg += review.rating;
+  })
+  return Math.round(avg / reviews.length);
 }

@@ -8,7 +8,7 @@ const Event = require("../models/Event");
 // might need to look at wrapping all functions with express async handler. Re, ChatTime
 
 const getClubPreviewsBasedOnFilters = async (req, res) => {
-    const { name, genre, cost, size, showInactive } = req.query;
+    const { name, genre, cost, size, showInactive, rating } = req.query;
 
      // searches for name to match searched name, "i" = case insensitive
      const searchedName = name ? {
@@ -25,24 +25,25 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
     if (genre) filters.genre = genre;
     if (cost >= 0) filters.cost = {$lte: cost};
     if (size >= 0) filters.size = {$lte: size};
-    if (showInactive == "false") {
+    if (showInactive === "false") {
         filters.isActive = true; // only filter for active clubs
     }
 
     try {
         const clubPreviewsList = await Club
-                                    .find({ ...searchedName, ...filters })
-                                    .select(" _id \
-                                            name \
-                                            overview \
-                                            genre \
-                                            cost \
-                                            size \
-                                            logo \
-                                            isActive \
-                                            colorTheme")  // only select these fields to return
-                                    .sort({ name: 1 });
-                                    
+            .find({ ...searchedName, ...filters })
+            .select("   _id \
+                            name \
+                            genre \
+                            cost \
+                            size \
+                            logo \
+                            description \
+                            isActive \
+                            colorTheme")  // only select these fields to return
+            .populate("reviews", "_id rating")
+            .sort({ name: 1 });
+
         return res.status(200).json(clubPreviewsList);
     } catch (error) {
         console.error("Error retrieving club previews: ", error);
@@ -93,7 +94,6 @@ const getClubEvents = async (req, res) => {
 const createClub = async (req, res) => {
     const {
         name,
-        overview,
         description,
         genre,
         colorTheme,
@@ -155,7 +155,6 @@ const createClub = async (req, res) => {
     try {
         let club = await Club.create({
             name,
-            overview,
             isActive: true,
             logo: image ? { fileId: image.fileId, url: image.url } : null,
             description,

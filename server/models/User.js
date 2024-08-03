@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema(
         required: false,
         ref: "Club"
     },
+    reviews: {
+        type: [mongoose.Schema.Types.ObjectId],
+        required: false,
+        ref: "Review"
+    }
   },
   {
     timestamps: true,

@@ -2,12 +2,14 @@ const User = require("../models/User");
 const Club = require("../models/Club");
 const mongoose = require("mongoose");
 
-const createUser = async (req) => {
+const createUser = async (req, res) => {
+
     const { userId } = req.auth;
 
     const newUser = new User({
       clerkId: userId, // Clerk user ID
-      clubs: []
+      clubs: [],
+      reviews: []
     });
 
     const savedUser = await newUser.save();
@@ -19,10 +21,10 @@ const subscribe = async (req, res) => {
   const { userId } = req.auth;
 
   try {
-    const user = await User.findOne({ clerkId: userId });
+    let user = await User.findOne({ clerkId: userId });
 
     if (!user) {
-      createUser(req);
+      await createUser(req);
       user = await User.findOne({ clerkId: userId })
     }
 
@@ -69,7 +71,18 @@ const subscribe = async (req, res) => {
   }
 }
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}).sort({ createdAt: -1 });
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
-	createUser,
+  createUser,
   subscribe,
+  getAllUsers
 };
