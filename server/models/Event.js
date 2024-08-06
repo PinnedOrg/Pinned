@@ -15,27 +15,23 @@ const eventSchema = new mongoose.Schema(
         "Event description can not be longer than 200 characters.",
       ],
     },
-    contact: {
-      type: String,
-      required: false,
-    },
-    tags: {
-      type: [String], // TODO: Update seperate tags model
-      required: [true, "Please add at least one tag."], // requirement with custom error message
-    },
-    date: {
+    // contact: {
+    //   type: String,
+    //   required: false,
+    // },
+    // tags: {
+    //   type: [String], // TODO: Update seperate tags model
+    //   required: [true, "Please add at least one tag."], // requirement with custom error message
+    // },
+    dateTime: {
       type: Date, // type date handles both date and time, it might be redundant to include the time attribute
-      required: false
-    },
-    time: {
-      type: String,
       required: false
     },
     location: {
       type: String,
       required: false
     },
-    preview: { // adding 'required: false' breaks this as it has nested properties
+    image: { // adding 'required: false' breaks this as it has nested properties
       data: Buffer,
       extension: String
     },

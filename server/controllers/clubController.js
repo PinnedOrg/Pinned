@@ -4,6 +4,7 @@ const FormData = require("form-data");
 
 const Club = require("../models/Club");
 const Event = require("../models/Event");
+const Image = require("../models/Image");
 
 // might need to look at wrapping all functions with express async handler. Re, ChatTime
 
@@ -45,11 +46,11 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                             genre \
                             cost \
                             size \
-                            logo \
                             description \
                             isActive \
                             colorTheme \
                             featured")  // only select these fields to return
+            .populate("logo")
             .populate("reviews", "_id rating")
             .sort({ name: 1 });
 
@@ -67,7 +68,11 @@ const getClubDetails = async (req, res) => {
         return res.status(404).json({ error: "Club not found." });
     }
 
-    const club = await Club.findById(id);
+    const club = await Club.findById(id)
+        .populate('logo')
+        .populate('reviews')
+        .populate('events')
+        .populate('subscribers');
 
     if (!club) {
         return res.status(404).json({ error: "Club not found." });
@@ -162,10 +167,16 @@ const createClub = async (req, res) => {
     }
 
     try {
+        const logo = image ? await Image.create({
+            fileId: image.fileId,
+            url: image.url
+        }) : null
+
+
         let club = await Club.create({
             name,
             isActive: true,
-            logo: image ? { fileId: image.fileId, url: image.url } : null,
+            logo,
             description,
             genre,
             colorTheme,
