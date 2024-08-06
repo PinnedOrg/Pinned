@@ -20,7 +20,7 @@ const eventSchema = new mongoose.Schema(
     //   required: false,
     // },
     // tags: {
-    //   type: [String], // TODO: Update seperate tags model
+    //   type: [String], // TODO: Update separate tags model
     //   required: [true, "Please add at least one tag."], // requirement with custom error message
     // },
     dateTime: {
