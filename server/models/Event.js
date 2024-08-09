@@ -31,9 +31,10 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: false
     },
-    image: { // adding 'required: false' breaks this as it has nested properties
-      data: Buffer,
-      extension: String
+    image: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "Image",
     },
     belongsToClub: {
       type: mongoose.Schema.Types.ObjectId,

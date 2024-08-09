@@ -5,6 +5,7 @@ const FormData = require("form-data");
 const Club = require("../models/Club");
 const Event = require("../models/Event");
 const Image = require("../models/Image");
+const {uploadToImageKit, deleteFromImageKit} = require("../helpers/imagekitUploader");
 
 // might need to look at wrapping all functions with express async handler. Re, ChatTime
 
@@ -81,29 +82,30 @@ const getClubDetails = async (req, res) => {
     return res.status(200).json(club);
 };
 
-const getClubEvents = async (req, res) => {
-	const { id } = req.params;
-
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(404).json({ error: "Club not found." });
-	}
-
-	try {
-		const club = await Club.findById(id);
-
-		if (!club) {
-			return res.status(404).json({ error: "Club not found." });
-		}
-
-		const events = await Event.find({ belongsToClub: id })
-			.select("_id title description tags preview createdAt updatedAt")
-			.sort({ createdAt: -1 });
-
-		return res.status(200).json(events);
-	} catch (error) {
-		return res.status(500).json({ error: error.message });
-	}
-}
+// Not needed since we get this data from fetching the club itself
+// const getClubEvents = async (req, res) => {
+// 	const { id } = req.params;
+//
+// 	if (!mongoose.Types.ObjectId.isValid(id)) {
+// 		return res.status(404).json({ error: "Club not found." });
+// 	}
+//
+// 	try {
+// 		const club = await Club.findById(id);
+//
+// 		if (!club) {
+// 			return res.status(404).json({ error: "Club not found." });
+// 		}
+//
+// 		const events = await Event.find({ belongsToClub: id })
+// 			.select("_id title description tags preview createdAt updatedAt")
+// 			.sort({ createdAt: -1 });
+//
+// 		return res.status(200).json(events);
+// 	} catch (error) {
+// 		return res.status(500).json({ error: error.message });
+// 	}
+// }
 
 const createClub = async (req, res) => {
     const {
@@ -125,45 +127,34 @@ const createClub = async (req, res) => {
     const { userId } = req.auth;
 
     // commented out for now until testing is done
-    // const existingClub = await Club.findOne({ owner: userId });
-    // if (existingClub) {
-    //     return res.status(400).json({ error: 'Can not own more than 1 club.' });
-    // }
+    const existingClub = await Club.findOne({ owner: userId });
+    if (existingClub && process.env.ENVIRONMENT === 'Production') {
+        return res.status(400).json({ error: 'Can not own more than 1 club.' });
+    }
     if (!name) {
         return res.status(400).json({ error: "Missing club name" });
     }
-    const existingClub = await Club.findOne({ name: { $regex: name, $options: "i" } }); // case-insensitive search
-    if (existingClub && process.env.ENVIRONMENT === 'Production') {
+    const existingClubWithSameName = await Club.findOne({ name: { $regex: name, $options: "i" } }); // case-insensitive search
+    if (existingClubWithSameName) {
         return res.status(400).json({ error: 'Club with that name already exists.' });
     }
 
-    let image, encodedApiKey;
+    let image;
     if (req.file) {
-        const logoBinary = req.file.buffer;
-        const fileName = req.file.originalname;
-        const folder = `${process.env.ENVIRONMENT === 'Production' ? 'Prod' : 'Dev'}/Clubs/${name}`;
-        const tags = 'Logo'; // add additional tags separated by commas no space
-        encodedApiKey = Buffer.from(`${process.env.IMAGEKIT_PRIVATE_KEY}:`).toString('base64') // colon after private key is required for imagekit
+        const response = await uploadToImageKit(
+            req.file.buffer,
+            req.file.originalname,
+            `/Clubs/${name}`,
+            ['Logo']);
 
-        // Create form data
-        const formData = new FormData();
-        formData.append('file', logoBinary, fileName);
-        formData.append('fileName', fileName);
-        formData.append('folder', folder);
-        formData.append('tags', tags);
+        console.log(response)
 
-        // Upload to Imagekit
-        await axios.post('https://upload.imagekit.io/api/v2/files/upload', formData, {
-            headers: {
-                ...formData.getHeaders(),
-                Authorization: `Basic ${encodedApiKey}`,
-            },
-        }).then((res) => {
-            image = res.data;
-        }).catch((err) => {
-            console.log(`Error (${err.status}) uploading to Imagekit: ${err.message}`)
-            return res.status(500).json({ error: err.message });
-        });
+        // Image upload error
+        if (response.error) {
+            return res.status(400).json({ error: response.error });
+        }
+
+        image = response.data;
     }
 
     try {
@@ -171,7 +162,6 @@ const createClub = async (req, res) => {
             fileId: image.fileId,
             url: image.url
         }) : null
-
 
         let club = await Club.create({
             name,
@@ -196,15 +186,7 @@ const createClub = async (req, res) => {
     } catch (error) {
         // Delete file if there was an error in the club creation
         if (req.file) {
-            await axios.delete(`https://upload.imagekit.io/api/v1/files/${image?.fileId ?? ""}`, {
-                headers: {
-                    Authorization: `Basic ${encodedApiKey}`,
-                },
-            }).then(() => {
-                console.log(`${image.fileId} deleted from ImageKit`)
-            }).catch((err) => {
-                console.log(`Unable to delete ${image.fileId} from ImageKit: ${err.message}`);
-            });
+            await deleteFromImageKit(image.fileId);
         }
         console.log(error.message)
         res.status(400).json({ error: error.message });
@@ -228,8 +210,10 @@ const deleteClub = async (req, res) => {
         return res.status(403).json({ error: "Can not delete a club you do not own." });
     }
 
+    //TODO: delete all images from imagekit
     await club.deleteOne();
 
+    //TODO: this should also delete the event images from imagekit
     await Event.deleteMany({ _id: { $in: club.events } })
 
     res.status(200).json(club);
@@ -295,7 +279,7 @@ const updateClub = async (req, res) => {
 module.exports = {
     getClubPreviewsBasedOnFilters,
     getClubDetails,
-	getClubEvents,
+	// getClubEvents,
     createClub,
     deleteClub,
     updateClub,
