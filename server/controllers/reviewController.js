@@ -4,7 +4,8 @@ const Club = require('../models/Club');
 const User = require('../models/User');
 
 const addOrUpdateReview = async (req, res) => {
-    const { rating, clubId } = req.query;
+    const { engagement, commitment, inclusivity, organization, comment } = req.body;
+    const { clubId } = req.params;
     const { userId } = req.auth
 
     try {
@@ -24,15 +25,20 @@ const addOrUpdateReview = async (req, res) => {
     
         let existingReview = await Review.findOneAndUpdate(
             { user: user._id, club: club._id },
-            { rating },
+            { engagement, commitment, inclusivity, organization, comment },
             { runValidators: true, new: true });
         if (existingReview) {
             return res.status(202).json({ existingReview })
         }
 
-        const review = await Review.create({ rating, user: user._id, club: clubId });
-
-        console.log(review)
+        const review = await Review.create({ 
+            engagement, 
+            commitment,
+            inclusivity, 
+            organization,
+            comment,
+            user: user._id, 
+            club: clubId });
     
         // Add review to list of user reviews
         user.reviews.push(review._id);

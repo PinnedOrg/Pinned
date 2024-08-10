@@ -1,6 +1,10 @@
 export interface IReview {
     _id: string;
-    rating: number;
+    engagement: number;
+    commitment: number;
+    inclusivity: number;
+    organization: number;
+    comment: string;
 }
 
 export interface ILogo {
