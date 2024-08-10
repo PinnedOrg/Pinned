@@ -8,14 +8,8 @@ const clubSchema = new mongoose.Schema(
         maxLength: 50
     },
     logo: {
-        type: {
-            fileId: {
-                type: String
-            },
-            url: {
-                type: String,
-            }
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Image',
         required: false
     },
     description: {

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { preview, handleUploadError, customRequireAuth } = require('../helpers/fileHelper');
+const { preview, handleUploadError } = require('../helpers/fileHelper');
+const { customRequireAuth } = require('../helpers/authHelper');
 
 // Import controllers
 const {
