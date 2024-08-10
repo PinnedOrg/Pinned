@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Search, FilterIcon, ChevronUp, ChevronDown, RotateCcw } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -37,19 +38,22 @@ import ClubLoadingPlaceholder from "@/components/cards/ClubLoadingPlaceholder";
 import ClubFetchingErrorMessage from "@/components/error/ClubFetchingErrorMessage.tsx";
 import ClubNotFoundErrorMessage from "@/components/error/ClubNotFoundErrorMessage";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Label } from "@/components/ui/label";
+import { FaStar } from "react-icons/fa";
 
 type FormDataType = {
   name: string,
   genre: string,
   cost: number,
   size: number,
+  rating: number,
   showInactive: boolean,
 }
 
 
 
-const FetchClubs = ({ name, genre, cost, size, showInactive }: FormDataType) => {
-  return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&showInactive=${showInactive}`);
+const FetchClubs = ({ name, genre, cost, size, rating, showInactive }: FormDataType) => {
+  return axiosInstance.get(`/api/clubs/?name=${name}&genre=${genre}&cost=${cost}&size=${size}&showInactive=${showInactive}&rating=${rating}`);
 }
 
 const resetFilters = () => {
@@ -62,6 +66,7 @@ const ClubHub = () => {
     genre: "",
     cost: -1,
     size: -1,
+    rating: 0,
     showInactive: false,
   });
 
@@ -171,6 +176,21 @@ const ClubHub = () => {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+            <div className="flex justify-center gap-4 p-6">
+              <Label htmlFor="rating" className="text-accent-foreground">Rating</Label>
+              <Slider 
+                defaultValue={[0]} 
+                min={0} 
+                max={5} 
+                step={1} 
+                className="w-[12rem]"
+                onValueChange={(newValue: number[]) => handleUpdateFilters(newValue[0], "rating")} 
+              />
+              <Label htmlFor="rating" className="flex gap-1 text-accent-foreground">
+                {formData.rating}
+                <FaStar className="text-accent-foreground" />
+              </Label>
             </div>
             <div className="flex items-center mt-3 space-x-2">
               <Checkbox id="inactive" onCheckedChange={(checked: boolean) => handleUpdateFilters(checked, "showInactive")} />

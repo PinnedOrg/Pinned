@@ -27,6 +27,7 @@ export interface IClub {
     events: string[];
     validation: boolean;
     reviews: IReview[]
+    avgRating: number;
     featured: number;
 }
 
