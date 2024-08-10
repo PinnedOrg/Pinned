@@ -38,7 +38,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
     }
 
     try {
-        const clubPreviewsList = await Club
+        let clubPreviewsList = await Club
             .find(filters)
             .select("   _id \
                             name \
@@ -52,6 +52,19 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                             featured")  // only select these fields to return
             .populate("reviews", "_id rating")
             .sort({ name: 1 });
+
+        // compute average rating for each club
+        clubPreviewsList = clubPreviewsList.map(club => {
+            let avgRating = 0;
+            if (club.reviews.length > 0) {
+                avgRating = club.reviews.reduce((acc, review) => acc + review.rating, 0) / club.reviews.length;
+            }
+            return { ...club._doc, avgRating };
+        });
+        
+        if (rating) {
+            clubPreviewsList = clubPreviewsList.filter(club => club.avgRating >= rating);
+        }
 
         return res.status(200).json(clubPreviewsList);
     } catch (error) {
