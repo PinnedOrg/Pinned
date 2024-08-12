@@ -4,6 +4,7 @@ const Club = require('../models/Club');
 const User = require('../models/User');
 
 const addOrUpdateReview = async (req, res) => {
+    // console.log(req.body);
     const { engagement, commitment, inclusivity, organization, comment } = req.body;
     const { clubId } = req.params;
     const { userId } = req.auth
@@ -54,7 +55,48 @@ const addOrUpdateReview = async (req, res) => {
     }
 }
 
+const deleteReview = async (req, res) => {
+    const { reviewId } = req.params;
+    const { userId } = req.auth
+
+    try {
+        let user = await User.findOne({ clerkId: userId });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(reviewId)) {
+            return res.status(400).json({ error: "Invalid review id." });
+        }
+
+        let review = await Review.findById(reviewId);
+        if (!review) {
+            return res.status(404).json({ error: "Review not found" });
+        }
+
+        if (review.user !== user._id) {
+            return res.status(403).json({ error: "You are not authorized to delete this review." });
+        }
+
+        await Review.findByIdAndDelete(reviewId);
+
+        // Remove review from list of user reviews
+        user.reviews = user.reviews.filter(r => r.toString() !== reviewId);
+        await user.save();
+
+        // Remove review from list of club reviews
+        let club = await Club.findById(review.club);
+        club.reviews = club.reviews.filter(r => r.toString() !== reviewId);
+        await club.save();
+
+        return res.status(200).json({ message: "Review deleted successfully." });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+}
+
 
 module.exports =  {
     addOrUpdateReview,
+    deleteReview
 }
