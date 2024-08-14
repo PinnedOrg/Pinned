@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Review = require('../models/Review');
 const Club = require('../models/Club');
 const User = require('../models/User');
+const { checkForProfanity } = require("../helpers/textFilters");
 
 const addOrUpdateReview = async (req, res) => {
     // console.log(req.body);
@@ -23,13 +24,17 @@ const addOrUpdateReview = async (req, res) => {
         if (!club) {
             return res.status(404).json({ error: "Club not found" });
         }
+
+        if (checkForProfanity(comment)) {
+            return res.status(400).json({ error: "Comment contains profanity" });
+        }
     
         let existingReview = await Review.findOneAndUpdate(
             { user: user._id, club: club._id },
             { engagement, commitment, inclusivity, organization, comment },
             { runValidators: true, new: true });
         if (existingReview) {
-            return res.status(202).json({ existingReview })
+            return res.status(202).json({ review: existingReview })
         }
 
         const review = await Review.create({ 
