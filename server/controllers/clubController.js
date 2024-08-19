@@ -52,14 +52,17 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                             colorTheme \
                             featured")  // only select these fields to return
             .populate("logo")
-            .populate("reviews", "_id rating")
+            .populate("reviews", "_id engagement commitment inclusivity organization")
             .sort({ name: 1 });
 
         // compute average rating for each club
         clubPreviewsList = clubPreviewsList.map(club => {
             let avgRating = 0;
             if (club.reviews.length > 0) {
-                avgRating = club.reviews.reduce((acc, review) => acc + review.rating, 0) / club.reviews.length;
+                club.reviews.forEach((review) => {
+                    avgRating += (review.engagement + review.commitment + review.inclusivity + review.organization);
+                })
+                avgRating /= (club.reviews.length * 4); // each review has 4 ratings
             }
             return { ...club._doc, avgRating };
         });
@@ -84,7 +87,7 @@ const getClubDetails = async (req, res) => {
 
     const club = await Club.findById(id)
         .populate('logo')
-        .populate('reviews')
+        .populate('reviews') // TODO: sort this by the updatedAt property
         .populate('events')
         .populate('subscribers');
 
