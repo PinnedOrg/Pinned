@@ -65,9 +65,6 @@ const ClubProfile = () => {
             <GradientBackground />
             <ClubProfileHero clubData={clubData}/>
           </div>
-          <ClubProfileAboutUs hasScrolledAboutUs={hasScrolledAboutUs} clubData={clubData}/>
-          <ClubProfileItemizedDescription hasScrolledFacts={hasScrolledFacts} clubData={clubData}/>
-          <ClubProfilePhotos hasScrolledPhotos={hasScrolledPhotos} clubData={clubData}/>
         </div>)
         : 
         (
