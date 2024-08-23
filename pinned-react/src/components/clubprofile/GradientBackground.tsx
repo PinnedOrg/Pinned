@@ -39,66 +39,7 @@ const GradientBackground = () => {
         filter="blur(150px)"
         animationName="shadow-slide-blue"
       />
-      <Shadow
-        className="shadow-purple-2"
-        background="hsla(280, 100%, 50%, 0%)"
-        borderRadius="24px"
-        rotate="194deg"
-        width="40px"
-        height="300px"
-        left="0px"
-        top="800px"
-        filter="blur(100px)"
-        animationName="shadow-slide-purple"
-      />
-      <Shadow
-        className="shadow-blue-3"
-        background="hsla(240, 100%, 50%, 0%)"
-        borderRadius="24px"
-        rotate="59deg"
-        width="185px"
-        height="419px"
-        left="286px"
-        top="1500px"
-        filter="blur(150px)"
-        animationName="shadow-slide-blue"
-      />
-      <Shadow
-        className="shadow-purple-3"
-        background="hsla(280, 100%, 50%, 0%)"
-        borderRadius="24px"
-        rotate="16deg"
-        width="119px"
-        height="302px"
-        right="0px"
-        top="1700px"
-        filter="blur(100px)"
-        animationName="shadow-slide-purple"
-      />
-      <Shadow
-        className="shadow-blue-4"
-        background="hsla(240, 100%, 50%, 0%)"
-        borderRadius="24px"
-        rotate="74deg"
-        width="100px"
-        height="300px"
-        right="0px"
-        top="2100px"
-        filter="blur(150px)"
-        animationName="shadow-slide-blue"
-      />
-      <Shadow
-        className="shadow-purple-4"
-        background="hsla(280, 100%, 50%, 0%)"
-        borderRadius="24px"
-        rotate="13deg"
-        width="40px"
-        height="300px"
-        left="500px"
-        top="2200px"
-        filter="blur(100px)"
-        animationName="shadow-slide-purple"
-      />
+
     </>
   );
 };
