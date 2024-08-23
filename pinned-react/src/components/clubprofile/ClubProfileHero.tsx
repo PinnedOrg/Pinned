@@ -7,13 +7,13 @@ type ClubProfileHeroProps = {
 
 const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden -mt-24">
       <div className={`flex flex-col lg:flex-row justify-between items-center px-4 lg:px-64 transition-transform duration-1000 ${
         isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
       }`}>
