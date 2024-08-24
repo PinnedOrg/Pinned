@@ -8,9 +8,9 @@ export const imagekitEndpoints: Record<imagekitURLType, string> = {
 export const userUses = 
     [   
         "Connect with new people",
+        "Review and rate clubs", 
         "Get involved immediately",
         "Stay updated with events", 
-        "W.I.P", 
     ]
 
 export const clubUses =
