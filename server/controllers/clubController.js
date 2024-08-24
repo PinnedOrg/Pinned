@@ -6,6 +6,7 @@ const Club = require("../models/Club");
 const Event = require("../models/Event");
 const Image = require("../models/Image");
 const {uploadToImageKit, deleteFromImageKit} = require("../helpers/imagekitUploader");
+const { parse } = require("path");
 
 // might need to look at wrapping all functions with express async handler. Re, ChatTime
 
@@ -43,34 +44,37 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
         let clubPreviewsList = await Club
             .find(filters)
             .select("   _id \
-                            name \
-                            genre \
-                            cost \
-                            size \
-                            description \
-                            isActive \
-                            colorTheme \
-                            featured")  // only select these fields to return
+                        name \
+                        genre \
+                        cost \
+                        size \
+                        description \
+                        isActive \
+                        colorTheme \
+                        featured")  // only select these fields to return
             .populate("logo")
-            .populate("reviews", "_id rating")
+            .populate("reviews")
             .sort({ name: 1 });
 
-        // compute average rating for each club
+        //compute average rating for each club
         clubPreviewsList = clubPreviewsList.map(club => {
+            let c = club.toObject();
             let avgRating = 0;
-            if (club.reviews.length > 0) {
-                avgRating = club.reviews.reduce((acc, review) => acc + review.rating, 0) / club.reviews.length;
+            if (c.reviews?.length > 0) {
+                c.reviews.forEach(review => {
+                    const engagement = review.engagement || 0;
+                    const commitment = review.commitment || 0;
+                    const inclusivity = review.inclusivity || 0;
+                    const organization = review.organization || 0;
+                    avgRating += (engagement + commitment + inclusivity + organization);
+                });
+                avgRating /= (c.reviews.length * 4); // each review has 4 ratings
             }
-            return { ...club._doc, avgRating };
-        });
-        
-        if (rating) {
-            clubPreviewsList = clubPreviewsList.filter(club => club.avgRating >= rating);
-        }
+            return { ...c, avgRating };
+        }).filter(club => club.avgRating >= (rating || 0));
 
         return res.status(200).json(clubPreviewsList);
     } catch (error) {
-        console.error("Error retrieving club previews: ", error);
         return res.status(500).json({ error: "Internal Server Error" });
     }
 }
