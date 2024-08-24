@@ -7,13 +7,13 @@ type ClubProfileHeroProps = {
 
 const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden -mt-24">
       <div className={`flex flex-col lg:flex-row justify-between items-center px-4 lg:px-64 transition-transform duration-1000 ${
         isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
       }`}>
@@ -23,11 +23,6 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
           <p className="mt-6 text-base lg:text-lg max-w-md text-gray-700 dark:text-gray-300">
             {clubData.description}
           </p>
-          {clubData.apply_link && (
-            <button className="mt-6 w-48 px-6 py-2 bg-purple-600 text-white font-semibold rounded-full hover:bg-purple-700 transition duration-300">
-              <a href={clubData.apply_link}>Join Here</a>
-            </button>
-          )}
           <div className="mt-4 flex space-x-4">
             {clubData.facebook && (
               <a href={clubData.facebook} className="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-white">

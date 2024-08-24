@@ -4,20 +4,20 @@ const GradientBackground = () => {
   return (
     <>
       <Shadow
-        className="shadow-blue"
-        background="hsla(240, 100%, 50%, 0%)"
+        className="shadow-primary"
+        background="var(--secondary)"
         borderRadius="24px"
         rotate="29deg"
         width="200px"
-        height="500px"
+        height="400px"
         left="250px"
         top="150px"
         filter="blur(150px)"
-        animationName="shadow-slide-blue"
+        animationName="shadow-slide-primary"
       />
       <Shadow
-        className="shadow-purple"
-        background="hsla(280, 100%, 50%, 0%)"
+        className="shadow-secondary"
+        background="var(--primary)"
         borderRadius="24px"
         rotate="93deg"
         width="100px"
@@ -25,21 +25,8 @@ const GradientBackground = () => {
         right="0px"
         top="1px"
         filter="blur(100px)"
-        animationName="shadow-slide-purple"
+        animationName="shadow-slide-secondary"
       />
-      <Shadow
-        className="shadow-blue-2"
-        background="hsla(240, 100%, 50%, 0%)"
-        borderRadius="24px"
-        rotate="74deg"
-        width="150px"
-        height="500px"
-        right="50px"
-        top="800px"
-        filter="blur(150px)"
-        animationName="shadow-slide-blue"
-      />
-
     </>
   );
 };

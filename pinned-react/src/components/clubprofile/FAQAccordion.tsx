@@ -27,7 +27,7 @@ const faqs: FAQ[] = [
 
 export function FAQAccordion() {
   return (
-    <div className="mt-8 px-8">
+    <div className="mt-8 px-8 container">
       <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
       <Accordion type="single" collapsible>
         {faqs.map((faq, index) => (

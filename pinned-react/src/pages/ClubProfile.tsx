@@ -10,7 +10,7 @@ import ClubProfilePhotos from '@/components/clubprofile/ClubProfilePhotos';
 import ClubDoesNotExistErrorMessage from '@/components/error/ClubDoesNotExistErrorMessage';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import ClubErrorMessage from "@/components/error/ClubErrorMessage";
-
+import { FAQAccordion } from "@/components/clubprofile/FAQAccordion";
 const ClubProfile = () => {
   const [hasScrolledAboutUs, setHasScrolledAboutUs] = useState(false);
   const [hasScrolledFacts, setHasScrolledFacts] = useState(false);
@@ -65,6 +65,7 @@ const ClubProfile = () => {
             <GradientBackground />
             <ClubProfileHero clubData={clubData}/>
           </div>
+          <FAQAccordion />
         </div>)
         : 
         (

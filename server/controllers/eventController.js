@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Event = require("../models/Event");
 const Club = require("../models/Club");
-const {populate} = require("dotenv");
 const {uploadToImageKit} = require("../helpers/imagekitUploader");
 
 // get all events
