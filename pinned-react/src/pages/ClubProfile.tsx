@@ -2,12 +2,15 @@ import { axiosInstance } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
+
 import GradientBackground from '@/components/clubprofile/GradientBackground';
 import ClubProfileHero from '@/components/clubprofile/ClubProfileHero';
 import ClubProfileAboutUs from '@/components/clubprofile/ClubProfileAboutUs';
 import ClubProfileItemizedDescription from '@/components/clubprofile/ClubProfileItemizedDescription';
 import ClubProfilePhotos from '@/components/clubprofile/ClubProfilePhotos';
+import ClubProfileReviews from "@/components/clubprofile/ClubProfileReviews";
 import ClubDoesNotExistErrorMessage from '@/components/error/ClubDoesNotExistErrorMessage';
+
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import ClubErrorMessage from "@/components/error/ClubErrorMessage";
 
@@ -68,6 +71,7 @@ const ClubProfile = () => {
           <ClubProfileAboutUs hasScrolledAboutUs={hasScrolledAboutUs} clubData={clubData}/>
           <ClubProfileItemizedDescription hasScrolledFacts={hasScrolledFacts} clubData={clubData}/>
           <ClubProfilePhotos hasScrolledPhotos={hasScrolledPhotos} clubData={clubData}/>
+          <ClubProfileReviews reviews={clubData.reviews} />
         </div>)
         : 
         (

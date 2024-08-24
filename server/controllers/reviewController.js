@@ -86,12 +86,12 @@ const deleteReview = async (req, res) => {
         await Review.findByIdAndDelete(reviewId);
 
         // Remove review from list of user reviews
-        user.reviews = user.reviews.filter(r => r.toString() !== reviewId);
+        user.reviews = user.reviews.filter(r => r._id !== reviewId);
         await user.save();
 
         // Remove review from list of club reviews
         let club = await Club.findById(review.club);
-        club.reviews = club.reviews.filter(r => r.toString() !== reviewId);
+        club.reviews = club.reviews.filter(r => r._id !== reviewId);
         await club.save();
 
         return res.status(200).json({ message: "Review deleted successfully." });

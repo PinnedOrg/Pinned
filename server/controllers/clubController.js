@@ -52,7 +52,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
                             colorTheme \
                             featured")  // only select these fields to return
             .populate("logo")
-            .populate("reviews", "_id engagement commitment inclusivity organization")
+            .populate("reviews")
             .sort({ name: 1 });
 
         // compute average rating for each club
@@ -87,7 +87,15 @@ const getClubDetails = async (req, res) => {
 
     const club = await Club.findById(id)
         .populate('logo')
-        .populate('reviews') // TODO: sort this by the updatedAt property
+        .populate({
+            path: 'reviews',
+            options: { sort: { updatedAt: -1 } },
+            populate: {
+                path: 'user',
+                model: 'User',
+                select: '-reviews -clubs'
+            }
+        })
         .populate('events')
         .populate('subscribers');
 

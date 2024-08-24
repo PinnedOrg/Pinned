@@ -1,5 +1,7 @@
 export interface IReview {
     _id: string;
+    userId: string;
+    clubId: string;
     engagement: number;
     commitment: number;
     inclusivity: number;
