@@ -19,7 +19,7 @@ const App = () => {
       <Route index element={ <Layout> <LandingPage/> </Layout> } />
       <Route path={routes.ClubHub} element={ <Layout> <ClubHub/> </Layout> } />
       <Route path={routes.SignUp} element={ <Layout> <SignUpPage/>  </Layout>} />
-      <Route path={routes.SignIn} element={ <Layout> <SignInPage redirectTo="" /> </Layout> } />
+      <Route path={routes.SignIn} element={ <Layout> <SignInPage/> </Layout> } />
       <Route path={routes.About} element={ <Layout> <AboutPage/> </Layout> } />
       <Route path={routes.Register} element={ <Layout> <RegisterClub/> </Layout> } />
       <Route path={`${routes.ClubProfile}:clubId`} element={ <Layout> <ClubProfile/> </Layout> } />
