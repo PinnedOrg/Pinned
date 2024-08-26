@@ -62,12 +62,12 @@ const ClubProfile = () => {
         :
         (clubData ? 
           (<div className="container max-w-[80rem]">
-          <div className="relative min-h-screen text-white flex items-center">
+          <div className="relative min-h-screen text-white flex">
             <GradientBackground />
             <ClubProfileHero clubData={clubData}/>
           </div>
           <FAQAccordion />
-          <ClubProfileReviews reviews={clubData.reviews} />
+          <ClubProfileReviews reviews={clubData.reviews} clubId={clubData._id}/>
         </div>)
         : 
         (

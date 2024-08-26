@@ -5,13 +5,14 @@ import { useMutation } from '@tanstack/react-query';
 import { IClub } from '../../lib/types';
 import React, { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
+import { axiosInstance } from '@/lib/utils';
 
 const RegisterClubForm = () => {
     const { getToken } = useAuth()
     
     const postClub = async (formData: FormData): Promise<IClub> => {
         const token = await getToken()
-        const response = await axios.post('http://localhost:8080/api/clubs', formData, {
+        const response = await axiosInstance.post('/api/clubs', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,

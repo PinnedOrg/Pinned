@@ -1,41 +1,137 @@
+import { useState } from "react";
+
 import {
     Dialog,
-    DialogPortal,
-    DialogOverlay,
     DialogClose,
     DialogTrigger,
     DialogContent,
     DialogHeader,
     DialogFooter,
     DialogTitle,
-    DialogDescription,
 } from "@/components/ui/dialog"
-
-import { IReview } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+
 import { useAuth } from "@clerk/clerk-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
+
 import { routes } from "@/lib/routes";
-import { Slider } from "../ui/slider";
+import { IReview } from "@/lib/types";
+import { useMutation } from "@tanstack/react-query";
+import { axiosInstance } from "@/lib/utils";
+import { useToast } from "../ui/use-toast";
 
 type AddOrEditReviewModalProps = {
-    review: IReview | undefined
+    review?: IReview;
+    clubId: string;
+    setReviews: React.Dispatch<React.SetStateAction<IReview[]>>
+}
+
+type ReviewFormData = {
+    engagement: number;
+    commitment: number;
+    inclusivity: number;
+    organization: number;
+    comment: string;
+}
+
+type ReviewFormDataKeys = keyof ReviewFormData;
+
+type RatingSliderProps = {
+    label: string;
+    sliderkey: ReviewFormDataKeys;
+    value: number;
+    onValueChange: (key: ReviewFormDataKeys, newValue: number | string) => void
+}
+
+const RatingSlider = ({ label, sliderkey, value, onValueChange }: RatingSliderProps) => {
+    const [rating, setRating] = useState<number>(value);
+
+    const handleValueChange = (newValue: number) => {
+        setRating(newValue);
+        console.log(sliderkey)
+        onValueChange(sliderkey, newValue);
+    }
+
+    return (
+        <div className="sm:flex max-sm:space-y-1 justify-between py-2 w-[75%]">
+            <Label htmlFor={sliderkey} className="text-accent-foreground">{label}</Label>
+            <div className="flex gap-4">
+                <Slider
+                    id={sliderkey} 
+                    defaultValue={[value]} 
+                    min={0} 
+                    max={5} 
+                    step={1} 
+                    className="w-[12rem]"
+                    onValueChange={(newValue: number[]) => handleValueChange(newValue[0])} 
+                />
+                <Label className="flex gap-1 text-accent-foreground">
+                    {rating}
+                    <FaStar className="text-yellow-500 dark:text-yellow-400" />
+                </Label>
+            </div>
+        </div>
+    )
 }
 
 
-const AddOrEditReviewModal = ({ review }: AddOrEditReviewModalProps) => {
+
+const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewModalProps) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { userId } = useAuth();
-    const isEditMode = review ? true : false;
+    const { toast } = useToast();
+    const { userId, getToken } = useAuth();
+    let isEditMode = review ? true : false;
+
+    const [reviewFormData, setreviewFormData] = useState<ReviewFormData>({
+        engagement: review?.engagement ?? 0,
+        commitment: review?.commitment ?? 0,
+        inclusivity: review?.inclusivity ?? 0,
+        organization: review?.organization ?? 0,
+        comment: review?.comment ?? ''
+    });
 
     const handleSignInClick = () => {
         navigate(routes.SignIn, { state: { from: location.pathname } });
     }
 
+    const handleUpdateFilters = (formDataKey: ReviewFormDataKeys, value: number | string) => {
+        if (!formDataKey) return;
+        setreviewFormData((prev) => ({
+            ...prev,
+            [formDataKey]: value
+        }));
+    }
+    
+    const handleSubmit = async () => {
+        if (!userId) return;
+
+        const token = await getToken()
+        await axiosInstance.put(`/api/reviews/${clubId}`, reviewFormData, {
+            headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            }
+        }).then(() => {
+            isEditMode = true;
+
+        }).catch((error) => {
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "There was a problem with your request.",
+            })
+            console.error(error);
+        });
+    }
+
     if (!userId) {
         return (
-            <Button variant={'default'} onClick={handleSignInClick} >
+            <Button variant={'secondary'} onClick={handleSignInClick} size="sm" >
                 Add review
             </Button>
         )
@@ -43,21 +139,50 @@ const AddOrEditReviewModal = ({ review }: AddOrEditReviewModalProps) => {
 
     return (
         <Dialog>
-            <DialogTrigger>
-                <Button variant={'default'}>
-                    {`${isEditMode ? 'Edit' : 'Add'} Review`}
+            <DialogTrigger asChild>
+                <Button variant={'secondary'} size="sm">
+                    {`${isEditMode ? 'Edit' : 'Add'} Club Review`}
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        {`${isEditMode ? 'Edit' : 'Add'} Review`}
+                        {`${isEditMode ? 'Edit' : 'Add'} Club Review`}
                     </DialogTitle>
                     <DialogClose />
                 </DialogHeader>
-                <DialogDescription>
-                    <Slider></Slider>
-                </DialogDescription>
+                <div className="mt-1">
+                    <RatingSlider label="Engagement" sliderkey="engagement" value={reviewFormData.engagement} onValueChange={handleUpdateFilters} />
+                    <RatingSlider label="Commitment" sliderkey="commitment" value={reviewFormData.commitment} onValueChange={handleUpdateFilters} />
+                    <RatingSlider label="Inclusivity" sliderkey="inclusivity" value={reviewFormData.inclusivity} onValueChange={handleUpdateFilters} />
+                    <RatingSlider label="Organization" sliderkey="organization" value={reviewFormData.organization} onValueChange={handleUpdateFilters} />
+                    
+                    <div className="mt-4">
+                        <Label htmlFor="comment" className="text-accent-foreground">
+                            Comment
+                            <span className="text-muted-foreground font-normal">{` (${reviewFormData.comment.length}/500)`}</span>
+                        </Label>
+                        <Textarea
+                            id="comment"
+                            placeholder="Leave your thoughts about this club..."
+                            value={reviewFormData.comment}
+                            onChange={(e) => handleUpdateFilters('comment', e.target.value)}
+                            className="mt-1 max-h-36"
+                            maxLength={500} // same as Review model in server
+                        />
+                    </div>
+                </div>
+                <DialogFooter className="mt-2">
+                    <div className="w-full flex justify-between items-center">
+                        <Label className=" w-full text-muted-foreground italic">Note: Reviews are anonymous</Label>
+                        <DialogClose asChild>
+                            <Button variant={'default'} onClick={handleSubmit}>
+                                {isEditMode ? "Update" : "Submit"}
+                            </Button>
+                        </DialogClose>
+                    </div>
+                    
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     )

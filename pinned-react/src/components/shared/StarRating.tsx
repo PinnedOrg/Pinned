@@ -3,12 +3,17 @@ import { cn } from "@/lib/utils.ts";
 
 type StarRatingProps = {
     rating: number,
-    className?: string;
+    id?: string,
+    className?: string
 }
 
-const StarRating = ({ rating, className }: StarRatingProps) => {
+const StarRating = ({ rating, className, id }: StarRatingProps) => {
     return (
-        <div className={cn('flex gap-2 text-yellow-500 dark:text-yellow-400', className)} key={`star-rating-${rating}`}>
+        <div 
+            className={cn('flex gap-2 text-yellow-500 dark:text-yellow-400', className)} 
+            key={`star-rating-${rating}`}
+            id={id ?? ''} 
+        >
             { rating > 0 ? <FaStar /> : <FaRegStar/> }
             { rating > 1 ? <FaStar /> : <FaRegStar/> }
             { rating > 2 ? <FaStar /> : <FaRegStar/> }

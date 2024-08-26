@@ -178,7 +178,7 @@ const ClubHub = () => {
               </Select>
             </div>
             <div className="flex justify-center gap-4 p-6">
-              <Label htmlFor="rating" className="text-accent-foreground">Rating</Label>
+              <Label htmlFor="rating" className="text-accent-foreground">Average Rating</Label>
               <Slider 
                 defaultValue={[0]} 
                 min={0} 
