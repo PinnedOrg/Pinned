@@ -216,22 +216,16 @@ const ClubHub = () => {
             )}
           </div>
         ) : (
-          <div className={clsx(" w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4", {"gap-6": data})}>
-            {data ? data.data.map((club: IClub) => (
-                <ClubPreviewCard club={club} key={club._id}/>
-              )) : (
-                <>
-                  <ClubLoadingPlaceholder />
-                  <ClubLoadingPlaceholder />
-                  <ClubLoadingPlaceholder />
-                  <ClubLoadingPlaceholder />
-                  <ClubLoadingPlaceholder />
-                  <ClubLoadingPlaceholder />
-                  <ClubLoadingPlaceholder />
-                  <ClubLoadingPlaceholder />
-                </>
-              )}
-              
+          <div className={clsx("w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4", {"gap-6": data})}>
+            {data && Array.isArray(data.data) ? (
+              data.data.map((club: IClub) => (
+                <ClubPreviewCard club={club} key={club._id} />
+              ))
+            ) : (
+              Array.from({ length: 8 }).map((_, index) => (
+                <ClubLoadingPlaceholder key={index} />
+              ))
+            )}
           </div>
         )}
       </section>
