@@ -139,7 +139,7 @@ const ClubHub = () => {
               Reset
               <RotateCcw className="w-[1rem] h-auto " />
             </div>
-            <div className="mt-2 flex flex-wrap justify-center lg:justify-evenly gap-x-6 lg:gap-x-[4rem] gap-y-2 w-full">
+            <div className="mt-2 flex flex-wrap justify-center gap-x-6 lg:gap-x-[4rem] gap-y-2 w-full">
               <Select key="Genre" onValueChange={(newValue: string) =>  handleUpdateFilters(newValue, "genre")}>
                 <SelectTrigger className=" min-w-[6rem] max-w-[18rem] border-slate-500" >
                   <SelectValue placeholder="Genre" />
@@ -152,7 +152,7 @@ const ClubHub = () => {
                   ))}
                 </SelectContent>
               </Select>
-              <Select key="Cost" onValueChange={(newValue: string) =>  handleUpdateFilters(parseInt(newValue), "cost")}>
+              {/* <Select key="Cost" onValueChange={(newValue: string) =>  handleUpdateFilters(parseInt(newValue), "cost")}>
                 <SelectTrigger className=" min-w-[6rem] max-w-[18rem] border-slate-500" >
                   <SelectValue placeholder="Cost" />
                 </SelectTrigger>
@@ -163,7 +163,7 @@ const ClubHub = () => {
                     </SelectItem>
                   ))}
                 </SelectContent>
-              </Select>
+              </Select> */}
               <Select key="Size" onValueChange={(newValue: string) =>  handleUpdateFilters(parseInt(newValue), "size")}>
                 <SelectTrigger className=" min-w-[6rem] max-w-[18rem] border-slate-500" >
                   <SelectValue placeholder="Size" />
