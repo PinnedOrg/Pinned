@@ -155,7 +155,6 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
             }
         }).then((data) => {
             console.log(data)
-            isEditMode = true;
             setReviews((prevReviews) => {
                 if (review) {
                     return prevReviews.map((r) => {
@@ -170,6 +169,11 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                 }
                 return [...prevReviews, reviewFormData]
             });
+            toast({
+                variant: "default",
+                description: `Your review has been successfully ${isEditMode ? "updated" : "added"}.`,
+            })
+            isEditMode = true;
 
         }).catch((error) => {
             toast({
@@ -228,7 +232,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                     <div className="w-full flex justify-between items-center">
                         <Label className=" w-full text-muted-foreground italic">Note: Reviews are anonymous</Label>
                         <div className="flex gap-2">
-                            {isEditMode && <DeleteReviewConfirmationModal reviewId={reviewFormData._id} clubId={clubId} setReviews={setReviews} />}
+                            {/* {isEditMode && <DeleteReviewConfirmationModal reviewId={reviewFormData._id} clubId={clubId} setReviews={setReviews} />} */}
                             <DialogClose asChild>
                                 <Button variant={'default'} onClick={handleSubmit} size={'sm'}>
                                     {isEditMode ? "Update" : "Submit"}
