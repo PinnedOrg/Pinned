@@ -11,7 +11,7 @@ const PrivacyPolicyPage = () => {
                 <div className="mt-5 container place-self-center max-w-[50rem]" >
                     <h3 className="mt-4 font-medium text-lg md:text-xl">Log Files</h3>
                     <p className=" mt-1 text-muted-foreground font-normal">
-                        UW Pinned follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information. If you choose to register a club, we will store all of its associated information.
+                        UW Pinned follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information. If you choose to register a club, or leave reviews on clubs, we will store all of its associated information, however your review will remain anonymous to others.
                     </p>
                     <h3 className="mt-4 font-medium text-lg md:text-xl">Cookies and Web Beacons</h3>
                     <p className=" mt-1 text-muted-foreground font-normal">
@@ -44,10 +44,6 @@ const PrivacyPolicyPage = () => {
                         This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in UW Pinned. This policy is not applicable to any information collected offline or via channels other than this website.
                     </p>
                     <h3 className="mt-4 font-medium text-lg md:text-xl">Consent</h3>
-                    <p className=" mt-1 text-muted-foreground font-normal">
-                        This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in UW Pinned. This policy is not applicable to any information collected offline or via channels other than this website.
-                    </p>
-                    <h3 className="mt-4 font-medium text-lg md:text-xl">Online Privacy Policy Only</h3>
                     <p className=" mt-1 text-muted-foreground font-normal">
                         By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.
                     </p>
