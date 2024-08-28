@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import GradientBackground from '@/components/clubprofile/GradientBackground';
 import ClubProfileHero from '@/components/clubprofile/ClubProfileHero';
 // import ClubProfileAboutUs from '@/components/clubprofile/ClubProfileAboutUs';
@@ -19,7 +19,7 @@ const ClubProfile = () => {
 
   const { clubId } = useParams()
 
-  const fetchClubData = ( clubId: string ) => {
+  const fetchClubData = ( clubId: string | undefined ) => {
     return axiosInstance.get(`/api/clubs/${clubId}`);
   }
 
