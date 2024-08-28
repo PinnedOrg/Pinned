@@ -7,7 +7,9 @@ const Footer = () => {
       &copy; 2024 Pinned | All Rights Reserved | 
       
       <Link to={routes.About} className="px-1 underline text-cyan-500">About</Link>
-       | v1.0.0
+      |
+      <Link to={routes.PrivacyPolicy} className="px-1 underline text-cyan-500">Privacy Policy</Link>
+       | v 0.1.0
     </footer>
   )
 }

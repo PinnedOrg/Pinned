@@ -30,9 +30,10 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
 
   return (
     <div className="relative w-full overflow-hidden mt-20 h-max">
-      <div className={`flex flex-col lg:flex-row justify-center items-start transition-transform duration-1000 ${
-        isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
-      }`}>
+      <div 
+        className="flex flex-col lg:flex-row justify-center items-start"
+      // className={`flex flex-col lg:flex-row justify-center items-start transition-transform duration-1000 ${isVisible ? 'transform translate-y-0' : 'transform translate-y-full'}`}
+      >
         <div className="w-full lg:w-1/2 z-10 flex flex-col justify-center p-6 order-2 lg:order-1">
           <h1 className="text-lg font-medium text-purple-600 dark:text-purple-400">WELCOME TO OUR CLUB</h1>
           <h2 className="mt-2 text-4xl lg:text-7xl font-bold text-gray-900 dark:text-white">{clubData.name}</h2>

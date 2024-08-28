@@ -61,25 +61,25 @@ export const team: Array<AboutCardType> = [
     {
         "name": "Eshaan Mehta",
         "picture": "/images/team/Eshaan.jpg",
-        "about": "I am a second year student at the University of Waterloo studying Computer Science. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "I am a 2B student at the University of Waterloo studying Computer Engineering. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
         "initials": "EM"  
     },
     {
         "name": "Hazem Saad",
         "picture": "/images/team/Hazem.jpg",
-        "about": "I am a second year student at the University of Waterloo studying Computer Science. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "I am a 2B student at the University of Waterloo studying Computer Engineering. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
         "initials": "HS"
     },
     {
         "name": "Darius Rudaitis",
         "picture": "/images/team/Darius.jpg",
-        "about": "I am a second year student at the University of Waterloo studying Computer Science. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "I am a 2B student at the University of Waterloo studying Computer Engineering. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
         "initials": "DR"
     },
     {
         "name": "Tony Yu",
         "picture": "/images/team/Tony.jpg",
-        "about": "I am a second year student at the University of Waterloo studying Computer Science. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "I am a 2B student at the University of Waterloo studying Computer Engineering. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
         "initials": "TY"
     },
 ]
@@ -93,101 +93,4 @@ export const affiliates: Array<AffiliateType> = [
 ];
 
 
-export const testClubData = [
-    {
-      "_id": "664c08955c58341b46c62acc",
-      "name": "Ascend Canada Waterloo Chapter",
-      "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
-      "description": "Full description of Ascend Canada Waterloo Chapter.",
-      "genre": "Sports",
-      "colorTheme": "#007bff",
-      "location": "Waterloo, ON",
-      "cost": 0,
-      "size": 100,
-      "meetingsFrequency": "Weekly",
-      "email": "ascend@waterloo.ca",
-      "discord": "ascend_discord",
-      "instagram": "ascend_instagram",
-      "facebook": "ascend_facebook",
-      "youtube": "ascend_youtube",
-      "events": [],
-      "validation": true
-    },
-    {
-      "_id": "66441aa4ccfc04b318c6b662",
-      "name": "Pinned",
-      "overview": "This is the short extract that you will be able to see in the directory. This is a filler sentence!!",
-      "description": "Full description of Pinned.",
-      "genre": "Music",
-      "colorTheme": "#DC3545",
-      "location": "Toronto, ON",
-      "cost": 10,
-      "size": 50,
-      "meetingsFrequency": "Bi-weekly",
-      "email": "pinned@music.ca",
-      "discord": "pinned_discord",
-      "instagram": "pinned_instagram",
-      "facebook": "pinned_facebook",
-      "youtube": "pinned_youtube",
-      "events": [],
-      "validation": true
-    },
-    {
-      "_id": "664ea3da37ce17ab6273b2f7",
-      "name": "Pinned",
-      "overview": "This is the short extract that you will be able to see in the directory.",
-      "description": "Full description of Pinned.",
-      "genre": "Sports",
-      "colorTheme": "#FFC107",
-      "location": "Vancouver, BC",
-      "cost": 15,
-      "size": 10,
-      "meetingsFrequency": "Monthly",
-      "email": "pinned@sports.ca",
-      "discord": "pinned_discord",
-      "instagram": "pinned_instagram",
-      "facebook": "pinned_facebook",
-      "youtube": "pinned_youtube",
-      "events": [],
-      "validation": true
-    },
-    {
-      "_id": "664ebd77f062c321270e58de",
-      "name": "Pinned",
-      "overview": "This is the short extract that you will be able to see in the directory.",
-      "description": "Full description of Pinned.",
-      "genre": "Charity & Community Service",
-      "colorTheme": "#28A7",
-      "location": "Montreal, QC",
-      "cost": 60,
-      "size": 30,
-      "meetingsFrequency": "Weekly",
-      "email": "pinned@charity.ca",
-      "discord": "pinned_discord",
-      "instagram": "pinned_instagram",
-      "facebook": "pinned_facebook",
-      "youtube": "pinned_youtube",
-      "events": [],
-      "validation": true
-    },
-    {
-      "_id": "66441bb1e6c53af82cf6e7ba",
-      "name": "Test Club",
-      "overview": "This is the short extract that you will be able to see in the directory.",
-      "description": "Full description of Test Club.",
-      "genre": "Music",
-      "colorTheme": "#6610F2",
-      "location": "Ottawa, ON",
-      "cost": 50,
-      "size": 20,
-      "meetingsFrequency": "Bi-weekly",
-      "email": "testclub@music.ca",
-      "discord": "testclub_discord",
-      "instagram": "testclub_instagram",
-      "facebook": "testclub_facebook",
-      "youtube": "testclub_youtube",
-      "events": [],
-      "validation": true
-    }
-  ]
   
