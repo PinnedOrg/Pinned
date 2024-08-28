@@ -3,7 +3,7 @@ import GradientBackground from "@/components/shared/gradientbackground";
 const PrivacyPolicyPage = () => {
     return (
         <section className='mt-8'>
-            <GradientBackground />
+            {/* <GradientBackground /> */}
             <section className="container pb-10 animate-fade-in-up">
                 <h2 className="text-3xl font-bold text-center md:text-4xl">
                     Privacy Policy
