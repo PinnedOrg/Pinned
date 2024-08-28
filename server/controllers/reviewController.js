@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Review = require('../models/Review');
 const Club = require('../models/Club');
 const User = require('../models/User');
-const { checkForProfanity } = require("../helpers/textFilters");
+const { isTextProfane } = require("../helpers/textFilters");
+const { createUser } = require("./userController");
 
 const addOrUpdateReview = async (req, res) => {
     // console.log(req.body);
@@ -11,10 +12,7 @@ const addOrUpdateReview = async (req, res) => {
     const { userId } = req.auth
 
     try {
-        let user = await User.findOne({ clerkId: userId });
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
+        let user = await User.findOne({ clerkId: userId }) ?? await createUser(userId);
 
         if (!mongoose.Types.ObjectId.isValid(clubId)) {
             return res.status(400).json({ error: "Invalid club id." });
@@ -25,8 +23,7 @@ const addOrUpdateReview = async (req, res) => {
             return res.status(404).json({ error: "Club not found" });
         }
 
-        const textIsProfane = checkForProfanity(comment);
-        if (textIsProfane) {
+        if (isTextProfane(comment)) {
             return res.status(400).json({ error: "Comment contains profanity" });
         }
     
