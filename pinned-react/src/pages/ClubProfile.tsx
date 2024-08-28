@@ -61,7 +61,7 @@ const ClubProfile = () => {
         <ClubErrorMessage /> 
         :
         (clubData ? 
-          (<div className="container max-w-[80rem] space-y-48">
+          (<div className="container max-w-[80rem] space-y-48 animate-fade-in-up">
           <div className="relative text-white flex">
             <GradientBackground />
             <ClubProfileHero clubData={clubData}/>
