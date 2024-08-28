@@ -29,7 +29,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden mt-20">
+    <div className="relative w-full overflow-hidden mt-20 h-max">
       <div className={`flex flex-col lg:flex-row justify-center items-start transition-transform duration-1000 ${
         isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
       }`}>
