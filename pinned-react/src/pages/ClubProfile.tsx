@@ -11,6 +11,7 @@ import ClubDoesNotExistErrorMessage from '@/components/error/ClubDoesNotExistErr
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import ClubErrorMessage from "@/components/error/ClubErrorMessage";
 import { FAQAccordion } from "@/components/clubprofile/FAQAccordion";
+import ClubProfileReviews from "@/components/clubprofile/ClubProfileReviews";
 const ClubProfile = () => {
   // const [hasScrolledAboutUs, setHasScrolledAboutUs] = useState(false);
   // const [hasScrolledFacts, setHasScrolledFacts] = useState(false);
@@ -60,12 +61,13 @@ const ClubProfile = () => {
         <ClubErrorMessage /> 
         :
         (clubData ? 
-        (<div>
-          <div className="relative min-h-screen text-white flex items-center">
+          (<div className="container max-w-[80rem] space-y-48">
+          <div className="relative text-white flex">
             <GradientBackground />
             <ClubProfileHero clubData={clubData}/>
           </div>
           <FAQAccordion />
+          <ClubProfileReviews reviews={clubData.reviews} clubId={clubData._id}/>
         </div>)
         : 
         (

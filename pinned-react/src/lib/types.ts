@@ -1,6 +1,11 @@
 export interface IReview {
     _id: string;
-    rating: number;
+    engagement: number;
+    commitment: number;
+    inclusivity: number;
+    organization: number;
+    comment: string;
+    user?: IUser;
 }
 
 export interface ILogo {
@@ -31,21 +36,19 @@ export interface IClub {
     featured: number;
 }
 
-export type ClubContextType = IClub | null;
-
 export interface IEvent {
-    _id: string;
-    title: string;
-    description: string
-    contact: string
-    tags: string[] //id of tags
-    date: Date;
-    time: string;
-    location: string
-    preview: Buffer
-    belongsToClub: string; //id
-    createdAt: Date;
-    updatedAt: Date;
+  _id: string;
+  title: string;
+  description: string
+  contact: string
+  tags: string[] //id of tags
+  date: Date;
+  time: string;
+  location: string
+  preview: Buffer
+  belongsToClub: string; //id
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IUser {
@@ -53,6 +56,8 @@ export interface IUser {
   clerkId: string
   clubs: string[]
 }
+
+export type ClubContextType = IClub | null;
 
 export type imagekitURLType = 'default' | 'club'
 

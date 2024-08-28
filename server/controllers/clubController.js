@@ -88,7 +88,14 @@ const getClubDetails = async (req, res) => {
 
     const club = await Club.findById(id)
         .populate('logo')
-        .populate('reviews')
+        .populate({
+            path: 'reviews',
+            options: { sort: { updatedAt: -1 } },
+            populate: {
+                path: 'user',
+                model: 'User'
+            }
+        })
         .populate('events')
         .populate('subscribers');
 

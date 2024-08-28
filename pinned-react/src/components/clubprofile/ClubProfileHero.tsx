@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { IKContext, IKImage } from "imagekitio-react";
 import { imagekitEndpoints } from "@/lib/data";
+import StarRating from "@/components/shared/StarRating";
+import { Label } from "../ui/label";
 
 type ClubProfileHeroProps = {
   clubData: IClub
@@ -16,14 +18,19 @@ type ClubProfileHeroProps = {
 const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const hasLogo = clubData.logo !== null;
+  const averageEngagement = clubData.reviews.reduce((acc, review) => acc + review.engagement, 0) / (clubData.reviews.length || 1);
+  const averageCommitment = clubData.reviews.reduce((acc, review) => acc + review.commitment, 0) / (clubData.reviews.length || 1);
+  const averageInclusivity = clubData.reviews.reduce((acc, review) => acc + review.inclusivity, 0) / (clubData.reviews.length || 1);
+  const averageOrganization = clubData.reviews.reduce((acc, review) => acc + review.organization, 0) / (clubData.reviews.length || 1);
+
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden -mt-24">
-      <div className={`flex flex-col lg:flex-row justify-between items-center px-4 lg:px-64 transition-transform duration-1000 ${
+    <div className="relative w-full overflow-hidden mt-20 h-max">
+      <div className={`flex flex-col lg:flex-row justify-center items-start transition-transform duration-1000 ${
         isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
       }`}>
         <div className="w-full lg:w-1/2 z-10 flex flex-col justify-center p-6 order-2 lg:order-1">
@@ -51,9 +58,16 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
               </Link>
             )}
           </div>
-          <p className="mt-6 text-base lg:text-lg max-w-md text-gray-700 dark:text-gray-300">
-            {clubData.description}
-          </p>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <Label htmlFor="engagement" className="text-accent-foreground">Engagement</Label>
+            <Label htmlFor="commitment" className="text-accent-foreground">Commitment</Label>
+            <StarRating rating={averageEngagement} id="engagement" />
+            <StarRating rating={averageCommitment} id="commitment" />
+            <Label htmlFor="inclusivity" className="text-accent-foreground">Inclusivity</Label>
+            <Label htmlFor="organization" className="text-accent-foreground">Organization</Label>
+            <StarRating rating={averageInclusivity} id="inclusivity" />
+            <StarRating rating={averageOrganization} id="organization" />
+          </div>
         </div>
         <div className={`w-full lg:w-1/3 flex items-center justify-center rounded-lg mt-8 lg:mt-0 order-1 lg:order-2 transition-transform duration-1000 ${
           isVisible ? 'transform translate-x-0' : 'transform translate-x-full'
@@ -72,6 +86,11 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
                 <img src="/images/logos/LogoPlaceholder.png" alt="placeholder" className='aspect-square rounded-2xl max-w-[15rem] h-auto'/>
               )}
         </div>
+      </div>
+      <div className="mx-20">
+        <p className="mt-6 text-wrap text-base lg:text-lg text-gray-700 dark:text-gray-300">
+          {clubData.description}
+        </p>
       </div>
     </div>
   );

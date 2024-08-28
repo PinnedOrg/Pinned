@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/server/controllers/clubController.js",
+            "program": "${workspaceFolder}/server/app.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
