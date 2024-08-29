@@ -101,6 +101,18 @@ const clubSchema = new mongoose.Schema(
             }
         }
     ],
+    faqs: [
+        {
+            title: {
+                type: String,
+                required: true
+            },
+            description: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     owner: {
         type: String, // this is a clerk user_id (not the User_id from the model we have)
         required: [true, "Missing owner."],

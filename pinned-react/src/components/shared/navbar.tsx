@@ -9,6 +9,10 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 const LinkStyles = "px-3 py-2 font-medium text-sm uppercase tracking-wide dark:text-gray-200 dark:hover:text-gray-200"; // ending space is important for tailwindcss to work properly
 
 const NavBar = () => {
+  const handleRedirect = () => {
+    window.location.href = 'https://forms.gle/xzCQC2fjvGyAEtbz5';
+  };
+
   return (
     <header className="h-[4.5rem] py-3 px-9 flex justify-center sm:justify-between items-center z-10 bg-transparent">
       <ViewportWrapper breakpoint="large">
@@ -30,7 +34,13 @@ const NavBar = () => {
             <Link to={routes.ClubHub}>Club Hub</Link>
           </Button>
           <Button variant='ghost' className={LinkStyles}>
-            <Link to={routes.Register}>Register</Link>
+            <SignedOut>
+              <Link to={routes.Register}>Register</Link>
+            </SignedOut>
+
+            <SignedIn>
+              <div onClick={handleRedirect}>Register</div>
+            </SignedIn>
           </Button>
           <SignedIn>
             <UserButton /> 
