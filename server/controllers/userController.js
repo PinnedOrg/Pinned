@@ -31,7 +31,7 @@ const subscribe = async (req, res) => {
 
     if (!club) {
       return res.status(404).json({ message: "Club not found." });
-    }
+    } 
 
     if (club.owner === userId) {
       return res.status(403).json({ message: "Club owner cannot subscribe to their own club." });
