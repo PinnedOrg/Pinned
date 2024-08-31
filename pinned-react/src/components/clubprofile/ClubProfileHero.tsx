@@ -39,7 +39,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
         <div className="z-10 flex flex-col justify-center order-2 w-full p-6 lg:w-1/2 lg:order-1 animate-fade-in-up">
           <h1 className="text-lg font-medium text-purple-600 dark:text-purple-400">WELCOME TO OUR CLUB</h1>
           <h2 className="mt-2 text-4xl font-bold text-gray-900 lg:text-7xl dark:text-white">{clubData.name}</h2>
-          <div className="flex mt-4 space-x-4">
+          <div className="flex my-4 space-x-4">
             {clubData.instagram && (
               <Link target="blank" to={clubData.instagram} className="text-2xl text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-white">
                 <FaInstagram />
