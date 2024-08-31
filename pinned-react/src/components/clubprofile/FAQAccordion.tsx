@@ -10,7 +10,7 @@ type FAQAccordionProps = {
 };
 
 export function FAQAccordion({faqs}: FAQAccordionProps) {
-  if (!faqs) {
+  if (!faqs || faqs.length === 0) {
     return null;
   }
 
