@@ -24,14 +24,14 @@ async function updateFeaturedClubs () {
             isActive: true,
             validation: true,
             _id: { $nin: [oldClubOfTheWeek._id, oldUpcomingClub._id] },
-            $expr: { $gt: ["$size", 20] } 
+            $expr: { $gte: ["$size", 12] } 
         }).session(session);
         
         const newUpcomingClub = await Club.findOne({ 
             isActive: true,
             validation: true,
             _id: { $nin: [oldClubOfTheWeek._id, oldUpcomingClub._id] },
-            $expr: { $lte: ["$size", 20] } 
+            $expr: { $lt: ["$size", 12] } 
         }).session(session);
         
         if (!newClubOfTheWeek) console.log('No new club of the week found'); 
