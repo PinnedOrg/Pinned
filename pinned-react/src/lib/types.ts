@@ -34,6 +34,10 @@ export interface IClub {
     reviews: IReview[]
     avgRating: number;
     featured: number;
+    faqs: [{
+      title: string, 
+      description: string
+    }]
 }
 
 export interface IEvent {

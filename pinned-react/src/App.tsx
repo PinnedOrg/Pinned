@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { routes } from "@/lib/routes";
+import { Toaster } from "./components/ui/toaster";
+
+import RegisterClub from "@/pages/Creations/ClubCreate";
+import ClubProfile from "@/pages/ClubProfile";
+import AboutPage from "@/pages/AboutPage";
+import PageDoesNotExistErrorMessage from "./components/error/PageDoesNotExistErrorMessage";
 import LandingPage from '@/pages/LandingPage'
 import SignUpPage from "@/pages/Auth/SignUpPage";
 import SignInPage from "@/pages/Auth/SignInPage";
 import ClubHub from "@/pages/ClubHub";
 import Layout from "@/components/shared/Layout";
-import { routes } from "@/lib/routes";
-import RegisterClub from "@/pages/Creations/ClubCreate";
-import ClubProfile from "@/pages/ClubProfile";
-import AboutPage from "@/pages/AboutPage";
-import PageDoesNotExistErrorMessage from "./components/error/PageDoesNotExistErrorMessage";
-import { Toaster } from "./components/ui/toaster";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 
 const App = () => {

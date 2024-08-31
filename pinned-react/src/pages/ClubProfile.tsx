@@ -60,19 +60,20 @@ const ClubProfile = () => {
       (isError ? 
         <ClubErrorMessage /> 
         :
-        (clubData ? 
-          (<div className="container max-w-[80rem] space-y-48 animate-fade-in-up">
-          <div className="relative text-white flex">
-            <GradientBackground />
-            <ClubProfileHero clubData={clubData}/>
-          </div>
-          <FAQAccordion />
-          <ClubProfileReviews reviews={clubData.reviews} clubId={clubData._id}/>
-        </div>)
-        : 
-        (
-          <ClubDoesNotExistErrorMessage />
-        ))
+        (clubData ?
+          (<div className="container max-w-[80rem] space-y-48">
+            <div className="relative flex text-white">
+              <GradientBackground />
+              <ClubProfileHero clubData={clubData}/>
+            </div>
+            <FAQAccordion faqs={clubData.faqs}/>
+            <ClubProfileReviews reviews={clubData.reviews} clubId={clubData._id}/>
+          </div>)
+          : 
+          (
+            <ClubDoesNotExistErrorMessage />
+          )
+        )
       )
     }
     </>

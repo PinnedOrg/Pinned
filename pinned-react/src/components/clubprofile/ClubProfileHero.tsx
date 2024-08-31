@@ -29,15 +29,17 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden mt-20 h-max">
+    <div className="relative w-full mt-20 overflow-hidden h-max">
       <div 
-        className="flex flex-col lg:flex-row justify-center items-start"
-      // className={`flex flex-col lg:flex-row justify-center items-start transition-transform duration-1000 ${isVisible ? 'transform translate-y-0' : 'transform translate-y-full'}`}
+      className="flex flex-col items-start justify-center lg:flex-row "
+      // className={`flex flex-col lg:flex-row justify-center items-start transition-transform duration-1000 ${
+      //   isVisible ? 'transform translate-y-0' : 'transform translate-y-full'
+      // }`}
       >
-        <div className="w-full lg:w-1/2 z-10 flex flex-col justify-center p-6 order-2 lg:order-1">
+        <div className="z-10 flex flex-col justify-center order-2 w-full p-6 lg:w-1/2 lg:order-1 animate-fade-in-up">
           <h1 className="text-lg font-medium text-purple-600 dark:text-purple-400">WELCOME TO OUR CLUB</h1>
-          <h2 className="mt-2 text-4xl lg:text-7xl font-bold text-gray-900 dark:text-white">{clubData.name}</h2>
-          <div className="mt-4 flex space-x-4">
+          <h2 className="mt-2 text-4xl font-bold text-gray-900 lg:text-7xl dark:text-white">{clubData.name}</h2>
+          <div className="flex my-4 space-x-4">
             {clubData.instagram && (
               <Link target="blank" to={clubData.instagram} className="text-2xl text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-white">
                 <FaInstagram />
@@ -70,9 +72,12 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
             <StarRating rating={averageOrganization} id="organization" />
           </div>
         </div>
-        <div className={`w-full lg:w-1/3 flex items-center justify-center rounded-lg mt-8 lg:mt-0 order-1 lg:order-2 transition-transform duration-1000 ${
-          isVisible ? 'transform translate-x-0' : 'transform translate-x-full'
-        }`}>
+        <div 
+        className="flex items-center justify-center order-1 w-full mt-8 transition-transform duration-1000 rounded-lg lg:w-1/3 lg:mt-0 lg:order-2 animate-fade-in-scale"
+        // className={`w-full lg:w-1/3 flex items-center justify-center rounded-lg mt-8 lg:mt-0 order-1 lg:order-2 transition-transform duration-1000 ${
+        //   isVisible ? 'transform translate-x-0' : 'transform translate-x-full'
+        // }`}
+        >
           {hasLogo ? (
                 <IKContext urlEndpoint={imagekitEndpoints['club']} publicKey={import.meta.env.IMAGEKIT_PUBLIC_KEY}>
                   <IKImage 
@@ -89,7 +94,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
         </div>
       </div>
       <div className="mx-20">
-        <p className="mt-6 text-wrap text-base lg:text-lg text-gray-700 dark:text-gray-300">
+        <p className="mt-6 text-base text-gray-700 text-wrap lg:text-lg dark:text-gray-300 animate-fade-in-up ">
           {clubData.description}
         </p>
       </div>

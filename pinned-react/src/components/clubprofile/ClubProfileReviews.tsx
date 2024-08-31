@@ -20,11 +20,10 @@ const ClubProfileReviews = ({ reviews, clubId }: ClubProfileReviewsProps) => {
     const userReview = clubReviews.find((review: IReview) => review.user?.clerkId === userId);
 
     return (
-        <section className="mt-8 px-8 w-full">
+      <section className="w-full px-8 mt-8 animate-fade-in-up">
             <div className="flex items-center justify-between w-full">
                 <h2 className="text-2xl font-bold mb-4">Reviews<span className=" ml-2 text-muted-foreground font-normal">({clubReviews.length})</span></h2>
                 <AddOrEditReviewModal review={userReview} clubId={clubId} setReviews={setClubReviews}/>
-                
             </div>
             <div className={`grid grid-cols-1 ${clubReviews.length > 0 && "xl:grid-cols-2"}`}>
                 {clubReviews.length > 0 ? clubReviews.map((review: IReview) => (
