@@ -26,8 +26,8 @@ const ClubProfileReviews = ({ reviews, clubId }: ClubProfileReviewsProps) => {
                 <AddOrEditReviewModal review={userReview} clubId={clubId} setReviews={setClubReviews}/>
                 
             </div>
-            <div className="grid sm:grid-cols-1 xl:grid-cols-2 ">
-                {clubReviews.map((review: IReview) => (
+            <div className={`grid grid-cols-1 ${clubReviews.length > 0 && "xl:grid-cols-2"}`}>
+                {clubReviews.length > 0 ? clubReviews.map((review: IReview) => (
                     <div key={review._id} className="bg-card max-w-[36rem] rounded-md py-4 px-7 md:h-60 shadow-lg border border-muted md:flex md:justify-between">
                         <div className="grid grid-cols-2 md:block max-sm:flex-wrap md:w-fit gap-x-2  md:space-x-0 md:space-y-2">
                             <div>
@@ -61,7 +61,14 @@ const ClubProfileReviews = ({ reviews, clubId }: ClubProfileReviewsProps) => {
                             <p className="text-xs text-muted-foreground italic">- A Student at the University of Waterloo</p>
                         </div>
                     </div>
-                ))}
+                )) : (
+                    <div className="text-center text-muted-foreground w-full h-64 flex flex-col justify-center">
+                        <User size={64} className="mx-auto"/>
+                        <h1 className="w-full text-3xl font-medium">No reviews yet</h1>
+                        <p className="mt-2 text-sm ">Be the first to review this club!</p>
+                    </div>
+                )
+            }
             </div>
         </section>
     )

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { ClubFeatureEnum } = require("../enums/ClubFeatureEnum");
 
 const clubSchema = new mongoose.Schema(
   {
@@ -119,7 +120,7 @@ const clubSchema = new mongoose.Schema(
     },
     owner: {
         type: String, // this is a clerk user_id (not the User_id from the model we have)
-        required: [true, "Missing owner."],
+        required: [false, "Missing owner."],
     },
     subscribers: {
         type: [mongoose.Schema.Types.ObjectId],
@@ -132,7 +133,7 @@ const clubSchema = new mongoose.Schema(
         default: []
     },
     featured: {
-      type: Number,
+      type: Number, // 1 = Club of the week, 2 = Upcoming Club
       default: 0
     },
   },
