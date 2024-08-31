@@ -61,7 +61,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
               </Link>
             )}
           </div>
-          <div className="grid grid-cols-2 gap-2 mt-2 ">
+          <div className="mt-2 grid grid-cols-2 gap-2">
             <Label htmlFor="engagement" className="text-accent-foreground">Engagement</Label>
             <Label htmlFor="commitment" className="text-accent-foreground">Commitment</Label>
             <StarRating rating={averageEngagement} id="engagement" />
