@@ -24,6 +24,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "Deprecated"],
+  "include": ["src", "Deprecated", "../client/Deprecated/../client/Deprecated/Da../client/Deprecated/edit eve../client/Deprecated/event systemnt menu", "../client/event system"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
