@@ -2,16 +2,21 @@ const User = require("../models/User");
 const Club = require("../models/Club");
 const mongoose = require("mongoose");
 
-const createUser = async (clerkId) => {
+const createUser = async (userId) => {
+  if (!userId) {
+    throw new Error("userId is missing when calling createUser");
+  }
+
   try {
-      const newUser = await User.create({
-          clerkId: clerkId,
-          clubs: [],
-          reviews: []
-      });
-      return newUser;
+    const newUser = new User({
+      clerkId: userId,
+      clubs: [],
+      reviews: []
+    });
+
+    await newUser.save();
   } catch (error) {
-      throw new Error(error.message);
+    throw new Error(`Error creating user: ${error.message}`);
   }
 }
 
@@ -21,8 +26,13 @@ const subscribe = async (req, res) => {
   const { userId } = req.auth;
 
   try {
-    let user = await User.findOne({ clerkId: userId }) ?? await createUser(userId);
+    let user = await User.findOne({ clerkId: userId });
 
+    if (!user) {
+      await createUser(userId);
+      user = await User.findOne({ clerkId: userId })
+    }
+    
     if (!mongoose.Types.ObjectId.isValid(clubId)) {
       return res.status(404).json({ error: "Club not found." });
     }

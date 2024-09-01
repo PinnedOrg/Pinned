@@ -9,10 +9,15 @@ const addOrUpdateReview = async (req, res) => {
     // console.log(req.body);
     const { engagement, commitment, inclusivity, organization, comment } = req.body;
     const { clubId } = req.params;
-    const { userId } = req.auth
+    const { userId } = req.auth;
 
     try {
-        let user = await User.findOne({ clerkId: userId }) ?? await createUser(userId);
+        let user = await User.findOne({ clerkId: userId });
+
+        if (!user) {
+          await createUser(userId);
+          user = await User.findOne({ clerkId: userId })
+        }
 
         if (!mongoose.Types.ObjectId.isValid(clubId)) {
             return res.status(400).json({ error: "Invalid club id." });
@@ -23,9 +28,9 @@ const addOrUpdateReview = async (req, res) => {
             return res.status(404).json({ error: "Club not found" });
         }
 
-        if (isTextProfane(comment)) {
-            return res.status(400).json({ error: "Comment contains profanity" });
-        }
+        // if (isTextProfane(comment)) {
+        //     return res.status(400).json({ error: "Comment contains profanity" });
+        // }
     
         let existingReview = await Review.findOneAndUpdate(
             { user: user._id, club: club._id },
