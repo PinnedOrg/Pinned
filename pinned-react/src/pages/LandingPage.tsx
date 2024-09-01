@@ -18,6 +18,7 @@ const LandingPage = () => {
                <section className="pb-20 ">
                   <h1 className='mb-4 text-2xl font-bold text-center lg:text-3xl text-accent-foreground'>We have lots of plans for the future of this platform</h1>
                   <a 
+                     target='_blank'
                      href='https://docs.google.com/document/d/1BvTQLufhOuK6_oevA_ZS4WpufMFcMFCeksfXDQSDrnM/edit'
                      className='flex justify-center'
                   >
