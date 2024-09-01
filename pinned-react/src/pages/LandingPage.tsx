@@ -3,6 +3,7 @@ import FeaturedClubs from '@/components/landing page/featuredclubs';
 
 import Wrap  from '@/components/shared/wrap'; 
 import GradientBackground from '@/components/shared/gradientbackground';
+import { Button } from '@/components/ui/button';
 
 const LandingPage = () => {
   return (
@@ -10,10 +11,22 @@ const LandingPage = () => {
          {/* Background Shadow */}
          <GradientBackground />
          
-         <div className='space-y-64'>
+         <div className='space-y-48'>
             <Hero />
             {/* <Affiliates /> */}
             <FeaturedClubs />
+               <section className="pb-20 ">
+                  <h1 className='mb-4 text-2xl font-bold text-center lg:text-3xl text-accent-foreground'>We have lots of plans for the future of this platform</h1>
+                  <a 
+                     href='https://docs.google.com/document/d/1BvTQLufhOuK6_oevA_ZS4WpufMFcMFCeksfXDQSDrnM/edit'
+                     className='flex justify-center'
+                  >
+                  <Button variant={'secondary'} size={'lg'} className='transition-all hover:scale-105'>
+                     Check out our roadmap!
+                  </Button>
+                  </a>
+
+               </section>
             <Wrap />
 
          </div>
