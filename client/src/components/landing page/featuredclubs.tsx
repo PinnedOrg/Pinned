@@ -19,10 +19,10 @@ const FeaturedClubs = () => {
   });
 
   return (
-    <section className="container flex flex-wrap justify-center pt-16 gap-y-10" id="featured-clubs-section">
+    <section className="container flex-wrap justify-center pt-16 gap-y-10" id="featured-clubs-section">
       <h1 className="w-full text-2xl font-bold text-center lg:text-3xl">Featured Clubs</h1>
-      <p className="-mt-6 text-center text-muted-foreground">These are our top clubs for this week. Club of the week is the top established club, Upcoming club a new club starting out</p>
-      <div className={`grid grid-cols-1 gap-16 ${!isError ? 'md:grid-cols-2' : ''} min-h-[25rem] `}>
+      <p className="mt-2 text-center text-muted-foreground">These are our top clubs for this week. Club of the week is the top established club, Upcoming club a new club starting out</p>
+      <div className={`grid grid-cols-1 gap-16 ${(!isError && data?.data.length > 0) ? 'md:grid-cols-2' : ''} min-h-[25rem] `}>
           {isFetching &&
             <>
               <ClubLoadingPlaceholder />
@@ -35,9 +35,13 @@ const FeaturedClubs = () => {
               </div>
           }
           {isSuccess &&
-              data?.data.map((club: IClub) => (
+              data?.data.length > 0? data.data.map((club: IClub) => (
                 <ClubPreviewCard club={club} key={club._id}/>
-              ))
+              )) : (
+                <div className='h-full mt-24'>
+                  <ClubFetchingErrorMessage />
+                </div>
+              )
           }
       </div>
 
