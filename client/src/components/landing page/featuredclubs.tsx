@@ -33,8 +33,8 @@ const FeaturedClubs = () => {
             <div className='h-full mt-24'>
               <ClubFetchingErrorMessage />
             </div>
-          :
-              data?.data.map((club: IClub) => (
+          : 
+              isSuccess && data ? data.data.map((club: IClub) => (
                 <ClubPreviewCard club={club} key={club._id}/>
               )) : (
                 <div className='h-full mt-24'>
