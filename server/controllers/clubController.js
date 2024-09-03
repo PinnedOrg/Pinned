@@ -299,6 +299,7 @@ const updateClub = async (req, res) => {
 //     }
 // }
 
+// only need to be ran once to update genres. Already ran. But kept the script in case we need to move to new db
 const updateClubGenres = async () => {
     const clubGenres = {
         "A Cappella Club": "Arts",
@@ -491,9 +492,9 @@ const updateClubGenres = async () => {
         const updateResults = await Promise.all(updatePromises);
         
         const modifiedCount = updateResults.reduce((sum, result) => sum + result.modifiedCount, 0);
-        console.log("yooo")
+        console.log("modified: ", modifiedCount)
     } catch (error) {
-        console.log("whatt");
+        console.log("Error in updateClubGenres:", error)
     }
 };
 
