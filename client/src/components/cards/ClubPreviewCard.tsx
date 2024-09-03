@@ -33,13 +33,10 @@ const featureTexts: { [key: number]: string } = {
 
 const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
   return (
-   <Link to={`${routes.ClubProfile}${club._id}`}>
-     {/*style={{ backgroundImage: `linear-gradient(to top, ${theme === 'light'? 'white, white' : '#0f172a, #0f172a'}, ${theme == 'light'? club.colorTheme : tintColor(club.colorTheme, tintFactor)})` }}
-     Or add shadow or change the title color for each card
-     */}
-      <Card
-          className={clsx('h-[25rem] min-w-[18rem] max-w-[21rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300', {'shadow-lg shadow-white/10 transition-all bg-opacity-20': club.featured != 0})}
-      >
+    <Card
+        className={clsx('h-[25rem] min-w-[18rem] max-w-[21rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300', {'shadow-lg shadow-white/10 transition-all bg-opacity-20': club.featured != 0})}
+    >
+    <Link to={`${routes.ClubProfile}${club._id}`}>
         <CardHeader className='flex flex-col items-center pb-2 space-y-2'>
           <IKContext urlEndpoint={imagekitEndpoints['club']} publicKey={import.meta.env.IMAGEKIT_PUBLIC_KEY}>
             <Avatar className='w-[8.5rem] sm:w-[8rem] md:w-[8.5rem] h-auto aspect-square border-2 border-slate-200 dark:border-slate-800'>
@@ -90,8 +87,8 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   )
 }
 
