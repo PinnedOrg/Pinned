@@ -507,5 +507,3 @@ module.exports = {
     updateClub,
     updateClubGenres
 }
-
-// updateClubGenres();
