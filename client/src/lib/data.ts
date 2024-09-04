@@ -1,8 +1,8 @@
 import { AboutCardType, AffiliateType, genreType, imagekitURLType } from "./types"
 
 export const imagekitEndpoints: Record<imagekitURLType, string> = {
-    'default': `https://ik.imagekit.io/pinnedorg/${import.meta.env.ENVIRONMENT  === 'Production' ? 'Prod' : 'Dev'}`,
-    'club': `https://ik.imagekit.io/pinnedorg/${import.meta.env.ENVIRONMENT  === 'Production' ? 'Prod' : 'Dev'}/Clubs/`,
+    'default': `https://ik.imagekit.io/pinnedorg/${import.meta.env.VITE_ENVIRONMENT === 'Production' ? 'Prod' : 'Dev'}`,
+    'club': `https://ik.imagekit.io/pinnedorg/${import.meta.env.VITE_ENVIRONMENT === 'Production' ? 'Prod' : 'Dev'}/Clubs/`,
 }
 
 export const userUses = 

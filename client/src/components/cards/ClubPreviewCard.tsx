@@ -38,7 +38,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
     >
     <Link to={`${routes.ClubProfile}${club._id}`}>
         <CardHeader className='flex flex-col items-center pb-2 space-y-2'>
-          <IKContext urlEndpoint={imagekitEndpoints['club']} publicKey={import.meta.env.IMAGEKIT_PUBLIC_KEY}>
+          <IKContext urlEndpoint={imagekitEndpoints['club']} publicKey={import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY}>
             <Avatar className='w-[8.5rem] sm:w-[8rem] md:w-[8.5rem] h-auto aspect-square border-2 border-slate-200 dark:border-slate-800'>
               {club.logo !== null ? (
                 <IKImage 

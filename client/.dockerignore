@@ -5,7 +5,7 @@ node_modules
 .env
 
 # Docker-related files
-Dockerfile
+!Dockerfile
 .dockerignore
 
 # Git-related files and directories
@@ -29,5 +29,5 @@ Thumbs.db
 # Test files
 test
 
-#Deprecated
+# Deprecated files
 Deprecated

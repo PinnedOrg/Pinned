@@ -79,7 +79,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
         // }`}
         >
           {hasLogo ? (
-                <IKContext urlEndpoint={imagekitEndpoints['club']} publicKey={import.meta.env.IMAGEKIT_PUBLIC_KEY}>
+                <IKContext urlEndpoint={imagekitEndpoints['club']} publicKey={import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY}>
                   <IKImage 
                     src={clubData.logo.url}
                     alt={""} 
