@@ -98,7 +98,7 @@ const HeroCards = () => {
           <CardHeader className="py-4">
               <CardTitle className="text-lg text-center">Discover Featured Clubs</CardTitle>
               <CardDescription className="mt-2 text-sm text-center">
-                Check of some of the most exciting clubs on campus! Club of the Week, The Up and Comer and more!
+                Check out some of the most exciting clubs on campus! Club of the Week, The Up and Comer and more!
               </CardDescription>
               <a href="#featured-clubs-section" className="flex justify-center">
                 <Button variant={"secondary"} className="w-2/3">
