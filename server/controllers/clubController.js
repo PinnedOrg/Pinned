@@ -22,7 +22,7 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
     if (featured) {
         filters.featured = {$gt: 0}; // non zero values are featured
     } else {
-        if (genre) filters.genre = genre;
+        if (genre) filters.genre = { $regex: genre, $options: "i" };
         if (cost >= 0) filters.cost = {$lte: cost};
         if (size >= 0) filters.size = {$lte: size};
         if (showInactive === "false") {
@@ -299,6 +299,9 @@ const updateClub = async (req, res) => {
 //     }
 // }
 
+// only need to be ran once to update genres. Already ran. But kept the script in case we need to move to new db
+
+
 
 module.exports = {
     getClubPreviewsBasedOnFilters,
@@ -306,5 +309,5 @@ module.exports = {
 	// getClubEvents,
     createClub,
     deleteClub,
-    updateClub,
+    updateClub
 }
