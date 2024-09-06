@@ -21,6 +21,9 @@ app.use('/api/events', eventRoutes);
 app.use('/api/clubs', clubRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'UP' });
+});
 
 const startServer = () => {
   const port = process.env.PORT || 8080;
