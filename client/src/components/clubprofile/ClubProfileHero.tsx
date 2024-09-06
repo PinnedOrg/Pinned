@@ -93,7 +93,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
               )}
         </div>
       </div>
-      <div className="mx-20">
+      <div className="md:mx-20">
         <p className="mt-6 text-base text-gray-700 text-wrap lg:text-lg dark:text-gray-300 animate-fade-in-up ">
           {clubData.description}
         </p>
