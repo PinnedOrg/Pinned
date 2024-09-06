@@ -29,7 +29,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
   }, []);
 
   return (
-    <div className="relative w-full mt-20 overflow-hidden h-max">
+    <div className="relative w-full md:mt-20 overflow-hidden h-max">
       <div 
       className="flex flex-col items-start justify-center lg:flex-row "
       // className={`flex flex-col lg:flex-row justify-center items-start transition-transform duration-1000 ${
