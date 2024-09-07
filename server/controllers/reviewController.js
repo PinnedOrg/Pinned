@@ -11,19 +11,21 @@ const addOrUpdateReview = async (req, res) => {
     const { clubId } = req.params;
     const { userId } = req.auth;
 
+    let session;
     try {
-        let user = await User.findOne({ clerkId: userId });
+        session = await mongoose.startSession();
+        let user = await User.findOne({ clerkId: userId }).session(session);
 
         if (!user) {
           await createUser(userId);
-          user = await User.findOne({ clerkId: userId })
+          user = await User.findOne({ clerkId: userId }).session(session);
         }
 
         if (!mongoose.Types.ObjectId.isValid(clubId)) {
             return res.status(400).json({ error: "Invalid club id." });
         }
 
-        let club = await Club.findById(clubId);
+        let club = await Club.findById(clubId).session(session);
         if (!club) {
             return res.status(404).json({ error: "Club not found" });
         }
@@ -35,7 +37,7 @@ const addOrUpdateReview = async (req, res) => {
         let existingReview = await Review.findOneAndUpdate(
             { user: user._id, club: club._id },
             { engagement, commitment, inclusivity, organization, comment },
-            { runValidators: true, new: true });
+            { runValidators: true, new: true }).session(session);
         if (existingReview) {
             return res.status(202).json({ review: existingReview })
         }
@@ -47,18 +49,22 @@ const addOrUpdateReview = async (req, res) => {
             organization,
             comment,
             user: user._id, 
-            club: clubId });
+            club: clubId }).session(session);
     
         // Add review to list of user reviews
-        user.reviews.push(review._id);
-        await user.save();
+        user.reviews.push(review._id).session(session);
+        await user.save().session(session);
     
         // Add review to list of club reviews
-        club.reviews.push(review._id);
-        await club.save();
-    
+        club.reviews.push(review._id).session(session);
+        await club.save().session(session);
+
+        await session.commitTransaction();
+        session.endSession();    
         return res.status(201).json({ review })
     } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
         return res.status(500).json({ error: error.message });
     }
 }
