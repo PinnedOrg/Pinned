@@ -6,7 +6,6 @@ const { isTextProfane } = require("../helpers/textFilters");
 const { createUser } = require("./userController");
 
 const addOrUpdateReview = async (req, res) => {
-    // console.log(req.body);
     const { engagement, commitment, inclusivity, organization, comment } = req.body;
     const { clubId } = req.params;
     const { userId } = req.auth;
