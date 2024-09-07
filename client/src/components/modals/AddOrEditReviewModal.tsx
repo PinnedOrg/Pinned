@@ -176,6 +176,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
             setTimeout(() => {
                 window.location.reload();
             }, 5000);
+
         }).catch((error) => {
             toast({
                 variant: "destructive",
@@ -217,7 +218,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                     <div className="mt-4">
                         <Label htmlFor="comment" className="text-accent-foreground">
                             Comment
-                            <span className="text-muted-foreground font-normal">{` (${reviewFormData.comment.length}/500)`}</span>
+                            <span className="font-normal text-muted-foreground">{` (${reviewFormData.comment.length}/500)`}</span>
                         </Label>
                         <Textarea
                             id="comment"
@@ -230,8 +231,8 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                     </div>
                 </div>
                 <DialogFooter className="mt-2">
-                    <div className="w-full flex justify-between items-center">
-                        <Label className=" w-full text-muted-foreground italic">Note: Reviews are anonymous</Label>
+                    <div className="flex items-center justify-between w-full">
+                        <Label className="w-full italic  text-muted-foreground">Note: Reviews are anonymous</Label>
                         <div className="flex gap-2">
                             {/* {isEditMode && <DeleteReviewConfirmationModal reviewId={reviewFormData._id} clubId={clubId} setReviews={setReviews} />} */}
                             <DialogClose asChild>
