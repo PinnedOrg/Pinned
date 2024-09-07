@@ -115,8 +115,7 @@ const clubSchema = new mongoose.Schema(
                 }
             }
         ],
-        required: false,
-        default: []
+        required: false
     },
     owner: {
         type: String, // this is a clerk user_id (not the User_id from the model we have)
@@ -124,13 +123,12 @@ const clubSchema = new mongoose.Schema(
     },
     subscribers: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: "User",
-        default: []
+        ref: "User"
     },
     reviews: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: "Review",
-        default: []
+        required: false
     },
     featured: {
       type: Number, // 1 = Club of the week, 2 = Upcoming Club
