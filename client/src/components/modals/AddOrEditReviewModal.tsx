@@ -229,7 +229,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                 </div>
                 <DialogFooter className="mt-2">
                     <div className="flex items-center justify-between w-full">
-                        <Label className="w-full italic  text-muted-foreground">Note: Reviews are anonymous</Label>
+                        <Label className="w-full italic text-muted-foreground">Note: Reviews are anonymous</Label>
                         <div className="flex gap-2">
                             {/* {isEditMode && <DeleteReviewConfirmationModal reviewId={reviewFormData._id} clubId={clubId} setReviews={setReviews} />} */}
                             <DialogClose asChild>
