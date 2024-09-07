@@ -173,7 +173,9 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                 variant: "default",
                 description: `Your review has been successfully ${isEditMode ? "updated" : "added"}.`,
             })
-            isEditMode = true;
+            setTimeout(() => {
+                window.location.reload();
+        }, 5000);
 
         }).catch((error) => {
             toast({
