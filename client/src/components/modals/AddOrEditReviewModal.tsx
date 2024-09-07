@@ -175,8 +175,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
             })
             setTimeout(() => {
                 window.location.reload();
-        }, 5000);
-
+            }, 5000);
         }).catch((error) => {
             toast({
                 variant: "destructive",
