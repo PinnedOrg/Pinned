@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../context/mode-toggle";
 import { FaHome } from "react-icons/fa";
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import AuthModal from "../modals/AuthModal";
 
 const LinkStyles = "px-3 py-2 font-medium text-sm uppercase tracking-wide dark:text-gray-200 dark:hover:text-gray-200"; // ending space is important for tailwindcss to work properly
 
@@ -17,14 +18,14 @@ const NavBar = () => {
     <header className="h-[4.5rem] py-3 px-4 sm:px-9 flex justify-between sm:justify-between items-center z-10 bg-transparent">
       <ViewportWrapper breakpoint="large">
         <Link to={routes.Home} className="flex gap-1 sm:gap-[0.35rem] items-center">
-          <h1 className="text-lg sm:text-2xl font-bold uppercase text-accent-foreground">UW</h1>
-          <h1 className="text-xl sm:text-3xl font-bold text-transparent uppercase bg-gradient-to-r to-primary from-secondary bg-clip-text">
+          <h1 className="text-lg font-bold uppercase sm:text-2xl text-accent-foreground">UW</h1>
+          <h1 className="text-xl font-bold text-transparent uppercase sm:text-3xl bg-gradient-to-r to-primary from-secondary bg-clip-text">
             Pinned
           </h1>
         </Link>
       </ViewportWrapper>
 
-      <nav className="inline-flex sm:mr-3 mr-0">
+      <nav className="inline-flex mr-0 sm:mr-3">
         <div className="flex items-center gap-4 sm:gap-6 justify-evenly">
           <ViewportWrapper breakpoint="mobile">
             <Link to={routes.Home} className="p-2">
@@ -37,22 +38,14 @@ const NavBar = () => {
           </Button>
 
           <Button variant="ghost" className={LinkStyles}>
-            <SignedOut>
-              <Link to={routes.Register}>Register</Link>
-            </SignedOut>
-
-            <SignedIn>
               <div onClick={handleRedirect}>Register</div>
-            </SignedIn>
           </Button>
 
           <SignedIn>
             <UserButton />
           </SignedIn>
           <SignedOut>
-            <Button variant="secondary" className={`${LinkStyles} text-white font-semibold hover:bg-secondary-hover`}>
-              <Link to={routes.SignIn}>Sign In</Link>
-            </Button>
+            <AuthModal />
           </SignedOut>
 
           <ModeToggle />
