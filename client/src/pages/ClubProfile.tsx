@@ -61,7 +61,7 @@ const ClubProfile = () => {
         <ClubErrorMessage /> 
         :
         (clubData ?
-          (<div className="container max-w-[80rem] space-y-48">
+          (<div className="container max-w-[80rem] md:space-y-48 space-y-24">
             <div className="relative flex text-white">
               <GradientBackground />
               <ClubProfileHero clubData={clubData}/>

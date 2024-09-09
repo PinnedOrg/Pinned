@@ -20,7 +20,7 @@ const ClubProfileReviews = ({ reviews, clubId }: ClubProfileReviewsProps) => {
     const userReview = clubReviews.find((review: IReview) => review.user?.clerkId === userId);
 
     return (
-      <section className="w-full px-8 mt-8 animate-fade-in-up">
+      <section className="md:w-full md:px-8 md:mt-8 -mt-8 animate-fade-in-up">
             <div className="flex items-center justify-between w-full">
                 <h2 className="mb-4 text-2xl font-bold">Reviews<span className="ml-2 font-normal text-muted-foreground">({clubReviews.length})</span></h2>
                 <AddOrEditReviewModal review={userReview} clubId={clubId} setReviews={setClubReviews}/>
