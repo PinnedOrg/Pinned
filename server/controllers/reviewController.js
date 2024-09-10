@@ -11,7 +11,6 @@ const addOrUpdateReview = async (req, res) => {
     const { clubId } = req.params;
     const { userId } = req.auth;
 
-    let session;
     try {
         let user = await User.findOne({ clerkId: userId });
 
@@ -32,7 +31,7 @@ const addOrUpdateReview = async (req, res) => {
         // if (isTextProfane(comment)) {
         //     return res.status(400).json({ error: "Comment contains profanity" });
         // }
-    
+        
         let existingReview = await Review.findOneAndUpdate(
             { user: user._id, club: club._id },
             { engagement, commitment, inclusivity, organization, comment },

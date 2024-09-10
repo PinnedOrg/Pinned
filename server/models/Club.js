@@ -6,7 +6,7 @@ const clubSchema = new mongoose.Schema(
     name: {
         type: String,
         required: [true, "Missing club name."],
-        maxLength: 50
+        // maxLength: 50
     },
     logo: {
         type: mongoose.Schema.Types.ObjectId,
@@ -16,7 +16,7 @@ const clubSchema = new mongoose.Schema(
     description: {
         type: String,
         required: [true, "Missing club description."],
-        maxLength: 400,
+        // maxLength: 400,
         trim: true,
     },
     isActive: {
@@ -90,18 +90,18 @@ const clubSchema = new mongoose.Schema(
         required: false,
         match: [/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/, 'Please use a valid URL.'] // This is a regex pattern for URL, ensures valid URL
     },
-    facts: [
-        {
-            title: {
-                type: String,
-                required: true
-            },
-            description: {
-                type: String,
-                required: true
-            }
-        }
-    ],
+    // facts: [
+    //     {
+    //         title: {
+    //             type: String,
+    //             required: true
+    //         },
+    //         description: {
+    //             type: String,
+    //             required: true
+    //         }
+    //     }
+    // ],
     faqs: {
         type: [
             {
