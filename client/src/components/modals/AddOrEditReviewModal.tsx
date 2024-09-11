@@ -173,11 +173,12 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                 variant: "default",
                 description: `Your review has been successfully ${isEditMode ? "updated" : "added"}.`,
             })
+            isEditMode = true;
         }).catch((error) => {
             toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong.",
-                description: error.message,
+                description: error.response?.data?.error || error.message,
             })
             console.error(error);
         });
