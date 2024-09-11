@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
-const axios = require("axios");
-const FormData = require("form-data");
 
 const Club = require("../models/Club");
 const Event = require("../models/Event");
 const Image = require("../models/Image");
 const {uploadToImageKit, deleteFromImageKit} = require("../helpers/imagekitUploader");
-const { parse } = require("path");
 
 // might need to look at wrapping all functions with express async handler. Re, ChatTime
 
