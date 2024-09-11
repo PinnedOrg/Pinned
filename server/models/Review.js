@@ -28,7 +28,7 @@ const reviewSchema = new mongoose.Schema(
         },
         comment: {
             type: String,
-            required: false,
+            required: true,
             trim: true,
             maxlength: [500, "Comment too long."],
         },
