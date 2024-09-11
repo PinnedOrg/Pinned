@@ -5,7 +5,7 @@ const SignUpPage = () => {
   return (
     <div className="h-screen flex flex-center justify-center items-center">
         <GradientBackground />
-        <SignUp />
+        <SignUp redirectUrl={'/'} />
     </div>
   )
 }

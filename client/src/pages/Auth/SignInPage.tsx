@@ -12,11 +12,11 @@ With imports for navigate = UseNavigate() and location = UseLocation() from reac
 
 const SignInPage = () => {
   const location = useLocation();
-  const redirectTo = location.state?.from || "";
+  const redirectTo = location.state?.from || "/";
   return (
     <section className="h-screen flex flex-center justify-center items-center">
         <GradientBackground />
-        <SignIn afterSignInUrl={redirectTo} />
+        <SignIn redirectUrl={redirectTo} />
     </section>
   )
 }
