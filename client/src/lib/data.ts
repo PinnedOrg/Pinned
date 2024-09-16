@@ -61,25 +61,25 @@ export const team: Array<AboutCardType> = [
     {
         "name": "Eshaan Mehta",
         "picture": "/images/team/Eshaan.jpg",
-        "about": "I am a 2B student at the University of Waterloo studying Computer Engineering. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "I am a Computer Engineering student at the University of Waterloo. I love building products for other people, and leading teams in doing so. I oversaw the entire development and design of Pinned, managed the team while developing key frontend and backend features.",
         "initials": "EM"  
     },
     {
         "name": "Hazem Saad",
         "picture": "/images/team/Hazem.jpg",
-        "about": "I am a 2B student at the University of Waterloo studying Computer Engineering. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "I am a Computer Engineering student at the University of Waterloo. I am passionate about full-stack development and building complex features. I was responsible for the backend development of Pinned, including API's, infrastructure and user authentication.",
         "initials": "HS"
     },
     {
         "name": "Darius Rudaitis",
         "picture": "/images/team/Darius.jpg",
-        "about": "I am a 2B student at the University of Waterloo studying Computer Engineering. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "I am a Computer Engineering student at the University of Waterloo. I specialize in user driven development and product design. I built a web scraper to fetch club data, expiditing the onboarding process for clubs, and developed additional frontend UI.",
         "initials": "DR"
     },
     {
         "name": "Tony Yu",
         "picture": "/images/team/Tony.jpg",
-        "about": "I am a 2B student at the University of Waterloo studying Computer Engineering. I am passionate about software development and enjoy working on projects that have a positive impact on the community.",
+        "about": "I am a Computer Engineering student at the University of Waterloo. I focus on full-stack development and user experience. I developed key frontend features, including the club profile, with a focus on user experience and design.",
         "initials": "TY"
     },
 ]
