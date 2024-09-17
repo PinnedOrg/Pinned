@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { toast } from "@/components/ui/use-toast";
 import { error } from "console";
+import { useMutation } from "@tanstack/react-query";
+import { axiosInstance } from "@/lib/utils";
 
 type ModalTypes = "sign-in" | "sign-up" | "forgot-password";
 
@@ -35,7 +37,7 @@ const AuthModal = () => {
         setModalMode(switchToForgot ? 'forgot-password' : modalMode === 'sign-in' ? 'sign-up' : 'sign-in');
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let errorMessage = '';
         if (modalMode === 'sign-up' && !firstName) {
             errorMessage = "First Name is required";
@@ -48,14 +50,47 @@ const AuthModal = () => {
         } else if (modalMode === 'sign-up' && password !== confirmPassword) {
             errorMessage = "Passwords do not match";
         }
+    
         if (errorMessage) {
-            return toast({
+            toast({
                 title: errorMessage,
                 variant: 'destructive'
-            })
+            });
+            return;
         }
-        console.log('everything is good')
+        
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        // Add your logic here
+        await axiosInstance.post(`/api/users/${modalMode}`, {
+            email,
+            password,
+            ...(modalMode === 'sign-up' && { firstName, lastName, confirmPassword })
+        }, config)
+        .then((res) => {
+            console.log(res.data);
+            toast({
+                title: modalMode === 'sign-up' ? "Account created successfully" : "Logged in successfully",
+                variant: 'default'
+            });
+            setOpen(false);
+            window.location.reload();
+        })
+        .catch((err) => {
+            toast({
+                title: err.response?.data?.message || err.message,
+                variant: 'destructive'
+            });
+        });
+        return;
     }
+
+    const mutation = useMutation({
+        mutationFn: handleSubmit,
+    });
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -96,7 +131,7 @@ const AuthModal = () => {
                         value={email}
                         type="email"
                         required
-                        placeholder="Email"
+                        placeholder="Waterloo Email"
                         onChange={(e) => setEmail(e.target.value)}
                         className={`mb-4 border-muted-foreground bg-background ${email ? "text-accent-foreground" : "text-muted-foreground"}`}
                     />
