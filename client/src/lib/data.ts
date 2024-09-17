@@ -62,25 +62,29 @@ export const team: Array<AboutCardType> = [
         "name": "Eshaan Mehta",
         "picture": "/images/team/Eshaan.jpg",
         "about": "I am a Computer Engineering student at the University of Waterloo. I love building products for other people, and leading teams in doing so. I oversaw the entire development and design of Pinned, managed the team while developing key frontend and backend features.",
-        "initials": "EM"  
+        "initials": "EM",
+        "linkedin": "https://www.linkedin.com/in/eshaan-mehta-136a6924b/"  
     },
     {
         "name": "Hazem Saad",
         "picture": "/images/team/Hazem.jpg",
         "about": "I am a Computer Engineering student at the University of Waterloo. I am passionate about full-stack development and building complex features. I was responsible for the backend development of Pinned, including API's, infrastructure and user authentication.",
-        "initials": "HS"
+        "initials": "HS",
+        "linkedin": "https://www.linkedin.com/in/hazem-saad/"
     },
     {
         "name": "Darius Rudaitis",
         "picture": "/images/team/Darius.jpg",
         "about": "I am a Computer Engineering student at the University of Waterloo. I specialize in user driven development and product design. I built a web scraper to fetch club data, expiditing the onboarding process for clubs, and developed additional frontend UI.",
-        "initials": "DR"
+        "initials": "DR",
+        "linkedin": "https://www.linkedin.com/in/darius-rudaitis/"
     },
     {
         "name": "Tony Yu",
         "picture": "/images/team/Tony.jpg",
         "about": "I am a Computer Engineering student at the University of Waterloo. I focus on full-stack development and user experience. I developed key frontend features, including the club profile, with a focus on user experience and design.",
-        "initials": "TY"
+        "initials": "TY",
+        "linkedin": "https://www.linkedin.com/in/yu-tony/"
     },
 ]
 

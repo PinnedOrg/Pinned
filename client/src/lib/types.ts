@@ -84,6 +84,7 @@ export type AboutCardType = {
   picture: string;
   about: string;
   initials: string;
+  linkedin: string;
 }
 
 export type AffiliateType = {
