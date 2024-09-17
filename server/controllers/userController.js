@@ -1,6 +1,9 @@
 const User = require("../models/User");
 const Club = require("../models/Club");
 const mongoose = require("mongoose");
+const { createClerkClient } = require('@clerk/backend');
+
+const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
 const createUser = async (userId) => {
   if (!userId) {
@@ -19,6 +22,77 @@ const createUser = async (userId) => {
     throw new Error(`Error creating user: ${error.message}`);
   }
 }
+
+const userSignIn = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // const response = await.
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+
+}
+
+const userSignUp = async (req, res) => {
+  const { firstName, lastName, email, password, confirmPassword } = req.body;
+
+  if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: "Passwords do not match" });
+  }
+
+  const regex = /^[a-zA-Z0-9._%+-]+@uwaterloo\.ca$/;
+  if (!regex.test(email)) {
+      return res.status(400).json({ message: "Please use a valid Waterloo email." });
+  }
+
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Account with that email already exists." });
+    }
+
+    // create user in our db
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      clerkId: 'temp',
+      clubs: [],
+      reviews: []
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: "Error creating account" });
+    }
+
+    // create user in Clerkkfkt
+    const response = await clerkClient.users.createUser({
+      externalId: user._id,
+      firstName,
+      lastName,
+      emailAddress: [email], 
+      password // TODO: hash this before sending
+    });
+
+    // update user with clerkId
+    user.clerkId = response.id;
+    await user.save();
+
+
+    res.status(201).json(response)
+  } catch (error) {
+    errorMessage = error.errors?.[0].message ?? error.message;
+
+    res.status(error.status || 500).json({ message: errorMessage });
+  }
+}
+
 
 // handles subscribing and unsubscribing to clubs
 const subscribe = async (req, res) => {
@@ -88,6 +162,8 @@ const getAllUsers = async (req, res) => {
 
 module.exports = {
   createUser,
+  userSignIn,
+  userSignUp,
   subscribe,
   getAllUsers
 };

@@ -180,7 +180,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
             toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong.",
-                description: error.message,
+                description: error.response?.data?.message || error.message,
             })
             console.error(error);
         });
