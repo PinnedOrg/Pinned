@@ -7,6 +7,9 @@ import {
 
 import { AboutCardType } from '@/lib/types'
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Link } from "react-router-dom";
+import { LinkedinIcon } from "lucide-react";
+import { LinkedInLogoIcon } from "@radix-ui/react-icons";
 
 const AboutCard = ( member : AboutCardType) => {
   return (
@@ -18,7 +21,12 @@ const AboutCard = ( member : AboutCardType) => {
           <AvatarFallback>{member.initials}</AvatarFallback>
         </Avatar>
           {/* className=" grayscale-[0%] rounded-full w-28 h-auto aspect-square object-cover" */}
-        <CardTitle className="text-center">{member.name}</CardTitle>
+        <CardTitle className="text-center flex items-end">
+          {member.name}
+          <Link to={member.linkedin} target="_blank">
+            <LinkedInLogoIcon className=" ml-2 text-primary dark:text-primary-dark" />
+          </Link>
+        </CardTitle>
       <CardContent className="text-center">
         <CardDescription>{member.about}</CardDescription>
       </CardContent>
