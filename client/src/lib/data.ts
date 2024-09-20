@@ -75,7 +75,7 @@ export const team: Array<AboutCardType> = [
     {
         "name": "Darius Rudaitis",
         "picture": "/images/team/Darius.jpg",
-        "about": "I am a Computer Engineering student at the University of Waterloo. I specialize in user driven development and product design. I built a web scraper to fetch club data, expiditing the onboarding process for clubs, and developed additional frontend UI.",
+        "about": "I am a Computer Engineering student at the University of Waterloo. I specialize in user driven development and product design. I built an AI agent to fetch club data, expiditing the onboarding process for clubs, and developed additional frontend UI.",
         "initials": "DR",
         "linkedin": "https://www.linkedin.com/in/darius-rudaitis/"
     },
