@@ -11,6 +11,10 @@ const addOrUpdateReview = async (req, res) => {
     const { clubId } = req.params;
     const { userId } = req.auth;
 
+    if (!comment) {
+        return res.status(400).json({ error: "Comment is required." });
+    }
+
     try {
         let user = await User.findOne({ clerkId: userId });
 
