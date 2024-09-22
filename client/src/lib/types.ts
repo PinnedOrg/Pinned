@@ -1,7 +1,7 @@
 export interface IReview {
     _id: string;
     engagement: number;
-    commitment: number;
+    flexibility: number;
     inclusivity: number;
     organization: number;
     comment: string;
