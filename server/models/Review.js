@@ -8,11 +8,11 @@ const reviewSchema = new mongoose.Schema(
             min: [0, "Engagement rating too low."],
             max: [5, "Engagement rating too high."],
         },
-        commitment: {
+        flexibility: {
             type: Number,
             required: true,
-            min: [0, "Commitment rating too low."],
-            max: [5, "Commitment rating too high."],
+            min: [0, "Flexibility rating too low."],
+            max: [5, "Flexibility rating too high."],
         },
         inclusivity: {
             type: Number,

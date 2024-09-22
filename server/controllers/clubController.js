@@ -60,10 +60,10 @@ const getClubPreviewsBasedOnFilters = async (req, res) => {
             if (c.reviews?.length > 0) {
                 c.reviews.forEach(review => {
                     const engagement = review.engagement || 0;
-                    const commitment = review.commitment || 0;
+                    const flexibility = review.flexibility || 0;
                     const inclusivity = review.inclusivity || 0;
                     const organization = review.organization || 0;
-                    avgRating += (engagement + commitment + inclusivity + organization);
+                    avgRating += (engagement + flexibility + inclusivity + organization);
                 });
                 avgRating /= (c.reviews.length * 4); // each review has 4 ratings
             }

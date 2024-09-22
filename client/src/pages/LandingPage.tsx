@@ -28,6 +28,8 @@ const LandingPage = () => {
                   </a>
 
                </section>
+               <div data-tf-live="01J8DJKHFXY270SRHRGB45K2YM"></div>
+               <script src="//embed.typeform.com/next/embed.js"></script>
             <Wrap />
 
          </div>
