@@ -11,7 +11,8 @@ import SignUpPage from "@/pages/Auth/SignUpPage";
 import SignInPage from "@/pages/Auth/SignInPage";
 import ClubHub from "@/pages/ClubHub";
 import Layout from "@/components/shared/Layout";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import PrivacyPolicyPage from "@/pages/PrivacyPolicyPage";
+import VerifyEmailPage from "@/pages/Auth/VerifyEmailPage";
 
 const App = () => {
   return (
@@ -25,7 +26,8 @@ const App = () => {
         <Route path={routes.About} element={ <Layout> <AboutPage/> </Layout> } />
         <Route path={routes.PrivacyPolicy} element={ <Layout> <PrivacyPolicyPage/> </Layout> } />
         <Route path={routes.Register} element={ <Layout> <RegisterClub/> </Layout> } />
-        <Route path={`${routes.ClubProfile}:clubId`} element={ <Layout> <ClubProfile/> </Layout> } />
+        <Route path={`${routes.ClubProfile}/:clubId`} element={ <Layout> <ClubProfile/> </Layout> } />
+        <Route path={routes.VerifyEmail} element={ <Layout> <VerifyEmailPage/> </Layout> } />
         <Route path={"*"} element={ <Layout> <PageDoesNotExistErrorMessage/> </Layout>} />
       </Routes>
     </BrowserRouter>
