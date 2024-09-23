@@ -1,7 +1,11 @@
 const User = require("../models/User");
 const Club = require("../models/Club");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const { createClerkClient } = require('@clerk/backend');
+
+const { sendEmail } = require("../helpers/emailHelper");
 
 const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
@@ -27,7 +31,7 @@ const userSignIn = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // const response = await.
+    // const clerkUser = await.
 
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -39,6 +43,7 @@ const userSignUp = async (req, res) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body;
 
   if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    console.log(firstName, lastName, email, password, confirmPassword);
     return res.status(400).json({ message: "All fields are required." });
   }
 
@@ -51,18 +56,25 @@ const userSignUp = async (req, res) => {
       return res.status(400).json({ message: "Please use a valid Waterloo email." });
   }
 
+  let user, clerkUser;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Account with that email already exists." });
     }
 
+    const emailVerificationToken = crypto.randomBytes(32).toString("hex");
+    const tokenExpiration = new Date(Date.now() + 24*60*60*1000); // 1 day
+
     // create user in our db
-    const user = await User.create({
+    user = await User.create({
       firstName,
       lastName,
       email,
       clerkId: 'temp',
+      verified: false,
+      emailVerificationToken,
+      tokenExpiration,
       clubs: [],
       reviews: []
     });
@@ -71,23 +83,36 @@ const userSignUp = async (req, res) => {
       return res.status(400).json({ message: "Error creating account" });
     }
 
-    // create user in Clerkkfkt
-    const response = await clerkClient.users.createUser({
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // create user in Clerk
+    clerkUser = await clerkClient.users.createUser({
       externalId: user._id,
       firstName,
       lastName,
       emailAddress: [email], 
-      password // TODO: hash this before sending
+      password: hashedPassword,
     });
 
     // update user with clerkId
-    user.clerkId = response.id;
+    user.clerkId = clerkUser.id;
     await user.save();
 
+    // send email confirmation email to user
+    const emailSubject = "UW Pinned - Verify your email";
+    const emailText = `Click this link to verify your email: \n${process.env.CLIENT_URL}/verify-email?token=${emailVerificationToken}`;
+    sendEmail(email, emailSubject, emailText);
 
-    res.status(201).json(response)
+    res.status(201).json(clerkUser);
   } catch (error) {
     errorMessage = error.errors?.[0].message ?? error.message;
+
+    if (user) {
+      await User.deleteOne({ email });
+    }
+    if (clerkUser) {
+      await clerkClient.users.deleteUser(clerkUser.id);
+    }
 
     res.status(error.status || 500).json({ message: errorMessage });
   }

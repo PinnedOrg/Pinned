@@ -23,6 +23,19 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true
     },
+    verified: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    emailVerificationToken: {
+      type: String,
+      required: false
+    },
+    tokenExpiration: {
+      type: Date,
+      required: false
+    },
     clubs: {
         type: [mongoose.Schema.Types.ObjectId],
         required: false,
@@ -36,6 +49,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    expireAfterSeconds: 60*60*24
   }
 );
 

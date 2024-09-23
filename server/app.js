@@ -16,10 +16,12 @@ const eventRoutes = require('./routes/events');
 const clubRoutes = require('./routes/clubs');
 const userRoutes = require('./routes/users');
 const reviewRoutes = require('./routes/reviews');
+// const emailRoutes = require('./routes/email');
 
 app.use('/api/events', eventRoutes);
 app.use('/api/clubs', clubRoutes);
 app.use('/api/users', userRoutes);
+// app.user('/api/email', emailRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'UP' });
