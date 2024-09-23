@@ -42,7 +42,7 @@ const NavBar = () => {
           </Button>
 
           <SignedIn>
-            <UserButton />
+            <UserButton afterSignOutUrl={routes.Home}/>
           </SignedIn>
           <SignedOut>
             <AuthModal />
