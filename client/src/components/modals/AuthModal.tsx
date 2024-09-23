@@ -15,7 +15,6 @@ import { routes } from "@/lib/routes";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { toast } from "@/components/ui/use-toast";
-import { error } from "console";
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "@/lib/utils";
 
@@ -73,11 +72,10 @@ const AuthModal = () => {
         .then((res) => {
             console.log(res.data);
             toast({
-                title: modalMode === 'sign-up' ? "Account created successfully" : "Logged in successfully",
+                title: modalMode === 'sign-up' ? "Success! Check your inbox for a verification link then login" : "Logged in successfully",
                 variant: 'default'
             });
             setOpen(false);
-            window.location.reload();
         })
         .catch((err) => {
             toast({
@@ -88,9 +86,9 @@ const AuthModal = () => {
         return;
     }
 
-    const mutation = useMutation({
-        mutationFn: handleSubmit,
-    });
+    // const mutation = useMutation({
+    //     mutationFn: handleSubmit,
+    // });
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
