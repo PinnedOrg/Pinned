@@ -17,7 +17,7 @@ const VerifyEmailPage = () => {
         }
 
         //TODO: check if token has already been verified
-        axiosInstance.post(`/api/auth/verify-email?token=${token}`)
+        axiosInstance.post(`/api/users/verify-email?token=${token}`)
         .then(() => {
             setIsSuccess(true);
             setIsLoading(false);

@@ -7,11 +7,13 @@ const {
     userSignIn,
     userSignUp,
     subscribe,
-    getAllUsers
+    getAllUsers,
+    verifyEmail
   } = require("../controllers/userController");
 
 router.post("/sign-in", userSignIn);
 router.post("/sign-up", userSignUp);
+router.post("/verify-email", verifyEmail);
 router.post("/subscribe/:clubId", customRequireAuth, subscribe);
 router.get("/", getAllUsers)
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const { connectToDatabase } = require('./database/db'); // Import the connection function
+const { connectToDatabase } = require('./database/db'); 
 require('dotenv').config(); // Load environment variables
 
 const app = express();
@@ -16,12 +16,10 @@ const eventRoutes = require('./routes/events');
 const clubRoutes = require('./routes/clubs');
 const userRoutes = require('./routes/users');
 const reviewRoutes = require('./routes/reviews');
-// const emailRoutes = require('./routes/email');
 
 app.use('/api/events', eventRoutes);
 app.use('/api/clubs', clubRoutes);
 app.use('/api/users', userRoutes);
-// app.user('/api/email', emailRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'UP' });

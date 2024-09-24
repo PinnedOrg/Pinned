@@ -119,6 +119,33 @@ const userSignUp = async (req, res) => {
 }
 
 
+const verifyEmail = async (req, res) => {
+  const { token } = req.query;
+
+  try {
+    const user = await User.findOne({ emailVerificationToken: token });
+
+    if (!user) {
+      return res.status(404).json({ message: "Invalid token" });
+    }
+
+    if (user.tokenExpiration < Date.now()) {
+      return res.status(400).json({ message: "Token expired" });
+    }
+
+    user.verified = true;
+    user.emailVerificationToken = undefined;
+    user.tokenExpiration = undefined;
+    await user.save();
+
+    res.status(200).json({ message: "Email verified" });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
 // handles subscribing and unsubscribing to clubs
 const subscribe = async (req, res) => {
   const { clubId } = req.params;
@@ -190,5 +217,6 @@ module.exports = {
   userSignIn,
   userSignUp,
   subscribe,
-  getAllUsers
+  getAllUsers,
+  verifyEmail
 };
