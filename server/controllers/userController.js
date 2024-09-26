@@ -30,8 +30,32 @@ const createUser = async (userId) => {
 const userSignIn = async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) { 
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
   try {
-    // const clerkUser = await.
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "No account found with that email" });
+    }
+
+    if (!user.verified) {
+      return res.status(403).json({ message: "Please verify your email" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const { verified } = await clerkClient.users.verifyPassword({ userId: user.clerkId, password: hashedPassword });
+
+    if (!verified) {
+      return res.status(403).json({ message: "Invalid password" });
+    }
+
+    const token = user.generateAuthToken();
+
+    res.status(200).json({ token, user: { id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, clubs: user.clubs } });
+
 
   } catch (error) {
     res.status(500).json({ message: error.message });
