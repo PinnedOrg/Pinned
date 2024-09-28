@@ -7,9 +7,11 @@ import { routes } from "@/lib/routes";
 const VerifyEmailPage = () => {
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token');
+    const email = searchParams.get('email');
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
-    
+    const [message, setMessage] = useState<string>('');
+
     useEffect(() => {
         if (!token) {
             setIsLoading(false);
@@ -17,16 +19,16 @@ const VerifyEmailPage = () => {
         }
 
         //TODO: check if token has already been verified
-        axiosInstance.post(`/api/users/verify-email?token=${token}`)
-        .then(() => {
+        axiosInstance.post(`/api/users/verify-email?email=${email}&token=${token}`)
+        .then((res) => {
             setIsSuccess(true);
             setIsLoading(false);
-            console.log('Email verified');
+            setMessage(res.data.message);
         })
-        .catch(() => {
-            console.log('Error verifying email');
+        .catch((err) => {
             setIsSuccess(false);
             setIsLoading(false);
+            setMessage(err.response.data.message);
         });
     }, [token]);
 
@@ -39,7 +41,7 @@ const VerifyEmailPage = () => {
             </>
             : isSuccess ?
             <>
-                <h1 className="w-full text-3xl font-medium text-green-500">Email verified</h1>
+                <h1 className="w-full text-3xl font-medium text-green-500">{message}</h1>
                 <p className="mt-2 text-sm ">You can now{" "}
                     <Link to={routes.Home} className="underline">
                         sign in
@@ -48,7 +50,7 @@ const VerifyEmailPage = () => {
             </>
             :
             <>
-            <h1 className="w-full text-3xl font-medium text-red-600">Error verifying email</h1>
+            <h1 className="w-full text-3xl font-medium text-red-600">{message}</h1>
             <p className="mt-2 text-sm w-[80%] text-center">If this was an error, please report to {" "}
                 <a href="mailto:pinnedorg@gmail.com" className="underline text-cyan-500 hover:cursor-pointer">pinnedorg@gmail.com</a>
             </p>

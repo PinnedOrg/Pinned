@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const { createClerkClient } = require('@clerk/backend');
 
-const { sendEmail } = require("../helpers/emailHelper");
+const { sendVerificationEmail } = require("../helpers/emailHelper");
 
 const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
@@ -34,6 +34,11 @@ const userSignIn = async (req, res) => {
     return res.status(400).json({ message: "All fields are required." });
   }
 
+  const regex = /^[a-zA-Z0-9._%+-]+@uwaterloo\.ca$/;
+  if (!regex.test(email)) {
+      return res.status(400).json({ message: "Please use a valid Waterloo email." });
+  }
+
   try {
     const user = await User.findOne({ email });
 
@@ -45,18 +50,9 @@ const userSignIn = async (req, res) => {
       return res.status(403).json({ message: "Please verify your email" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const { verified } = await clerkClient.users.verifyPassword({ userId: user.clerkId, password: hashedPassword });
-
-    if (!verified) {
-      return res.status(403).json({ message: "Invalid password" });
-    }
-
-    const token = user.generateAuthToken();
-
-    res.status(200).json({ token, user: { id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, clubs: user.clubs } });
-
-
+    // const hashedPassword = await bcrypt.hash(password, 12);
+    
+    return res.status(200).json({verified: true, user});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -87,9 +83,6 @@ const userSignUp = async (req, res) => {
       return res.status(400).json({ message: "Account with that email already exists." });
     }
 
-    const emailVerificationToken = crypto.randomBytes(32).toString("hex");
-    const tokenExpiration = new Date(Date.now() + 24*60*60*1000); // 1 day
-
     // create user in our db
     user = await User.create({
       firstName,
@@ -97,8 +90,6 @@ const userSignUp = async (req, res) => {
       email,
       clerkId: 'temp',
       verified: false,
-      emailVerificationToken,
-      tokenExpiration,
       clubs: [],
       reviews: []
     });
@@ -107,7 +98,7 @@ const userSignUp = async (req, res) => {
       return res.status(400).json({ message: "Error creating account" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    // const hashedPassword = await bcrypt.hash(password, 12);
 
     // create user in Clerk
     clerkUser = await clerkClient.users.createUser({
@@ -115,7 +106,8 @@ const userSignUp = async (req, res) => {
       firstName,
       lastName,
       emailAddress: [email], 
-      password: hashedPassword,
+      password,
+      skipPasswordChecks: true
     });
 
     // update user with clerkId
@@ -123,9 +115,10 @@ const userSignUp = async (req, res) => {
     await user.save();
 
     // send email confirmation email to user
-    const emailSubject = "UW Pinned - Verify your email";
-    const emailText = `Click this link to verify your email: \n${process.env.CLIENT_URL}/verify-email?token=${emailVerificationToken}`;
-    sendEmail(email, emailSubject, emailText);
+    const { status, message } = await sendVerificationEmail(email);
+    if (status !== 200) {
+      return res.status(status).json({ message });
+    }
 
     res.status(201).json(clerkUser);
   } catch (error) {
@@ -142,15 +135,29 @@ const userSignUp = async (req, res) => {
   }
 }
 
+const requestVerificationEmail = async (req, res) => {
+  const { email } = req.body;
+  const {status, message} = await sendVerificationEmail(email);
+  res.status(status).json({ message });
+}
 
-const verifyEmail = async (req, res) => {
-  const { token } = req.query;
+
+const verifyEmailToken = async (req, res) => {
+  const { email, token } = req.query;
 
   try {
-    const user = await User.findOne({ emailVerificationToken: token });
+    const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: "Invalid token" });
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    if (user.verified) {
+      return res.status(208).json({ message: "Email is already verified" });
+    }
+
+    if (user.emailVerificationToken !== token) {
+      return res.status(400).json({ message: "Invalid token" });
     }
 
     if (user.tokenExpiration < Date.now()) {
@@ -242,5 +249,6 @@ module.exports = {
   userSignUp,
   subscribe,
   getAllUsers,
-  verifyEmail
+  verifyEmailToken,
+  requestVerificationEmail
 };

@@ -17,10 +17,14 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { toast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "@/lib/utils";
+import { useSignIn } from "@clerk/clerk-react";
+import { AxiosError } from "axios";
+import { Toast, ToastAction } from "@radix-ui/react-toast";
 
 type ModalTypes = "sign-in" | "sign-up" | "forgot-password";
 
 const AuthModal = () => {
+    const { signIn } = useSignIn();
     const [open, setOpen] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
@@ -35,6 +39,86 @@ const AuthModal = () => {
     const handleModeSwitch = (switchToForgot: boolean) => {
         setModalMode(switchToForgot ? 'forgot-password' : modalMode === 'sign-in' ? 'sign-up' : 'sign-in');
     }
+
+    const handleSignIn = async () => {
+        // ensure user is verified
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            // Add your logic here
+            const response = await axiosInstance.post(`/api/users/sign-in`, {
+                email,
+                password
+            }, config);
+            console.log(response);
+        } catch (error: any) {
+            console.log(error)
+            toast({
+                title: error.response.data.message,
+                variant: 'destructive',
+                ...(error.response.status === 403 && {action: <ToastAction className="text-xs hover:text-gray-200 underline" onClick={() => setOpen(true)} altText="Resend Verification Email">Resend Verification Email</ToastAction>}) // only is user exists and is unverified
+            });
+            return;
+        } 
+        
+        
+        try { 
+            const result = await signIn?.create({
+                identifier: email,
+                strategy: 'password',
+                password: password,
+            });
+        
+            if (result?.status === 'complete') {
+                toast({
+                    title: "Logged in successfully",
+                    variant: 'default'
+                });
+            }
+            setOpen(false);
+            window.location.reload();
+        } catch (error: any) {
+            console.log(error);
+            toast({
+                title: error.errors[0].message,
+                variant: 'destructive'
+            });
+        }
+    }
+
+    const handleSignUp = async () => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        // Add your logic here
+        await axiosInstance.post(`/api/users/sign-up`, {
+            email,
+            password,
+            firstName,
+            lastName,
+            confirmPassword
+        }, config)
+        .then((res) => {
+            console.log(res.data);
+            toast({
+                title: "Success! Check your inbox for a verification link then login",
+                variant: 'default'
+            });
+            setOpen(false);
+        })
+        .catch((err) => {
+            toast({
+                title: err.response?.data?.message || err.message,
+                variant: 'destructive'
+            });
+        });
+    }
+        
 
     const handleSubmit = async () => {
         let errorMessage = '';
@@ -57,33 +141,12 @@ const AuthModal = () => {
             });
             return;
         }
-        
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+
+        if (modalMode === 'sign-in') {
+            await handleSignIn();
+        } else {
+            await handleSignUp();
         }
-        // Add your logic here
-        await axiosInstance.post(`/api/users/${modalMode}`, {
-            email,
-            password,
-            ...(modalMode === 'sign-up' && { firstName, lastName, confirmPassword })
-        }, config)
-        .then((res) => {
-            console.log(res.data);
-            toast({
-                title: modalMode === 'sign-up' ? "Success! Check your inbox for a verification link then login" : "Logged in successfully",
-                variant: 'default'
-            });
-            setOpen(false);
-        })
-        .catch((err) => {
-            toast({
-                title: err.response?.data?.message || err.message,
-                variant: 'destructive'
-            });
-        });
-        return;
     }
 
     // const mutation = useMutation({
