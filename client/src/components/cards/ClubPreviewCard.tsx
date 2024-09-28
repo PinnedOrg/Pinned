@@ -76,7 +76,7 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
           </div>
         </CardHeader>
 
-        <CardContent className='mt-2 space-y-2 overflow-hidden'>
+        <CardContent className='mt-[2px] space-y-2 overflow-hidden'>
           <StarRating rating={club.avgRating} className='flex justify-center' />
           <CardDescription className='text-sm text-center'
            style={{
