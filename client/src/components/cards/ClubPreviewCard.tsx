@@ -44,7 +44,14 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
                 <IKImage 
                   src={club.logo.url}
                   alt={""} 
-                  transformation={[{ height: "150", width: "150", }]} 
+                  transformation={[
+                    { 
+                      height: "150", 
+                      width: "150", 
+                      cropMode: "pad_resize",  // Adds padding to maintain aspect ratio
+                      background: "auto"  // Adds padding color intelligently
+                    }
+                  ]}
                   loading="lazy" 
                   lqip={{ active:true, quality:20 }} 
                   className='aspect-square'
