@@ -57,9 +57,20 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
               )}
             </Avatar>
           </IKContext>
-          <CardTitle className='text-center' >{club.name}</CardTitle>
+          <CardTitle className='text-center'
+            style={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2, // Always clamp to 2 lines
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              lineHeight: '1.2em', // Adjust line height for better spacing
+              maxHeight: '2.4em',  // Ensures that it doesn't exceed 2 lines
+            }}>
+            {club.name}
+          </CardTitle>
           <div className='flex justify-center'>
-            <Badge variant={'outline'} className='bg-white border-none text-primary bg-primary-background w-max'>
+            <Badge variant={'outline'} className='line-clamp-2 bg-white border-none text-primary bg-primary-background w-max'>
               {club.genre}
             </Badge>
           </div>
@@ -67,7 +78,14 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
 
         <CardContent className='mt-2 space-y-2 overflow-hidden'>
           <StarRating rating={club.avgRating} className='flex justify-center' />
-          <CardDescription className={clsx(`line-clamp-${descriptionLines} text-sm text-center`)}>
+          <CardDescription className='text-sm text-center'
+           style={{
+            display: '-webkit-box',
+            WebkitLineClamp: descriptionLines, // Dynamically set the number of lines
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden', // Ensure overflow is hidden
+            textOverflow: 'ellipsis' // Add "..." when overflowing
+          }}>
             {club.description}
           </CardDescription>
           {
