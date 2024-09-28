@@ -32,6 +32,9 @@ const featureTexts: { [key: number]: string } = {
 // #020617: hex color for bg
 
 const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
+  // Dynamically set the line-clamp value based on club.featured
+  const descriptionLines = club.featured !== 0 ? 2 : 3;
+
   return (
     <Card
         className={clsx('h-[25rem] min-w-[18rem] max-w-[21rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300', {'shadow-lg shadow-white/10 transition-all bg-opacity-20': club.featured != 0})}
@@ -64,8 +67,8 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
 
         <CardContent className='mt-2 space-y-2 overflow-hidden'>
           <StarRating rating={club.avgRating} className='flex justify-center' />
-          <CardDescription className='h-16 overflow-hidden text-sm text-center'>
-            {club.description}
+          <CardDescription className={clsx(`line-clamp-${descriptionLines} text-sm text-center`)}>
+          {club.description}
           </CardDescription>
           {
             club.featured > 0 &&
