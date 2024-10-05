@@ -191,7 +191,7 @@ const subscribe = async (req, res) => {
     let user = await User.findOne({ clerkId: userId });
 
     if (!user) {
-      return res.status(401).json({ "User not found."}) 
+      return res.status(401).json({ error: "User not found." }) 
     }
     
     if (!mongoose.Types.ObjectId.isValid(clubId)) {
