@@ -107,14 +107,14 @@ const userSignUp = async (req, res) => {
       lastName,
       emailAddress: [email], 
       password,
-      skipPasswordChecks: true
+      skipPasswordChecks: process.env.ENVIRONMENT === 'Production' ? false : true
     });
 
     // update user with clerkId
     user.clerkId = clerkUser.id;
     await user.save();
 
-    // send email confirmation email to user
+    // send confirmation email to user
     const { status, message } = await sendVerificationEmail(email);
     if (status !== 200) {
       return res.status(status).json({ message });
@@ -124,6 +124,7 @@ const userSignUp = async (req, res) => {
   } catch (error) {
     errorMessage = error.errors?.[0].message ?? error.message;
 
+    // delete user accounts in the event of any errors
     if (user) {
       await User.deleteOne({ email });
     }
@@ -137,8 +138,12 @@ const userSignUp = async (req, res) => {
 
 const requestVerificationEmail = async (req, res) => {
   const { email } = req.body;
-  const {status, message} = await sendVerificationEmail(email);
-  res.status(status).json({ message });
+  try {
+    const {status, message} = await sendVerificationEmail(email);
+    res.status(status).json({ message });
+  } catch (error) {
+    res.status(500).json({ message: error.message});
+  }
 }
 
 
@@ -156,7 +161,7 @@ const verifyEmailToken = async (req, res) => {
       return res.status(208).json({ message: "Email is already verified" });
     }
 
-    if (user.emailVerificationToken !== token) {
+    if (token !== user.emailVerificationToken) {
       return res.status(400).json({ message: "Invalid token" });
     }
 
@@ -186,12 +191,11 @@ const subscribe = async (req, res) => {
     let user = await User.findOne({ clerkId: userId });
 
     if (!user) {
-      await createUser(userId);
-      user = await User.findOne({ clerkId: userId })
+      return res.status(401).json({ "User not found."}) 
     }
     
     if (!mongoose.Types.ObjectId.isValid(clubId)) {
-      return res.status(404).json({ error: "Club not found." });
+      return res.status(404).json({ error: "Invalid club id." });
     }
 
     const club = await Club.findById(clubId);

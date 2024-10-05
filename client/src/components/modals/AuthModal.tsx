@@ -15,11 +15,9 @@ import { routes } from "@/lib/routes";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { toast } from "@/components/ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "@/lib/utils";
 import { useSignIn } from "@clerk/clerk-react";
-import { AxiosError } from "axios";
-import { Toast, ToastAction } from "@radix-ui/react-toast";
+import { ToastAction } from "@radix-ui/react-toast";
 
 type ModalTypes = "sign-in" | "sign-up" | "forgot-password";
 
@@ -40,6 +38,28 @@ const AuthModal = () => {
         setModalMode(switchToForgot ? 'forgot-password' : modalMode === 'sign-in' ? 'sign-up' : 'sign-in');
     }
 
+    const handleResendVerificationEmail = async () => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    
+        await axiosInstance.post(`/api/users/send-verification-email`, { email }, config)
+        .then((res) => {
+            toast({
+                title: res.data.message,
+                variant: 'default'
+            })
+        })
+        .catch((err) => {
+            toast({
+                title: err.message,
+                variant: 'destructive'
+            })
+        })
+    }
+
     const handleSignIn = async () => {
         // ensure user is verified
         try {
@@ -48,23 +68,22 @@ const AuthModal = () => {
                     'Content-Type': 'application/json'
                 }
             }
-            // Add your logic here
-            const response = await axiosInstance.post(`/api/users/sign-in`, {
+            await axiosInstance.post('/api/users/sign-in', {
                 email,
                 password
             }, config);
-            console.log(response);
         } catch (error: any) {
-            console.log(error)
+            const isUserUnverified = error.response.status === 403;
+
             toast({
                 title: error.response.data.message,
                 variant: 'destructive',
-                ...(error.response.status === 403 && {action: <ToastAction className="text-xs hover:text-gray-200 underline" onClick={() => setOpen(true)} altText="Resend Verification Email">Resend Verification Email</ToastAction>}) // only is user exists and is unverified
+                ...(isUserUnverified && {action: <ToastAction className="text-xs hover:text-gray-200 underline" onClick={handleResendVerificationEmail} altText="Resend Verification Email">Resend Verification Email</ToastAction>}) // only is user exists and is unverified
             });
             return;
         } 
         
-        
+        // clerk session creation
         try { 
             const result = await signIn?.create({
                 identifier: email,
@@ -95,7 +114,6 @@ const AuthModal = () => {
                 'Content-Type': 'application/json'
             }
         }
-        // Add your logic here
         await axiosInstance.post(`/api/users/sign-up`, {
             email,
             password,

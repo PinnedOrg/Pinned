@@ -14,8 +14,7 @@ const addOrUpdateReview = async (req, res) => {
         let user = await User.findOne({ clerkId: userId });
 
         if (!user) {
-          await createUser(userId);
-          user = await User.findOne({ clerkId: userId });
+            return res.status(401).json({ error: "User not found."})
         }
 
         if (!mongoose.Types.ObjectId.isValid(clubId)) {
@@ -24,7 +23,7 @@ const addOrUpdateReview = async (req, res) => {
 
         let club = await Club.findById(clubId);
         if (!club) {
-            return res.status(404).json({ error: "Club not found" });
+            return res.status(404).json({ error: "Club not found." });
         }
 
         // if (isTextProfane(comment)) {

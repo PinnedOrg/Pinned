@@ -45,10 +45,10 @@ const sendVerificationEmail = async (email) => {
       await user.save();
   
       const emailSubject = "UW Pinned - Verify your email";
-      const emailText = `Click this link to verify your email: \n${process.env.CLIENT_URL}/verify-email?token=${emailVerificationToken}`;
+      const emailText = `Click this link to verify your email: \n${process.env.CLIENT_URL}/verify-email?email=${email}&token=${emailVerificationToken}`;
       await sendEmail(email, emailSubject, emailText);
   
-      return "Verification email sent";
+      return { status: 200, message: "Verification email sent" };
     } catch (error) {
       throw new Error(`Error sending verification email: ${error.message}`);
     }
