@@ -19,32 +19,52 @@ import { axiosInstance } from "@/lib/utils";
 import { useSignIn } from "@clerk/clerk-react";
 import { ToastAction } from "@radix-ui/react-toast";
 
-type ModalTypes = "sign-in" | "sign-up" | "forgot-password";
-
 type AuthModalProps = {
     children: ReactNode;
     mode?: ModalTypes;
 }
 
+enum ModalTypes {
+    SignIn = "sign-in",
+    SignUp = "sign-up",
+    ResetPassword = "reset-password"
+}
+
+enum ResetPasswordSteps {
+    Email = 0,
+    Code = 1,
+    NewPassword = 2
+}
+
 const AuthModal = ({ children, mode }: AuthModalProps) => {
     const { signIn } = useSignIn();
     const [open, setOpen] = useState<boolean>(false);
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+    const [showPasswordValue, setShowPasswordValue] = useState<boolean>(false);
+    const [showConfirmPasswordValue, setShowConfirmPasswordValue] = useState<boolean>(false);
     
-    const [modalMode, setModalMode] = useState<ModalTypes>(mode ?? 'sign-in');
+    const [modalMode, setModalMode] = useState<ModalTypes>(mode || ModalTypes.SignIn);
+    const [resetPasswordStep, setResetPasswordStep] = useState<ResetPasswordSteps>(ResetPasswordSteps.Email);
+
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
+
+
+    const isModeSignIn = modalMode === ModalTypes.SignIn;
+    const isModeSignUp = modalMode === ModalTypes.SignUp;
+    const isModeResetPassword = modalMode === ModalTypes.ResetPassword;
+    const showPasswordField = (isModeResetPassword && resetPasswordStep === ResetPasswordSteps.NewPassword) || isModeSignIn || isModeSignUp;
+    const showPrivacyPolicy = isModeSignIn || isModeSignUp;
+    
     
     const handleTriggerClick = () => {
         setOpen(true);
     }
 
-    const handleModeSwitch = (switchToForgot: boolean) => {
-        setModalMode(switchToForgot ? 'forgot-password' : modalMode === 'sign-in' ? 'sign-up' : 'sign-in');
+    const handleModeSwitch = (switchToReset: boolean) => {
+        setModalMode(switchToReset ? ModalTypes.ResetPassword : isModeSignIn ? ModalTypes.SignUp : ModalTypes.SignIn);
     }
 
     const handleResendVerificationEmail = async () => {
@@ -145,19 +165,58 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
             });
         });
     }
-        
 
+    const handleResetPassword = async () => {
+        switch (resetPasswordStep) {
+            case ResetPasswordSteps.Email:
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                await axiosInstance.post(`/api/users/reset-password`, { email }, config)
+                .then((res) => {
+                    console.log(res.data);
+                    toast({
+                        title: res.data.message,
+                        variant: 'default'
+                    });
+                    setResetPasswordStep(ResetPasswordSteps.Code);
+                })
+                .catch((err) => {
+                    toast({
+                        title: err.response?.data?.message || err.message,
+                        variant: 'destructive'
+                    });
+                });
+                break;
+            case ResetPasswordSteps.Code:
+                // verify code
+                break;
+            case ResetPasswordSteps.NewPassword:
+                // reset password
+                break;
+            default:
+                break;
+        }
+    }
+        
     const handleSubmit = async () => {
+        if (isModeResetPassword) {
+            await handleResetPassword();
+            return;
+        }
+
         let errorMessage = '';
-        if (modalMode === 'sign-up' && !firstName) {
+        if (isModeSignUp && !firstName) {
             errorMessage = "First Name is required";
-        } else if (modalMode === 'sign-up' && !lastName) {
+        } else if (isModeSignUp && !lastName) {
             errorMessage = "Last Name is required";
         } else if (!email) {
             errorMessage = "Email is required";
         } else if (!password) {
             errorMessage = "Password is required";
-        } else if (modalMode === 'sign-up' && password !== confirmPassword) {
+        } else if (isModeSignUp && password !== confirmPassword) {
             errorMessage = "Passwords do not match";
         }
     
@@ -169,7 +228,7 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
             return;
         }
 
-        if (modalMode === 'sign-in') {
+        if (isModeSignIn) {
             await handleSignIn();
         } else {
             await handleSignUp();
@@ -183,11 +242,11 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
             </DialogTrigger>
             <DialogContent className="w-[24rem]">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold">{modalMode === 'sign-up' ? "Sign Up" : "Sign In"}</DialogTitle>
+                    <DialogTitle className="text-2xl font-bold">{isModeResetPassword ? 'Reset Password' : isModeSignUp ? "Sign Up" : "Sign In"}</DialogTitle>
                     <DialogClose />
                 </DialogHeader>
                 <div className="mt-1">
-                    {modalMode === 'sign-up' && <div className="flex gap-4">
+                    {isModeSignUp && <div className="flex gap-4">
                         <Input
                             value={firstName}
                             type="text"
@@ -213,50 +272,50 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
                         onChange={(e) => setEmail(e.target.value)}
                         className={`mb-4 border-muted-foreground bg-background ${email ? "text-accent-foreground" : "text-muted-foreground"}`}
                     />
-                    <div className="relative">
+                    {showPasswordField && <div className="relative">
                         <Input
                             value={password}
-                            type={showPassword ? "text" : "password"}
+                            type={showPasswordValue ? "text" : "password"}
                             required
                             placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
-                            className={`${modalMode === 'sign-up' ? "mb-4" : ""} border-muted-foreground bg-background ${password ? "text-accent-foreground" : "text-muted-foreground"}`}
+                            className={`${isModeSignUp ? "mb-4" : ""} border-muted-foreground bg-background ${password ? "text-accent-foreground" : "text-muted-foreground"}`}
                         />
-                        <button type="button" onClick={() => setShowPassword(!showPassword)} className='absolute right-4 text-xl top-[0.7rem]'>
-                            {showPassword ? (<FaEyeSlash />) : (<FaEye />)}
+                        <button type="button" onClick={() => setShowPasswordValue(!showPasswordValue)} className='absolute right-4 text-xl top-[0.7rem]'>
+                            {showPasswordValue ? (<FaEyeSlash />) : (<FaEye />)}
                         </button>
-                    </div>
-                    {modalMode === 'sign-up' && <div className="relative">
+                    </div>}
+                    {isModeSignUp && <div className="relative">
                         <Input
                             value={confirmPassword}
-                            type={showConfirmPassword ? "text" : "password"}
+                            type={showConfirmPasswordValue ? "text" : "password"}
                             required
                             placeholder="Confirm Password"
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            className={` border-muted-foreground bg-background ${confirmPassword ? "text-accent-foreground" : "text-muted-foreground"}`}
+                            className={`mb-6 border-muted-foreground bg-background ${confirmPassword ? "text-accent-foreground" : "text-muted-foreground"}`}
                         />
-                        <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className='absolute right-4 text-xl top-[0.7rem]'>
-                            {showConfirmPassword ? (<FaEyeSlash />) : (<FaEye />)}
+                        <button type="button" onClick={() => setShowConfirmPasswordValue(!showConfirmPasswordValue)} className='absolute right-4 text-xl top-[0.7rem]'>
+                            {showConfirmPasswordValue ? (<FaEyeSlash />) : (<FaEye />)}
                         </button>
                     </div>}
-                    <div className="flex justify-end w-full my-1">
+                    {isModeSignIn && <div className="flex justify-end w-full mt-1">
                         <Button 
                             variant={'link'} 
                             className="p-0 text-cyan-700"
-                            // onClick={() => handleModeSwitch(true)}
+                            onClick={() => handleModeSwitch(true)}
                         >
-                            Forgot Password?
+                            Reset Password
                         </Button>
-                    </div>
+                    </div>}
                     <Button 
                         variant="secondary"
-                        className="w-full px-5 py-2 text-sm font-semibold tracking-wide text-white uppercase"
+                        className="mt-1 w-full px-5 py-2 text-sm font-semibold tracking-wide text-white uppercase"
                         onClick={handleSubmit}
                         type="submit"
                     >
-                        {modalMode === "sign-up" ? "Sign Up" : "Sign In"}
+                        {isModeResetPassword ? "Send Reset Code" : modalMode === "sign-up" ? "Sign Up" : "Sign In"}
                     </Button>
-                    <div className="flex justify-center mt-1">
+                    {showPrivacyPolicy && <div className="flex justify-center mt-1">
                         <Button 
                             variant={'link'} 
                             className="text-muted-foreground hover:no-underline"
@@ -267,7 +326,7 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
                                 Privacy Policy
                             </Link>
                         </Button>
-                    </div>
+                    </div>}
                 </div>
                 <DialogFooter className="border-t-2 border-muted">
                     <div className="flex justify-center w-full mt-2"> 
@@ -276,7 +335,7 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
                             className="text-accent-foreground"
                             onClick={() => handleModeSwitch(false)}
                         >
-                            {modalMode === 'sign-in' ? "Sign Up" : "Sign In"}
+                            {isModeSignIn ? "Sign Up" : "Sign In"}
                         </Button>
                     </div>
                 </DialogFooter>

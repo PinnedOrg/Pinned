@@ -15,10 +15,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 import { useAuth } from "@clerk/clerk-react";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 
-import { routes } from "@/lib/routes";
+// import { routes } from "@/lib/routes";
 import { IReview } from "@/lib/types";
 import { axiosInstance } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
@@ -79,17 +79,17 @@ const RatingSlider = ({ label, sliderkey, value, onValueChange }: RatingSliderPr
 }
 
 
-const DeleteReviewConfirmationModal = ({ reviewId, clubId, setReviews }: { reviewId: string, clubId: string, setReviews: React.Dispatch<React.SetStateAction<IReview[]>> }) => {
-    const { getToken } = useAuth();
-    const { toast } = useToast();
+// const DeleteReviewConfirmationModal = ({ reviewId, clubId, setReviews }: { reviewId: string, clubId: string, setReviews: React.Dispatch<React.SetStateAction<IReview[]>> }) => {
+    // const { getToken } = useAuth();
+    // const { toast } = useToast();
 
-    const deleteReviewMutation = async () => {
-        const token = await getToken();
-        await axiosInstance.delete(`/api/reviews/${clubId}/${reviewId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+    // const deleteReviewMutation = async () => {
+    //     const token = await getToken();
+    //     await axiosInstance.delete(`/api/reviews/${clubId}/${reviewId}`, {
+    //         headers: {
+    //             Authorization: `Bearer ${token}`
+    //         }
+    //     });
         //.then((data) => {
         //     console.log(data);
         //     setReviews((prevReviews) => prevReviews.filter((r) => r._id !== reviewId));  
@@ -105,30 +105,30 @@ const DeleteReviewConfirmationModal = ({ reviewId, clubId, setReviews }: { revie
         //     })
         //     console.error(error);
         // });
-    } 
+    // } 
 
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button variant="destructive" size="sm">Delete</Button>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Are you sure you want to delete this review?</DialogTitle>
-                    <DialogClose />
-                </DialogHeader>
-                <DialogFooter>
-                    <DialogClose asChild>
-                        <Button variant="destructive" onClick={deleteReviewMutation}>Delete</Button>
-                    </DialogClose>
-                    <DialogClose asChild>
-                        <Button variant="outline" onClick={() => {}}>Cancel</Button>
-                    </DialogClose>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
-    )
-}
+//     return (
+//         <Dialog>
+//             <DialogTrigger asChild>
+//                 <Button variant="destructive" size="sm">Delete</Button>
+//             </DialogTrigger>
+//             <DialogContent>
+//                 <DialogHeader>
+//                     <DialogTitle>Are you sure you want to delete this review?</DialogTitle>
+//                     <DialogClose />
+//                 </DialogHeader>
+//                 <DialogFooter>
+//                     <DialogClose asChild>
+//                         <Button variant="destructive" onClick={deleteReviewMutation}>Delete</Button>
+//                     </DialogClose>
+//                     <DialogClose asChild>
+//                         <Button variant="outline" onClick={() => {}}>Cancel</Button>
+//                     </DialogClose>
+//                 </DialogFooter>
+//             </DialogContent>
+//         </Dialog>
+//     )
+// }
 
 
 const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewModalProps) => {
