@@ -20,9 +20,9 @@ import { FaStar } from "react-icons/fa";
 
 import { routes } from "@/lib/routes";
 import { IReview } from "@/lib/types";
-import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "@/lib/utils";
-import { useToast } from "../ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
+import AuthModal from "@/components/modals/AuthModal";
 
 type AddOrEditReviewModalProps = {
     review?: IReview;
@@ -90,6 +90,21 @@ const DeleteReviewConfirmationModal = ({ reviewId, clubId, setReviews }: { revie
                 Authorization: `Bearer ${token}`
             }
         });
+        //.then((data) => {
+        //     console.log(data);
+        //     setReviews((prevReviews) => prevReviews.filter((r) => r._id !== reviewId));  
+        //     toast({
+        //         variant: "default",
+        //         description: "Your review has been successfully deleted.",
+        //     })
+        // }).catch((error) => {
+        //     toast({
+        //         variant: "destructive",
+        //         title: "Uh oh! Something went wrong.",
+        //         description: error.response?.data?.error || error.message,
+        //     })
+        //     console.error(error);
+        // });
     } 
 
     return (
@@ -117,8 +132,8 @@ const DeleteReviewConfirmationModal = ({ reviewId, clubId, setReviews }: { revie
 
 
 const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewModalProps) => {
-    const navigate = useNavigate();
-    const location = useLocation();
+    // const navigate = useNavigate();
+    // const location = useLocation();
     const { toast } = useToast();
     const { userId, getToken } = useAuth();
     let isEditMode = review ? true : false;
@@ -132,9 +147,10 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
         comment: review?.comment || ''
     });
 
-    const handleSignInClick = () => {
-        navigate(routes.SignIn, { state: { from: location.pathname } });
-    }
+    // Old auth sign in handler
+    // const handleSignInClick = () => {
+    //     navigate(routes.SignIn, { state: { from: location.pathname } });
+    // }
 
     const handleUpdateFilters = (formDataKey: ReviewFormDataKeys, value: number | string) => {
         if (!formDataKey) return;
@@ -186,9 +202,11 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
 
     if (!userId) {
         return (
-            <Button variant={'secondary'} onClick={handleSignInClick} size="sm" >
-                Add review
-            </Button>
+            <AuthModal>
+                <Button variant={'secondary'} size="sm" >
+                    Add review
+                </Button>
+            </AuthModal>
         )
     }
 

@@ -18,7 +18,7 @@ const ClubProfileReviews = ({ reviews, clubId }: ClubProfileReviewsProps) => {
 
     // review.user should never be undefined here, but kept for type safety
     const userReview = clubReviews.find((review: IReview) => review.user?.clerkId === userId);
-
+    console.log(userId)
     return (
       <section className="md:w-full md:px-8 md:mt-8 -mt-8 animate-fade-in-up">
             <div className="flex items-center justify-between w-full">
