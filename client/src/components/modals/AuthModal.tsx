@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { cloneElement, ReactElement, ReactNode, useState } from "react";
 
 import {
     Dialog,
@@ -21,18 +21,27 @@ import { ToastAction } from "@radix-ui/react-toast";
 
 type ModalTypes = "sign-in" | "sign-up" | "forgot-password";
 
-const AuthModal = () => {
+type AuthModalProps = {
+    children: ReactNode;
+    mode?: ModalTypes;
+}
+
+const AuthModal = ({ children, mode }: AuthModalProps) => {
     const { signIn } = useSignIn();
     const [open, setOpen] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
     
-    const [modalMode, setModalMode] = useState<ModalTypes>('sign-in');
+    const [modalMode, setModalMode] = useState<ModalTypes>(mode ?? 'sign-in');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
+    
+    const handleTriggerClick = () => {
+        setOpen(true);
+    }
 
     const handleModeSwitch = (switchToForgot: boolean) => {
         setModalMode(switchToForgot ? 'forgot-password' : modalMode === 'sign-in' ? 'sign-up' : 'sign-in');
@@ -166,21 +175,11 @@ const AuthModal = () => {
             await handleSignUp();
         }
     }
-
-    // const mutation = useMutation({
-    //     mutationFn: handleSubmit,
-    // });
-
+      
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button 
-                    variant="secondary" 
-                    className="px-3 py-2 text-sm font-semibold tracking-wide text-white uppercase hover:bg-secondary-hover"
-                    onClick={() => setOpen(true)}
-                >
-                    Sign In
-                </Button>
+                {cloneElement(children as ReactElement, { onClick: handleTriggerClick })}
             </DialogTrigger>
             <DialogContent className="w-[24rem]">
                 <DialogHeader>

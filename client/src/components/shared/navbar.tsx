@@ -45,7 +45,14 @@ const NavBar = () => {
             <UserButton afterSignOutUrl={routes.Home}/>
           </SignedIn>
           <SignedOut>
-            <AuthModal />
+            <AuthModal>
+              <Button 
+                variant="secondary" 
+                className="px-3 py-2 text-sm font-semibold tracking-wide text-white uppercase hover:bg-secondary-hover"
+              >
+                Sign In
+              </Button>
+            </AuthModal>
           </SignedOut>
 
           <ModeToggle />
