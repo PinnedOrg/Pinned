@@ -36,6 +36,16 @@ const userSchema = new mongoose.Schema(
       type: Date,
       required: false
     },
+    oneTimePassword: {
+      type: Number,
+      min: 100000,
+      max: 999999,
+      required: false
+    },
+    oneTimePasswordExpiration: {
+      type: Date,
+      required: false
+    },
     clubs: {
         type: [mongoose.Schema.Types.ObjectId],
         required: false,

@@ -1,11 +1,9 @@
 const User = require("../models/User");
 const Club = require("../models/Club");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const crypto = require("crypto");
 const { createClerkClient } = require('@clerk/backend');
 
-const { sendVerificationEmail } = require("../helpers/emailHelper");
+const { sendEmail, sendVerificationEmail } = require("../helpers/emailHelper");
 
 const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
@@ -50,7 +48,11 @@ const userSignIn = async (req, res) => {
       return res.status(403).json({ message: "Please verify your email" });
     }
 
-    // const hashedPassword = await bcrypt.hash(password, 12);
+    user.emailVerificationToken = undefined;
+    user.tokenExpiration = undefined;
+    user.oneTimePassword = undefined;
+    user.oneTimePasswordExpiration = undefined;
+    await user.save();
     
     return res.status(200).json({verified: true, user});
   } catch (error) {
@@ -181,6 +183,66 @@ const verifyEmailToken = async (req, res) => {
   }
 }
 
+const userResetPassword = async (req, res) => {
+  const { stage } = req.query;
+  const { email, code, password, confirmPassword } = req.body;
+  console.log(stage)
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    if (!user.verified) {
+      return res.status(403).json({ message: "Please verify your email" });
+    }
+
+    switch (parseInt(stage)) {
+      case 0: // send Code
+        const newOTP = Math.floor(100000 + Math.random() * 900000); // 6-digit Code
+        user.oneTimePassword = newOTP;
+        user.oneTimePasswordExpiration = new Date(Date.now() + 5*60*1000); // 5 minutes
+        await user.save();
+
+        const emailTemplate = `Your password reset verification code is:\n\n\t\t${newOTP}\n\nThis will expire in 5 minutes. If you did not request this, please ignore this email.`;
+        await sendEmail(email, "UW Pinned - Password Reset Code", emailTemplate);
+
+        res.status(200).json({ message: "Password Reset Code Sent" });
+        break;
+
+      case 1: // verify Code
+        if (user.oneTimePasswordExpiration < Date.now()) {
+          return res.status(410).json({ message: "Password reset code expired" });
+        }
+        
+        if (code != user.oneTimePassword) { // string number comparison
+          return res.status(400).json({ message: "Invalid reset code" });
+        }
+
+        user.oneTimePassword = undefined;
+        user.oneTimePasswordExpiration = undefined;
+        await user.save();
+
+        res.status(200).json({ message: "Password reset code verified" });
+        break;
+      
+      case 2: // reset password
+        if (password !== confirmPassword) {
+          return res.status(400).json({ message: "Passwords do not match" });
+        }
+
+        // update in clerk
+        await clerkClient.users.updateUser(user.clerkId, { password, skipPasswordChecks: process.env.ENVIRONMENT === 'Production' ? false : true });
+
+        res.status(200).json({ message: "Password successfully reset" });
+        break;
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  } 
+}
 
 // handles subscribing and unsubscribing to clubs
 const subscribe = async (req, res) => {
@@ -254,5 +316,6 @@ module.exports = {
   subscribe,
   getAllUsers,
   verifyEmailToken,
-  requestVerificationEmail
+  requestVerificationEmail,
+  userResetPassword
 };

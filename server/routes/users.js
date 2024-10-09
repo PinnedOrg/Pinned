@@ -9,13 +9,15 @@ const {
     subscribe,
     getAllUsers,
     verifyEmailToken,
-    requestVerificationEmail
+    requestVerificationEmail,
+    userResetPassword
   } = require("../controllers/userController");
 
 router.post("/sign-in", userSignIn);
 router.post("/sign-up", userSignUp);
 router.post("/verify-email", verifyEmailToken);
 router.post("/send-verification-email", requestVerificationEmail);
+router.post("/reset-password", userResetPassword);
 router.post("/subscribe/:clubId", customRequireAuth, subscribe);
 router.get("/", getAllUsers)
 

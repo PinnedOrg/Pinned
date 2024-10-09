@@ -9,6 +9,14 @@ import {
     DialogFooter,
     DialogTitle,
 } from "@/components/ui/dialog"
+
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
+  } from "@/components/ui/input-otp"
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { routes } from "@/lib/routes";
@@ -45,6 +53,7 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
     const [modalMode, setModalMode] = useState<ModalTypes>(mode || ModalTypes.SignIn);
     const [resetPasswordStep, setResetPasswordStep] = useState<ResetPasswordSteps>(ResetPasswordSteps.Email);
 
+    const [code, setCode] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -56,15 +65,26 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
     const isModeSignUp = modalMode === ModalTypes.SignUp;
     const isModeResetPassword = modalMode === ModalTypes.ResetPassword;
     const showPasswordField = (isModeResetPassword && resetPasswordStep === ResetPasswordSteps.NewPassword) || isModeSignIn || isModeSignUp;
+    const showConfirmPasswordField = isModeSignUp || (isModeResetPassword && resetPasswordStep === ResetPasswordSteps.NewPassword);
     const showPrivacyPolicy = isModeSignIn || isModeSignUp;
+    const showEmailField = !isModeResetPassword || resetPasswordStep === ResetPasswordSteps.Email;
     
     
     const handleTriggerClick = () => {
         setOpen(true);
     }
 
+    const actionButtonText = () => {
+        if (isModeResetPassword) {
+            return resetPasswordStep === ResetPasswordSteps.Email ? "Send Reset Code" : resetPasswordStep === ResetPasswordSteps.Code ? "Verify" : "Reset Password";
+        }
+
+        return isModeSignIn ? "Sign In" : "Sign Up";
+    }
+
     const handleModeSwitch = (switchToReset: boolean) => {
         setModalMode(switchToReset ? ModalTypes.ResetPassword : isModeSignIn ? ModalTypes.SignUp : ModalTypes.SignIn);
+        setResetPasswordStep(ResetPasswordSteps.Email);
     }
 
     const handleResendVerificationEmail = async () => {
@@ -129,7 +149,6 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
             setOpen(false);
             window.location.reload();
         } catch (error: any) {
-            console.log(error);
             toast({
                 title: error.errors[0].message,
                 variant: 'destructive'
@@ -151,7 +170,6 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
             confirmPassword
         }, config)
         .then((res) => {
-            console.log(res.data);
             toast({
                 title: "Success! Check your inbox for a verification link then login",
                 variant: 'default'
@@ -166,44 +184,54 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
         });
     }
 
-    const handleResetPassword = async () => {
-        switch (resetPasswordStep) {
+    const handleResetPassword = async (stage: ResetPasswordSteps) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        let requestBody = {};
+        switch (stage) {
             case ResetPasswordSteps.Email:
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-                await axiosInstance.post(`/api/users/reset-password`, { email }, config)
-                .then((res) => {
-                    console.log(res.data);
-                    toast({
-                        title: res.data.message,
-                        variant: 'default'
-                    });
-                    setResetPasswordStep(ResetPasswordSteps.Code);
-                })
-                .catch((err) => {
-                    toast({
-                        title: err.response?.data?.message || err.message,
-                        variant: 'destructive'
-                    });
-                });
+                requestBody = { email };
                 break;
             case ResetPasswordSteps.Code:
-                // verify code
+                requestBody = { email, code };
                 break;
             case ResetPasswordSteps.NewPassword:
-                // reset password
+                requestBody = { email, password, confirmPassword };
                 break;
             default:
                 break;
         }
+        
+        await axiosInstance.post(`/api/users/reset-password?stage=${stage}`, requestBody, config)
+        .then((res) => {
+            toast({
+                title: res.data.message,
+                variant: 'default'
+            });
+            setResetPasswordStep(stage + 1);
+
+            if (stage === ResetPasswordSteps.NewPassword) {
+                setModalMode(ModalTypes.SignIn);
+            }
+        })
+        .catch((err) => {
+            const isUserUnverified = err.response.status === 403;
+            const isCodeExpired = err.response.status === 410;
+            toast({
+                title: err.response?.data?.message || err.message,
+                variant: 'destructive',
+                ...(isUserUnverified && {action: <ToastAction className="text-xs hover:text-gray-200 underline" onClick={handleResendVerificationEmail} altText="Resend Verification Email">Resend Verification Email</ToastAction>}),
+                ...(isCodeExpired && {action: <ToastAction className="text-xs hover:text-gray-200 underline" onClick={() => handleResetPassword(ResetPasswordSteps.Email)} altText="Resend Password Reset Code">Resend Password Reset Code</ToastAction>})
+            });
+        });
     }
         
     const handleSubmit = async () => {
         if (isModeResetPassword) {
-            await handleResetPassword();
+            await handleResetPassword(resetPasswordStep);
             return;
         }
 
@@ -264,28 +292,47 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
                             className={`mb-4 border-muted-foreground bg-background ${lastName ? "text-accent-foreground" : "text-muted-foreground"}`}
                         />
                     </div>}
-                    <Input
+                    {showEmailField && <Input
                         value={email}
                         type="email"
                         required
                         placeholder="Waterloo Email"
                         onChange={(e) => setEmail(e.target.value)}
                         className={`mb-4 border-muted-foreground bg-background ${email ? "text-accent-foreground" : "text-muted-foreground"}`}
-                    />
+                    />}
+                    {isModeResetPassword && resetPasswordStep === ResetPasswordSteps.Code && <div className="flex justify-center mb-4">
+                        <InputOTP 
+                            maxLength={6} 
+                            value={code} 
+                            onChange={(newCode: string) => setCode(newCode)}
+                        >
+                            <InputOTPGroup>
+                                <InputOTPSlot index={0} />
+                                <InputOTPSlot index={1} />
+                                <InputOTPSlot index={2} />
+                            </InputOTPGroup>
+                            <InputOTPSeparator />
+                            <InputOTPGroup>
+                                <InputOTPSlot index={3} />
+                                <InputOTPSlot index={4} />
+                                <InputOTPSlot index={5} />
+                            </InputOTPGroup>
+                        </InputOTP>
+                    </div>}
                     {showPasswordField && <div className="relative">
                         <Input
                             value={password}
                             type={showPasswordValue ? "text" : "password"}
                             required
-                            placeholder="Password"
+                            placeholder={`${resetPasswordStep === ResetPasswordSteps.NewPassword ? "New" : ""} Password`}
                             onChange={(e) => setPassword(e.target.value)}
-                            className={`${isModeSignUp ? "mb-4" : ""} border-muted-foreground bg-background ${password ? "text-accent-foreground" : "text-muted-foreground"}`}
+                            className={`${isModeSignIn ? "" : "mb-4"} border-muted-foreground bg-background ${password ? "text-accent-foreground" : "text-muted-foreground"}`}
                         />
                         <button type="button" onClick={() => setShowPasswordValue(!showPasswordValue)} className='absolute right-4 text-xl top-[0.7rem]'>
                             {showPasswordValue ? (<FaEyeSlash />) : (<FaEye />)}
                         </button>
                     </div>}
-                    {isModeSignUp && <div className="relative">
+                    {showConfirmPasswordField && <div className="relative">
                         <Input
                             value={confirmPassword}
                             type={showConfirmPasswordValue ? "text" : "password"}
@@ -313,7 +360,7 @@ const AuthModal = ({ children, mode }: AuthModalProps) => {
                         onClick={handleSubmit}
                         type="submit"
                     >
-                        {isModeResetPassword ? "Send Reset Code" : modalMode === "sign-up" ? "Sign Up" : "Sign In"}
+                        {actionButtonText()}
                     </Button>
                     {showPrivacyPolicy && <div className="flex justify-center mt-1">
                         <Button 
