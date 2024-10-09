@@ -10,7 +10,6 @@ const {uploadToImageKit, deleteFromImageKit} = require("../helpers/imagekitUploa
 const getClubPreviewsBasedOnFilters = async (req, res) => {
     const { name, genre, cost, size, showInactive, rating, featured } = req.query;
 
-
     // ensure that the filters parameters are not undefined or null before adding them to the filters object
     let filters = {
         validation: true
