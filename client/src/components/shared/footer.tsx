@@ -9,7 +9,9 @@ const Footer = () => {
       <Link to={routes.About} className="px-1 underline text-cyan-500">About</Link>
       |
       <Link to={routes.PrivacyPolicy} className="px-1 underline text-cyan-500">Privacy Policy</Link>
-       | v 0.1.0
+       |
+       <a href="mailto:pinnedorg@gmail.com" className="px-1 underline text-cyan-500">Contact Us</a>
+      | v 0.1.0
     </footer>
   )
 }

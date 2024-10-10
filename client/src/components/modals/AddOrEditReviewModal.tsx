@@ -32,7 +32,7 @@ type AddOrEditReviewModalProps = {
 
 type ReviewFormData = {
     engagement: number;
-    commitment: number;
+    flexibility: number;
     inclusivity: number;
     organization: number;
     comment: string;
@@ -141,7 +141,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
     const [reviewFormData, setreviewFormData] = useState<IReview>({
         _id: review?._id || '',
         engagement: review?.engagement || 0,
-        commitment: review?.commitment || 0,
+        flexibility: review?.flexibility || 0,
         inclusivity: review?.inclusivity || 0,
         organization: review?.organization || 0,
         comment: review?.comment || ''
@@ -226,7 +226,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                 </DialogHeader>
                 <div className="mt-1">
                     <RatingSlider label="Engagement" sliderkey="engagement" value={reviewFormData.engagement} onValueChange={handleUpdateFilters} />
-                    <RatingSlider label="Commitment" sliderkey="commitment" value={reviewFormData.commitment} onValueChange={handleUpdateFilters} />
+                    <RatingSlider label="Flexibility" sliderkey="flexibility" value={reviewFormData.flexibility} onValueChange={handleUpdateFilters} />
                     <RatingSlider label="Inclusivity" sliderkey="inclusivity" value={reviewFormData.inclusivity} onValueChange={handleUpdateFilters} />
                     <RatingSlider label="Organization" sliderkey="organization" value={reviewFormData.organization} onValueChange={handleUpdateFilters} />
                     

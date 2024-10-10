@@ -19,7 +19,7 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const hasLogo = clubData.logo !== null;
   const averageEngagement = clubData.reviews.reduce((acc, review) => acc + review.engagement, 0) / (clubData.reviews.length || 1);
-  const averageCommitment = clubData.reviews.reduce((acc, review) => acc + review.commitment, 0) / (clubData.reviews.length || 1);
+  const averageFlexibility = clubData.reviews.reduce((acc, review) => acc + review.flexibility, 0) / (clubData.reviews.length || 1);
   const averageInclusivity = clubData.reviews.reduce((acc, review) => acc + review.inclusivity, 0) / (clubData.reviews.length || 1);
   const averageOrganization = clubData.reviews.reduce((acc, review) => acc + review.organization, 0) / (clubData.reviews.length || 1);
 
@@ -63,9 +63,9 @@ const ClubProfileHero = ({ clubData }: ClubProfileHeroProps) => {
           </div>
           <div className="mt-2 grid grid-cols-2 gap-2">
             <Label htmlFor="engagement" className="text-accent-foreground">Engagement</Label>
-            <Label htmlFor="commitment" className="text-accent-foreground">Commitment</Label>
+            <Label htmlFor="flexibility" className="text-accent-foreground">Flexibility</Label>
             <StarRating rating={averageEngagement} id="engagement" />
-            <StarRating rating={averageCommitment} id="commitment" />
+            <StarRating rating={averageFlexibility} id="flexibility" />
             <Label htmlFor="inclusivity" className="text-accent-foreground">Inclusivity</Label>
             <Label htmlFor="organization" className="text-accent-foreground">Organization</Label>
             <StarRating rating={averageInclusivity} id="inclusivity" />

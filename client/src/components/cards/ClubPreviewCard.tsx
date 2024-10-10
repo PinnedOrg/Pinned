@@ -32,6 +32,9 @@ const featureTexts: { [key: number]: string } = {
 // #020617: hex color for bg
 
 const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
+  // Dynamically set the line-clamp value based on club.featured
+  const descriptionLines = club.featured !== 0 ? 2 : 3;
+
   return (
     <Card
         className={clsx('h-[25rem] min-w-[18rem] max-w-[21rem] relative border-none drop-shadow-xl group hover:scale-[1.025] ease-in-out duration-300', {'shadow-lg shadow-white/10 transition-all bg-opacity-20': club.featured != 0})}
@@ -44,7 +47,14 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
                 <IKImage 
                   src={club.logo.url}
                   alt={""} 
-                  transformation={[{ height: "150", width: "150", }]} 
+                  transformation={[
+                    { 
+                      height: "150", 
+                      width: "150", 
+                      cropMode: "pad_resize",  // Adds padding to maintain aspect ratio
+                      background: "auto"  // Adds padding color intelligently
+                    }
+                  ]}
                   loading="lazy" 
                   lqip={{ active:true, quality:20 }} 
                   className='aspect-square'
@@ -54,17 +64,35 @@ const ClubPreviewCard = ({ club }: ClubPreviewCardProps) => {
               )}
             </Avatar>
           </IKContext>
-          <CardTitle className='text-center' >{club.name}</CardTitle>
+          <CardTitle className='text-center'
+            style={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2, // Always clamp to 2 lines
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              lineHeight: '1.2em', // Adjust line height for better spacing
+              maxHeight: '2.4em',  // Ensures that it doesn't exceed 2 lines
+            }}>
+            {club.name}
+          </CardTitle>
           <div className='flex justify-center'>
-            <Badge variant={'outline'} className='bg-white border-none text-primary bg-primary-background w-max'>
+            <Badge variant={'outline'} className='line-clamp-2 bg-white border-none text-primary bg-primary-background w-max'>
               {club.genre}
             </Badge>
           </div>
         </CardHeader>
 
-        <CardContent className='mt-2 space-y-2 overflow-hidden'>
+        <CardContent className='mt-[2px] space-y-2 overflow-hidden'>
           <StarRating rating={club.avgRating} className='flex justify-center' />
-          <CardDescription className='h-16 overflow-hidden text-sm text-center'>
+          <CardDescription className='text-sm text-center'
+           style={{
+            display: '-webkit-box',
+            WebkitLineClamp: descriptionLines, // Dynamically set the number of lines
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden', // Ensure overflow is hidden
+            textOverflow: 'ellipsis' // Add "..." when overflowing
+          }}>
             {club.description}
           </CardDescription>
           {

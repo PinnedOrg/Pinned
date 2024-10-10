@@ -6,9 +6,13 @@ const { isTextProfane } = require("../helpers/textFilters");
 const { createUser } = require("./userController");
 
 const addOrUpdateReview = async (req, res) => {
-    const { engagement, commitment, inclusivity, organization, comment } = req.body;
+    const { engagement, flexibility, inclusivity, organization, comment } = req.body;
     const { clubId } = req.params;
     const { userId } = req.auth;
+
+    if (!comment) {
+        return res.status(400).json({ error: "Comment is required." });
+    }
 
     try {
         let user = await User.findOne({ clerkId: userId });
@@ -32,7 +36,7 @@ const addOrUpdateReview = async (req, res) => {
         
         let existingReview = await Review.findOneAndUpdate(
             { user: user._id, club: club._id },
-            { engagement, commitment, inclusivity, organization, comment },
+            { engagement, flexibility, inclusivity, organization, comment },
             { runValidators: true, new: true });
         if (existingReview) {
             return res.status(202).json({ review: existingReview })
@@ -40,7 +44,7 @@ const addOrUpdateReview = async (req, res) => {
 
         const review = await Review.create({ 
             engagement, 
-            commitment,
+            flexibility,
             inclusivity, 
             organization,
             comment,

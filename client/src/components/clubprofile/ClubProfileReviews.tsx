@@ -1,7 +1,7 @@
 
 import { IReview } from "@/lib/types";
 import { useAuth } from "@clerk/clerk-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddOrEditReviewModal from "@/components/modals/AddOrEditReviewModal";
 import { Label } from "@/components/ui/label";
 import StarRating from "../shared/StarRating";
@@ -15,10 +15,14 @@ type ClubProfileReviewsProps = {
 const ClubProfileReviews = ({ reviews, clubId }: ClubProfileReviewsProps) => {
     const { userId } = useAuth();
     const [clubReviews, setClubReviews] = useState<IReview[]>(reviews);
-
+    let userReview: IReview | undefined;
+  
     // review.user should never be undefined here, but kept for type safety
-    const userReview = clubReviews.find((review: IReview) => review.user?.clerkId === userId);
-    console.log(userId)
+    useEffect(() => {
+        userReview = clubReviews.find((review: IReview) => review.user?.clerkId === userId);
+        console.log(userReview);
+    }, [clubReviews, userId]);
+  
     return (
       <section className="md:w-full md:px-8 md:mt-8 -mt-8 animate-fade-in-up">
             <div className="flex items-center justify-between w-full">
@@ -37,9 +41,9 @@ const ClubProfileReviews = ({ reviews, clubId }: ClubProfileReviewsProps) => {
                             </div>
                             <div>
                                 <Label className="text-accent-foreground">
-                                    Commitment
+                                    Flexibility
                                 </Label>
-                                <StarRating rating={review.commitment} className="text-sm sm:text-base"/>
+                                <StarRating rating={review.flexibility} className="text-sm sm:text-base"/>
                             </div>
                             <div>
                                 <Label className="text-accent-foreground">
