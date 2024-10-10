@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const { connectToDatabase } = require('./database/db'); // Import the connection function
+const { connectToDatabase } = require('./database/db'); 
 require('dotenv').config(); // Load environment variables
 
 const app = express();

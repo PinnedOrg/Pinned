@@ -13,7 +13,7 @@ const fetchFeaturedClubs = async () => {
 
 const FeaturedClubs = () => {
 
-  const {isFetching, isError, isSuccess, data } = useQuery({
+  const {isFetching, isError, data } = useQuery({
     queryKey: ["Clubs"], // query refreshes when this value changes
     queryFn: fetchFeaturedClubs,
   });

@@ -6,7 +6,8 @@ export const routes = {
     SignIn: "/sign-in",
     SignUp: "/sign-up",
     Register: "/register",
-    ClubProfile: "/clubprofile/",
+    ClubProfile: "/clubprofile",
     EventCreate: "/event-create",
     PrivacyPolicy: "/privacy-policy",
+    VerifyEmail: "/verify-email",
 }

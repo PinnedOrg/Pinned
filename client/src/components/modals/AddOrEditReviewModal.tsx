@@ -15,14 +15,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 import { useAuth } from "@clerk/clerk-react";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 
-import { routes } from "@/lib/routes";
+// import { routes } from "@/lib/routes";
 import { IReview } from "@/lib/types";
-import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "@/lib/utils";
-import { useToast } from "../ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
+import AuthModal from "@/components/modals/AuthModal";
 
 type AddOrEditReviewModalProps = {
     review?: IReview;
@@ -79,46 +79,61 @@ const RatingSlider = ({ label, sliderkey, value, onValueChange }: RatingSliderPr
 }
 
 
-const DeleteReviewConfirmationModal = ({ reviewId, clubId, setReviews }: { reviewId: string, clubId: string, setReviews: React.Dispatch<React.SetStateAction<IReview[]>> }) => {
-    const { getToken } = useAuth();
-    const { toast } = useToast();
+// const DeleteReviewConfirmationModal = ({ reviewId, clubId, setReviews }: { reviewId: string, clubId: string, setReviews: React.Dispatch<React.SetStateAction<IReview[]>> }) => {
+    // const { getToken } = useAuth();
+    // const { toast } = useToast();
 
-    const deleteReviewMutation = async () => {
-        const token = await getToken();
-        await axiosInstance.delete(`/api/reviews/${clubId}/${reviewId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-    } 
+    // const deleteReviewMutation = async () => {
+    //     const token = await getToken();
+    //     await axiosInstance.delete(`/api/reviews/${clubId}/${reviewId}`, {
+    //         headers: {
+    //             Authorization: `Bearer ${token}`
+    //         }
+    //     });
+        //.then((data) => {
+        //     console.log(data);
+        //     setReviews((prevReviews) => prevReviews.filter((r) => r._id !== reviewId));  
+        //     toast({
+        //         variant: "default",
+        //         description: "Your review has been successfully deleted.",
+        //     })
+        // }).catch((error) => {
+        //     toast({
+        //         variant: "destructive",
+        //         title: "Uh oh! Something went wrong.",
+        //         description: error.response?.data?.error || error.message,
+        //     })
+        //     console.error(error);
+        // });
+    // } 
 
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button variant="destructive" size="sm">Delete</Button>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Are you sure you want to delete this review?</DialogTitle>
-                    <DialogClose />
-                </DialogHeader>
-                <DialogFooter>
-                    <DialogClose asChild>
-                        <Button variant="destructive" onClick={deleteReviewMutation}>Delete</Button>
-                    </DialogClose>
-                    <DialogClose asChild>
-                        <Button variant="outline" onClick={() => {}}>Cancel</Button>
-                    </DialogClose>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
-    )
-}
+//     return (
+//         <Dialog>
+//             <DialogTrigger asChild>
+//                 <Button variant="destructive" size="sm">Delete</Button>
+//             </DialogTrigger>
+//             <DialogContent>
+//                 <DialogHeader>
+//                     <DialogTitle>Are you sure you want to delete this review?</DialogTitle>
+//                     <DialogClose />
+//                 </DialogHeader>
+//                 <DialogFooter>
+//                     <DialogClose asChild>
+//                         <Button variant="destructive" onClick={deleteReviewMutation}>Delete</Button>
+//                     </DialogClose>
+//                     <DialogClose asChild>
+//                         <Button variant="outline" onClick={() => {}}>Cancel</Button>
+//                     </DialogClose>
+//                 </DialogFooter>
+//             </DialogContent>
+//         </Dialog>
+//     )
+// }
 
 
 const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewModalProps) => {
-    const navigate = useNavigate();
-    const location = useLocation();
+    // const navigate = useNavigate();
+    // const location = useLocation();
     const { toast } = useToast();
     const { userId, getToken } = useAuth();
     let isEditMode = review ? true : false;
@@ -132,9 +147,10 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
         comment: review?.comment || ''
     });
 
-    const handleSignInClick = () => {
-        navigate(routes.SignIn, { state: { from: location.pathname } });
-    }
+    // Old auth sign in handler
+    // const handleSignInClick = () => {
+    //     navigate(routes.SignIn, { state: { from: location.pathname } });
+    // }
 
     const handleUpdateFilters = (formDataKey: ReviewFormDataKeys, value: number | string) => {
         if (!formDataKey) return;
@@ -186,9 +202,11 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
 
     if (!userId) {
         return (
-            <Button variant={'secondary'} onClick={handleSignInClick} size="sm" >
-                Add review
-            </Button>
+            <AuthModal>
+                <Button variant={'secondary'} size="sm" >
+                    Add review
+                </Button>
+            </AuthModal>
         )
     }
 
@@ -215,7 +233,7 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                     <div className="mt-4">
                         <Label htmlFor="comment" className="text-accent-foreground">
                             Comment
-                            <span className="text-muted-foreground font-normal">{` (${reviewFormData.comment.length}/500)`}</span>
+                            <span className="font-normal text-muted-foreground">{` (${reviewFormData.comment.length}/500)`}</span>
                         </Label>
                         <Textarea
                             id="comment"
@@ -228,8 +246,8 @@ const AddOrEditReviewModal = ({ review, clubId, setReviews }: AddOrEditReviewMod
                     </div>
                 </div>
                 <DialogFooter className="mt-2">
-                    <div className="w-full flex justify-between items-center">
-                        <Label className=" w-full text-muted-foreground italic">Note: Reviews are anonymous</Label>
+                    <div className="flex items-center justify-between w-full">
+                        <Label className="w-full italic text-muted-foreground">Note: Reviews are anonymous</Label>
                         <div className="flex gap-2">
                             {/* {isEditMode && <DeleteReviewConfirmationModal reviewId={reviewFormData._id} clubId={clubId} setReviews={setReviews} />} */}
                             <DialogClose asChild>
