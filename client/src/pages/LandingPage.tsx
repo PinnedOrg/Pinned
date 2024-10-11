@@ -7,29 +7,29 @@ import { Button } from '@/components/ui/button';
 
 const LandingPage = () => {
   return (
-      <section >
+      <section>
          {/* Background Shadow */}
          <GradientBackground />
          
-         <div className='space-y-48'>
+         <div className='space-y-10 lg:space-y-36'>
             <Hero />
             {/* <Affiliates /> */}
             <FeaturedClubs />
-               <section className="pb-20 ">
-                  <h1 className='mb-4 text-2xl font-bold text-center lg:text-3xl text-accent-foreground'>We have lots of plans for the future of this platform</h1>
-                  <a 
-                     target='_blank'
-                     href='https://docs.google.com/document/d/1BvTQLufhOuK6_oevA_ZS4WpufMFcMFCeksfXDQSDrnM/edit'
-                     className='flex justify-center'
-                  >
-                  <Button variant={'secondary'} size={'lg'} className='transition-all hover:scale-105'>
-                     Check out our roadmap!
-                  </Button>
-                  </a>
+            <section className="py-10 lg:pt-0">
+               <h1 className='mb-4 mx-4 text-2xl font-bold text-center lg:text-3xl text-accent-foreground'>We have lots of plans for the future of this platform</h1>
+               <a 
+                  target='_blank'
+                  href='https://docs.google.com/document/d/1BvTQLufhOuK6_oevA_ZS4WpufMFcMFCeksfXDQSDrnM/edit'
+                  className='flex justify-center'
+               >
+               <Button variant={'secondary'} size={'lg'} className='transition-all hover:scale-105'>
+                  Check out our roadmap!
+               </Button>
+               </a>
 
-               </section>
-               <div data-tf-live="01J8DJKHFXY270SRHRGB45K2YM"></div>
-               <script src="//embed.typeform.com/next/embed.js"></script>
+            </section>
+            <div data-tf-live="01J8DJKHFXY270SRHRGB45K2YM"></div>
+            <script src="//embed.typeform.com/next/embed.js"></script>
             <Wrap />
 
          </div>

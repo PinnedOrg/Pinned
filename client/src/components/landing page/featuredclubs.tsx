@@ -19,9 +19,9 @@ const FeaturedClubs = () => {
   });
 
   return (
-    <section className="container pt-16 gap-y-10 " id="featured-clubs-section">
+    <section className="container pt-6 lg:pt-16 gap-y-10 " id="featured-clubs-section">
       <h1 className="w-full text-2xl font-bold text-center lg:text-3xl">Featured Clubs</h1>
-      <p className="mt-2 text-center text-muted-foreground">These are our top clubs for this week. Club of the week is the top established club, Upcoming club a new club starting out</p>
+      <p className="my-2 text-center text-muted-foreground">These are our top clubs for this week. Club of the week is a top established club and Upcoming club is a treding club just starting out.</p>
       {/* <div className={`grid grid-cols-1 ${(!isError && data?.data.length > 0) ? 'md:grid-cols-2' : ''} min-h-[25rem] mt-4`}> */}
       <div className={`flex gap-8 justify-center min-h-[25rem] mt-4 flex-wrap`}>
           {isFetching ?
