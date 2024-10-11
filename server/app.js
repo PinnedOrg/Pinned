@@ -16,6 +16,7 @@ const eventRoutes = require('./routes/events');
 const clubRoutes = require('./routes/clubs');
 const userRoutes = require('./routes/users');
 const reviewRoutes = require('./routes/reviews');
+const { createClerkClient } = require('@clerk/backend');
 
 app.use('/api/events', eventRoutes);
 app.use('/api/clubs', clubRoutes);
@@ -23,6 +24,19 @@ app.use('/api/users', userRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'UP' });
+});
+
+app.get('/find', (req, res) => {
+  const clerkId = req.query.id;
+  const clerk = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY });
+  console.log(process.env.CLERK_SECRET_KEY);
+  clerk.users.getUser(clerkId)
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error.message });
+    });
 });
 
 const startServer = () => {
