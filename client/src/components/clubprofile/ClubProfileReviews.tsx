@@ -1,7 +1,7 @@
 
 import { IReview } from "@/lib/types";
 import { useAuth } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddOrEditReviewModal from "@/components/modals/AddOrEditReviewModal";
 import { Label } from "@/components/ui/label";
 import StarRating from "../shared/StarRating";
