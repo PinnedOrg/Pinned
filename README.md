@@ -9,3 +9,6 @@ Check out the _Club Hub_ to see a catalogue of all the clubs UW has to offer. Le
 ## **For Clubs**
 
 Manage your profile to expand your reach across campus. Whether you're a new club or an existing one, register our platform to have a page setup just for you!
+
+---
+Check it out at https://uwpinned.com
